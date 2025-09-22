@@ -668,29 +668,53 @@
             const loginButton = document.getElementById('loginButton');
             const googleSignIn = document.getElementById('googleSignIn');
             const microsoftSignIn = document.getElementById('microsoftSignIn');
+            const usernameInput = document.getElementById('username');
+            const passwordInput = document.getElementById('password');
+            
+            function attemptLogin() {
+                const username = usernameInput.value.trim();
+                const password = passwordInput.value.trim();
+                
+                console.log('Login attempt:', username, password);
+                
+                if (username === 'admin' && password === 'admin') {
+                    console.log('Login successful');
+                    showDashboard();
+                } else {
+                    alert('Invalid credentials. Please use admin/admin');
+                }
+            }
             
             if (loginButton) {
-                loginButton.onclick = function() {
-                    const username = document.getElementById('username').value;
-                    const password = document.getElementById('password').value;
-                    
-                    if (username === 'admin' && password === 'admin') {
-                        showDashboard();
-                    } else {
-                        alert('Invalid credentials. Please use admin/admin');
-                    }
-                };
+                loginButton.onclick = attemptLogin;
             }
 
             if (googleSignIn) {
                 googleSignIn.onclick = function() {
+                    console.log('Google SSO clicked');
                     showDashboard();
                 };
             }
 
             if (microsoftSignIn) {
                 microsoftSignIn.onclick = function() {
+                    console.log('Microsoft SSO clicked');
                     showDashboard();
+                };
+            }
+
+            // Enter key support
+            if (usernameInput && passwordInput) {
+                usernameInput.onkeypress = function(e) {
+                    if (e.key === 'Enter') {
+                        attemptLogin();
+                    }
+                };
+                
+                passwordInput.onkeypress = function(e) {
+                    if (e.key === 'Enter') {
+                        attemptLogin();
+                    }
                 };
             }
 
