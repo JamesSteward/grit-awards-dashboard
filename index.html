@@ -1418,36 +1418,71 @@
         // Initialize Supabase
         const supabaseUrl = 'https://sehoghoxdxwtdxmhweta.supabase.co'
         const supabaseKey = 'eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJpc3MiOiJzdXBhYmFzZSIsInJlZiI6InNlaG9naG94ZHh3dGR4bWh3ZXRhIiwicm9sZSI6ImFub24iLCJpYXQiOjE3NTg1Njk5MDYsImV4cCI6MjA3NDE0NTkwNn0.Yb4tOCLt4Pquwgzc-j7CCBJT4fgtfnSjqvXIoLZ42LU'
-        const supabase = window.supabase.createClient(supabaseUrl, supabaseKey)
+        
+        console.log('Initializing Supabase...'); // Debug log
+        
+        let supabase;
+        try {
+            supabase = window.supabase.createClient(supabaseUrl, supabaseKey);
+            console.log('Supabase initialized successfully'); // Debug log
+        } catch (error) {
+            console.error('Error initializing Supabase:', error);
+        }
 
         // Global student data - will be loaded from database
         let studentData = {};
 
-        // Login functionality
-        document.getElementById('loginForm').addEventListener('submit', function(e) {
-            e.preventDefault();
-            
-            const username = document.getElementById('username').value;
-            const password = document.getElementById('password').value;
-            
-            // Check for admin credentials
-            if (username === 'admin' && password === 'admin') {
-                loginToSystem();
-            } else {
-                alert('Invalid credentials. Please try again.');
-            }
+        // Wait for page to load before setting up event listeners
+        document.addEventListener('DOMContentLoaded', function() {
+            console.log('DOM loaded, setting up login form listener'); // Debug log
+            setupLoginForm();
         });
 
+        function setupLoginForm() {
+            const loginForm = document.getElementById('loginForm');
+            if (!loginForm) {
+                console.error('Login form not found!');
+                return;
+            }
+
+            loginForm.addEventListener('submit', function(e) {
+                e.preventDefault();
+                
+                console.log('Login form submitted'); // Debug log
+                
+                const username = document.getElementById('username').value;
+                const password = document.getElementById('password').value;
+                
+                console.log('Username:', username, 'Password:', password); // Debug log
+                
+                // Check for admin credentials
+                if (username === 'admin' && password === 'admin') {
+                    console.log('Credentials valid, logging in...'); // Debug log
+                    loginToSystem();
+                } else {
+                    console.log('Invalid credentials'); // Debug log
+                    alert('Invalid credentials. Please try again.');
+                }
+            });
+        }
+
         function loginToSystem() {
+            console.log('loginToSystem called'); // Debug log
+            
             // Set window size for demo
             if (window.resizeTo) {
+                console.log('Attempting to resize window'); // Debug log
                 window.resizeTo(1920, 1080);
             }
+            
+            console.log('Hiding login page, showing dashboard'); // Debug log
             
             // Hide login page and show dashboard
             document.getElementById('loginPage').style.display = 'none';
             document.getElementById('dashboardPage').style.display = 'block';
             document.getElementById('dashboardPage').innerHTML = getDashboardHTML();
+            
+            console.log('Dashboard HTML loaded, initializing...'); // Debug log
             
             // Initialize dashboard functionality
             initializeDashboard();
