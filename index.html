@@ -663,6 +663,69 @@
             background: transparent;
             color: #032717;
         }
+
+        /* Add Child Form Styles */
+        .add-child-form {
+            margin-top: 20px;
+        }
+
+        .form-row {
+            display: grid;
+            grid-template-columns: 1fr 1fr;
+            gap: 20px;
+            margin-bottom: 20px;
+        }
+
+        .form-group {
+            display: flex;
+            flex-direction: column;
+        }
+
+        .form-label {
+            font-weight: 600;
+            color: #333;
+            margin-bottom: 5px;
+            font-size: 14px;
+        }
+
+        .form-input {
+            padding: 10px 12px;
+            border: 2px solid #e0e0e0;
+            border-radius: 6px;
+            font-size: 14px;
+            transition: border-color 0.2s;
+        }
+
+        .form-input:focus {
+            outline: none;
+            border-color: #032717;
+        }
+
+        .color-generator-btn {
+            padding: 10px 12px;
+            border: 2px solid #032717;
+            border-radius: 6px;
+            background: white;
+            color: #032717;
+            font-size: 14px;
+            font-weight: 500;
+            cursor: pointer;
+            transition: all 0.2s;
+        }
+
+        .color-generator-btn:hover {
+            background: #032717;
+            color: white;
+        }
+
+        .form-actions {
+            display: flex;
+            gap: 15px;
+            justify-content: flex-end;
+            margin-top: 30px;
+            padding-top: 20px;
+            border-top: 1px solid #e0e0e0;
+        }
     </style>
 </head>
 <body>
@@ -719,6 +782,79 @@
         </div>
     </div>
 
+    <!-- Add Child Modal -->
+    <div id="addChildModal" class="modal">
+        <div class="modal-content">
+            <span class="close" onclick="closeAddChildModal()">&times;</span>
+            
+            <div class="modal-header">
+                <div id="newChildAvatar" class="modal-avatar"></div>
+                <div class="modal-student-info">
+                    <h2 style="margin: 0; color: #032717; font-size: 28px;">Add New Student</h2>
+                    <div class="year-info">Create a new student profile</div>
+                </div>
+            </div>
+
+            <div class="add-child-form">
+                <div class="form-row">
+                    <div class="form-group">
+                        <label class="form-label">Student Name</label>
+                        <input type="text" id="newChildName" class="form-input" placeholder="Enter student name" style="text-transform: uppercase;">
+                    </div>
+                    <div class="form-group">
+                        <label class="form-label">Year Level</label>
+                        <select id="newChildYear" class="form-input">
+                            <option value="1">Year 1</option>
+                            <option value="2">Year 2</option>
+                            <option value="3" selected>Year 3</option>
+                            <option value="4">Year 4</option>
+                            <option value="5">Year 5</option>
+                            <option value="6">Year 6</option>
+                        </select>
+                    </div>
+                </div>
+
+                <div class="form-row">
+                    <div class="form-group">
+                        <label class="form-label">Progress Percentage</label>
+                        <input type="number" id="newChildPercentage" class="form-input" min="0" max="100" value="0" placeholder="0-100%">
+                    </div>
+                    <div class="form-group">
+                        <label class="form-label">Lessons Completed</label>
+                        <input type="number" id="newChildLessons" class="form-input" min="0" value="0" placeholder="Number of lessons">
+                    </div>
+                </div>
+
+                <div class="form-row">
+                    <div class="form-group">
+                        <label class="form-label">Badges Earned</label>
+                        <input type="number" id="newChildBadges" class="form-input" min="0" value="0" placeholder="Number of badges">
+                    </div>
+                    <div class="form-group">
+                        <label class="form-label">Current Streak (Days)</label>
+                        <input type="number" id="newChildStreak" class="form-input" min="0" value="0" placeholder="Days in a row">
+                    </div>
+                </div>
+
+                <div class="form-row">
+                    <div class="form-group">
+                        <label class="form-label">Hours This Week</label>
+                        <input type="number" id="newChildHours" class="form-input" min="0" step="0.1" value="0" placeholder="Hours spent learning">
+                    </div>
+                    <div class="form-group">
+                        <label class="form-label">Profile Color</label>
+                        <button type="button" class="color-generator-btn" onclick="generateRandomColor()">🎨 Generate Random Color</button>
+                    </div>
+                </div>
+
+                <div class="form-actions">
+                    <button type="button" class="cancel-btn" onclick="closeAddChildModal()">Cancel</button>
+                    <button type="button" class="save-btn" onclick="saveNewChild()">Add Student</button>
+                </div>
+            </div>
+        </div>
+    </div>
+
     <!-- Dashboard (hidden initially) -->
     <div id="dashboardPage" class="dashboard">
         <div class="container">
@@ -737,7 +873,7 @@
                             <a href="#" class="nav-link">Settings</a>
                         </li>
                         <li class="nav-item">
-                            <a href="#" class="nav-link">Add Child</a>
+                            <a href="#" class="nav-link" onclick="openAddChildModal()">Add Child</a>
                         </li>
                         <li class="nav-item">
                             <a href="#" class="nav-link" id="logoutLink">Logout</a>
@@ -1121,6 +1257,165 @@
             let currentStudent = null;
             let originalData = null;
             let isEditMode = false;
+            let newChildColorGradient = generateRandomGradient();
+
+            // Random color generator for new students
+            function generateRandomGradient() {
+                const colors = [
+                    ['#ff6b6b', '#ffa500'], // Orange/red
+                    ['#4ecdc4', '#44a08d'], // Teal/green
+                    ['#667eea', '#764ba2'], // Purple/blue
+                    ['#f093fb', '#f5576c'], // Pink/magenta
+                    ['#ffecd2', '#fcb69f'], // Peach/coral
+                    ['#a8edea', '#fed6e3'], // Mint/pink
+                    ['#96fbc4', '#f9f047'], // Green/yellow
+                    ['#ff9a9e', '#fecfef'], // Pink/light pink
+                    ['#a18cd1', '#fbc2eb'], // Purple/pink
+                    ['#fad0c4', '#ffd1ff'], // Coral/pink
+                    ['#fbc2eb', '#a6c1ee'], // Pink/blue
+                    ['#fdbb2d', '#22c1c3'], // Yellow/cyan
+                    ['#ff8a80', '#ea4c89'], // Red/pink
+                    ['#667db6', '#0082c8'], // Blue gradient
+                    ['#f093fb', '#43e97b'], // Pink/green
+                ];
+                
+                const randomIndex = Math.floor(Math.random() * colors.length);
+                const [color1, color2] = colors[randomIndex];
+                return `linear-gradient(45deg, ${color1}, ${color2})`;
+            }
+
+            // Add Child Modal Functions
+            window.openAddChildModal = function() {
+                console.log('Opening Add Child modal');
+                
+                // Generate new random color
+                newChildColorGradient = generateRandomGradient();
+                
+                // Reset form
+                document.getElementById('newChildName').value = '';
+                document.getElementById('newChildYear').value = '3';
+                document.getElementById('newChildPercentage').value = '0';
+                document.getElementById('newChildLessons').value = '0';
+                document.getElementById('newChildBadges').value = '0';
+                document.getElementById('newChildStreak').value = '0';
+                document.getElementById('newChildHours').value = '0';
+                
+                // Update avatar preview
+                const newChildAvatar = document.getElementById('newChildAvatar');
+                newChildAvatar.style.background = newChildColorGradient;
+                newChildAvatar.textContent = '?';
+                
+                // Show modal
+                document.getElementById('addChildModal').style.display = 'block';
+            };
+
+            window.closeAddChildModal = function() {
+                document.getElementById('addChildModal').style.display = 'none';
+            };
+
+            window.generateRandomColor = function() {
+                newChildColorGradient = generateRandomGradient();
+                
+                // Update avatar preview
+                const newChildAvatar = document.getElementById('newChildAvatar');
+                newChildAvatar.style.background = newChildColorGradient;
+                
+                // Update letter if name is entered
+                const nameValue = document.getElementById('newChildName').value;
+                if (nameValue.trim()) {
+                    newChildAvatar.textContent = nameValue.trim().charAt(0).toUpperCase();
+                } else {
+                    newChildAvatar.textContent = '?';
+                }
+            };
+
+            window.saveNewChild = function() {
+                console.log('Saving new child');
+                
+                // Get form values
+                const name = document.getElementById('newChildName').value.trim().toUpperCase();
+                const year = parseInt(document.getElementById('newChildYear').value);
+                const percentage = parseInt(document.getElementById('newChildPercentage').value);
+                const lessons = parseInt(document.getElementById('newChildLessons').value);
+                const badges = parseInt(document.getElementById('newChildBadges').value);
+                const streak = parseInt(document.getElementById('newChildStreak').value);
+                const hours = parseFloat(document.getElementById('newChildHours').value);
+                
+                // Validate required fields
+                if (!name) {
+                    alert('Please enter a student name');
+                    return;
+                }
+                
+                // Check if student already exists
+                if (window.studentData[name]) {
+                    alert(`A student named ${name} already exists`);
+                    return;
+                }
+                
+                // Validate percentage
+                if (percentage < 0 || percentage > 100) {
+                    alert('Progress percentage must be between 0 and 100');
+                    return;
+                }
+                
+                // Create new student data
+                const newStudentData = {
+                    year: year,
+                    percentage: percentage,
+                    avatar: newChildColorGradient,
+                    lessons: lessons,
+                    badges: badges,
+                    streak: streak,
+                    timeSpent: hours
+                };
+                
+                // Add to student data
+                window.studentData[name] = newStudentData;
+                
+                // Add to main table
+                addStudentToTable(name, newStudentData);
+                
+                // Close modal
+                closeAddChildModal();
+                
+                // Success message
+                alert(`${name} has been added successfully!`);
+            };
+
+            function addStudentToTable(studentName, studentData) {
+                const tableBody = document.querySelector('.table-container');
+                const newRow = document.createElement('div');
+                newRow.className = 'table-row';
+                newRow.innerHTML = `
+                    <div class="student-info" onclick="showStudentProfile('${studentName}')">
+                        <div class="student-avatar" style="background: ${studentData.avatar}; color: white; display: flex; align-items: center; justify-content: center; font-weight: bold; font-size: 18px;">${studentName.charAt(0)}</div>
+                        <span class="student-name">${studentName}</span>
+                    </div>
+                    <div class="stage">${studentData.year}</div>
+                    <div class="percentage">${studentData.percentage}%</div>
+                    <div class="actions">
+                        <button class="action-btn btn-warning" onclick="alertAction('Warning', '${studentName}')">⚠</button>
+                        <button class="action-btn btn-primary" onclick="alertAction('Edit', '${studentName}')">📝</button>
+                        <button class="action-btn btn-danger" onclick="deleteStudent('${studentName}', this)">🗑</button>
+                    </div>
+                `;
+                
+                // Insert before the last row or append if no rows
+                tableBody.appendChild(newRow);
+            }
+
+            // Update avatar letter when typing name
+            document.getElementById('newChildName').oninput = function() {
+                const nameValue = this.value.trim();
+                const avatar = document.getElementById('newChildAvatar');
+                
+                if (nameValue) {
+                    avatar.textContent = nameValue.charAt(0).toUpperCase();
+                } else {
+                    avatar.textContent = '?';
+                }
+            };
 
             // Student action functions
             window.showStudentProfile = function(studentName) {
@@ -1309,8 +1604,11 @@
             // Close modal when clicking outside
             window.onclick = function(event) {
                 const modal = document.getElementById('studentModal');
+                const addModal = document.getElementById('addChildModal');
                 if (event.target === modal) {
                     closeModal();
+                } else if (event.target === addModal) {
+                    closeAddChildModal();
                 }
             };
 
