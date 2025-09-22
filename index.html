@@ -639,6 +639,30 @@
             border-radius: 4px;
             padding: 4px;
         }
+
+        .editable-name {
+            border: none;
+            background: transparent;
+            font-family: 'Roboto Slab', 'Times New Roman', serif !important;
+            font-size: 28px;
+            font-weight: 600;
+            color: #032717;
+            margin: 0;
+            width: 100%;
+            text-transform: uppercase;
+        }
+
+        .editable-name:focus {
+            outline: 2px solid #032717;
+            background-color: #f8f9fa;
+            border-radius: 4px;
+            padding: 4px;
+        }
+
+        .editable-name:disabled {
+            background: transparent;
+            color: #032717;
+        }
     </style>
 </head>
 <body>
@@ -734,86 +758,100 @@
                     </div>
                     
                     <div class="table-row">
-                        <div class="student-info" onclick="showStudentProfile('JANE')">
-                            <div class="student-avatar" style="background: linear-gradient(45deg, #ff6b6b, #ffa500);">J</div>
-                            <span class="student-name">JANE</span>
+                        <div class="student-info" onclick="showStudentProfile('ZACH')">
+                            <div class="student-avatar" style="background: linear-gradient(45deg, #ff6b6b, #ffa500);">Z</div>
+                            <span class="student-name">ZACH</span>
                         </div>
                         <div class="stage">3</div>
                         <div class="percentage">94%</div>
                         <div class="actions">
-                            <button class="action-btn btn-warning" onclick="alertAction('Warning', 'JANE')">⚠</button>
-                            <button class="action-btn btn-primary" onclick="alertAction('Edit', 'JANE')">📝</button>
-                            <button class="action-btn btn-danger" onclick="deleteStudent('JANE', this)">🗑</button>
+                            <button class="action-btn btn-warning" onclick="alertAction('Warning', 'ZACH')">⚠</button>
+                            <button class="action-btn btn-primary" onclick="alertAction('Edit', 'ZACH')">📝</button>
+                            <button class="action-btn btn-danger" onclick="deleteStudent('ZACH', this)">🗑</button>
                         </div>
                     </div>
 
                     <div class="table-row">
-                        <div class="student-info" onclick="showStudentProfile('BILLY')">
-                            <div class="student-avatar" style="background: linear-gradient(45deg, #4ecdc4, #44a08d);">B</div>
-                            <span class="student-name">BILLY</span>
+                        <div class="student-info" onclick="showStudentProfile('MILLIE')">
+                            <div class="student-avatar" style="background: linear-gradient(45deg, #4ecdc4, #44a08d);">M</div>
+                            <span class="student-name">MILLIE</span>
                         </div>
                         <div class="stage">4</div>
                         <div class="percentage">96%</div>
                         <div class="actions">
-                            <button class="action-btn btn-warning" onclick="alertAction('Warning', 'BILLY')">⚠</button>
-                            <button class="action-btn btn-primary" onclick="alertAction('Edit', 'BILLY')">📝</button>
-                            <button class="action-btn btn-danger" onclick="deleteStudent('BILLY', this)">🗑</button>
+                            <button class="action-btn btn-warning" onclick="alertAction('Warning', 'MILLIE')">⚠</button>
+                            <button class="action-btn btn-primary" onclick="alertAction('Edit', 'MILLIE')">📝</button>
+                            <button class="action-btn btn-danger" onclick="deleteStudent('MILLIE', this)">🗑</button>
                         </div>
                     </div>
 
                     <div class="table-row">
-                        <div class="student-info" onclick="showStudentProfile('SARAH')">
-                            <div class="student-avatar" style="background: linear-gradient(45deg, #667eea, #764ba2);">S</div>
-                            <span class="student-name">SARAH</span>
+                        <div class="student-info" onclick="showStudentProfile('JUDE')">
+                            <div class="student-avatar" style="background: linear-gradient(45deg, #667eea, #764ba2);">J</div>
+                            <span class="student-name">JUDE</span>
                         </div>
                         <div class="stage">2</div>
                         <div class="percentage">76%</div>
                         <div class="actions">
-                            <button class="action-btn btn-warning" onclick="alertAction('Warning', 'SARAH')">⚠</button>
-                            <button class="action-btn btn-primary" onclick="alertAction('Edit', 'SARAH')">📝</button>
-                            <button class="action-btn btn-danger" onclick="deleteStudent('SARAH', this)">🗑</button>
+                            <button class="action-btn btn-warning" onclick="alertAction('Warning', 'JUDE')">⚠</button>
+                            <button class="action-btn btn-primary" onclick="alertAction('Edit', 'JUDE')">📝</button>
+                            <button class="action-btn btn-danger" onclick="deleteStudent('JUDE', this)">🗑</button>
                         </div>
                     </div>
 
                     <div class="table-row">
-                        <div class="student-info" onclick="showStudentProfile('JONNIE')">
-                            <div class="student-avatar" style="background: linear-gradient(45deg, #f093fb, #f5576c);">J</div>
-                            <span class="student-name">JONNIE</span>
+                        <div class="student-info" onclick="showStudentProfile('FRANKIE')">
+                            <div class="student-avatar" style="background: linear-gradient(45deg, #f093fb, #f5576c);">F</div>
+                            <span class="student-name">FRANKIE</span>
                         </div>
                         <div class="stage">3</div>
                         <div class="percentage">99%</div>
                         <div class="actions">
-                            <button class="action-btn btn-warning" onclick="alertAction('Warning', 'JONNIE')">⚠</button>
-                            <button class="action-btn btn-primary" onclick="alertAction('Edit', 'JONNIE')">📝</button>
-                            <button class="action-btn btn-danger" onclick="deleteStudent('JONNIE', this)">🗑</button>
+                            <button class="action-btn btn-warning" onclick="alertAction('Warning', 'FRANKIE')">⚠</button>
+                            <button class="action-btn btn-primary" onclick="alertAction('Edit', 'FRANKIE')">📝</button>
+                            <button class="action-btn btn-danger" onclick="deleteStudent('FRANKIE', this)">🗑</button>
                         </div>
                     </div>
 
                     <div class="table-row">
-                        <div class="student-info" onclick="showStudentProfile('SUE')">
-                            <div class="student-avatar" style="background: linear-gradient(45deg, #ffecd2, #fcb69f); color: #333;">S</div>
-                            <span class="student-name">SUE</span>
+                        <div class="student-info" onclick="showStudentProfile('CHARLIE')">
+                            <div class="student-avatar" style="background: linear-gradient(45deg, #ffecd2, #fcb69f); color: #333;">C</div>
+                            <span class="student-name">CHARLIE</span>
                         </div>
                         <div class="stage">4</div>
                         <div class="percentage">87%</div>
                         <div class="actions">
-                            <button class="action-btn btn-warning" onclick="alertAction('Warning', 'SUE')">⚠</button>
-                            <button class="action-btn btn-primary" onclick="alertAction('Edit', 'SUE')">📝</button>
-                            <button class="action-btn btn-danger" onclick="deleteStudent('SUE', this)">🗑</button>
+                            <button class="action-btn btn-warning" onclick="alertAction('Warning', 'CHARLIE')">⚠</button>
+                            <button class="action-btn btn-primary" onclick="alertAction('Edit', 'CHARLIE')">📝</button>
+                            <button class="action-btn btn-danger" onclick="deleteStudent('CHARLIE', this)">🗑</button>
                         </div>
                     </div>
 
                     <div class="table-row">
-                        <div class="student-info" onclick="showStudentProfile('BONNIE')">
-                            <div class="student-avatar" style="background: linear-gradient(45deg, #a8edea, #fed6e3); color: #333;">B</div>
-                            <span class="student-name">BONNIE</span>
+                        <div class="student-info" onclick="showStudentProfile('ISABELLA')">
+                            <div class="student-avatar" style="background: linear-gradient(45deg, #a8edea, #fed6e3); color: #333;">I</div>
+                            <span class="student-name">ISABELLA</span>
                         </div>
                         <div class="stage">1</div>
-                        <div class="percentage">15%</div>
+                        <div class="percentage">85%</div>
                         <div class="actions">
-                            <button class="action-btn btn-warning" onclick="alertAction('Warning', 'BONNIE')">⚠</button>
-                            <button class="action-btn btn-primary" onclick="alertAction('Edit', 'BONNIE')">📝</button>
-                            <button class="action-btn btn-danger" onclick="deleteStudent('BONNIE', this)">🗑</button>
+                            <button class="action-btn btn-warning" onclick="alertAction('Warning', 'ISABELLA')">⚠</button>
+                            <button class="action-btn btn-primary" onclick="alertAction('Edit', 'ISABELLA')">📝</button>
+                            <button class="action-btn btn-danger" onclick="deleteStudent('ISABELLA', this)">🗑</button>
+                        </div>
+                    </div>
+
+                    <div class="table-row">
+                        <div class="student-info" onclick="showStudentProfile('RILEY')">
+                            <div class="student-avatar" style="background: linear-gradient(45deg, #667eea, #764ba2);">R</div>
+                            <span class="student-name">RILEY</span>
+                        </div>
+                        <div class="stage">2</div>
+                        <div class="percentage">91%</div>
+                        <div class="actions">
+                            <button class="action-btn btn-warning" onclick="alertAction('Warning', 'RILEY')">⚠</button>
+                            <button class="action-btn btn-primary" onclick="alertAction('Edit', 'RILEY')">📝</button>
+                            <button class="action-btn btn-danger" onclick="deleteStudent('RILEY', this)">🗑</button>
                         </div>
                     </div>
                 </div>
@@ -835,7 +873,7 @@
             <div class="modal-header">
                 <div id="modalAvatar" class="modal-avatar"></div>
                 <div class="modal-student-info">
-                    <h2 id="modalName"></h2>
+                    <input type="text" id="modalName" class="editable-name" disabled>
                     <div class="year-info">
                         Year 
                         <select id="modalYear" class="year-select" disabled>
@@ -987,11 +1025,34 @@
                 });
             }
 
+            function updateMainTableWithNewName(oldName, newName, data) {
+                // Find the student row and update both name and data
+                const studentRows = document.querySelectorAll('.table-row');
+                studentRows.forEach(row => {
+                    const nameElement = row.querySelector('.student-name');
+                    if (nameElement && nameElement.textContent === oldName) {
+                        // Update name
+                        nameElement.textContent = newName;
+                        // Update year and percentage
+                        row.querySelector('.stage').textContent = data.year;
+                        row.querySelector('.percentage').textContent = data.percentage + '%';
+                        // Update avatar letter
+                        row.querySelector('.student-avatar').textContent = newName.charAt(0);
+                        // Update onclick handlers
+                        row.querySelector('.student-info').setAttribute('onclick', `showStudentProfile('${newName}')`);
+                        const actionButtons = row.querySelectorAll('.action-btn');
+                        actionButtons[0].setAttribute('onclick', `alertAction('Warning', '${newName}')`);
+                        actionButtons[1].setAttribute('onclick', `alertAction('Edit', '${newName}')`);
+                        actionButtons[2].setAttribute('onclick', `deleteStudent('${newName}', this)`);
+                    }
+                });
+            }
+
             console.log('Login system ready');
 
             // Student data with detailed profiles
             window.studentData = {
-                'JANE': {
+                'ZACH': {
                     year: 3,
                     percentage: 94,
                     avatar: 'linear-gradient(45deg, #ff6b6b, #ffa500)',
@@ -1000,7 +1061,7 @@
                     streak: 8,
                     timeSpent: 12.5
                 },
-                'BILLY': {
+                'MILLIE': {
                     year: 4,
                     percentage: 96,
                     avatar: 'linear-gradient(45deg, #4ecdc4, #44a08d)',
@@ -1009,7 +1070,7 @@
                     streak: 12,
                     timeSpent: 15.2
                 },
-                'SARAH': {
+                'JUDE': {
                     year: 2,
                     percentage: 76,
                     avatar: 'linear-gradient(45deg, #667eea, #764ba2)',
@@ -1018,7 +1079,7 @@
                     streak: 3,
                     timeSpent: 8.7
                 },
-                'JONNIE': {
+                'FRANKIE': {
                     year: 3,
                     percentage: 99,
                     avatar: 'linear-gradient(45deg, #f093fb, #f5576c)',
@@ -1027,7 +1088,7 @@
                     streak: 15,
                     timeSpent: 18.9
                 },
-                'SUE': {
+                'CHARLIE': {
                     year: 4,
                     percentage: 87,
                     avatar: 'linear-gradient(45deg, #ffecd2, #fcb69f)',
@@ -1036,14 +1097,23 @@
                     streak: 6,
                     timeSpent: 11.3
                 },
-                'BONNIE': {
+                'ISABELLA': {
                     year: 1,
-                    percentage: 15,
+                    percentage: 85,
                     avatar: 'linear-gradient(45deg, #a8edea, #fed6e3)',
-                    lessons: 7,
-                    badges: 2,
-                    streak: 1,
-                    timeSpent: 2.8
+                    lessons: 38,
+                    badges: 9,
+                    streak: 4,
+                    timeSpent: 9.2
+                },
+                'RILEY': {
+                    year: 2,
+                    percentage: 91,
+                    avatar: 'linear-gradient(45deg, #667eea, #764ba2)',
+                    lessons: 45,
+                    badges: 13,
+                    streak: 7,
+                    timeSpent: 11.8
                 }
             };
 
@@ -1066,7 +1136,7 @@
                 originalData = { ...student };
 
                 // Update modal content
-                document.getElementById('modalName').textContent = studentName;
+                document.getElementById('modalName').value = studentName;
                 document.getElementById('modalYear').value = student.year;
                 document.getElementById('modalPercentage').value = student.percentage;
                 document.getElementById('modalLessons').value = student.lessons;
@@ -1104,6 +1174,7 @@
                 document.getElementById('cancelBtn').style.display = 'inline-block';
                 
                 // Enable form fields
+                document.getElementById('modalName').disabled = false;
                 document.getElementById('modalYear').disabled = false;
                 document.getElementById('modalPercentage').disabled = false;
                 document.getElementById('modalLessons').disabled = false;
@@ -1122,6 +1193,7 @@
                 document.getElementById('cancelBtn').style.display = 'none';
                 
                 // Disable form fields
+                document.getElementById('modalName').disabled = true;
                 document.getElementById('modalYear').disabled = true;
                 document.getElementById('modalPercentage').disabled = true;
                 document.getElementById('modalLessons').disabled = true;
@@ -1136,6 +1208,7 @@
                 if (!currentStudent) return;
                 
                 // Get updated values
+                const newStudentName = document.getElementById('modalName').value.toUpperCase();
                 const updatedData = {
                     year: parseInt(document.getElementById('modalYear').value),
                     percentage: parseInt(document.getElementById('modalPercentage').value),
@@ -1151,12 +1224,30 @@
                     alert('Progress percentage must be between 0 and 100');
                     return;
                 }
-                
-                // Update student data
-                window.studentData[currentStudent] = updatedData;
-                
-                // Update the main table
-                updateMainTable(currentStudent, updatedData);
+
+                // If name changed, update the data structure
+                if (newStudentName !== currentStudent) {
+                    // Remove old entry
+                    delete window.studentData[currentStudent];
+                    // Add new entry
+                    window.studentData[newStudentName] = updatedData;
+                    
+                    // Update current student reference
+                    const oldName = currentStudent;
+                    currentStudent = newStudentName;
+                    
+                    // Update the main table with new name
+                    updateMainTableWithNewName(oldName, newStudentName, updatedData);
+                    
+                    // Update avatar letter
+                    document.getElementById('modalAvatar').textContent = newStudentName.charAt(0);
+                } else {
+                    // Update student data with same name
+                    window.studentData[currentStudent] = updatedData;
+                    
+                    // Update the main table
+                    updateMainTable(currentStudent, updatedData);
+                }
                 
                 // Update progress bar
                 updateProgressBar(updatedData.percentage);
@@ -1174,6 +1265,7 @@
                 if (!currentStudent || !originalData) return;
                 
                 // Restore original data in modal
+                document.getElementById('modalName').value = currentStudent;
                 document.getElementById('modalYear').value = originalData.year;
                 document.getElementById('modalPercentage').value = originalData.percentage;
                 document.getElementById('modalLessons').value = originalData.lessons;
