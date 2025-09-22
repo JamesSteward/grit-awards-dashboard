@@ -1,4 +1,140 @@
-<!DOCTYPE html>
+            let currentStudent = null;
+            let originalData = null;
+            let isEditMode = false;
+            let newChildColorGradient = generateRandomGradient();
+
+            // 100 GRIT Awards Tasks
+            const allTasks = [
+                "TIE SHOELACES IN A BOW", "MAKE OWN BED", "TIDY BEDROOM", "HELP PUT SHOPPING AWAY", "WASH THE DISHES",
+                "PREPARE A SIMPLE LUNCH", "BRUSH TEETH TWICE A DAY", "COUNT HOW MUCH MONEY THEY HAVE", "SORT LAUNDRY COLOURS OUT", "PUT A LIGHT BULB IN",
+                "RIDE A BIKE WITHOUT STABILISERS", "RIDE A BIKE FOR 1 MILE", "BUILD A DEN IN THE GARDEN", "BUILD A DEN IN THE WOODS", "GO FOR A 2 MILE HIKE",
+                "GO FOR A 5 MILE HIKE", "CLIMB A TREE", "SKIP STONES ON WATER", "BUILD A CAMPFIRE (WITH ADULT)", "SLEEP IN A TENT OVERNIGHT",
+                "IDENTIFY 5 DIFFERENT BIRDS", "IDENTIFY 10 DIFFERENT LEAVES", "GROW A PLANT FROM SEED", "COLLECT 20 DIFFERENT SHELLS/STONES", "WATCH THE SUNRISE",
+                "WATCH THE SUNSET", "FIND THE NORTH STAR", "TRACK ANIMAL FOOTPRINTS", "SWIM 25 METRES", "SWIM 100 METRES",
+                "SCORE A GOAL IN FOOTBALL", "HIT A TENNIS BALL 10 TIMES IN A ROW", "DO 10 PRESS-UPS", "DO 20 STAR JUMPS", "BALANCE ON ONE FOOT FOR 30 SECONDS",
+                "COMPLETE AN OBSTACLE COURSE", "LEARN TO JUGGLE 3 BALLS", "RIDE A SCOOTER", "PAINT A PICTURE OF A LANDSCAPE", "DRAW A SELF-PORTRAIT",
+                "MAKE A SCULPTURE FROM CLAY", "LEARN TO PLAY A SIMPLE TUNE", "WRITE A SHORT STORY", "WRITE A POEM", "PERFORM IN A PLAY OR SHOW",
+                "LEARN A MAGIC TRICK", "MAKE A BIRTHDAY CARD", "CREATE A PHOTO ALBUM", "HELP AN ELDERLY NEIGHBOUR", "VOLUNTEER AT A LOCAL CHARITY",
+                "ORGANISE A FUNDRAISING EVENT", "TEACH SOMEONE SOMETHING NEW", "MAKE A NEW FRIEND", "APOLOGISE WHEN WRONG", "STAND UP FOR SOMEONE BEING BULLIED",
+                "WRITE A THANK YOU LETTER", "VISIT A CARE HOME", "HELP AT A COMMUNITY EVENT", "READ 10 BOOKS IN A YEAR", "READ 25 BOOKS IN A YEAR",
+                "LEARN TIMES TABLES TO 12x12", "SOLVE A PUZZLE WITH 100+ PIECES", "LEARN TO TELL THE TIME", "COUNT TO 1000", "WRITE A BOOK REVIEW",
+                "RESEARCH A HISTORICAL FIGURE", "LEARN 20 WORDS IN ANOTHER LANGUAGE", "GIVE A PRESENTATION TO THE CLASS", "TIE DIFFERENT TYPES OF KNOTS", "USE A MAP AND COMPASS",
+                "CHANGE A BICYCLE TYRE", "COOK A MEAL FROM SCRATCH", "SEW ON A BUTTON", "IRON A SHIRT", "USE A SCREWDRIVER",
+                "PAINT A FENCE OR WALL", "PLANT A VEGETABLE GARDEN", "LEARN FIRST AID BASICS", "SAVE £10 IN A PIGGY BANK", "SAVE £50 IN A BANK ACCOUNT",
+                "PLAN AND PACK FOR A TRIP", "WAKE UP EARLY WITHOUT AN ALARM", "GO TO BED ON TIME FOR A WEEK", "TRY A NEW FOOD", "OVERCOME A FEAR",
+                "SET AND ACHIEVE A PERSONAL GOAL", "KEEP A DIARY FOR A MONTH", "LEARN TO MEDITATE", "GO ON A TREASURE HUNT", "VISIT 5 DIFFERENT MUSEUMS",
+                "EXPLORE A CASTLE", "GO ROCK POOLING", "VISIT A FARM", "GO ON A BOAT TRIP", "FLY A KITE",
+                "GO STARGAZING", "HAVE A PICNIC IN THE PARK", "GO GEOCACHING", "BUILD A SNOWMAN", "COMPLETE A SPONSORED WALK"
+            ];
+
+            // Default task assignments by year
+            let taskAssignments = {
+                1: [0, 1, 2, 6, 10, 20, 21, 28, 38, 39, 45, 46, 47, 52, 58, 63, 78, 83, 88, 95], // Year 1 - 20 tasks
+                2: [3, 4, 7, 11, 17, 22, 23, 29, 31, 34, 37, 40, 48, 53, 59, 64, 79, 84, 89, 96], // Year 2 - 20 tasks  
+                3: [5, 8, 12, 18, 24, 25, 32, 35, 41, 42, 49, 54, 60, 65, 69, 80, 85, 90, 97, 99], // Year 3 - 20 tasks
+                4: [9, 13, 14, 19, 26, 30, 33, 36, 43, 44, 50, 55, 61, 66, 70, 71, 81, 86, 91, 98], // Year 4 - 20 tasks
+                5: [15, 16, 27, 51, 56, 62, 67, 72, 73, 74, 75, 76, 77, 82, 87, 92, 93, 94], // Year 5 - 18 tasks
+                6: [57, 68] // Year 6 - 2 tasks
+            };
+
+            // Settings Page Functions
+            window.showSettingsPage = function() {
+                // Hide overview, show settings
+                document.getElementById('overviewContent').style.display = 'none';
+                document.getElementById('settingsContent').style.display = 'block';
+                document.querySelector('.page-title').textContent = 'Settings';
+                
+                // Update navigation
+                document.querySelectorAll('.nav-link').forEach(link => {
+                    link.classList.remove('active');
+                });
+                event.target.classList.add('active');
+                
+                // Populate tasks
+                populateTasksList();
+            };
+
+            window.showOverviewPage = function() {
+                // Show overview, hide settings
+                document.getElementById('settingsContent').style.display = 'none';
+                document.getElementById('overviewContent').style.display = 'block';
+                document.querySelector('.page-title').textContent = 'Overview';
+                
+                // Update navigation
+                document.querySelectorAll('.nav-link').forEach(link => {
+                    link.classList.remove('active');
+                });
+                document.querySelector('.nav-link').classList.add('active');
+            };
+
+            function populateTasksList() {
+                const tasksList = document.getElementById('tasksList');
+                tasksList.innerHTML = '';
+                
+                allTasks.forEach((task, index) => {
+                    const taskRow = document.createElement('div');
+                    taskRow.className = 'task-row';
+                    
+                    const taskName = document.createElement('div');
+                    taskName.className = 'task-name';
+                    taskName.textContent = `${index + 1}. ${task}`;
+                    
+                    const taskAssignmentsDiv = document.createElement('div');
+                    taskAssignmentsDiv.className = 'task-assignments';
+                    
+                    // Create checkboxes for each year
+                    for (let year = 1; year <= 6; year++) {
+                        const checkbox = document.createElement('input');
+                        checkbox.type = 'checkbox';
+                        checkbox.className = 'year-checkbox';
+                        checkbox.checked = taskAssignments[year] && taskAssignments[year].includes(index);
+                        checkbox.onchange = () => updateTaskAssignment(index, year, checkbox.checked);
+                        taskAssignmentsDiv.appendChild(checkbox);
+                    }
+                    
+                    taskRow.appendChild(taskName);
+                    taskRow.appendChild(taskAssignmentsDiv);
+                    tasksList.appendChild(taskRow);
+                });
+            }
+
+            function updateTaskAssignment(taskIndex, year, isAssigned) {
+                if (!taskAssignments[year]) {
+                    taskAssignments[year] = [];
+                }
+                
+                if (isAssigned) {
+                    if (!taskAssignments[year].includes(taskIndex)) {
+                        taskAssignments[year].push(taskIndex);
+                    }
+                } else {
+                    taskAssignments[year] = taskAssignments[year].filter(t => t !== taskIndex);
+                }
+                
+                console.log(`Task ${taskIndex + 1} ${isAssigned ? 'assigned to' : 'removed from'} Year ${year}`);
+            }
+
+            window.saveTaskSettings = function() {
+                // In a real app, this would save to database
+                alert('Task assignments saved successfully!');
+                console.log('Current task assignments:', taskAssignments);
+            };
+
+            window.resetTaskSettings = function() {
+                if (confirm('Are you sure you want to reset all task assignments to defaults?')) {
+                    // Reset to default assignments
+                    taskAssignments = {
+                        1: [0, 1, 2, 6, 10, 20, 21, 28, 38, 39, 45, 46, 47, 52, 58, 63, 78, 83, 88, 95],
+                        2: [3, 4, 7, 11, 17, 22, 23, 29, 31, 34, 37, 40, 48, 53, 59, 64, 79, 84, 89, 96],
+                        3: [5, 8, 12, 18, 24, 25, 32, 35, 41, 42, 49, 54, 60, 65, 69, 80, 85, 90, 97, 99],
+                        4: [9, 13, 14, 19, 26, 30, 33, 36, 43, 44, 50, 55, 61, 66, 70, 71, 81, 86, 91, 98],
+                        5: [15, 16, 27, 51, 56, 62, 67, 72, 73, 74, 75, 76, 77, 82, 87, 92, 93, 94],
+                        6: [57, 68]
+                    };
+                    populateTasksList();
+                    alert('Task assignments reset to defaults!');
+                }
+            };<!DOCTYPE html>
 <html lang="en">
 <head>
     <meta charset="UTF-8">
@@ -726,6 +862,130 @@
             padding-top: 20px;
             border-top: 1px solid #e0e0e0;
         }
+
+        /* Settings Page Styles */
+        .settings-header {
+            margin-bottom: 30px;
+        }
+
+        .settings-header h2 {
+            font-family: 'Roboto Slab', 'Times New Roman', serif !important;
+            font-size: 36px;
+            color: #032717;
+            margin-bottom: 10px;
+        }
+
+        .settings-header p {
+            color: #666;
+            font-size: 16px;
+        }
+
+        .settings-actions {
+            display: flex;
+            gap: 15px;
+            margin-bottom: 30px;
+        }
+
+        .settings-btn {
+            padding: 12px 24px;
+            border: none;
+            border-radius: 8px;
+            font-weight: 600;
+            cursor: pointer;
+            transition: all 0.2s;
+            font-size: 14px;
+        }
+
+        .settings-btn {
+            background: #032717;
+            color: white;
+        }
+
+        .settings-btn:hover {
+            background: #044d30;
+        }
+
+        .settings-btn.secondary {
+            background: #6c757d;
+            color: white;
+        }
+
+        .settings-btn.secondary:hover {
+            background: #5a6268;
+        }
+
+        .tasks-container {
+            background: white;
+            border-radius: 12px;
+            overflow: hidden;
+            box-shadow: 0 4px 20px rgba(0,0,0,0.08);
+        }
+
+        .tasks-header {
+            display: grid;
+            grid-template-columns: 2fr 3fr;
+            padding: 20px 30px;
+            background: #f8f9fa;
+            font-weight: 600;
+            color: #666;
+            font-size: 14px;
+            text-transform: uppercase;
+            letter-spacing: 1px;
+            border-bottom: 2px solid #e0e0e0;
+        }
+
+        .year-assignments {
+            display: grid;
+            grid-template-columns: repeat(6, 1fr);
+            gap: 10px;
+            text-align: center;
+        }
+
+        .tasks-list {
+            max-height: 600px;
+            overflow-y: auto;
+        }
+
+        .task-row {
+            display: grid;
+            grid-template-columns: 2fr 3fr;
+            padding: 20px 30px;
+            border-bottom: 1px solid #eee;
+            align-items: center;
+            transition: background-color 0.2s;
+        }
+
+        .task-row:hover {
+            background-color: #f8f9fa;
+        }
+
+        .task-row:last-child {
+            border-bottom: none;
+        }
+
+        .task-name {
+            font-weight: 500;
+            color: #333;
+            font-size: 14px;
+        }
+
+        .task-assignments {
+            display: grid;
+            grid-template-columns: repeat(6, 1fr);
+            gap: 10px;
+            text-align: center;
+        }
+
+        .year-checkbox {
+            width: 20px;
+            height: 20px;
+            cursor: pointer;
+            accent-color: #032717;
+        }
+
+        .year-checkbox:checked {
+            background-color: #032717;
+        }
     </style>
 </head>
 <body>
@@ -867,10 +1127,10 @@
                 <nav>
                     <ul class="nav-menu">
                         <li class="nav-item">
-                            <a href="#" class="nav-link active">Home</a>
+                            <a href="#" class="nav-link active" onclick="showOverviewPage()">Home</a>
                         </li>
                         <li class="nav-item">
-                            <a href="#" class="nav-link">Settings</a>
+                            <a href="#" class="nav-link" onclick="showSettingsPage()">Settings</a>
                         </li>
                         <li class="nav-item">
                             <a href="#" class="nav-link" onclick="openAddChildModal()">Add Child</a>
@@ -882,112 +1142,144 @@
                 </nav>
             </div>
 
-            <main class="main-content">
+            <main class="main-content" id="mainContent">
                 <h1 class="page-title">Overview</h1>
                 
-                <div class="table-container">
-                    <div class="table-header">
-                        <div>NAME</div>
-                        <div>YEAR</div>
-                        <div>%</div>
-                        <div>ACTIONS</div>
+                <div id="overviewContent">
+                    <div class="table-container">
+                        <div class="table-header">
+                            <div>NAME</div>
+                            <div>YEAR</div>
+                            <div>%</div>
+                            <div>ACTIONS</div>
+                        </div>
+                        
+                        <div class="table-row">
+                            <div class="student-info" onclick="showStudentProfile('ZACH')">
+                                <div class="student-avatar" style="background: linear-gradient(45deg, #ff6b6b, #ffa500);">Z</div>
+                                <span class="student-name">ZACH</span>
+                            </div>
+                            <div class="stage">3</div>
+                            <div class="percentage">94%</div>
+                            <div class="actions">
+                                <button class="action-btn btn-warning" onclick="alertAction('Warning', 'ZACH')">⚠</button>
+                                <button class="action-btn btn-primary" onclick="alertAction('Edit', 'ZACH')">📝</button>
+                                <button class="action-btn btn-danger" onclick="deleteStudent('ZACH', this)">🗑</button>
+                            </div>
+                        </div>
+
+                        <div class="table-row">
+                            <div class="student-info" onclick="showStudentProfile('MILLIE')">
+                                <div class="student-avatar" style="background: linear-gradient(45deg, #4ecdc4, #44a08d);">M</div>
+                                <span class="student-name">MILLIE</span>
+                            </div>
+                            <div class="stage">4</div>
+                            <div class="percentage">96%</div>
+                            <div class="actions">
+                                <button class="action-btn btn-warning" onclick="alertAction('Warning', 'MILLIE')">⚠</button>
+                                <button class="action-btn btn-primary" onclick="alertAction('Edit', 'MILLIE')">📝</button>
+                                <button class="action-btn btn-danger" onclick="deleteStudent('MILLIE', this)">🗑</button>
+                            </div>
+                        </div>
+
+                        <div class="table-row">
+                            <div class="student-info" onclick="showStudentProfile('JUDE')">
+                                <div class="student-avatar" style="background: linear-gradient(45deg, #667eea, #764ba2);">J</div>
+                                <span class="student-name">JUDE</span>
+                            </div>
+                            <div class="stage">2</div>
+                            <div class="percentage">76%</div>
+                            <div class="actions">
+                                <button class="action-btn btn-warning" onclick="alertAction('Warning', 'JUDE')">⚠</button>
+                                <button class="action-btn btn-primary" onclick="alertAction('Edit', 'JUDE')">📝</button>
+                                <button class="action-btn btn-danger" onclick="deleteStudent('JUDE', this)">🗑</button>
+                            </div>
+                        </div>
+
+                        <div class="table-row">
+                            <div class="student-info" onclick="showStudentProfile('FRANKIE')">
+                                <div class="student-avatar" style="background: linear-gradient(45deg, #f093fb, #f5576c);">F</div>
+                                <span class="student-name">FRANKIE</span>
+                            </div>
+                            <div class="stage">3</div>
+                            <div class="percentage">99%</div>
+                            <div class="actions">
+                                <button class="action-btn btn-warning" onclick="alertAction('Warning', 'FRANKIE')">⚠</button>
+                                <button class="action-btn btn-primary" onclick="alertAction('Edit', 'FRANKIE')">📝</button>
+                                <button class="action-btn btn-danger" onclick="deleteStudent('FRANKIE', this)">🗑</button>
+                            </div>
+                        </div>
+
+                        <div class="table-row">
+                            <div class="student-info" onclick="showStudentProfile('CHARLIE')">
+                                <div class="student-avatar" style="background: linear-gradient(45deg, #ffecd2, #fcb69f); color: #333;">C</div>
+                                <span class="student-name">CHARLIE</span>
+                            </div>
+                            <div class="stage">4</div>
+                            <div class="percentage">87%</div>
+                            <div class="actions">
+                                <button class="action-btn btn-warning" onclick="alertAction('Warning', 'CHARLIE')">⚠</button>
+                                <button class="action-btn btn-primary" onclick="alertAction('Edit', 'CHARLIE')">📝</button>
+                                <button class="action-btn btn-danger" onclick="deleteStudent('CHARLIE', this)">🗑</button>
+                            </div>
+                        </div>
+
+                        <div class="table-row">
+                            <div class="student-info" onclick="showStudentProfile('ISABELLA')">
+                                <div class="student-avatar" style="background: linear-gradient(45deg, #a8edea, #fed6e3); color: #333;">I</div>
+                                <span class="student-name">ISABELLA</span>
+                            </div>
+                            <div class="stage">1</div>
+                            <div class="percentage">85%</div>
+                            <div class="actions">
+                                <button class="action-btn btn-warning" onclick="alertAction('Warning', 'ISABELLA')">⚠</button>
+                                <button class="action-btn btn-primary" onclick="alertAction('Edit', 'ISABELLA')">📝</button>
+                                <button class="action-btn btn-danger" onclick="deleteStudent('ISABELLA', this)">🗑</button>
+                            </div>
+                        </div>
+
+                        <div class="table-row">
+                            <div class="student-info" onclick="showStudentProfile('RILEY')">
+                                <div class="student-avatar" style="background: linear-gradient(45deg, #667eea, #764ba2);">R</div>
+                                <span class="student-name">RILEY</span>
+                            </div>
+                            <div class="stage">2</div>
+                            <div class="percentage">91%</div>
+                            <div class="actions">
+                                <button class="action-btn btn-warning" onclick="alertAction('Warning', 'RILEY')">⚠</button>
+                                <button class="action-btn btn-primary" onclick="alertAction('Edit', 'RILEY')">📝</button>
+                                <button class="action-btn btn-danger" onclick="deleteStudent('RILEY', this)">🗑</button>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+
+                <div id="settingsContent" style="display: none;">
+                    <div class="settings-header">
+                        <h2>Task Management</h2>
+                        <p>Assign tasks to different year groups. Students will see tasks assigned to their year level.</p>
                     </div>
                     
-                    <div class="table-row">
-                        <div class="student-info" onclick="showStudentProfile('ZACH')">
-                            <div class="student-avatar" style="background: linear-gradient(45deg, #ff6b6b, #ffa500);">Z</div>
-                            <span class="student-name">ZACH</span>
-                        </div>
-                        <div class="stage">3</div>
-                        <div class="percentage">94%</div>
-                        <div class="actions">
-                            <button class="action-btn btn-warning" onclick="alertAction('Warning', 'ZACH')">⚠</button>
-                            <button class="action-btn btn-primary" onclick="alertAction('Edit', 'ZACH')">📝</button>
-                            <button class="action-btn btn-danger" onclick="deleteStudent('ZACH', this)">🗑</button>
-                        </div>
+                    <div class="settings-actions">
+                        <button class="settings-btn" onclick="saveTaskSettings()">💾 Save All Changes</button>
+                        <button class="settings-btn secondary" onclick="resetTaskSettings()">🔄 Reset to Defaults</button>
                     </div>
 
-                    <div class="table-row">
-                        <div class="student-info" onclick="showStudentProfile('MILLIE')">
-                            <div class="student-avatar" style="background: linear-gradient(45deg, #4ecdc4, #44a08d);">M</div>
-                            <span class="student-name">MILLIE</span>
+                    <div class="tasks-container">
+                        <div class="tasks-header">
+                            <div class="task-title">TASK</div>
+                            <div class="year-assignments">
+                                <span>Year 1</span>
+                                <span>Year 2</span>
+                                <span>Year 3</span>
+                                <span>Year 4</span>
+                                <span>Year 5</span>
+                                <span>Year 6</span>
+                            </div>
                         </div>
-                        <div class="stage">4</div>
-                        <div class="percentage">96%</div>
-                        <div class="actions">
-                            <button class="action-btn btn-warning" onclick="alertAction('Warning', 'MILLIE')">⚠</button>
-                            <button class="action-btn btn-primary" onclick="alertAction('Edit', 'MILLIE')">📝</button>
-                            <button class="action-btn btn-danger" onclick="deleteStudent('MILLIE', this)">🗑</button>
-                        </div>
-                    </div>
-
-                    <div class="table-row">
-                        <div class="student-info" onclick="showStudentProfile('JUDE')">
-                            <div class="student-avatar" style="background: linear-gradient(45deg, #667eea, #764ba2);">J</div>
-                            <span class="student-name">JUDE</span>
-                        </div>
-                        <div class="stage">2</div>
-                        <div class="percentage">76%</div>
-                        <div class="actions">
-                            <button class="action-btn btn-warning" onclick="alertAction('Warning', 'JUDE')">⚠</button>
-                            <button class="action-btn btn-primary" onclick="alertAction('Edit', 'JUDE')">📝</button>
-                            <button class="action-btn btn-danger" onclick="deleteStudent('JUDE', this)">🗑</button>
-                        </div>
-                    </div>
-
-                    <div class="table-row">
-                        <div class="student-info" onclick="showStudentProfile('FRANKIE')">
-                            <div class="student-avatar" style="background: linear-gradient(45deg, #f093fb, #f5576c);">F</div>
-                            <span class="student-name">FRANKIE</span>
-                        </div>
-                        <div class="stage">3</div>
-                        <div class="percentage">99%</div>
-                        <div class="actions">
-                            <button class="action-btn btn-warning" onclick="alertAction('Warning', 'FRANKIE')">⚠</button>
-                            <button class="action-btn btn-primary" onclick="alertAction('Edit', 'FRANKIE')">📝</button>
-                            <button class="action-btn btn-danger" onclick="deleteStudent('FRANKIE', this)">🗑</button>
-                        </div>
-                    </div>
-
-                    <div class="table-row">
-                        <div class="student-info" onclick="showStudentProfile('CHARLIE')">
-                            <div class="student-avatar" style="background: linear-gradient(45deg, #ffecd2, #fcb69f); color: #333;">C</div>
-                            <span class="student-name">CHARLIE</span>
-                        </div>
-                        <div class="stage">4</div>
-                        <div class="percentage">87%</div>
-                        <div class="actions">
-                            <button class="action-btn btn-warning" onclick="alertAction('Warning', 'CHARLIE')">⚠</button>
-                            <button class="action-btn btn-primary" onclick="alertAction('Edit', 'CHARLIE')">📝</button>
-                            <button class="action-btn btn-danger" onclick="deleteStudent('CHARLIE', this)">🗑</button>
-                        </div>
-                    </div>
-
-                    <div class="table-row">
-                        <div class="student-info" onclick="showStudentProfile('ISABELLA')">
-                            <div class="student-avatar" style="background: linear-gradient(45deg, #a8edea, #fed6e3); color: #333;">I</div>
-                            <span class="student-name">ISABELLA</span>
-                        </div>
-                        <div class="stage">1</div>
-                        <div class="percentage">85%</div>
-                        <div class="actions">
-                            <button class="action-btn btn-warning" onclick="alertAction('Warning', 'ISABELLA')">⚠</button>
-                            <button class="action-btn btn-primary" onclick="alertAction('Edit', 'ISABELLA')">📝</button>
-                            <button class="action-btn btn-danger" onclick="deleteStudent('ISABELLA', this)">🗑</button>
-                        </div>
-                    </div>
-
-                    <div class="table-row">
-                        <div class="student-info" onclick="showStudentProfile('RILEY')">
-                            <div class="student-avatar" style="background: linear-gradient(45deg, #667eea, #764ba2);">R</div>
-                            <span class="student-name">RILEY</span>
-                        </div>
-                        <div class="stage">2</div>
-                        <div class="percentage">91%</div>
-                        <div class="actions">
-                            <button class="action-btn btn-warning" onclick="alertAction('Warning', 'RILEY')">⚠</button>
-                            <button class="action-btn btn-primary" onclick="alertAction('Edit', 'RILEY')">📝</button>
-                            <button class="action-btn btn-danger" onclick="deleteStudent('RILEY', this)">🗑</button>
+                        
+                        <div id="tasksList" class="tasks-list">
+                            <!-- Tasks will be populated here -->
                         </div>
                     </div>
                 </div>
