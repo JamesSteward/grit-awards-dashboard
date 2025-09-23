@@ -59,6 +59,31 @@
             align-items: center;
             justify-content: center;
             overflow: hidden;
+            position: relative;
+        }
+
+        .profile-btn::after {
+            content: 'Profile';
+            position: absolute;
+            bottom: -35px;
+            left: 50%;
+            transform: translateX(-50%);
+            background: rgba(0,0,0,0.8);
+            color: white;
+            padding: 4px 8px;
+            border-radius: 4px;
+            font-size: 12px;
+            white-space: nowrap;
+            opacity: 0;
+            visibility: hidden;
+            transition: all 0.3s ease;
+            pointer-events: none;
+            z-index: 1000;
+        }
+
+        .profile-btn:hover::after {
+            opacity: 1;
+            visibility: visible;
         }
 
         .profile-btn img {
@@ -459,8 +484,8 @@
                     <span class="challenge-category teamwork">Teamwork</span>
                     <div class="challenge-status completed">✓</div>
                 </div>
-                <h3 class="challenge-title">Organise a Group Project</h3>
-                <p class="challenge-description">Help organise and lead a group activity or project with your classmates or siblings.</p>
+                <h3 class="challenge-title">Organize a Group Project</h3>
+                <p class="challenge-description">Help organize and lead a group activity or project with your classmates or siblings.</p>
                 <div class="challenge-meta">
                     <span class="due-date">
                         <svg width="12" height="12" viewBox="0 0 24 24" fill="currentColor">
@@ -519,9 +544,9 @@
         </a>
         <a href="#" class="nav-item">
             <svg class="nav-icon" viewBox="0 0 24 24">
-                <path d="M12 12c2.21 0 4-1.79 4-4s-1.79-4-4-4-4 1.79-4 4 1.79 4 4 4zm0 2c-2.67 0-8 1.34-8 4v2h16v-2c0-2.66-5.33-4-8-4z"/>
+                <path d="M20 2H4c-1.1 0-2 .9-2 2v12c0 1.1.9 2 2 2h14l4 4V4c0-1.1-.9-2-2-2zm-2 12H6v-2h12v2zm0-3H6V9h12v2zm0-3H6V6h12v2z"/>
             </svg>
-            <span class="nav-label">Profile</span>
+            <span class="nav-label">Messages</span>
         </a>
     </nav>
 
@@ -533,7 +558,7 @@
         }
 
         function openProfile() {
-        window.location.href = 'family-profile.html';
+            window.location.href = 'family-profile.html';
         }
 
         function requestChallenge() {
