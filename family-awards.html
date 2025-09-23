@@ -1,0 +1,787 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>GRIT Awards - Awards</title>
+    <link href="https://fonts.googleapis.com/css2?family=Roboto+Slab:wght@400;700&family=Roboto:wght@300;400;500;600&display=swap" rel="stylesheet">
+    <style>
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+        }
+
+        body {
+            font-family: 'Roboto', sans-serif;
+            background: #f8f9fa;
+            min-height: 100vh;
+            display: flex;
+            flex-direction: column;
+        }
+
+        .header {
+            background: #032717;
+            color: white;
+            padding: 16px 20px;
+            display: flex;
+            align-items: center;
+            gap: 16px;
+            position: sticky;
+            top: 0;
+            z-index: 100;
+        }
+
+        .back-btn {
+            background: rgba(255,255,255,0.2);
+            border: none;
+            color: white;
+            width: 40px;
+            height: 40px;
+            border-radius: 50%;
+            cursor: pointer;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            transition: background-color 0.3s;
+        }
+
+        .back-btn:hover {
+            background: rgba(255,255,255,0.3);
+        }
+
+        .header-title {
+            font-family: 'Roboto Slab', serif;
+            font-weight: 700;
+            font-size: 20px;
+            flex: 1;
+        }
+
+        .main-content {
+            flex: 1;
+            padding-bottom: 100px;
+            overflow-y: auto;
+        }
+
+        .celebration-section {
+            background: #032717;
+            color: white;
+            padding: 40px 20px;
+            text-align: center;
+            position: relative;
+            overflow: hidden;
+        }
+
+        .certificate {
+            background: white;
+            color: #032717;
+            border-radius: 8px;
+            padding: 40px 30px;
+            margin: 20px auto;
+            max-width: 350px;
+            box-shadow: 0 12px 40px rgba(0,0,0,0.15);
+            position: relative;
+            animation: certificate-reveal 2s ease-out;
+            border: 3px solid #032717;
+        }
+
+        .certificate-icon {
+            position: absolute;
+            bottom: -40px;
+            left: -30px;
+            width: 175px;
+            height: auto;
+            z-index: 10;
+        }
+
+        @keyframes certificate-reveal {
+            0% {
+                transform: scale(0.3) rotate(-15deg);
+                opacity: 0;
+            }
+            50% {
+                transform: scale(1.05) rotate(3deg);
+            }
+            100% {
+                transform: scale(1) rotate(0deg);
+                opacity: 1;
+            }
+        }
+
+        .certificate-content {
+            position: relative;
+            z-index: 2;
+            text-align: center;
+            padding-top: 70px;
+        }
+
+        .certificate-logo {
+            width: 80px;
+            height: auto;
+            margin: 0 auto 20px;
+            display: block;
+        }
+
+        .certificate-header {
+            font-family: 'Roboto Slab', serif;
+            font-weight: 300;
+            font-size: 16px;
+            color: #7f8c8d;
+            margin-bottom: 8px;
+            text-transform: uppercase;
+            letter-spacing: 2px;
+        }
+
+        .certificate-title {
+            font-family: 'Roboto Slab', serif;
+            font-weight: 700;
+            font-size: 28px;
+            color: #032717;
+            margin-bottom: 20px;
+            text-shadow: 0 2px 4px rgba(0,0,0,0.1);
+        }
+
+        .certificate-awarded-to {
+            font-size: 14px;
+            color: #7f8c8d;
+            margin-bottom: 8px;
+            text-transform: uppercase;
+            letter-spacing: 1px;
+        }
+
+        .certificate-name {
+            font-family: 'Roboto Slab', serif;
+            font-weight: 600;
+            font-size: 24px;
+            color: #2c3e50;
+            margin-bottom: 20px;
+            padding-bottom: 8px;
+            border-bottom: 2px solid #032717;
+            display: inline-block;
+            min-width: 200px;
+        }
+
+        .certificate-description {
+            font-size: 14px;
+            color: #555;
+            line-height: 1.6;
+            margin-bottom: 25px;
+            font-style: italic;
+        }
+
+        .certificate-footer {
+            display: flex;
+            justify-content: center;
+            align-items: center;
+            margin-top: 20px;
+            padding-top: 15px;
+            border-top: 1px solid #e0e0e0;
+        }
+
+        .certificate-date {
+            font-size: 12px;
+            color: #7f8c8d;
+            margin-top: 15px;
+            text-align: center;
+        }
+
+        .certificate-signature {
+            font-family: 'Roboto Slab', serif;
+            font-size: 14px;
+            color: #032717;
+            font-weight: 600;
+        }
+
+        .certificate-seal {
+            position: absolute;
+            bottom: 15px;
+            left: 15px;
+            width: 40px;
+            height: 40px;
+            background: radial-gradient(circle, #f39c12 0%, #d68910 100%);
+            border-radius: 50%;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            color: white;
+            font-size: 20px;
+            font-weight: 700;
+            box-shadow: 0 4px 12px rgba(243, 156, 18, 0.4);
+            animation: seal-glow 2s ease-in-out infinite alternate;
+        }
+
+        .certificate-seal::after {
+            content: '';
+            position: absolute;
+            top: 35px;
+            left: 50%;
+            transform: translateX(-50%);
+            width: 0;
+            height: 0;
+            border-left: 8px solid #f39c12;
+            border-right: 8px solid #f39c12;
+            border-top: 20px solid #f39c12;
+            box-shadow: 4px 0 0 -2px #e67e22;
+        }
+
+        .certificate-seal::before {
+            content: '';
+            position: absolute;
+            top: 35px;
+            left: 50%;
+            transform: translateX(-50%) translateX(-6px);
+            width: 0;
+            height: 0;
+            border-left: 6px solid #f39c12;
+            border-right: 6px solid #f39c12;
+            border-top: 16px solid #f39c12;
+            z-index: 1;
+            box-shadow: 2px 0 0 -1px #e67e22;
+        }
+
+        @keyframes seal-glow {
+            0% {
+                box-shadow: 0 4px 12px rgba(243, 156, 18, 0.4);
+            }
+            100% {
+                box-shadow: 0 6px 20px rgba(243, 156, 18, 0.6);
+            }
+        }
+
+        .celebration-text {
+            font-family: 'Roboto Slab', serif;
+            font-weight: 700;
+            font-size: 24px;
+            margin-bottom: 8px;
+        }
+
+        .celebration-subtitle {
+            font-size: 16px;
+            opacity: 0.9;
+        }
+
+        .badges-section {
+            padding: 30px 20px;
+        }
+
+        .section-title {
+            font-family: 'Roboto Slab', serif;
+            font-weight: 700;
+            color: #032717;
+            font-size: 20px;
+            margin-bottom: 20px;
+            text-align: center;
+        }
+
+        .badges-grid {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(100px, 1fr));
+            gap: 16px;
+            margin-bottom: 20px;
+        }
+
+        .badge {
+            background: white;
+            border-radius: 12px;
+            padding: 16px;
+            text-align: center;
+            box-shadow: 0 2px 8px rgba(0,0,0,0.1);
+            transition: all 0.3s ease;
+            cursor: pointer;
+        }
+
+        .badge:hover {
+            transform: translateY(-4px);
+            box-shadow: 0 8px 24px rgba(0,0,0,0.15);
+        }
+
+        .badge.earned {
+            border: 2px solid #032717;
+        }
+
+        .badge.locked {
+            opacity: 0.6;
+            background: #f8f9fa;
+            border: 2px solid #e0e0e0;
+        }
+
+        .badge-icon {
+            width: 48px;
+            height: 48px;
+            margin: 0 auto 8px;
+            border-radius: 50%;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            font-size: 24px;
+        }
+
+        .badge.earned .badge-icon {
+            background: #032717;
+            color: #b5aa91;
+        }
+
+        .badge.locked .badge-icon {
+            background: #e0e0e0;
+            color: white;
+        }
+
+        .badge-name {
+            font-weight: 600;
+            color: #2c3e50;
+            font-size: 12px;
+            margin-bottom: 4px;
+        }
+
+        .badge-description {
+            font-size: 10px;
+            color: #7f8c8d;
+            line-height: 1.2;
+        }
+
+        .rewards-section {
+            padding: 30px 20px;
+            background: white;
+            margin: 0 20px;
+            border-radius: 12px;
+            box-shadow: 0 2px 8px rgba(0,0,0,0.1);
+        }
+
+        .reward-item {
+            display: flex;
+            align-items: center;
+            gap: 16px;
+            padding: 16px;
+            background: #f8f9fa;
+            border-radius: 8px;
+            margin-bottom: 12px;
+            cursor: pointer;
+            transition: all 0.2s ease;
+        }
+
+        .reward-item:hover {
+            background: rgba(181, 170, 145, 0.1);
+            transform: translateX(4px);
+        }
+
+        .reward-icon {
+            width: 48px;
+            height: 48px;
+            border-radius: 50%;
+            background: #032717;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            color: white;
+        }
+
+        .reward-details {
+            flex: 1;
+        }
+
+        .reward-title {
+            font-family: 'Roboto Slab', serif;
+            font-weight: 600;
+            color: #032717;
+            font-size: 16px;
+            margin-bottom: 4px;
+        }
+
+        .reward-description {
+            color: #7f8c8d;
+            font-size: 14px;
+        }
+
+        .reward-status {
+            background: #032717;
+            color: #b5aa91;
+            padding: 4px 12px;
+            border-radius: 20px;
+            font-size: 12px;
+            font-weight: 500;
+        }
+
+        .stats-overview {
+            display: grid;
+            grid-template-columns: repeat(3, 1fr);
+            gap: 16px;
+            padding: 20px;
+            margin-bottom: 20px;
+        }
+
+        .stat-card {
+            background: white;
+            padding: 20px;
+            border-radius: 12px;
+            text-align: center;
+            box-shadow: 0 2px 8px rgba(0,0,0,0.1);
+        }
+
+        .stat-number {
+            font-family: 'Roboto Slab', serif;
+            font-weight: 700;
+            font-size: 24px;
+            color: #032717;
+            display: block;
+            margin-bottom: 4px;
+        }
+
+        .stat-label {
+            color: #7f8c8d;
+            font-size: 12px;
+            text-transform: uppercase;
+            letter-spacing: 0.5px;
+        }
+
+        .bottom-nav {
+            position: fixed;
+            bottom: 0;
+            left: 0;
+            right: 0;
+            background: white;
+            border-top: 1px solid #ecf0f1;
+            padding: 12px;
+            display: flex;
+            justify-content: space-around;
+            z-index: 100;
+        }
+
+        .nav-item {
+            display: flex;
+            flex-direction: column;
+            align-items: center;
+            gap: 4px;
+            padding: 8px 12px;
+            border-radius: 8px;
+            cursor: pointer;
+            transition: background-color 0.2s;
+            text-decoration: none;
+            color: #7f8c8d;
+        }
+
+        .nav-item.active {
+            background: rgba(3, 39, 23, 0.1);
+            color: #032717;
+        }
+
+        .nav-item:hover {
+            background: rgba(3, 39, 23, 0.05);
+        }
+
+        .nav-icon {
+            width: 24px;
+            height: 24px;
+            fill: currentColor;
+        }
+
+        .nav-label {
+            font-size: 10px;
+            font-weight: 500;
+            text-transform: uppercase;
+            letter-spacing: 0.5px;
+        }
+
+        @media (max-width: 360px) {
+            .badges-grid {
+                grid-template-columns: repeat(3, 1fr);
+            }
+            
+            .stats-overview {
+                grid-template-columns: 1fr;
+                gap: 12px;
+            }
+        }
+    </style>
+</head>
+<body>
+    <header class="header">
+        <button class="back-btn" onclick="goBack()">
+            <svg width="24" height="24" viewBox="0 0 24 24" fill="currentColor">
+                <path d="M20 11H7.83l5.59-5.59L12 4l-8 8 8 8 1.41-1.41L7.83 13H20v-2z"/>
+            </svg>
+        </button>
+        <h1 class="header-title">Awards & Achievements</h1>
+    </header>
+
+    <main class="main-content">
+        <div class="celebration-section">
+            <div class="celebration-text">Congratulations Riley!</div>
+            <div class="celebration-subtitle">You've shown <strong>Growth</strong>, built <strong>Resilience</strong>, developed <strong>Integrity</strong> & <strong>Independence</strong>, and experienced a true <strong>Transformation for good</strong></div>
+
+            <div class="certificate">
+                <img src="grit-logo.webp" alt="GRIT Awards" class="certificate-logo">
+                <div class="certificate-header">Certificate of Achievement</div>
+                <div class="certificate-title">Captains Award Certificate</div>
+                <div class="certificate-awarded-to">Awarded to</div>
+                <div class="certificate-name">Riley Furey</div>
+                <div class="certificate-description">
+                    For demonstrating exceptional resilience and determination in completing challenges and encouraging fellow students at St Peter's Catholic Primary School.
+                </div>
+                <div class="certificate-date">October 2025</div>
+                <div class="certificate-footer">
+                    <div class="certificate-signature">Miss S Parry</div>
+                </div>
+                <img src="cert.webp" alt="Certificate Icon" class="certificate-icon">
+            </div>
+        </div>
+
+        <div class="stats-overview">
+            <div class="stat-card">
+                <span class="stat-number">9</span>
+                <span class="stat-label">Total Awards | Badges</span>
+            </div>
+            <div class="stat-card">
+                <span class="stat-number">7</span>
+                <span class="stat-label">Day Streak</span>
+            </div>
+            <div class="stat-card">
+                <span class="stat-number">240</span>
+                <span class="stat-label">GRIT Points</span>
+            </div>
+        </div>
+
+        <div class="badges-section">
+            <h2 class="section-title">Achievement Badges</h2>
+            
+            <div class="badges-grid">
+                <div class="badge earned" onclick="showBadgeDetails('first-steps')">
+                    <div class="badge-icon">🏃</div>
+                    <div class="badge-name">First Steps</div>
+                    <div class="badge-description">Completed your first challenge</div>
+                </div>
+
+                <div class="badge earned" onclick="showBadgeDetails('resilience-rookie')">
+                    <div class="badge-icon">💪</div>
+                    <div class="badge-name">Resilience Rookie</div>
+                    <div class="badge-description">Completed 5 resilience challenges</div>
+                </div>
+
+                <div class="badge earned" onclick="showBadgeDetails('team-player')">
+                    <div class="badge-icon">🤝</div>
+                    <div class="badge-name">Team Player</div>
+                    <div class="badge-description">Helped 3 classmates with challenges</div>
+                </div>
+
+                <div class="badge earned" onclick="showBadgeDetails('week-warrior')">
+                    <div class="badge-icon">🔥</div>
+                    <div class="badge-name">Week Warrior</div>
+                    <div class="badge-description">7-day activity streak</div>
+                </div>
+
+                <div class="badge earned" onclick="showBadgeDetails('integrity-champion')">
+                    <div class="badge-icon">⭐</div>
+                    <div class="badge-name">Integrity Champion</div>
+                    <div class="badge-description">Showed honesty in difficult situations</div>
+                </div>
+
+                <div class="badge earned" onclick="showBadgeDetails('growth-guru')">
+                    <div class="badge-icon">🌱</div>
+                    <div class="badge-name">Growth Guru</div>
+                    <div class="badge-description">Completed 10 growth challenges</div>
+                </div>
+
+                <div class="badge locked" onclick="showBadgeDetails('independence-ace')">
+                    <div class="badge-icon">🎯</div>
+                    <div class="badge-name">Independence Ace</div>
+                    <div class="badge-description">Complete 8 independence challenges</div>
+                </div>
+
+                <div class="badge locked" onclick="showBadgeDetails('transformation-master')">
+                    <div class="badge-icon">🦋</div>
+                    <div class="badge-name">Transformation Master</div>
+                    <div class="badge-description">Help transform 5 school situations</div>
+                </div>
+
+                <div class="badge locked" onclick="showBadgeDetails('grit-champion')">
+                    <div class="badge-icon">🏆</div>
+                    <div class="badge-name">GRIT Champion</div>
+                    <div class="badge-description">Master all GRIT principles</div>
+                </div>
+            </div>
+        </div>
+
+        <div class="rewards-section">
+            <h2 class="section-title">Rewards & Prizes</h2>
+
+            <div class="reward-item" onclick="claimReward('cinema')">
+                <div class="reward-icon">
+                    <svg width="24" height="24" viewBox="0 0 24 24" fill="currentColor">
+                        <path d="M18,4L20,8H17L15,4H13L15,8H12L10,4H8L10,8H7L5,4H4A2,2 0 0,0 2,6V18A2,2 0 0,0 4,20H20A2,2 0 0,0 22,18V6C22,5.89 21.96,5.78 21.88,5.69L18,4M4,10H20V18H4V10Z"/>
+                    </svg>
+                </div>
+                <div class="reward-details">
+                    <div class="reward-title">Family Cinema Tickets</div>
+                    <div class="reward-description">2 free tickets to Birkenhead Cinema</div>
+                </div>
+                <div class="reward-status">Available</div>
+            </div>
+
+            <div class="reward-item" onclick="claimReward('pizza')">
+                <div class="reward-icon">
+                    <svg width="24" height="24" viewBox="0 0 24 24" fill="currentColor">
+                        <path d="M12,15C7.58,15 4,16.79 4,19V20H20V19C20,16.79 16.42,15 12,15M8,9A4,4 0 0,0 12,13A4,4 0 0,0 16,9M12,3C10.89,3 10,3.89 10,5C10,6.11 10.89,7 12,7C13.11,7 14,6.11 14,5C14,3.89 13.11,3 12,3Z"/>
+                    </svg>
+                </div>
+                <div class="reward-details">
+                    <div class="reward-title">Pizza Express Voucher</div>
+                    <div class="reward-description">£20 family meal voucher</div>
+                </div>
+                <div class="reward-status">Available</div>
+            </div>
+
+            <div class="reward-item" onclick="claimReward('book-token')">
+                <div class="reward-icon">
+                    <svg width="24" height="24" viewBox="0 0 24 24" fill="currentColor">
+                        <path d="M19,3A2,2 0 0,1 21,5V19A2,2 0 0,1 19,21H5A2,2 0 0,1 3,19V5A2,2 0 0,1 5,3H19M18,17V16H13V17H18M15,7V6H6V7H15M18,11V10H6V11H18M18,15V14H6V15H18Z"/>
+                    </svg>
+                </div>
+                <div class="reward-details">
+                    <div class="reward-title">Waterstones Book Token</div>
+                    <div class="reward-description">£15 book shopping voucher</div>
+                </div>
+                <div class="reward-status">Available</div>
+            </div>
+
+            <div class="reward-item" onclick="claimReward('sports')">
+                <div class="reward-icon">
+                    <svg width="24" height="24" viewBox="0 0 24 24" fill="currentColor">
+                        <path d="M12,2A10,10 0 0,0 2,12A10,10 0 0,0 12,22A10,10 0 0,0 22,12A10,10 0 0,0 12,2M12,4A8,8 0 0,1 20,12A8,8 0 0,1 12,20A8,8 0 0,1 4,12A8,8 0 0,1 12,4Z"/>
+                    </svg>
+                </div>
+                <div class="reward-details">
+                    <div class="reward-title">Sports Direct Discount</div>
+                    <div class="reward-description">20% off sports equipment</div>
+                </div>
+                <div class="reward-status">Available</div>
+            </div>
+        </div>
+    </main>
+
+    <nav class="bottom-nav">
+        <a href="family-dashboard.html" class="nav-item">
+            <svg class="nav-icon" viewBox="0 0 24 24">
+                <path d="M19 3H5c-1.1 0-2 .9-2 2v14c0 1.1.9 2 2 2h14c1.1 0 2-.9 2-2V5c0-1.1-.9-2-2-2zm-5 14H7v-2h7v2zm3-4H7v-2h10v2zm0-4H7V7h10v2z"/>
+            </svg>
+            <span class="nav-label">Challenges</span>
+        </a>
+        <a href="progress.html" class="nav-item">
+            <svg class="nav-icon" viewBox="0 0 24 24">
+                <path d="M16 6l2.29 2.29-4.88 4.88-4-4L2 16.59 3.41 18l6-6 4 4 6.3-6.29L22 12V6z"/>
+            </svg>
+            <span class="nav-label">Progress</span>
+        </a>
+        <a href="#" class="nav-item active">
+            <svg class="nav-icon" viewBox="0 0 24 24">
+                <path d="M12 17.27L18.18 21l-1.64-7.03L22 9.24l-7.19-.61L12 2 9.19 8.63 2 9.24l5.46 4.73L5.82 21z"/>
+            </svg>
+            <span class="nav-label">Awards</span>
+        </a>
+        <a href="family-messages.html" class="nav-item">
+            <svg class="nav-icon" viewBox="0 0 24 24">
+                <path d="M20 2H4c-1.1 0-2 .9-2 2v12c0 1.1.9 2 2 2h14l4 4V4c0-1.1-.9-2-2-2zm-2 12H6v-2h12v2zm0-3H6V9h12v2zm0-3H6V6h12v2z"/>
+            </svg>
+            <span class="nav-label">Messages</span>
+        </a>
+    </nav>
+
+    <script src="https://cdn.jsdelivr.net/npm/canvas-confetti@1.6.0/dist/confetti.browser.min.js"></script>
+    <script>
+        function goBack() {
+            window.location.href = 'family-dashboard.html';
+        }
+
+        function showBadgeDetails(badgeId) {
+            const badges = {
+                'first-steps': 'First Steps: Awarded for completing your very first GRIT challenge. This is where your journey begins!',
+                'resilience-rookie': 'Resilience Rookie: You\'ve completed 5 resilience challenges, showing you don\'t give up when things get tough.',
+                'team-player': 'Team Player: Recognized for helping 3 classmates with their challenges. Teamwork makes the dream work!',
+                'week-warrior': 'Week Warrior: 7 consecutive days of GRIT activity. You\'re building great habits!',
+                'integrity-champion': 'Integrity Champion: Showed honesty and did the right thing even when it was difficult.',
+                'growth-guru': 'Growth Guru: Completed 10 growth challenges, showing continuous personal development and learning.',
+                'independence-ace': 'Independence Ace: Complete 8 independence challenges to show self-reliance and confidence.',
+                'transformation-master': 'Transformation Master: Help transform 5 school situations for the better, creating positive change.',
+                'grit-champion': 'GRIT Champion: The ultimate achievement - master all GRIT principles and become a true leader.'
+            };
+            
+            alert(badges[badgeId] || 'Badge details coming soon!');
+        }
+
+        function claimReward(rewardId) {
+            const rewards = {
+                'cinema': 'Cinema Tickets: Contact your GRIT Leader to claim your family cinema tickets!',
+                'pizza': 'Pizza Voucher: Visit the school office with a parent to collect your £20 Pizza Express voucher.',
+                'book-token': 'Book Token: Your £15 Waterstones voucher is ready for collection at reception.',
+                'sports': 'Sports Discount: Show this screen at Sports Direct for your 20% family discount.'
+            };
+            
+            alert(rewards[rewardId] || 'Reward details coming soon!');
+        }
+
+        function launchConfetti() {
+            const duration = 7 * 1000; // 7 seconds
+            const end = Date.now() + duration;
+            const colors = ['#f39c12', '#e74c3c', '#3498db', '#2ecc71', '#9b59b6'];
+
+            // Initial burst
+            confetti({
+                particleCount: 100,
+                spread: 70,
+                origin: { y: 0.6 },
+                colors: colors
+            });
+
+            // Continuous smaller bursts
+            const interval = setInterval(function() {
+                const timeLeft = end - Date.now();
+
+                if (timeLeft <= 0) {
+                    clearInterval(interval);
+                    return;
+                }
+
+                // Random bursts from different positions
+                confetti({
+                    particleCount: Math.floor(Math.random() * 50) + 20,
+                    spread: Math.random() * 60 + 30,
+                    origin: { 
+                        x: Math.random(),
+                        y: Math.random() * 0.5 + 0.3
+                    },
+                    colors: colors
+                });
+            }, 250);
+        }
+
+        document.addEventListener('DOMContentLoaded', function() {
+            // Launch confetti on page load
+            setTimeout(launchConfetti, 500);
+
+            // Animate badges on load
+            const badges = document.querySelectorAll('.badge');
+            badges.forEach((badge, index) => {
+                badge.style.opacity = '0';
+                badge.style.transform = 'scale(0.8)';
+                
+                setTimeout(() => {
+                    badge.style.transition = 'opacity 0.6s ease, transform 0.6s ease';
+                    badge.style.opacity = '1';
+                    badge.style.transform = 'scale(1)';
+                }, index * 100 + 3000);
+            });
+
+            // Animate stats
+            const stats = document.querySelectorAll('.stat-card');
+            stats.forEach((stat, index) => {
+                stat.style.opacity = '0';
+                stat.style.transform = 'translateY(20px)';
+                
+                setTimeout(() => {
+                    stat.style.transition = 'opacity 0.6s ease, transform 0.6s ease';
+                    stat.style.opacity = '1';
+                    stat.style.transform = 'translateY(0)';
+                }, index * 150 + 2500);
+            });
+        });
+    </script>
+</body>
+</html>
