@@ -298,7 +298,8 @@
         </a>
 
         <div class="logo">
-            <img src="grit-logo.webp" alt="GRIT Awards Logo" class="logo">
+            <img src="https://via.placeholder.com/120x60/032717/ffffff?text=GRIT+LOGO" alt="GRIT Awards Logo">
+        </div>
 
         <h1 class="title">Sign In as a Family Member</h1>
 
@@ -379,13 +380,13 @@
         }
 
         function signInWithGoogle() {
-            // Google SSO integration would go here
-            alert('Google Sign In - Demo only');
+            // Google SSO - redirect to family dashboard
+            window.location.href = 'family-dashboard.html';
         }
 
         function signInWithMicrosoft() {
-            // Microsoft SSO integration would go here
-            alert('Microsoft Sign In - Demo only');
+            // Microsoft SSO - redirect to family dashboard
+            window.location.href = 'family-dashboard.html';
         }
 
         function createAccount() {
@@ -399,8 +400,18 @@
             const email = document.getElementById('email').value;
             const password = document.getElementById('password').value;
             
+            // Check for admin credentials
+            if (email.toLowerCase() === 'admin' && password.toLowerCase() === 'admin') {
+                // Redirect to admin dashboard
+                window.location.href = 'grit-leaders-dashboard.html';
+                return;
+            }
+            
             if (email && password) {
-                alert('Sign in attempt - Demo only\nEmail: ' + email);
+                // Regular family member sign in - would normally validate credentials
+                alert('Family Sign in attempt - Demo only\nEmail: ' + email);
+                // For demo purposes, you might want to redirect to a family dashboard here
+                // window.location.href = 'family-dashboard.html';
             }
         });
     </script>
