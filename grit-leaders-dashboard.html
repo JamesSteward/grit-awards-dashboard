@@ -686,6 +686,98 @@
         }
     </style>
 </head>
+<script>
+// Simple, bulletproof login system
+console.log('Script loaded');
+
+// Wait for page to fully load
+window.addEventListener('load', function() {
+    console.log('Page loaded, setting up login');
+    
+    const loginButton = document.getElementById('loginButton');
+    const googleSignIn = document.getElementById('googleSignIn');
+    const microsoftSignIn = document.getElementById('microsoftSignIn');
+    const usernameInput = document.getElementById('username');
+    const passwordInput = document.getElementById('password');
+    const logoutLink = document.getElementById('logoutLink');
+
+    function showDashboard() {
+        console.log('Showing dashboard');
+        document.getElementById('loginPage').style.display = 'none';
+        document.getElementById('dashboardPage').style.display = 'block';
+    }
+
+    function showLogin() {
+        console.log('Showing login');
+        document.getElementById('dashboardPage').style.display = 'none';
+        document.getElementById('loginPage').style.display = 'flex';
+        
+        if (usernameInput) usernameInput.value = '';
+        if (passwordInput) passwordInput.value = '';
+    }
+
+    // Manual login
+    if (loginButton) {
+        loginButton.onclick = function() {
+            console.log('Login button clicked');
+            
+            const username = usernameInput ? usernameInput.value : '';
+            const password = passwordInput ? passwordInput.value : '';
+            
+            if (username === 'admin' && password === 'admin') {
+                console.log('Valid credentials');
+                showDashboard();
+            } else {
+                console.log('Invalid credentials');
+                alert('Invalid credentials. Please use admin/admin');
+            }
+        };
+    }
+
+    // Google SSO
+    if (googleSignIn) {
+        googleSignIn.onclick = function() {
+            console.log('Google SSO clicked');
+            showDashboard();
+        };
+    }
+
+    // Microsoft SSO
+    if (microsoftSignIn) {
+        microsoftSignIn.onclick = function() {
+            console.log('Microsoft SSO clicked');
+            showDashboard();
+        };
+    }
+
+    // Logout
+    if (logoutLink) {
+        logoutLink.onclick = function() {
+            console.log('Logout clicked');
+            showLogin();
+        };
+    }
+
+    // Enter key support
+    if (usernameInput && passwordInput && loginButton) {
+        [usernameInput, passwordInput].forEach(input => {
+            input.onkeypress = function(e) {
+                if (e.key === 'Enter') {
+                    loginButton.click();
+                }
+            };
+        });
+    }
+
+    // Add placeholder functions for other features
+    window.showStudentProfile = function(name) { alert('Student profile for ' + name); };
+    window.alertAction = function(action, name) { alert(action + ' for ' + name); };
+    window.deleteStudent = function(name) { alert('Delete ' + name); };
+    window.openAddChildModal = function() { alert('Add child modal'); };
+    window.closeAddChildModal = function() { document.getElementById('addChildModal').style.display = 'none'; };
+    window.showSettingsPage = function() { alert('Settings page'); };
+});
+</script>
 <body>
     <!-- Login Page -->
     <div id="loginPage" class="login-page">
