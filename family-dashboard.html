@@ -4,7 +4,7 @@
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>GRIT Awards - Family Dashboard</title>
-    <link href="https://fonts.googleapis.com/css2?family=Roboto+Slab:wght@400;700&family=Roboto:wght@300;400;500&display=swap" rel="stylesheet">
+    <link href="https://fonts.googleapis.com/css2?family=Roboto+Slab:wght@400;700&family=Roboto:wght@300;400;500;600&display=swap" rel="stylesheet">
     <style>
         * {
             margin: 0;
@@ -14,7 +14,7 @@
 
         body {
             font-family: 'Roboto', sans-serif;
-            background: #f5f5f5;
+            background: #f8f9fa;
             min-height: 100vh;
             display: flex;
             flex-direction: column;
@@ -23,173 +23,536 @@
         .header {
             background: #032717;
             color: white;
-            padding: 20px;
-            box-shadow: 0 2px 4px rgba(0,0,0,0.1);
+            padding: 20px 20px 30px;
+            position: relative;
+            border-radius: 0 0 12px 12px;
         }
 
-        .header-content {
-            max-width: 1200px;
-            margin: 0 auto;
+        .header-top {
             display: flex;
             justify-content: space-between;
             align-items: center;
+            margin-bottom: 20px;
         }
 
         .logo {
             font-family: 'Roboto Slab', serif;
             font-weight: 700;
-            font-size: 24px;
+            font-size: 20px;
         }
 
-        .user-info {
+        .profile-btn {
+            width: 40px;
+            height: 40px;
+            border-radius: 50%;
+            background: transparent;
+            border: none;
+            padding: 0;
+            cursor: pointer;
             display: flex;
             align-items: center;
+            justify-content: center;
+            overflow: hidden;
+        }
+
+        .profile-btn img {
+            width: 100%;
+            height: 100%;
+            object-fit: cover;
+            border-radius: 50%;
+        }
+
+        .child-info {
+            text-align: center;
+        }
+
+        .child-name {
+            font-family: 'Roboto Slab', serif;
+            font-weight: 700;
+            font-size: 24px;
+            margin-bottom: 8px;
+        }
+
+        .school-name {
+            font-size: 16px;
+            opacity: 0.9;
+            margin-bottom: 4px;
+            font-weight: 500;
+        }
+
+        .school-address {
+            font-size: 14px;
+            opacity: 0.8;
+            margin-bottom: 8px;
+        }
+
+        .grit-leader {
+            font-size: 14px;
+            opacity: 0.8;
+            margin-bottom: 20px;
+        }
+
+        .stats {
+            display: flex;
+            justify-content: space-around;
             gap: 20px;
         }
 
-        .logout-btn {
-            background: rgba(255,255,255,0.2);
-            color: white;
-            border: none;
-            padding: 8px 16px;
-            border-radius: 4px;
-            cursor: pointer;
-            transition: background-color 0.3s;
+        .stat {
+            text-align: center;
         }
 
-        .logout-btn:hover {
-            background: rgba(255,255,255,0.3);
+        .stat-number {
+            font-size: 24px;
+            font-weight: 600;
+            display: block;
+        }
+
+        .stat-label {
+            font-size: 12px;
+            opacity: 0.8;
+            text-transform: uppercase;
+            letter-spacing: 0.5px;
         }
 
         .main-content {
             flex: 1;
-            max-width: 1200px;
-            margin: 0 auto;
-            padding: 40px 20px;
-            width: 100%;
+            padding: 20px;
+            padding-bottom: 100px;
         }
 
-        .welcome-section {
-            background: white;
-            padding: 40px;
-            border-radius: 8px;
-            box-shadow: 0 2px 4px rgba(0,0,0,0.1);
-            text-align: center;
-            margin-bottom: 40px;
-        }
-
-        .welcome-title {
+        .section-title {
             font-family: 'Roboto Slab', serif;
             font-weight: 700;
             color: #032717;
-            font-size: 32px;
+            font-size: 20px;
             margin-bottom: 16px;
+            display: flex;
+            align-items: center;
+            gap: 8px;
         }
 
-        .welcome-text {
-            color: #666;
-            font-size: 18px;
-            line-height: 1.6;
+        .challenge-grid {
+            display: grid;
+            gap: 16px;
+            grid-template-columns: 1fr;
         }
 
-        .coming-soon {
+        .challenge-card {
             background: white;
-            padding: 60px 40px;
-            border-radius: 8px;
-            box-shadow: 0 2px 4px rgba(0,0,0,0.1);
-            text-align: center;
+            border-radius: 12px;
+            padding: 20px;
+            box-shadow: 0 2px 8px rgba(0,0,0,0.1);
+            cursor: pointer;
+            transition: all 0.3s ease;
+            border-left: 4px solid transparent;
         }
 
-        .coming-soon h2 {
+        .challenge-card:hover {
+            transform: translateY(-2px);
+            box-shadow: 0 4px 16px rgba(0,0,0,0.15);
+        }
+
+        .challenge-card.resilience {
+            border-left-color: #e74c3c;
+        }
+
+        .challenge-card.integrity {
+            border-left-color: #3498db;
+        }
+
+        .challenge-card.teamwork {
+            border-left-color: #f39c12;
+        }
+
+        .challenge-card.tenacity {
+            border-left-color: #9b59b6;
+        }
+
+        .challenge-header {
+            display: flex;
+            justify-content: space-between;
+            align-items: flex-start;
+            margin-bottom: 12px;
+        }
+
+        .challenge-category {
+            display: inline-block;
+            padding: 4px 12px;
+            border-radius: 20px;
+            font-size: 12px;
+            font-weight: 500;
+            text-transform: uppercase;
+            letter-spacing: 0.5px;
+        }
+
+        .challenge-category.resilience {
+            background: rgba(231, 76, 60, 0.1);
+            color: #e74c3c;
+        }
+
+        .challenge-category.integrity {
+            background: rgba(52, 152, 219, 0.1);
+            color: #3498db;
+        }
+
+        .challenge-category.teamwork {
+            background: rgba(243, 156, 18, 0.1);
+            color: #f39c12;
+        }
+
+        .challenge-category.tenacity {
+            background: rgba(155, 89, 182, 0.1);
+            color: #9b59b6;
+        }
+
+        .challenge-status {
+            width: 24px;
+            height: 24px;
+            border-radius: 50%;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            font-size: 12px;
+            font-weight: 600;
+        }
+
+        .challenge-status.not-started {
+            background: #ecf0f1;
+            color: #95a5a6;
+        }
+
+        .challenge-status.in-progress {
+            background: rgba(243, 156, 18, 0.2);
+            color: #f39c12;
+        }
+
+        .challenge-status.completed {
+            background: rgba(46, 204, 113, 0.2);
+            color: #2ecc71;
+        }
+
+        .challenge-title {
             font-family: 'Roboto Slab', serif;
-            font-weight: 700;
-            color: #032717;
-            font-size: 28px;
-            margin-bottom: 20px;
-        }
-
-        .coming-soon p {
-            color: #666;
+            font-weight: 600;
             font-size: 16px;
-            line-height: 1.6;
-            max-width: 600px;
-            margin: 0 auto;
+            color: #2c3e50;
+            margin-bottom: 8px;
+            line-height: 1.3;
         }
 
-        @media (max-width: 768px) {
-            .header-content {
-                flex-direction: column;
-                gap: 10px;
-                text-align: center;
+        .challenge-description {
+            color: #7f8c8d;
+            font-size: 14px;
+            line-height: 1.4;
+            margin-bottom: 12px;
+        }
+
+        .challenge-meta {
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            font-size: 12px;
+            color: #95a5a6;
+        }
+
+        .due-date {
+            display: flex;
+            align-items: center;
+            gap: 4px;
+        }
+
+        .points {
+            font-weight: 500;
+            color: #032717;
+        }
+
+        .bottom-nav {
+            position: fixed;
+            bottom: 0;
+            left: 0;
+            right: 0;
+            background: white;
+            border-top: 1px solid #ecf0f1;
+            padding: 12px;
+            display: flex;
+            justify-content: space-around;
+            z-index: 100;
+        }
+
+        .nav-item {
+            display: flex;
+            flex-direction: column;
+            align-items: center;
+            gap: 4px;
+            padding: 8px 12px;
+            border-radius: 8px;
+            cursor: pointer;
+            transition: background-color 0.2s;
+            text-decoration: none;
+            color: #7f8c8d;
+        }
+
+        .nav-item.active {
+            background: rgba(3, 39, 23, 0.1);
+            color: #032717;
+        }
+
+        .nav-item:hover {
+            background: rgba(3, 39, 23, 0.05);
+        }
+
+        .nav-icon {
+            width: 24px;
+            height: 24px;
+            fill: currentColor;
+        }
+
+        .nav-label {
+            font-size: 10px;
+            font-weight: 500;
+            text-transform: uppercase;
+            letter-spacing: 0.5px;
+        }
+
+        .floating-add {
+            position: fixed;
+            bottom: 90px;
+            right: 20px;
+            width: 56px;
+            height: 56px;
+            background: #032717;
+            border: none;
+            border-radius: 50%;
+            color: white;
+            cursor: pointer;
+            box-shadow: 0 4px 16px rgba(3, 39, 23, 0.3);
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            transition: all 0.3s ease;
+            z-index: 99;
+        }
+
+        .floating-add:hover {
+            transform: scale(1.1);
+            box-shadow: 0 6px 20px rgba(3, 39, 23, 0.4);
+        }
+
+        @media (min-width: 768px) {
+            .main-content {
+                max-width: 800px;
+                margin: 0 auto;
+            }
+
+            .challenge-grid {
+                grid-template-columns: repeat(2, 1fr);
+            }
+        }
+
+        @media (max-width: 360px) {
+            .header {
+                padding: 16px 16px 24px;
             }
 
             .main-content {
-                padding: 20px;
+                padding: 16px;
             }
 
-            .welcome-section,
-            .coming-soon {
-                padding: 30px 20px;
+            .child-name {
+                font-size: 20px;
             }
 
-            .welcome-title {
-                font-size: 24px;
-            }
-
-            .welcome-text {
-                font-size: 16px;
-            }
-
-            .coming-soon h2 {
-                font-size: 22px;
+            .stats {
+                gap: 16px;
             }
         }
     </style>
 </head>
 <body>
     <header class="header">
-        <div class="header-content">
+        <div class="header-top">
             <div class="logo">GRIT Awards</div>
-            <div class="user-info">
-                <span>Welcome, Family Member</span>
-                <button class="logout-btn" onclick="logout()">Sign Out</button>
+            <button class="profile-btn" onclick="openProfile()">
+                <img src="avatar.webp" alt="Riley's Avatar">
+            </button>
+        </div>
+
+        <div class="child-info">
+            <div class="child-name">Riley Furey</div>
+            <div class="school-name">St Peter's Catholic Primary School</div>
+            <div class="school-address">St Peter's Way, Noctorum, Birkenhead, Prenton CH43 9QR</div>
+            <div class="grit-leader">GRIT Leader: Mr A Mackenzie</div>
+            
+            <div class="stats">
+                <div class="stat">
+                    <span class="stat-number">7</span>
+                    <span class="stat-label">Completed</span>
+                </div>
+                <div class="stat">
+                    <span class="stat-number">3</span>
+                    <span class="stat-label">In Progress</span>
+                </div>
+                <div class="stat">
+                    <span class="stat-number">240</span>
+                    <span class="stat-label">GRIT Points</span>
+                </div>
             </div>
         </div>
     </header>
 
     <main class="main-content">
-        <div class="welcome-section">
-            <h1 class="welcome-title">Family Dashboard</h1>
-            <p class="welcome-text">Welcome to your GRIT Awards family portal</p>
-        </div>
+        <h2 class="section-title">
+            <svg width="20" height="20" viewBox="0 0 24 24" fill="currentColor">
+                <path d="M19 3H5c-1.1 0-2 .9-2 2v14c0 1.1.9 2 2 2h14c1.1 0 2-.9 2-2V5c0-1.1-.9-2-2-2zm-5 14H7v-2h7v2zm3-4H7v-2h10v2zm0-4H7V7h10v2z"/>
+            </svg>
+            Active Challenges
+        </h2>
 
-        <div class="coming-soon">
-            <h2>Dashboard Coming Soon</h2>
-            <p>We're working hard to bring you an amazing family dashboard experience. Here you'll be able to view your child's GRIT achievements, track their progress, and celebrate their accomplishments together.</p>
+        <div class="challenge-grid">
+            <div class="challenge-card resilience" onclick="openChallenge(1)">
+                <div class="challenge-header">
+                    <span class="challenge-category resilience">Resilience</span>
+                    <div class="challenge-status in-progress">2/5</div>
+                </div>
+                <h3 class="challenge-title">Practice a New Skill Daily</h3>
+                <p class="challenge-description">Choose something you've never tried before and practice it for at least 10 minutes each day this week.</p>
+                <div class="challenge-meta">
+                    <span class="due-date">
+                        <svg width="12" height="12" viewBox="0 0 24 24" fill="currentColor">
+                            <path d="M19 3h-1V1h-2v2H8V1H6v2H5c-1.11 0-1.99.9-1.99 2L3 19c0 1.1.89 2 2 2h14c1.1 0 2-.9 2-2V5c0-1.1-.9-2-2-2zm0 16H5V8h14v11zM7 10h5v5H7z"/>
+                        </svg>
+                        Due: Oct 30
+                    </span>
+                    <span class="points">50 Points</span>
+                </div>
+            </div>
+
+            <div class="challenge-card integrity" onclick="openChallenge(2)">
+                <div class="challenge-header">
+                    <span class="challenge-category integrity">Integrity</span>
+                    <div class="challenge-status not-started">0/1</div>
+                </div>
+                <h3 class="challenge-title">Admit and Fix a Mistake</h3>
+                <p class="challenge-description">When you make a mistake this week, be honest about it and show how you're going to fix or learn from it.</p>
+                <div class="challenge-meta">
+                    <span class="due-date">
+                        <svg width="12" height="12" viewBox="0 0 24 24" fill="currentColor">
+                            <path d="M19 3h-1V1h-2v2H8V1H6v2H5c-1.11 0-1.99.9-1.99 2L3 19c0 1.1.89 2 2 2h14c1.1 0 2-.9 2-2V5c0-1.1-.9-2-2-2zm0 16H5V8h14v11zM7 10h5v5H7z"/>
+                        </svg>
+                        Due: Oct 25
+                    </span>
+                    <span class="points">30 Points</span>
+                </div>
+            </div>
+
+            <div class="challenge-card teamwork" onclick="openChallenge(3)">
+                <div class="challenge-header">
+                    <span class="challenge-category teamwork">Teamwork</span>
+                    <div class="challenge-status completed">✓</div>
+                </div>
+                <h3 class="challenge-title">Organize a Group Project</h3>
+                <p class="challenge-description">Help organize and lead a group activity or project with your classmates or siblings.</p>
+                <div class="challenge-meta">
+                    <span class="due-date">
+                        <svg width="12" height="12" viewBox="0 0 24 24" fill="currentColor">
+                            <path d="M9 16.2L4.8 12l-1.4 1.4L9 19 21 7l-1.4-1.4L9 16.2z"/>
+                        </svg>
+                        Completed
+                    </span>
+                    <span class="points">40 Points</span>
+                </div>
+            </div>
+
+            <div class="challenge-card tenacity" onclick="openChallenge(4)">
+                <div class="challenge-header">
+                    <span class="challenge-category tenacity">Tenacity</span>
+                    <div class="challenge-status not-started">0/3</div>
+                </div>
+                <h3 class="challenge-title">Don't Give Up Challenge</h3>
+                <p class="challenge-description">Find three different situations where you want to quit, but choose to keep trying instead.</p>
+                <div class="challenge-meta">
+                    <span class="due-date">
+                        <svg width="12" height="12" viewBox="0 0 24 24" fill="currentColor">
+                            <path d="M19 3h-1V1h-2v2H8V1H6v2H5c-1.11 0-1.99.9-1.99 2L3 19c0 1.1.89 2 2 2h14c1.1 0 2-.9 2-2V5c0-1.1-.9-2-2-2zm0 16H5V8h14v11zM7 10h5v5H7z"/>
+                        </svg>
+                        Due: Nov 5
+                    </span>
+                    <span class="points">60 Points</span>
+                </div>
+            </div>
         </div>
     </main>
 
+    <button class="floating-add" onclick="requestChallenge()">
+        <svg width="24" height="24" viewBox="0 0 24 24" fill="currentColor">
+            <path d="M19 13h-6v6h-2v-6H5v-2h6V5h2v6h6v2z"/>
+        </svg>
+    </button>
+
+    <nav class="bottom-nav">
+        <a href="#" class="nav-item active">
+            <svg class="nav-icon" viewBox="0 0 24 24">
+                <path d="M19 3H5c-1.1 0-2 .9-2 2v14c0 1.1.9 2 2 2h14c1.1 0 2-.9 2-2V5c0-1.1-.9-2-2-2zm-5 14H7v-2h7v2zm3-4H7v-2h10v2zm0-4H7V7h10v2z"/>
+            </svg>
+            <span class="nav-label">Challenges</span>
+        </a>
+        <a href="#" class="nav-item">
+            <svg class="nav-icon" viewBox="0 0 24 24">
+                <path d="M16 6l2.29 2.29-4.88 4.88-4-4L2 16.59 3.41 18l6-6 4 4 6.3-6.29L22 12V6z"/>
+            </svg>
+            <span class="nav-label">Progress</span>
+        </a>
+        <a href="#" class="nav-item">
+            <svg class="nav-icon" viewBox="0 0 24 24">
+                <path d="M12 17.27L18.18 21l-1.64-7.03L22 9.24l-7.19-.61L12 2 9.19 8.63 2 9.24l5.46 4.73L5.82 21z"/>
+            </svg>
+            <span class="nav-label">Awards</span>
+        </a>
+        <a href="#" class="nav-item">
+            <svg class="nav-icon" viewBox="0 0 24 24">
+                <path d="M12 12c2.21 0 4-1.79 4-4s-1.79-4-4-4-4 1.79-4 4 1.79 4 4 4zm0 2c-2.67 0-8 1.34-8 4v2h16v-2c0-2.66-5.33-4-8-4z"/>
+            </svg>
+            <span class="nav-label">Profile</span>
+        </a>
+    </nav>
+
     <script>
-        function logout() {
-            // Clear any stored user data
-            localStorage.removeItem('selectedUserType');
-            
-            // Redirect to main selection page
-            window.location.href = 'index.html';
+        function openChallenge(challengeId) {
+            // Navigate to challenge detail page
+            alert(`Opening challenge ${challengeId} detail view - This would show full challenge description, examples, and evidence submission form`);
+            // window.location.href = `challenge-detail.html?id=${challengeId}`;
         }
 
-        // Simple fade-in animation
+        function openProfile() {
+            alert('Profile page - Demo only');
+        }
+
+        function requestChallenge() {
+            alert('Request new challenge feature - Demo only');
+        }
+
+        // Add some nice loading animation
         document.addEventListener('DOMContentLoaded', function() {
-            const elements = document.querySelectorAll('.welcome-section, .coming-soon');
-            elements.forEach((el, index) => {
-                el.style.opacity = '0';
-                el.style.transform = 'translateY(20px)';
+            const cards = document.querySelectorAll('.challenge-card');
+            cards.forEach((card, index) => {
+                card.style.opacity = '0';
+                card.style.transform = 'translateY(20px)';
                 
                 setTimeout(() => {
-                    el.style.transition = 'opacity 0.6s ease, transform 0.6s ease';
-                    el.style.opacity = '1';
-                    el.style.transform = 'translateY(0)';
-                }, index * 200);
+                    card.style.transition = 'opacity 0.6s ease, transform 0.6s ease';
+                    card.style.opacity = '1';
+                    card.style.transform = 'translateY(0)';
+                }, index * 100);
+            });
+        });
+
+        // Simple tab switching for bottom nav
+        document.querySelectorAll('.nav-item').forEach(item => {
+            item.addEventListener('click', function(e) {
+                e.preventDefault();
+                document.querySelectorAll('.nav-item').forEach(nav => nav.classList.remove('active'));
+                this.classList.add('active');
             });
         });
     </script>
