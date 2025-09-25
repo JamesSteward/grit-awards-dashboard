@@ -145,6 +145,39 @@
             margin-top: auto;
         }
 
+        /* Logout button at bottom of page */
+        .logout-container {
+            position: fixed;
+            bottom: 20px;
+            left: 20px;
+            z-index: 1000;
+        }
+
+        .logout-btn {
+            background: #dc3545;
+            color: white;
+            border: none;
+            padding: 12px 20px;
+            border-radius: 8px;
+            font-size: 14px;
+            font-weight: 600;
+            cursor: pointer;
+            transition: background-color 0.2s;
+            box-shadow: 0 4px 12px rgba(220, 53, 69, 0.3);
+            display: flex;
+            align-items: center;
+            gap: 8px;
+        }
+
+        .logout-btn:hover {
+            background: #c82333;
+        }
+
+        .logout-icon {
+            width: 16px;
+            height: 16px;
+        }
+
         .nav-item {
             position: relative;
         }
@@ -502,18 +535,6 @@
                         </li>
                     </ul>
                     
-                    <ul class="sidebar-footer">
-                        <li class="nav-item">
-                            <a href="#" class="nav-link" onclick="logout()">
-                                <svg class="nav-icon" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
-                                    <path d="M9 21H5a2 2 0 0 1-2-2V5a2 2 0 0 1 2-2h4"/>
-                                    <polyline points="16,17 21,12 16,7"/>
-                                    <line x1="21" y1="12" x2="9" y2="12"/>
-                                </svg>
-                                Logout
-                            </a>
-                        </li>
-                    </ul>
                 </nav>
             </aside>
 
@@ -584,6 +605,18 @@
                 </div>
             </main>
         </div>
+    </div>
+
+    <!-- Logout Button at Bottom of Page -->
+    <div class="logout-container">
+        <button class="logout-btn" onclick="logout()">
+            <svg class="logout-icon" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
+                <path d="M9 21H5a2 2 0 0 1-2-2V5a2 2 0 0 1 2-2h4"/>
+                <polyline points="16,17 21,12 16,7"/>
+                <line x1="21" y1="12" x2="9" y2="12"/>
+            </svg>
+            Logout
+        </button>
     </div>
 
     <script>
