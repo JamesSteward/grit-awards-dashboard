@@ -287,7 +287,7 @@
 
         .calendar-days {
             display: grid;
-            grid-template-columns: 0.5fr 1fr 1fr 1fr 1fr 1fr 0.5fr;
+            grid-template-columns: 1fr 1fr 1fr 1fr 1fr;
             gap: 0;
             border-collapse: collapse;
         }
@@ -318,29 +318,6 @@
             outline: 1px solid #f0f0f0;
         }
         
-        /* Grey out Saturday and Sunday */
-        .day:nth-child(7n) {
-            background-color: #f8f9fa;
-            color: #6c757d;
-        }
-        
-        .day:nth-child(7n-6) {
-            background-color: #f8f9fa;
-            color: #6c757d;
-        }
-        
-        /* Mute weekend events */
-        .day:nth-child(7n) .school-name,
-        .day:nth-child(7n) .visit-time,
-        .day:nth-child(7n) .map-link {
-            opacity: 0.6;
-        }
-        
-        .day:nth-child(7n-6) .school-name,
-        .day:nth-child(7n-6) .visit-time,
-        .day:nth-child(7n-6) .map-link {
-            opacity: 0.6;
-        }
 
         .day:hover {
             background: rgba(3, 39, 23, 0.05);
@@ -710,13 +687,11 @@
 
             <div class="calendar">
                 <div class="calendar-days">
-                    <div class="day-header">Sun</div>
                     <div class="day-header">Mon</div>
                     <div class="day-header">Tue</div>
                     <div class="day-header">Wed</div>
                     <div class="day-header">Thu</div>
                     <div class="day-header">Fri</div>
-                    <div class="day-header">Sat</div>
                 </div>
                 <div id="calendarDays" class="calendar-days"></div>
             </div>
@@ -1117,6 +1092,11 @@
             for (let i = 0; i < 42; i++) {
                 const date = new Date(startDate);
                 date.setDate(startDate.getDate() + i);
+                
+                // Skip weekends (Saturday = 6, Sunday = 0)
+                if (date.getDay() === 0 || date.getDay() === 6) {
+                    continue;
+                }
                 
                 const dayElement = document.createElement('div');
                 dayElement.className = 'day';
