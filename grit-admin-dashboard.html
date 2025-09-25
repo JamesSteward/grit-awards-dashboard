@@ -154,7 +154,7 @@
         }
 
         .logout-btn {
-            background: #dc3545;
+            background: #032717;
             color: white;
             border: none;
             padding: 12px 20px;
@@ -163,14 +163,14 @@
             font-weight: 600;
             cursor: pointer;
             transition: background-color 0.2s;
-            box-shadow: 0 4px 12px rgba(220, 53, 69, 0.3);
+            box-shadow: 0 4px 12px rgba(3, 39, 23, 0.3);
             display: flex;
             align-items: center;
             gap: 8px;
         }
 
         .logout-btn:hover {
-            background: #c82333;
+            background: #044d30;
         }
 
         .logout-icon {
@@ -607,8 +607,8 @@
         </div>
     </div>
 
-    <!-- Logout Button at Bottom of Page -->
-    <div class="logout-container">
+    <!-- Logout Button at Bottom of Page (only visible on dashboard) -->
+    <div id="logoutContainer" class="logout-container" style="display: none;">
         <button class="logout-btn" onclick="logout()">
             <svg class="logout-icon" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
                 <path d="M9 21H5a2 2 0 0 1-2-2V5a2 2 0 0 1 2-2h4"/>
@@ -628,6 +628,7 @@
             function showDashboard() {
                 document.getElementById('loginPage').style.display = 'none';
                 document.getElementById('dashboardPage').style.display = 'block';
+                document.getElementById('logoutContainer').style.display = 'block';
             }
 
             if (loginButton) {
