@@ -337,9 +337,15 @@
         }
 
         .day-number {
+            position: absolute;
+            top: 4px;
+            left: 4px;
             font-weight: 600;
-            margin-bottom: 4px;
-            align-self: center;
+            font-size: 12px;
+            background: rgba(255, 255, 255, 0.9);
+            padding: 2px 4px;
+            border-radius: 3px;
+            z-index: 10;
         }
 
         .visit-info {
@@ -347,6 +353,7 @@
             text-align: center;
             width: 100%;
             line-height: 1.2;
+            margin-top: 20px;
         }
 
         .school-name {
@@ -737,14 +744,6 @@
 
         // Sample visit data - using the school list you provided
         const visits = {
-            '2025-09-28': { 
-                school: 'St Peter\'s Catholic Primary School', 
-                timeSlot: 'Morning', 
-                time: '9:30 AM - 12:00 PM',
-                location: 'Noctorum, Wirral',
-                address: 'St Peter\'s Way, Noctorum, Wirral CH43 9QR',
-                type: 'visit'
-            },
             '2025-10-02': { 
                 school: 'West Kirby Primary School', 
                 timeSlot: 'Afternoon', 
