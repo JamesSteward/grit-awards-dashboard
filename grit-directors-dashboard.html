@@ -288,7 +288,7 @@
         .calendar-days {
             display: grid;
             grid-template-columns: 0.5fr 1fr 1fr 1fr 1fr 1fr 0.5fr;
-            gap: 1px;
+            gap: 0;
         }
 
         .day-header {
@@ -306,7 +306,8 @@
             display: flex;
             align-items: flex-start;
             justify-content: center;
-            border: 1px solid #f0f0f0;
+            border-right: 1px solid #f0f0f0;
+            border-bottom: 1px solid #f0f0f0;
             position: relative;
             cursor: pointer;
             transition: background-color 0.2s;
