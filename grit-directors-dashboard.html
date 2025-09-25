@@ -311,25 +311,9 @@
             cursor: pointer;
             transition: background-color 0.2s;
             flex-direction: column;
-            min-height: 150px;
+            min-height: 120px;
             padding: 4px;
             overflow: hidden;
-        }
-
-        /* Weekend days (Saturday and Sunday) - smaller */
-        .day:nth-child(7n+6),
-        .day:nth-child(7n) {
-            min-height: 75px;
-            font-size: 12px;
-        }
-
-        /* Weekday days - taller */
-        .day:nth-child(7n+1),
-        .day:nth-child(7n+2),
-        .day:nth-child(7n+3),
-        .day:nth-child(7n+4),
-        .day:nth-child(7n+5) {
-            min-height: 150px;
         }
 
         .day:hover {
@@ -587,23 +571,7 @@
             
             .day {
                 font-size: 14px;
-                min-height: 100px;
-            }
-            
-            /* Weekend days on mobile */
-            .day:nth-child(7n+6),
-            .day:nth-child(7n) {
                 min-height: 50px;
-                font-size: 12px;
-            }
-            
-            /* Weekday days on mobile */
-            .day:nth-child(7n+1),
-            .day:nth-child(7n+2),
-            .day:nth-child(7n+3),
-            .day:nth-child(7n+4),
-            .day:nth-child(7n+5) {
-                min-height: 100px;
             }
             
             .current-month {
@@ -623,23 +591,7 @@
             
             .day {
                 font-size: 12px;
-                min-height: 80px;
-            }
-            
-            /* Weekend days on small mobile */
-            .day:nth-child(7n+6),
-            .day:nth-child(7n) {
-                min-height: 40px;
-                font-size: 10px;
-            }
-            
-            /* Weekday days on small mobile */
-            .day:nth-child(7n+1),
-            .day:nth-child(7n+2),
-            .day:nth-child(7n+3),
-            .day:nth-child(7n+4),
-            .day:nth-child(7n+5) {
-                min-height: 80px;
+                min-height: 45px;
             }
         }
     </style>
