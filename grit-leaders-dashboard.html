@@ -3,7 +3,7 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>GRIT Awards - Login</title>
+    <title>GRIT Awards - Leader Dashboard</title>
     <link rel="preconnect" href="https://fonts.googleapis.com">
     <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
     <link href="https://fonts.googleapis.com/css2?family=Roboto+Slab:wght@300;400;500;600;700&display=swap" rel="stylesheet">
@@ -16,38 +16,22 @@
 
         body {
             font-family: -apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, sans-serif;
-            background-color: #032717;
+            background: linear-gradient(135deg, #032717, #044d30);
             min-height: 100vh;
-            display: flex;
-            align-items: center;
-            justify-content: center;
+            color: #333;
         }
 
         h1, h2, h3, h4, h5, h6 {
             font-family: 'Roboto Slab', 'Times New Roman', serif !important;
         }
 
-        .login-title {
-            font-family: 'Roboto Slab', 'Times New Roman', serif !important;
-            font-size: 28px;
-            font-weight: 600;
-            color: #032717;
-            margin-bottom: 8px;
-        }
-
-        .page-title {
-            font-family: 'Roboto Slab', 'Times New Roman', serif !important;
-            font-size: 48px;
-            font-weight: 300;
-            color: #333;
-            margin-bottom: 40px;
-        }
-
-        .modal-student-info h2 {
-            font-family: 'Roboto Slab', 'Times New Roman', serif !important;
-            margin: 0;
-            color: #032717;
-            font-size: 28px;
+        /* LOGIN STYLES */
+        .login-page {
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            min-height: 100vh;
+            background: linear-gradient(135deg, #032717, #044d30);
         }
 
         .login-container {
@@ -60,8 +44,12 @@
             text-align: center;
         }
 
-        .logo-section {
-            margin-bottom: 30px;
+        .login-title {
+            font-family: 'Roboto Slab', 'Times New Roman', serif !important;
+            font-size: 28px;
+            font-weight: 600;
+            color: #032717;
+            margin-bottom: 8px;
         }
 
         .logo {
@@ -175,344 +163,166 @@
             background: #f8f9fa;
         }
 
-        .google-btn:hover {
-            border-color: #4285F4;
-            background: #f8f9ff;
-        }
-
-        .microsoft-btn:hover {
-            border-color: #0078d4;
-            background: #f8f9ff;
-        }
-
-        /* Dashboard styles (hidden initially) */
+        /* DASHBOARD STYLES */
         .dashboard {
             display: none;
-            width: 100vw;
-            height: 100vh;
-            background: #032717;
+            min-height: 100vh;
+            background: linear-gradient(135deg, #032717, #044d30);
         }
 
-        .container {
-            display: flex;
-            background: white;
-            height: 100vh;
-            margin: 0;
-        }
-
-        .sidebar {
-            width: 280px;
-            background: #b5aa91;
-            padding: 0;
-            flex-shrink: 0;
-        }
-
-        .sidebar-logo {
-            padding: 30px 20px;
-            text-align: center;
-            border-bottom: 1px solid #a69880;
-        }
-
-        .sidebar-logo img {
-            width: 100px;
-            height: auto;
-        }
-
-        .nav-menu {
-            list-style: none;
-        }
-
-        .nav-item {
-            border-bottom: 1px solid #a69880;
-        }
-
-        .nav-link {
-            display: block;
-            padding: 20px 25px;
-            text-decoration: none;
-            color: #4a4a2f;
-            font-weight: 500;
-            font-size: 16px;
-            transition: background-color 0.2s;
-        }
-
-        .nav-link:hover {
-            background-color: #a69880;
-        }
-
-        .nav-link.active {
-            background-color: #968b73;
-        }
-
-        .main-content {
-            flex: 1;
-            padding: 50px 60px;
-            overflow-y: auto;
-        }
-
-        .success-message {
-            text-align: center;
-            color: #032717;
-            font-size: 24px;
-            margin-top: 100px;
-        }
-
-        .table-container {
-            background: white;
-            border-radius: 12px;
-            overflow: hidden;
-            box-shadow: 0 4px 20px rgba(0,0,0,0.08);
-        }
-
-        .table-header {
-            display: grid;
-            grid-template-columns: 2fr 1fr 1fr 2fr;
-            padding: 25px 30px;
-            background: #f8f9fa;
-            font-weight: 600;
-            color: #666;
-            font-size: 14px;
-            text-transform: uppercase;
-            letter-spacing: 1px;
-        }
-
-        .table-row {
-            display: grid;
-            grid-template-columns: 2fr 1fr 1fr 2fr;
-            padding: 30px;
-            border-bottom: 1px solid #eee;
-            align-items: center;
-            transition: background-color 0.2s;
-            font-size: 16px;
-        }
-
-        .table-row:hover {
-            background-color: #f8f9fa;
-        }
-
-        .table-row:last-child {
-            border-bottom: none;
-        }
-
-        .student-info {
-            display: flex;
-            align-items: center;
-            gap: 15px;
-            cursor: pointer;
-            transition: background-color 0.2s;
-        }
-
-        .student-info:hover {
-            background-color: rgba(3, 39, 23, 0.05);
-            border-radius: 8px;
-            padding: 8px;
-            margin: -8px;
-        }
-
-        .student-avatar {
-            width: 50px;
-            height: 50px;
-            border-radius: 50%;
-            display: flex;
-            align-items: center;
-            justify-content: center;
-            font-weight: bold;
-            font-size: 18px;
-            color: white;
-        }
-
-        .student-name {
-            font-weight: 500;
-            color: #333;
-            text-transform: uppercase;
-            font-size: 14px;
-            letter-spacing: 0.5px;
-        }
-
-        .stage {
-            font-weight: 600;
-            color: #666;
-            font-size: 18px;
-        }
-
-        .percentage {
-            font-weight: 600;
-            color: #333;
-            font-size: 18px;
-        }
-
-        .actions {
-            display: flex;
-            gap: 10px;
-        }
-
-        .action-btn {
-            width: 40px;
-            height: 40px;
-            border: none;
-            border-radius: 6px;
-            cursor: pointer;
-            display: flex;
-            align-items: center;
-            justify-content: center;
-            font-size: 16px;
-            transition: opacity 0.2s;
-        }
-
-        .action-btn:hover {
-            opacity: 0.8;
-        }
-
-        .btn-warning {
-            background-color: #ffc107;
-            color: white;
-        }
-
-        .btn-primary {
-            background-color: #007bff;
-            color: white;
-        }
-
-        .btn-danger {
-            background-color: #dc3545;
-            color: white;
-        }
-
-        /* Modal styles */
-        .modal {
-            display: none;
-            position: fixed;
-            z-index: 1000;
-            left: 0;
-            top: 0;
-            width: 100%;
-            height: 100%;
-            background-color: rgba(0, 0, 0, 0.5);
-            backdrop-filter: blur(5px);
-        }
-
-        .modal-content {
-            background-color: white;
-            margin: 5% auto;
-            padding: 40px;
-            border-radius: 16px;
-            width: 90%;
-            max-width: 600px;
-            box-shadow: 0 20px 40px rgba(0, 0, 0, 0.2);
-            position: relative;
-            animation: modalSlideIn 0.3s ease-out;
-        }
-
-        @keyframes modalSlideIn {
-            from {
-                opacity: 0;
-                transform: translateY(-50px) scale(0.9);
-            }
-            to {
-                opacity: 1;
-                transform: translateY(0) scale(1);
-            }
-        }
-
-        .close {
-            color: #aaa;
-            float: right;
-            font-size: 28px;
-            font-weight: bold;
-            cursor: pointer;
-            position: absolute;
-            right: 20px;
-            top: 15px;
-        }
-
-        .close:hover,
-        .close:focus {
-            color: #032717;
-            text-decoration: none;
-        }
-
-        .modal-header {
-            display: flex;
-            align-items: center;
-            gap: 20px;
-            margin-bottom: 30px;
-            padding-bottom: 20px;
-            border-bottom: 2px solid #f0f0f0;
-        }
-
-        .modal-avatar {
-            width: 80px;
-            height: 80px;
-            border-radius: 50%;
-            display: flex;
-            align-items: center;
-            justify-content: center;
-            font-weight: bold;
-            font-size: 32px;
-            color: white;
-        }
-
-        .modal-student-info .year-info {
-            color: #666;
-            font-size: 16px;
-            margin-top: 5px;
-        }
-
-        .progress-section {
-            margin-bottom: 30px;
-        }
-
-        .progress-header {
+        /* Header */
+        .dashboard-header {
+            background: rgba(255, 255, 255, 0.95);
+            backdrop-filter: blur(10px);
+            padding: 15px 20px;
+            box-shadow: 0 2px 20px rgba(0, 0, 0, 0.1);
             display: flex;
             justify-content: space-between;
             align-items: center;
-            margin-bottom: 15px;
+            position: sticky;
+            top: 0;
+            z-index: 100;
         }
 
-        .progress-title {
-            font-size: 18px;
+        .header-left {
+            display: flex;
+            align-items: center;
+            gap: 15px;
+        }
+
+        .header-logo {
+            width: 50px;
+            height: auto;
+        }
+
+        .header-title {
+            font-family: 'Roboto Slab', serif;
+            font-size: 24px;
             font-weight: 600;
             color: #032717;
+            margin: 0;
         }
 
-        .progress-percentage {
-            font-size: 24px;
-            font-weight: bold;
+        .header-subtitle {
+            font-size: 14px;
+            color: #666;
+            margin: 0;
+        }
+
+        .header-actions {
+            display: flex;
+            align-items: center;
+            gap: 15px;
+        }
+
+        .notification-badge {
+            position: relative;
+            background: #f8f9fa;
+            border: 2px solid #e0e0e0;
+            border-radius: 12px;
+            padding: 8px 12px;
+            font-size: 14px;
+            font-weight: 600;
             color: #032717;
+            transition: all 0.2s;
+            cursor: pointer;
         }
 
-        .progress-bar {
-            width: 100%;
-            height: 12px;
-            background-color: #f0f0f0;
-            border-radius: 6px;
-            overflow: hidden;
+        .notification-badge:hover {
+            background: #032717;
+            color: white;
+            border-color: #032717;
         }
 
-        .progress-fill {
-            height: 100%;
-            background: linear-gradient(90deg, #032717, #44a08d);
-            border-radius: 6px;
-            transition: width 0.8s ease-out;
+        .badge-count {
+            background: #dc3545;
+            color: white;
+            border-radius: 10px;
+            padding: 2px 6px;
+            font-size: 12px;
+            font-weight: bold;
+            margin-left: 8px;
         }
 
-        .stats-grid {
+        .logout-btn {
+            background: transparent;
+            border: 2px solid #032717;
+            color: #032717;
+            padding: 8px 16px;
+            border-radius: 8px;
+            font-weight: 600;
+            cursor: pointer;
+            transition: all 0.2s;
+        }
+
+        .logout-btn:hover {
+            background: #032717;
+            color: white;
+        }
+
+        /* Main Content */
+        .dashboard-main {
+            padding: 30px 20px;
+            max-width: 1200px;
+            margin: 0 auto;
+        }
+
+        .welcome-section {
+            text-align: center;
+            margin-bottom: 40px;
+        }
+
+        .welcome-title {
+            font-family: 'Roboto Slab', serif;
+            font-size: 32px;
+            font-weight: 300;
+            color: white;
+            margin-bottom: 10px;
+        }
+
+        .welcome-subtitle {
+            font-size: 16px;
+            color: rgba(255, 255, 255, 0.8);
+            margin-bottom: 30px;
+        }
+
+        /* Statistics Cards */
+        .stats-section {
             display: grid;
-            grid-template-columns: repeat(auto-fit, minmax(150px, 1fr));
+            grid-template-columns: repeat(auto-fit, minmax(280px, 1fr));
             gap: 20px;
-            margin-top: 20px;
+            margin-bottom: 40px;
         }
 
         .stat-card {
-            background: #f8f9fa;
-            padding: 20px;
-            border-radius: 12px;
-            text-align: center;
-            border-left: 4px solid #032717;
+            background: rgba(255, 255, 255, 0.95);
+            backdrop-filter: blur(10px);
+            border-radius: 16px;
+            padding: 25px;
+            box-shadow: 0 8px 32px rgba(0, 0, 0, 0.1);
+            transition: transform 0.2s, box-shadow 0.2s;
+            cursor: pointer;
         }
 
-        .stat-value {
+        .stat-card:hover {
+            transform: translateY(-5px);
+            box-shadow: 0 12px 40px rgba(0, 0, 0, 0.15);
+        }
+
+        .stat-icon {
+            width: 50px;
+            height: 50px;
+            background: linear-gradient(45deg, #032717, #044d30);
+            border-radius: 12px;
+            display: flex;
+            align-items: center;
+            justify-content: center;
             font-size: 24px;
+            margin-bottom: 15px;
+        }
+
+        .stat-number {
+            font-size: 36px;
             font-weight: bold;
             color: #032717;
             margin-bottom: 5px;
@@ -521,263 +331,230 @@
         .stat-label {
             font-size: 14px;
             color: #666;
+            font-weight: 500;
             text-transform: uppercase;
             letter-spacing: 0.5px;
         }
 
-        /* Edit mode styles */
-        .edit-controls {
+        /* Classes Section */
+        .classes-section {
+            margin-bottom: 40px;
+        }
+
+        .section-title {
+            font-family: 'Roboto Slab', serif;
+            font-size: 28px;
+            font-weight: 500;
+            color: white;
+            margin-bottom: 20px;
+            text-align: center;
+        }
+
+        .classes-grid {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(300px, 1fr));
+            gap: 20px;
+        }
+
+        .class-card {
+            background: rgba(255, 255, 255, 0.95);
+            backdrop-filter: blur(10px);
+            border-radius: 16px;
+            padding: 30px;
+            box-shadow: 0 8px 32px rgba(0, 0, 0, 0.1);
+            transition: all 0.3s ease;
+            cursor: pointer;
+            position: relative;
+            overflow: hidden;
+        }
+
+        .class-card:hover {
+            transform: translateY(-8px);
+            box-shadow: 0 16px 48px rgba(0, 0, 0, 0.2);
+        }
+
+        .class-card::before {
+            content: '';
+            position: absolute;
+            top: 0;
+            left: 0;
+            right: 0;
+            height: 4px;
+            background: linear-gradient(90deg, #032717, #044d30);
+        }
+
+        .class-name {
+            font-family: 'Roboto Slab', serif;
+            font-size: 22px;
+            font-weight: 600;
+            color: #032717;
+            margin-bottom: 15px;
+        }
+
+        .class-stats {
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            margin-bottom: 20px;
+        }
+
+        .class-students {
+            font-size: 14px;
+            color: #666;
+        }
+
+        .class-completion {
+            font-size: 24px;
+            font-weight: bold;
+            color: #032717;
+        }
+
+        .progress-bar {
+            width: 100%;
+            height: 8px;
+            background: #f0f0f0;
+            border-radius: 4px;
+            overflow: hidden;
+            margin-bottom: 15px;
+        }
+
+        .progress-fill {
+            height: 100%;
+            background: linear-gradient(90deg, #032717, #044d30);
+            border-radius: 4px;
+            transition: width 0.8s ease-out;
+        }
+
+        .class-actions {
             display: flex;
             gap: 10px;
-            margin-bottom: 20px;
-            justify-content: flex-end;
+            justify-content: space-between;
         }
 
-        .edit-btn, .save-btn, .cancel-btn {
-            padding: 8px 16px;
+        .class-btn {
+            flex: 1;
+            padding: 10px;
             border: none;
-            border-radius: 6px;
-            cursor: pointer;
+            border-radius: 8px;
             font-weight: 600;
-            transition: all 0.2s;
-        }
-
-        .edit-btn {
-            background-color: #032717;
-            color: white;
-        }
-
-        .edit-btn:hover {
-            background-color: #044d30;
-        }
-
-        .save-btn {
-            background-color: #28a745;
-            color: white;
-        }
-
-        .save-btn:hover {
-            background-color: #218838;
-        }
-
-        .cancel-btn {
-            background-color: #6c757d;
-            color: white;
-        }
-
-        .cancel-btn:hover {
-            background-color: #5a6268;
-        }
-
-        .editable-stat {
-            border: none;
-            background: transparent;
-            font-size: 24px;
-            font-weight: bold;
-            color: #032717;
-            text-align: center;
-            width: 100%;
-        }
-
-        .editable-stat:focus {
-            outline: 2px solid #032717;
-            background-color: white;
-            border-radius: 4px;
-            padding: 4px;
-        }
-
-        .year-select {
-            background: transparent;
-            border: none;
-            font-size: 16px;
-            color: #666;
-            cursor: pointer;
-        }
-
-        .year-select:focus {
-            outline: 2px solid #032717;
-            background-color: #f8f9fa;
-            border-radius: 4px;
-            padding: 4px;
-        }
-
-        .progress-input {
-            width: 80px;
-            text-align: right;
-            border: none;
-            background: transparent;
-            font-size: 24px;
-            font-weight: bold;
-            color: #032717;
-        }
-
-        .progress-input:focus {
-            outline: 2px solid #032717;
-            background-color: #f8f9fa;
-            border-radius: 4px;
-            padding: 4px;
-        }
-
-        .editable-name {
-            border: none;
-            background: transparent;
-            font-family: 'Roboto Slab', 'Times New Roman', serif !important;
-            font-size: 28px;
-            font-weight: 600;
-            color: #032717;
-            margin: 0;
-            width: 100%;
-            text-transform: uppercase;
-        }
-
-        .editable-name:focus {
-            outline: 2px solid #032717;
-            background-color: #f8f9fa;
-            border-radius: 4px;
-            padding: 4px;
-        }
-
-        .editable-name:disabled {
-            background: transparent;
-            color: #032717;
-        }
-
-        /* Add Child Form Styles */
-        .add-child-form {
-            margin-top: 20px;
-        }
-
-        .form-row {
-            display: grid;
-            grid-template-columns: 1fr 1fr;
-            gap: 20px;
-            margin-bottom: 20px;
-        }
-
-        .form-group {
-            display: flex;
-            flex-direction: column;
-        }
-
-        .color-generator-btn {
-            padding: 10px 12px;
-            border: 2px solid #032717;
-            border-radius: 6px;
-            background: white;
-            color: #032717;
-            font-size: 14px;
-            font-weight: 500;
             cursor: pointer;
             transition: all 0.2s;
+            font-size: 12px;
         }
 
-        .color-generator-btn:hover {
+        .btn-primary {
             background: #032717;
             color: white;
         }
 
-        .form-actions {
-            display: flex;
-            gap: 15px;
-            justify-content: flex-end;
-            margin-top: 30px;
-            padding-top: 20px;
-            border-top: 1px solid #e0e0e0;
+        .btn-primary:hover {
+            background: #044d30;
+        }
+
+        .btn-outline {
+            background: transparent;
+            border: 2px solid #032717;
+            color: #032717;
+        }
+
+        .btn-outline:hover {
+            background: #032717;
+            color: white;
+        }
+
+        /* Support Section */
+        .support-section {
+            text-align: center;
+            padding: 30px 20px;
+            background: rgba(255, 255, 255, 0.1);
+            backdrop-filter: blur(10px);
+            border-radius: 16px;
+            margin-top: 20px;
+        }
+
+        .support-link {
+            display: inline-flex;
+            align-items: center;
+            gap: 12px;
+            background: rgba(255, 255, 255, 0.9);
+            color: #032717;
+            text-decoration: none;
+            padding: 15px 30px;
+            border-radius: 12px;
+            font-weight: 600;
+            transition: all 0.3s;
+            font-size: 16px;
+        }
+
+        .support-link:hover {
+            background: white;
+            transform: translateY(-2px);
+            box-shadow: 0 8px 25px rgba(0, 0, 0, 0.15);
+        }
+
+        .support-icon {
+            font-size: 20px;
+        }
+
+        /* Mobile Responsiveness */
+        @media (max-width: 768px) {
+            .dashboard-header {
+                flex-direction: column;
+                gap: 15px;
+                padding: 20px;
+            }
+
+            .header-actions {
+                flex-wrap: wrap;
+                justify-content: center;
+            }
+
+            .dashboard-main {
+                padding: 20px 15px;
+            }
+
+            .welcome-title {
+                font-size: 28px;
+            }
+
+            .stats-section {
+                grid-template-columns: 1fr;
+            }
+
+            .classes-grid {
+                grid-template-columns: 1fr;
+            }
+
+            .class-actions {
+                flex-direction: column;
+            }
+
+            .notification-badge {
+                padding: 6px 10px;
+                font-size: 12px;
+            }
+        }
+
+        @media (max-width: 480px) {
+            .welcome-title {
+                font-size: 24px;
+            }
+
+            .section-title {
+                font-size: 24px;
+            }
+
+            .class-card {
+                padding: 20px;
+            }
+
+            .stat-card {
+                padding: 20px;
+            }
         }
     </style>
 </head>
-<script>
-// Simple, bulletproof login system
-console.log('Script loaded');
 
-// Wait for page to fully load
-window.addEventListener('load', function() {
-    console.log('Page loaded, setting up login');
-    
-    const loginButton = document.getElementById('loginButton');
-    const googleSignIn = document.getElementById('googleSignIn');
-    const microsoftSignIn = document.getElementById('microsoftSignIn');
-    const usernameInput = document.getElementById('username');
-    const passwordInput = document.getElementById('password');
-    const logoutLink = document.getElementById('logoutLink');
-
-    function showDashboard() {
-        console.log('Showing dashboard');
-        document.getElementById('loginPage').style.display = 'none';
-        document.getElementById('dashboardPage').style.display = 'block';
-    }
-
-    function showLogin() {
-        console.log('Showing login');
-        document.getElementById('dashboardPage').style.display = 'none';
-        document.getElementById('loginPage').style.display = 'flex';
-        
-        if (usernameInput) usernameInput.value = '';
-        if (passwordInput) passwordInput.value = '';
-    }
-
-    // Manual login
-    if (loginButton) {
-        loginButton.onclick = function() {
-            console.log('Login button clicked');
-            
-            const username = usernameInput ? usernameInput.value : '';
-            const password = passwordInput ? passwordInput.value : '';
-            
-            if (username === 'admin' && password === 'admin') {
-                console.log('Valid credentials');
-                showDashboard();
-            } else {
-                console.log('Invalid credentials');
-                alert('Invalid credentials. Please use admin/admin');
-            }
-        };
-    }
-
-    // Google SSO
-    if (googleSignIn) {
-        googleSignIn.onclick = function() {
-            console.log('Google SSO clicked');
-            showDashboard();
-        };
-    }
-
-    // Microsoft SSO
-    if (microsoftSignIn) {
-        microsoftSignIn.onclick = function() {
-            console.log('Microsoft SSO clicked');
-            showDashboard();
-        };
-    }
-
-    // Logout
-    if (logoutLink) {
-        logoutLink.onclick = function() {
-            console.log('Logout clicked');
-            showLogin();
-        };
-    }
-
-    // Enter key support
-    if (usernameInput && passwordInput && loginButton) {
-        [usernameInput, passwordInput].forEach(input => {
-            input.onkeypress = function(e) {
-                if (e.key === 'Enter') {
-                    loginButton.click();
-                }
-            };
-        });
-    }
-
-    // Add placeholder functions for other features
-    window.showStudentProfile = function(name) { alert('Student profile for ' + name); };
-    window.alertAction = function(action, name) { alert(action + ' for ' + name); };
-    window.deleteStudent = function(name) { alert('Delete ' + name); };
-    window.openAddChildModal = function() { alert('Add child modal'); };
-    window.closeAddChildModal = function() { document.getElementById('addChildModal').style.display = 'none'; };
-    window.showSettingsPage = function() { alert('Settings page'); };
-});
-</script>
 <body>
     <!-- Login Page -->
     <div id="loginPage" class="login-page">
@@ -830,149 +607,312 @@ window.addEventListener('load', function() {
         </div>
     </div>
 
-    <!-- Add Child Modal -->
-    <div id="addChildModal" class="modal">
-        <div class="modal-content">
-            <span class="close" onclick="closeAddChildModal()">&times;</span>
+    <!-- Dashboard -->
+    <div id="dashboardPage" class="dashboard">
+        <!-- Header -->
+        <header class="dashboard-header">
+            <div class="header-left">
+                <img src="grit-logo.webp" alt="GRIT Awards Logo" class="header-logo">
+                <div>
+                    <h1 class="header-title">GRIT Awards</h1>
+                    <p class="header-subtitle">Leader Dashboard</p>
+                </div>
+            </div>
             
-            <div class="modal-header">
-                <div id="newChildAvatar" class="modal-avatar"></div>
-                <div class="modal-student-info">
-                    <h2 style="margin: 0; color: #032717; font-size: 28px;">Add New Student</h2>
-                    <div class="year-info">Create a new student profile</div>
+            <div class="header-actions">
+                <div class="notification-badge" onclick="openMessages()">
+                    📧 Messages
+                    <span class="badge-count">7</span>
                 </div>
+                
+                <div class="notification-badge" onclick="openSubmissionReviews()">
+                    📝 Reviews
+                    <span class="badge-count">12</span>
+                </div>
+                
+                <div class="notification-badge" onclick="openGritBits()">
+                    ⭐ GRIT Bits
+                    <span class="badge-count">5</span>
+                </div>
+                
+                <button class="logout-btn" id="logoutLink">Logout</button>
             </div>
+        </header>
 
-            <div class="add-child-form">
-                <div class="form-row">
-                    <div class="form-group">
-                        <label class="form-label">Student Name</label>
-                        <input type="text" id="newChildName" class="form-input" placeholder="Enter student name" style="text-transform: uppercase;">
+        <!-- Main Content -->
+        <main class="dashboard-main">
+            <!-- Welcome Section -->
+            <section class="welcome-section">
+                <h1 class="welcome-title">Good morning, Leader!</h1>
+                <p class="welcome-subtitle">Here's what's happening with your classes today</p>
+            </section>
+
+            <!-- Statistics Section -->
+            <section class="stats-section">
+                <div class="stat-card" onclick="openMessages()">
+                    <div class="stat-icon">📧</div>
+                    <div class="stat-number">7</div>
+                    <div class="stat-label">New Messages</div>
+                </div>
+                
+                <div class="stat-card" onclick="openSubmissionReviews()">
+                    <div class="stat-icon">📝</div>
+                    <div class="stat-number">12</div>
+                    <div class="stat-label">Submission Reviews</div>
+                </div>
+                
+                <div class="stat-card" onclick="openGritBits()">
+                    <div class="stat-icon">⭐</div>
+                    <div class="stat-number">5</div>
+                    <div class="stat-label">GRIT Bits Pending</div>
+                </div>
+            </section>
+
+            <!-- Classes Section -->
+            <section class="classes-section">
+                <h2 class="section-title">Your Classes</h2>
+                
+                <div class="classes-grid">
+                    <div class="class-card" onclick="openClass('year1')">
+                        <h3 class="class-name">Year 1 - Green Class</h3>
+                        <div class="class-stats">
+                            <span class="class-students">24 students</span>
+                            <span class="class-completion">89%</span>
+                        </div>
+                        <div class="progress-bar">
+                            <div class="progress-fill" style="width: 89%"></div>
+                        </div>
+                        <div class="class-actions">
+                            <button class="class-btn btn-primary" onclick="event.stopPropagation(); viewProgress('year1')">View Progress</button>
+                            <button class="class-btn btn-outline" onclick="event.stopPropagation(); manageStudents('year1')">Manage</button>
+                        </div>
                     </div>
-                    <div class="form-group">
-                        <label class="form-label">Year Level</label>
-                        <select id="newChildYear" class="form-input">
-                            <option value="1">Year 1</option>
-                            <option value="2">Year 2</option>
-                            <option value="3" selected>Year 3</option>
-                            <option value="4">Year 4</option>
-                            <option value="5">Year 5</option>
-                            <option value="6">Year 6</option>
-                        </select>
+
+                    <div class="class-card" onclick="openClass('year2')">
+                        <h3 class="class-name">Year 2 - Blue Class</h3>
+                        <div class="class-stats">
+                            <span class="class-students">22 students</span>
+                            <span class="class-completion">76%</span>
+                        </div>
+                        <div class="progress-bar">
+                            <div class="progress-fill" style="width: 76%"></div>
+                        </div>
+                        <div class="class-actions">
+                            <button class="class-btn btn-primary" onclick="event.stopPropagation(); viewProgress('year2')">View Progress</button>
+                            <button class="class-btn btn-outline" onclick="event.stopPropagation(); manageStudents('year2')">Manage</button>
+                        </div>
+                    </div>
+
+                    <div class="class-card" onclick="openClass('year3')">
+                        <h3 class="class-name">Year 3 - Red Class</h3>
+                        <div class="class-stats">
+                            <span class="class-students">26 students</span>
+                            <span class="class-completion">94%</span>
+                        </div>
+                        <div class="progress-bar">
+                            <div class="progress-fill" style="width: 94%"></div>
+                        </div>
+                        <div class="class-actions">
+                            <button class="class-btn btn-primary" onclick="event.stopPropagation(); viewProgress('year3')">View Progress</button>
+                            <button class="class-btn btn-outline" onclick="event.stopPropagation(); manageStudents('year3')">Manage</button>
+                        </div>
+                    </div>
+
+                    <div class="class-card" onclick="openClass('year4')">
+                        <h3 class="class-name">Year 4 - Yellow Class</h3>
+                        <div class="class-stats">
+                            <span class="class-students">25 students</span>
+                            <span class="class-completion">82%</span>
+                        </div>
+                        <div class="progress-bar">
+                            <div class="progress-fill" style="width: 82%"></div>
+                        </div>
+                        <div class="class-actions">
+                            <button class="class-btn btn-primary" onclick="event.stopPropagation(); viewProgress('year4')">View Progress</button>
+                            <button class="class-btn btn-outline" onclick="event.stopPropagation(); manageStudents('year4')">Manage</button>
+                        </div>
+                    </div>
+
+                    <div class="class-card" onclick="openClass('year5')">
+                        <h3 class="class-name">Year 5 - Purple Class</h3>
+                        <div class="class-stats">
+                            <span class="class-students">23 students</span>
+                            <span class="class-completion">91%</span>
+                        </div>
+                        <div class="progress-bar">
+                            <div class="progress-fill" style="width: 91%"></div>
+                        </div>
+                        <div class="class-actions">
+                            <button class="class-btn btn-primary" onclick="event.stopPropagation(); viewProgress('year5')">View Progress</button>
+                            <button class="class-btn btn-outline" onclick="event.stopPropagation(); manageStudents('year5')">Manage</button>
+                        </div>
+                    </div>
+
+                    <div class="class-card" onclick="openClass('year6')">
+                        <h3 class="class-name">Year 6 - Orange Class</h3>
+                        <div class="class-stats">
+                            <span class="class-students">21 students</span>
+                            <span class="class-completion">88%</span>
+                        </div>
+                        <div class="progress-bar">
+                            <div class="progress-fill" style="width: 88%"></div>
+                        </div>
+                        <div class="class-actions">
+                            <button class="class-btn btn-primary" onclick="event.stopPropagation(); viewProgress('year6')">View Progress</button>
+                            <button class="class-btn btn-outline" onclick="event.stopPropagation(); manageStudents('year6')">Manage</button>
+                        </div>
                     </div>
                 </div>
+            </section>
 
-                <div class="form-row">
-                    <div class="form-group">
-                        <label class="form-label">Progress Percentage</label>
-                        <input type="number" id="newChildPercentage" class="form-input" min="0" max="100" value="0" placeholder="0-100%">
-                    </div>
-                    <div class="form-group">
-                        <label class="form-label">Lessons Completed</label>
-                        <input type="number" id="newChildLessons" class="form-input" min="0" value="0" placeholder="Number of lessons">
-                    </div>
-                </div>
-
-                <div class="form-row">
-                    <div class="form-group">
-                        <label class="form-label">Badges Earned</label>
-                        <input type="number" id="newChildBadges" class="form-input" min="0" value="0" placeholder="Number of badges">
-                    </div>
-                    <div class="form-group">
-                        <label class="form-label">Current Streak (Days)</label>
-                        <input type="number" id="newChildStreak" class="form-input" min="0" value="0" placeholder="Days in a row">
-                    </div>
-                </div>
-
-                <div class="form-row">
-                    <div class="form-group">
-                        <label class="form-label">Hours This Week</label>
-                        <input type="number" id="newChildHours" class="form-input" min="0" step="0.1" value="0" placeholder="Hours spent learning">
-                    </div>
-                    <div class="form-group">
-                        <label class="form-label">Profile Color</label>
-                        <button type="button" class="color-generator-btn" onclick="generateRandomColor()">🎨 Generate Random Color</button>
-                    </div>
-                </div>
-
-                <div class="form-actions">
-                    <button type="button" class="cancel-btn" onclick="closeAddChildModal()">Cancel</button>
-                    <button type="button" class="save-btn" onclick="saveNewChild()">Add Student</button>
-                </div>
-            </div>
-        </div>
+            <!-- Support Section -->
+            <section class="support-section">
+                <a href="#" class="support-link" onclick="openSupport()">
+                    <span class="support-icon">🛟</span>
+                    Need help? Contact Support
+                </a>
+            </section>
+        </main>
     </div>
 
-    <!-- Dashboard (hidden initially) -->
-    <div id="dashboardPage" class="dashboard">
-        <div class="container">
-            <div class="sidebar">
-                <div class="sidebar-logo">
-                    <img src="grit-logo.webp" alt="GRIT Awards Logo">
-                </div>
-                <nav>
-                    <ul class="nav-menu">
-                        <li class="nav-item">
-                            <a href="#" class="nav-link active">Home</a>
-                        </li>
-                        <li class="nav-item">
-                            <a href="#" class="nav-link" onclick="showSettingsPage()">Settings</a>
-                        </li>
-                        <li class="nav-item">
-                            <a href="#" class="nav-link" onclick="openAddChildModal()">Add Child</a>
-                        </li>
-                        <li class="nav-item">
-                            <a href="#" class="nav-link" id="logoutLink">Logout</a>
-                        </li>
-                    </ul>
-                </nav>
-            </div>
+    <script>
+        console.log('Script loaded');
 
-            <main class="main-content" id="mainContent">
-                <h1 class="page-title">Overview</h1>
+        // Wait for page to fully load
+        window.addEventListener('load', function() {
+            console.log('Page loaded, setting up login');
+            
+            const loginButton = document.getElementById('loginButton');
+            const googleSignIn = document.getElementById('googleSignIn');
+            const microsoftSignIn = document.getElementById('microsoftSignIn');
+            const usernameInput = document.getElementById('username');
+            const passwordInput = document.getElementById('password');
+            const logoutLink = document.getElementById('logoutLink');
+
+            function showDashboard() {
+                console.log('Showing dashboard');
+                document.getElementById('loginPage').style.display = 'none';
+                document.getElementById('dashboardPage').style.display = 'block';
+            }
+
+            function showLogin() {
+                console.log('Showing login');
+                document.getElementById('dashboardPage').style.display = 'none';
+                document.getElementById('loginPage').style.display = 'flex';
                 
-                <div id="overviewContent">
-                    <div class="table-container">
-                        <div class="table-header">
-                            <div>NAME</div>
-                            <div>YEAR</div>
-                            <div>%</div>
-                            <div>ACTIONS</div>
-                        </div>
-                        
-                        <div class="table-row">
-                            <div class="student-info" onclick="showStudentProfile('ZACH')">
-                                <div class="student-avatar" style="background: linear-gradient(45deg, #ff6b6b, #ffa500);">Z</div>
-                                <span class="student-name">ZACH</span>
-                            </div>
-                            <div class="stage">3</div>
-                            <div class="percentage">94%</div>
-                            <div class="actions">
-                                <button class="action-btn btn-warning" onclick="alertAction('Warning', 'ZACH')">⚠</button>
-                                <button class="action-btn btn-primary" onclick="alertAction('Edit', 'ZACH')">📝</button>
-                                <button class="action-btn btn-danger" onclick="deleteStudent('ZACH', this)">🗑</button>
-                            </div>
-                        </div>
+                if (usernameInput) usernameInput.value = '';
+                if (passwordInput) passwordInput.value = '';
+            }
 
-                        <div class="table-row">
-                            <div class="student-info" onclick="showStudentProfile('MILLIE')">
-                                <div class="student-avatar" style="background: linear-gradient(45deg, #4ecdc4, #44a08d);">M</div>
-                                <span class="student-name">MILLIE</span>
-                            </div>
-                            <div class="stage">4</div>
-                            <div class="percentage">96%</div>
-                            <div class="actions">
-                                <button class="action-btn btn-warning" onclick="alertAction('Warning', 'MILLIE')">⚠</button>
-                                <button class="action-btn btn-primary" onclick="alertAction('Edit', 'MILLIE')">📝</button>
-                                <button class="action-btn btn-danger" onclick="deleteStudent('MILLIE', this)">🗑</button>
-                            </div>
-                        </div>
+            // Manual login
+            if (loginButton) {
+                loginButton.onclick = function() {
+                    console.log('Login button clicked');
+                    
+                    const username = usernameInput ? usernameInput.value : '';
+                    const password = passwordInput ? passwordInput.value : '';
+                    
+                    if (username === 'admin' && password === 'admin') {
+                        console.log('Valid credentials');
+                        showDashboard();
+                    } else {
+                        console.log('Invalid credentials');
+                        alert('Invalid credentials. Please use admin/admin');
+                    }
+                };
+            }
 
-                        <div class="table-row">
-                            <div class="student-info" onclick="showStudentProfile('JUDE')">
-                                <div class="student-avatar" style="background: linear-gradient(45deg, #667eea, #764ba2);">J</div>
-                                <span class="student-name">JUDE</span>
-                            </div>
-                            <div class="stage">2</div>
-                            <div class="percentage">76%</div>
-                            <div class
+            // Google SSO
+            if (googleSignIn) {
+                googleSignIn.onclick = function() {
+                    console.log('Google SSO clicked');
+                    showDashboard();
+                };
+            }
+
+            // Microsoft SSO
+            if (microsoftSignIn) {
+                microsoftSignIn.onclick = function() {
+                    console.log('Microsoft SSO clicked');
+                    showDashboard();
+                };
+            }
+
+            // Logout
+            if (logoutLink) {
+                logoutLink.onclick = function() {
+                    console.log('Logout clicked');
+                    showLogin();
+                };
+            }
+
+            // Enter key support
+            if (usernameInput && passwordInput && loginButton) {
+                [usernameInput, passwordInput].forEach(input => {
+                    input.onkeypress = function(e) {
+                        if (e.key === 'Enter') {
+                            loginButton.click();
+                        }
+                    };
+                });
+            }
+        });
+
+        // Dashboard Functions
+        function openMessages() {
+            alert('📧 Opening Messages Center\n\nYou have 7 new messages from:\n• Parents (3)\n• Students (2)\n• Administration (2)');
+        }
+
+        function openSubmissionReviews() {
+            alert('📝 Opening Submission Reviews\n\n12 submissions awaiting review:\n• GRIT Challenge entries (8)\n• Portfolio submissions (4)');
+        }
+
+        function openGritBits() {
+            alert('⭐ Opening GRIT Bits\n\n5 bonus activities pending approval:\n• Creative projects (3)\n• Community service (2)');
+        }
+
+        function openClass(yearLevel) {
+            const classNames = {
+                'year1': 'Year 1 - Green Class',
+                'year2': 'Year 2 - Blue Class', 
+                'year3': 'Year 3 - Red Class',
+                'year4': 'Year 4 - Yellow Class',
+                'year5': 'Year 5 - Purple Class',
+                'year6': 'Year 6 - Orange Class'
+            };
+            
+            alert(`Opening ${classNames[yearLevel]}\n\nThis will take you to the detailed class view with:\n• Student progress\n• Assignment tracking\n• Individual portfolios\n• Class statistics`);
+        }
+
+        function viewProgress(yearLevel) {
+            const classNames = {
+                'year1': 'Year 1 - Green Class',
+                'year2': 'Year 2 - Blue Class', 
+                'year3': 'Year 3 - Red Class',
+                'year4': 'Year 4 - Yellow Class',
+                'year5': 'Year 5 - Purple Class',
+                'year6': 'Year 6 - Orange Class'
+            };
+            
+            alert(`📊 Progress Report for ${classNames[yearLevel]}\n\nDetailed analytics including:\n• Individual student progress\n• Class averages\n• Completion trends\n• Areas for improvement`);
+        }
+
+        function manageStudents(yearLevel) {
+            const classNames = {
+                'year1': 'Year 1 - Green Class',
+                'year2': 'Year 2 - Blue Class', 
+                'year3': 'Year 3 - Red Class',
+                'year4': 'Year 4 - Yellow Class',
+                'year5': 'Year 5 - Purple Class',
+                'year6': 'Year 6 - Orange Class'
+            };
+            
+            alert(`👥 Managing ${classNames[yearLevel]}\n\nStudent management options:\n• Add/remove students\n• Update student information\n• Assign individual goals\n• Communication tools`);
+        }
+
+        function openSupport() {
+            alert('🛟 GRIT Awards Support\n\nContact options:\n• Email: support@gritawards.com\n• Phone: 1-800-GRIT-HELP\n• Live Chat: Available 9AM-5PM\n• Help Center: help.gritawards.com\n\nWe\'re here to help you succeed!');
+        }
+    </script>
+</body>
+</html>
