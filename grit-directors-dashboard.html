@@ -185,6 +185,7 @@
             height: 100vh;
             flex-direction: column;
             background: #ffffff;
+            padding-bottom: 80px; /* Space for fixed bottom navigation */
         }
 
         .header {
@@ -401,12 +402,17 @@
         }
 
         .bottom-nav {
+            position: fixed;
+            bottom: 0;
+            left: 0;
+            right: 0;
             display: flex;
             background: white;
             border-top: 1px solid #e0e0e0;
             padding: 10px 0;
             justify-content: space-around;
             box-shadow: 0 -2px 10px rgba(0,0,0,0.05);
+            z-index: 999;
         }
 
         .nav-item {
