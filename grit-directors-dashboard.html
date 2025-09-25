@@ -212,6 +212,8 @@
             font-family: 'Roboto Slab', serif;
             font-size: 18px;
             font-weight: 600;
+            text-align: center;
+            flex: 1;
         }
 
         .logout-btn {
@@ -429,11 +431,32 @@
             width: 24px;
             height: 24px;
             margin-bottom: 4px;
+            fill: #032717;
+            stroke: none;
         }
 
         .nav-label {
             font-size: 12px;
             font-weight: 500;
+        }
+
+        /* Mobile-specific fixes for iPhone Pro Max 15 */
+        @media screen and (max-width: 430px) {
+            .nav-icon {
+                width: 28px;
+                height: 28px;
+                fill: #032717 !important;
+                stroke: none !important;
+            }
+            
+            .nav-item {
+                min-height: 60px;
+                padding: 8px 4px;
+            }
+            
+            .nav-label {
+                font-size: 11px;
+            }
         }
 
         .visit-details {
@@ -606,7 +629,7 @@
         <div class="header">
             <div class="header-left">
                 <img src="grit-logo-white.webp" alt="GRIT Logo" class="header-logo">
-                <div class="director-name" id="directorName">Welcome Back Symon Winnan</div>
+                <div class="director-name" id="directorName">Welcome Back Symon</div>
             </div>
             <button class="logout-btn" onclick="logout()">
                 <svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
@@ -1007,7 +1030,7 @@
             document.getElementById('dashboard').style.display = 'flex';
             
             // Set director name with welcome message
-            document.getElementById('directorName').textContent = 'Welcome Back Symon Winnan';
+            document.getElementById('directorName').textContent = 'Welcome Back Symon';
             
             renderCalendar();
         }
