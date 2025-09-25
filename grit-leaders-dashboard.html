@@ -192,7 +192,9 @@
         .header-actions {
             display: flex;
             align-items: center;
-            gap: 15px;
+            gap: 20px;
+            width: 100%;
+            justify-content: center;
         }
 
         .notification-badge {
@@ -237,25 +239,6 @@
             font-size: 12px;
             font-weight: bold;
             margin-left: 8px;
-        }
-
-        .logout-btn {
-            background: transparent;
-            border: 2px solid rgba(255, 255, 255, 0.3);
-            color: white;
-            padding: 10px 16px;
-            border-radius: 8px;
-            font-weight: 600;
-            cursor: pointer;
-            transition: all 0.2s;
-            display: flex;
-            align-items: center;
-            gap: 8px;
-        }
-
-        .logout-btn:hover {
-            background: rgba(255, 255, 255, 0.1);
-            border-color: rgba(255, 255, 255, 0.5);
         }
 
         /* Main Content */
@@ -362,7 +345,8 @@
             height: 36px;
             border-radius: 50%;
             flex-shrink: 0;
-            border: 2px solid #b5aa91;
+            background-color: #b5aa91;
+            padding: 2px;
         }
 
         .preview-content {
@@ -571,8 +555,11 @@
             height: 18px;
         }
 
-        .support-icon {
-            font-size: 20px;
+        /* Desktop right alignment */
+        @media (min-width: 769px) {
+            .header-actions {
+                justify-content: flex-end;
+            }
         }
 
         /* Mobile Responsiveness */
@@ -582,8 +569,9 @@
             }
 
             .header-actions {
-                flex-wrap: wrap;
                 justify-content: center;
+                flex-wrap: wrap;
+                gap: 15px;
             }
 
             .dashboard-main {
@@ -1054,7 +1042,7 @@
             if (logoutLink) {
                 logoutLink.onclick = function() {
                     console.log('Logout clicked');
-                    showLogin();
+                    window.location.href = 'https://jamessteward.github.io/grit-awards-dashboard/';
                 };
             }
 
@@ -1070,7 +1058,7 @@
             }
         });
 
-        // Dashboard Functions
+        // Navigation Functions
         function openMessages() {
             alert('📧 Opening Messages Center\n\nYou have 7 new messages from:\n• Parents (3)\n• Students (2)\n• Administration (2)');
         }
@@ -1085,12 +1073,12 @@
 
         function openClass(yearLevel) {
             const classNames = {
-                'year1': 'Year 1 - Green Class',
-                'year2': 'Year 2 - Blue Class', 
-                'year3': 'Year 3 - Red Class',
-                'year4': 'Year 4 - Yellow Class',
-                'year5': 'Year 5 - Purple Class',
-                'year6': 'Year 6 - Orange Class'
+                'year1': 'Year 1',
+                'year2': 'Year 2', 
+                'year3': 'Year 3',
+                'year4': 'Year 4',
+                'year5': 'Year 5',
+                'year6': 'Year 6'
             };
             
             alert(`Opening ${classNames[yearLevel]}\n\nThis will take you to the detailed class view with:\n• Student progress\n• Assignment tracking\n• Individual portfolios\n• Class statistics`);
@@ -1098,12 +1086,12 @@
 
         function viewProgress(yearLevel) {
             const classNames = {
-                'year1': 'Year 1 - Green Class',
-                'year2': 'Year 2 - Blue Class', 
-                'year3': 'Year 3 - Red Class',
-                'year4': 'Year 4 - Yellow Class',
-                'year5': 'Year 5 - Purple Class',
-                'year6': 'Year 6 - Orange Class'
+                'year1': 'Year 1',
+                'year2': 'Year 2', 
+                'year3': 'Year 3',
+                'year4': 'Year 4',
+                'year5': 'Year 5',
+                'year6': 'Year 6'
             };
             
             alert(`📊 Progress Report for ${classNames[yearLevel]}\n\nDetailed analytics including:\n• Individual student progress\n• Class averages\n• Completion trends\n• Areas for improvement`);
@@ -1111,12 +1099,12 @@
 
         function manageStudents(yearLevel) {
             const classNames = {
-                'year1': 'Year 1 - Green Class',
-                'year2': 'Year 2 - Blue Class', 
-                'year3': 'Year 3 - Red Class',
-                'year4': 'Year 4 - Yellow Class',
-                'year5': 'Year 5 - Purple Class',
-                'year6': 'Year 6 - Orange Class'
+                'year1': 'Year 1',
+                'year2': 'Year 2', 
+                'year3': 'Year 3',
+                'year4': 'Year 4',
+                'year5': 'Year 5',
+                'year6': 'Year 6'
             };
             
             alert(`👥 Managing ${classNames[yearLevel]}\n\nStudent management options:\n• Add/remove students\n• Update student information\n• Assign individual goals\n• Communication tools`);
