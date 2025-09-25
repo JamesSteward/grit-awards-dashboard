@@ -1,0 +1,1119 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Grit Director Dashboard</title>
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link href="https://fonts.googleapis.com/css2?family=Roboto+Slab:wght@300;400;500;600;700&display=swap" rel="stylesheet">
+    <style>
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+        }
+
+        body {
+            font-family: -apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, sans-serif;
+            background: #ffffff;
+            height: 100vh;
+            overflow: hidden;
+            color: #333;
+        }
+
+        h1, h2, h3, h4, h5, h6 {
+            font-family: 'Roboto Slab', 'Times New Roman', serif !important;
+        }
+
+        /* LOGIN STYLES */
+        .login-page {
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            min-height: 100vh;
+            background: linear-gradient(135deg, #032717, #044d30);
+        }
+
+        .login-container {
+            background: white;
+            border-radius: 16px;
+            padding: 40px;
+            box-shadow: 0 20px 40px rgba(0, 0, 0, 0.3);
+            width: 100%;
+            max-width: 400px;
+            text-align: center;
+        }
+
+        .logo {
+            width: 120px;
+            height: auto;
+            margin: 0 auto 20px;
+            display: block;
+        }
+
+        .login-title {
+            font-family: 'Roboto Slab', 'Times New Roman', serif !important;
+            font-size: 28px;
+            font-weight: 600;
+            color: #032717;
+            margin-bottom: 8px;
+        }
+
+        .login-subtitle {
+            color: #666;
+            font-size: 14px;
+            margin-bottom: 30px;
+        }
+
+        .form-group {
+            margin-bottom: 20px;
+            text-align: left;
+        }
+
+        .form-label {
+            display: block;
+            font-weight: 600;
+            color: #333;
+            margin-bottom: 8px;
+            font-size: 14px;
+        }
+
+        .form-input {
+            width: 100%;
+            padding: 12px 16px;
+            border: 2px solid #e0e0e0;
+            border-radius: 8px;
+            font-size: 16px;
+            transition: border-color 0.2s;
+        }
+
+        .form-input:focus {
+            outline: none;
+            border-color: #032717;
+        }
+
+        .login-btn {
+            width: 100%;
+            background: #032717;
+            color: white;
+            border: none;
+            padding: 14px;
+            border-radius: 8px;
+            font-size: 16px;
+            font-weight: 600;
+            cursor: pointer;
+            transition: background-color 0.2s;
+            margin-top: 10px;
+        }
+
+        .login-btn:hover {
+            background: #044d30;
+        }
+
+        .forgot-password {
+            text-align: center;
+            margin: 15px 0;
+        }
+
+        .forgot-password a {
+            color: #666;
+            text-decoration: none;
+            font-size: 13px;
+            transition: color 0.2s;
+        }
+
+        .forgot-password a:hover {
+            color: #032717;
+        }
+
+        .divider {
+            text-align: center;
+            margin: 20px 0;
+            position: relative;
+            color: #666;
+            font-size: 14px;
+        }
+
+        .divider:before {
+            content: '';
+            position: absolute;
+            top: 50%;
+            left: 0;
+            right: 0;
+            height: 1px;
+            background: #e0e0e0;
+        }
+
+        .divider span {
+            background: white;
+            padding: 0 15px;
+            position: relative;
+        }
+
+        .sso-buttons {
+            display: flex;
+            flex-direction: column;
+            gap: 12px;
+        }
+
+        .sso-btn {
+            width: 100%;
+            padding: 12px 16px;
+            border: 2px solid #e0e0e0;
+            border-radius: 8px;
+            background: white;
+            color: #333;
+            font-size: 14px;
+            font-weight: 500;
+            cursor: pointer;
+            transition: all 0.2s;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            gap: 10px;
+        }
+
+        .sso-btn:hover {
+            border-color: #032717;
+            background: #f8f9fa;
+        }
+
+        /* DASHBOARD STYLES */
+        .dashboard {
+            display: none;
+            height: 100vh;
+            flex-direction: column;
+            background: #ffffff;
+        }
+
+        .header {
+            background: #032717;
+            color: white;
+            padding: 15px 20px;
+            display: flex;
+            align-items: center;
+            justify-content: space-between;
+            box-shadow: 0 2px 10px rgba(0,0,0,0.1);
+        }
+
+        .header-left {
+            display: flex;
+            align-items: center;
+            gap: 15px;
+        }
+
+        .header-logo {
+            width: 40px;
+            height: auto;
+        }
+
+        .director-name {
+            font-family: 'Roboto Slab', serif;
+            font-size: 18px;
+            font-weight: 600;
+        }
+
+        .logout-btn {
+            background: transparent;
+            border: none;
+            color: white;
+            font-size: 14px;
+            cursor: pointer;
+            padding: 8px 16px;
+            border-radius: 6px;
+            transition: all 0.2s;
+            font-weight: 500;
+            display: flex;
+            align-items: center;
+            gap: 8px;
+        }
+
+        .logout-btn:hover {
+            background: rgba(255,255,255,0.1);
+        }
+
+        .calendar-container {
+            flex: 1;
+            padding: 20px;
+            overflow-y: auto;
+            -webkit-overflow-scrolling: touch;
+        }
+
+        .calendar-header {
+            display: flex;
+            align-items: center;
+            justify-content: space-between;
+            margin-bottom: 20px;
+        }
+
+        .month-nav {
+            background: white;
+            border: 2px solid #e0e0e0;
+            font-size: 20px;
+            cursor: pointer;
+            color: #032717;
+            padding: 8px 12px;
+            border-radius: 8px;
+            transition: all 0.2s;
+            font-weight: 600;
+        }
+
+        .month-nav:hover {
+            border-color: #032717;
+            background: #f8f9fa;
+        }
+
+        .current-month {
+            font-family: 'Roboto Slab', serif;
+            font-size: 24px;
+            font-weight: 600;
+            color: #032717;
+        }
+
+        .calendar {
+            background: white;
+            border-radius: 16px;
+            box-shadow: 0 4px 20px rgba(0,0,0,0.08);
+            border: 1px solid #f0f0f0;
+            overflow: hidden;
+        }
+
+        .calendar-days {
+            display: grid;
+            grid-template-columns: repeat(7, 1fr);
+        }
+
+        .day-header {
+            background: #f8f9fa;
+            padding: 15px 5px;
+            text-align: center;
+            font-weight: 600;
+            color: #666;
+            font-size: 14px;
+            border-bottom: 1px solid #e0e0e0;
+        }
+
+        .day {
+            aspect-ratio: 1;
+            display: flex;
+            align-items: flex-start;
+            justify-content: center;
+            border: 1px solid #f0f0f0;
+            position: relative;
+            cursor: pointer;
+            transition: background-color 0.2s;
+            flex-direction: column;
+            min-height: 120px;
+            padding: 4px;
+            overflow: hidden;
+        }
+
+        .day:hover {
+            background: rgba(3, 39, 23, 0.05);
+        }
+
+        .day.other-month {
+            color: #ccc;
+        }
+
+        .day.today {
+            background: #032717;
+            color: white;
+        }
+
+        .day.has-visit {
+            background: #e8f5e8;
+        }
+
+        .day.has-visit.today {
+            background: #032717;
+        }
+
+        .day-number {
+            font-weight: 600;
+            margin-bottom: 4px;
+            align-self: center;
+        }
+
+        .visit-info {
+            font-size: 10px;
+            text-align: center;
+            width: 100%;
+            line-height: 1.2;
+        }
+
+        .school-name {
+            font-weight: 600;
+            color: #032717;
+            margin-bottom: 2px;
+            overflow: hidden;
+            text-overflow: ellipsis;
+            white-space: nowrap;
+        }
+
+        .day.today .school-name {
+            color: white;
+        }
+
+        .visit-time {
+            font-size: 9px;
+            color: #666;
+            margin-bottom: 3px;
+        }
+
+        .day.today .visit-time {
+            color: rgba(255,255,255,0.8);
+        }
+
+        .map-link {
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            gap: 2px;
+            font-size: 9px;
+            color: #032717;
+            text-decoration: none;
+            background: rgba(3, 39, 23, 0.1);
+            padding: 2px 4px;
+            border-radius: 3px;
+            transition: background-color 0.2s;
+        }
+
+        .day.today .map-link {
+            color: white;
+            background: rgba(255,255,255,0.2);
+        }
+
+        .map-link:hover {
+            background: rgba(3, 39, 23, 0.2);
+        }
+
+        .day.today .map-link:hover {
+            background: rgba(255,255,255,0.3);
+        }
+
+        .map-icon {
+            width: 8px;
+            height: 8px;
+        }
+
+        .bottom-nav {
+            display: flex;
+            background: white;
+            border-top: 1px solid #e0e0e0;
+            padding: 10px 0;
+            justify-content: space-around;
+            box-shadow: 0 -2px 10px rgba(0,0,0,0.05);
+        }
+
+        .nav-item {
+            display: flex;
+            flex-direction: column;
+            align-items: center;
+            padding: 10px;
+            cursor: pointer;
+            transition: color 0.2s;
+            min-width: 60px;
+        }
+
+        .nav-item.active {
+            color: #032717;
+        }
+
+        .nav-item:not(.active) {
+            color: #666;
+        }
+
+        .nav-icon {
+            width: 24px;
+            height: 24px;
+            margin-bottom: 4px;
+        }
+
+        .nav-label {
+            font-size: 12px;
+            font-weight: 500;
+        }
+
+        .visit-details {
+            position: fixed;
+            bottom: 0;
+            left: 0;
+            right: 0;
+            background: white;
+            padding: 25px;
+            border-radius: 16px 16px 0 0;
+            box-shadow: 0 -4px 20px rgba(0,0,0,0.1);
+            border-top: 1px solid #f0f0f0;
+            transform: translateY(100%);
+            transition: transform 0.3s ease;
+            z-index: 1000;
+        }
+
+        .visit-details.show {
+            transform: translateY(0);
+        }
+
+        .visit-header {
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            margin-bottom: 15px;
+            padding-bottom: 15px;
+            border-bottom: 1px solid #f0f0f0;
+        }
+
+        .visit-title {
+            font-family: 'Roboto Slab', serif;
+            font-size: 18px;
+            font-weight: 600;
+            color: #032717;
+        }
+
+        .close-btn {
+            background: none;
+            border: none;
+            font-size: 24px;
+            cursor: pointer;
+            color: #666;
+            padding: 5px;
+            transition: color 0.2s;
+        }
+
+        .close-btn:hover {
+            color: #032717;
+        }
+
+        .visit-info {
+            display: flex;
+            flex-direction: column;
+            gap: 10px;
+        }
+
+        .visit-info-item {
+            display: flex;
+            align-items: center;
+            gap: 10px;
+        }
+
+        .visit-info-label {
+            font-weight: 600;
+            color: #032717;
+            min-width: 60px;
+        }
+
+        .visit-info-value {
+            color: #666;
+        }
+
+        /* Mobile Responsive */
+        @media (max-width: 768px) {
+            .login-container {
+                padding: 30px;
+                margin: 20px;
+            }
+
+            .calendar-container {
+                padding: 15px;
+            }
+            
+            .day {
+                font-size: 14px;
+                min-height: 50px;
+            }
+            
+            .current-month {
+                font-size: 20px;
+            }
+
+            .month-nav {
+                padding: 6px 10px;
+                font-size: 18px;
+            }
+        }
+
+        @media (max-width: 375px) {
+            .calendar-container {
+                padding: 10px;
+            }
+            
+            .day {
+                font-size: 12px;
+                min-height: 45px;
+            }
+        }
+    </style>
+</head>
+<body>
+    <!-- Login Screen -->
+    <div class="login-page" id="loginContainer">
+        <div class="login-container">
+            <div class="logo-section">
+                <img src="grit-logo.webp" alt="GRIT Logo" class="logo">
+                <h1 class="login-title">Welcome Back</h1>
+                <p class="login-subtitle">Sign in to access your director dashboard</p>
+            </div>
+            
+            <form id="loginForm">
+                <div class="form-group">
+                    <label class="form-label" for="username">Username</label>
+                    <input type="text" id="username" name="username" class="form-input" placeholder="Enter your username" required>
+                </div>
+                
+                <div class="form-group">
+                    <label class="form-label" for="password">Password</label>
+                    <input type="password" id="password" name="password" class="form-input" placeholder="Enter your password" required>
+                </div>
+                
+                <button type="submit" class="login-btn">Sign In</button>
+            </form>
+
+            <div class="forgot-password">
+                <a href="#" onclick="forgotPassword()">Forgot your password?</a>
+            </div>
+            
+            <div class="divider">
+                <span>or</span>
+            </div>
+            
+            <div class="sso-buttons">
+                <button class="sso-btn google-btn" onclick="loginSSO('google')">
+                    <svg width="18" height="18" viewBox="0 0 24 24">
+                        <path fill="#4285F4" d="M22.56 12.25c0-.78-.07-1.53-.2-2.25H12v4.26h5.92c-.26 1.37-1.04 2.53-2.21 3.31v2.77h3.57c2.08-1.92 3.28-4.74 3.28-8.09z"/>
+                        <path fill="#34A853" d="M12 23c2.97 0 5.46-.98 7.28-2.66l-3.57-2.77c-.98.66-2.23 1.06-3.71 1.06-2.86 0-5.29-1.93-6.16-4.53H2.18v2.84C3.99 20.53 7.7 23 12 23z"/>
+                        <path fill="#FBBC05" d="M5.84 14.09c-.22-.66-.35-1.36-.35-2.09s.13-1.43.35-2.09V7.07H2.18C1.43 8.55 1 10.22 1 12s.43 3.45 1.18 4.93l2.85-2.22.81-.62z"/>
+                        <path fill="#EA4335" d="M12 5.38c1.62 0 3.06.56 4.21 1.64l3.15-3.15C17.45 2.09 14.97 1 12 1 7.7 1 3.99 3.47 2.18 7.07l3.66 2.84c.87-2.6 3.3-4.53 6.16-4.53z"/>
+                    </svg>
+                    Sign In with Google
+                </button>
+                
+                <button class="sso-btn microsoft-btn" onclick="loginSSO('microsoft')">
+                    <svg width="18" height="18" viewBox="0 0 24 24">
+                        <path fill="#F25022" d="M0 0h11.377v11.372H0z"/>
+                        <path fill="#7FBA00" d="M12.623 0H24v11.372H12.623z"/>
+                        <path fill="#00A4EF" d="M0 12.628h11.377V24H0z"/>
+                        <path fill="#FFB900" d="M12.623 12.628H24V24H12.623z"/>
+                    </svg>
+                    Sign In with Microsoft
+                </button>
+            </div>
+        </div>
+    </div>
+
+    <!-- Dashboard -->
+    <div class="dashboard" id="dashboard">
+        <div class="header">
+            <div class="header-left">
+                <img src="grit-logo-white.webp" alt="GRIT Logo" class="header-logo">
+                <div class="director-name" id="directorName">Welcome Back Symon Winnan</div>
+            </div>
+            <button class="logout-btn" onclick="logout()">
+                <svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
+                    <path d="M9 21H5a2 2 0 0 1-2-2V5a2 2 0 0 1 2-2h4"/>
+                    <polyline points="16,17 21,12 16,7"/>
+                    <line x1="21" y1="12" x2="9" y2="12"/>
+                </svg>
+                Logout
+            </button>
+        </div>
+
+        <div class="calendar-container">
+            <div class="calendar-header">
+                <button class="month-nav" id="prevMonth">‹</button>
+                <div class="current-month" id="currentMonth"></div>
+                <button class="month-nav" id="nextMonth">›</button>
+            </div>
+
+            <div class="calendar">
+                <div class="calendar-days">
+                    <div class="day-header">Sun</div>
+                    <div class="day-header">Mon</div>
+                    <div class="day-header">Tue</div>
+                    <div class="day-header">Wed</div>
+                    <div class="day-header">Thu</div>
+                    <div class="day-header">Fri</div>
+                    <div class="day-header">Sat</div>
+                </div>
+                <div id="calendarDays" class="calendar-days"></div>
+            </div>
+        </div>
+
+        <div class="bottom-nav">
+            <div class="nav-item active">
+                <svg class="nav-icon" viewBox="0 0 24 24" fill="currentColor">
+                    <path d="M19 3h-1V1h-2v2H8V1H6v2H5c-1.11 0-1.99.9-1.99 2L3 19c0 1.1.89 2 2 2h14c1.1 0 2-.9 2-2V5c0-1.1-.9-2-2-2zm0 16H5V8h14v11zM7 10h5v5H7z"/>
+                </svg>
+                <div class="nav-label">Calendar</div>
+            </div>
+            
+            <div class="nav-item">
+                <div style="position: relative;">
+                    <svg class="nav-icon" viewBox="0 0 24 24" fill="currentColor">
+                        <path d="M20 4H4c-1.1 0-1.99.9-1.99 2L2 18c0 1.1.9 2 2 2h16c1.1 0 2-.9 2-2V6c0-1.1-.9-2-2-2zm0 4l-8 5-8-5V6l8 5 8-5v2z"/>
+                    </svg>
+                    <div style="position: absolute; top: -2px; right: -2px; background: #dc3545; color: white; border-radius: 10px; width: 18px; height: 18px; font-size: 10px; font-weight: bold; display: flex; align-items: center; justify-content: center;">3</div>
+                </div>
+                <div class="nav-label">Messages</div>
+            </div>
+            
+            <div class="nav-item">
+                <svg class="nav-icon" viewBox="0 0 24 24" fill="currentColor">
+                    <path d="M19 3H5c-1.1 0-2 .9-2 2v14c0 1.1.9 2 2 2h14c1.1 0 2-.9 2-2V5c0-1.1-.9-2-2-2zM9 17H7v-7h2v7zm4 0h-2V7h2v10zm4 0h-2v-4h2v4z"/>
+                </svg>
+                <div class="nav-label">Reports</div>
+            </div>
+            
+            <div class="nav-item">
+                <svg class="nav-icon" viewBox="0 0 24 24" fill="currentColor">
+                    <path d="M20 2H4c-1 0-2 .9-2 2v3.01c0 .72.43 1.34 1 1.69V20c0 1.1 1.1 2 2 2h14c.9 0 2-.9 2-2V8.7c.57-.35 1-.97 1-1.69V4c0-1.1-1-2-2-2zM19 20H5V9h14v11z"/>
+                </svg>
+                <div class="nav-label">Inventory</div>
+            </div>
+        </div>
+    </div>
+
+    <!-- Visit Details Modal -->
+    <div class="visit-details" id="visitDetails">
+        <div class="visit-header">
+            <div class="visit-title">School Visit</div>
+            <button class="close-btn" onclick="closeVisitDetails()">&times;</button>
+        </div>
+        <div class="visit-info" id="visitContent">
+        </div>
+    </div>
+
+    <script>
+        let currentDate = new Date();
+        let minDate = new Date();
+        let maxDate = new Date();
+        
+        // Set date limits (1 month back, 3 months forward)
+        minDate.setMonth(minDate.getMonth() - 1);
+        maxDate.setMonth(maxDate.getMonth() + 3);
+
+        // Sample visit data - using the school list you provided
+        const visits = {
+            '2025-09-28': { 
+                school: 'St Peter\'s Catholic Primary School', 
+                timeSlot: 'Morning', 
+                time: '9:30 AM - 12:00 PM',
+                location: 'Noctorum, Wirral',
+                address: 'St Peter\'s Way, Noctorum, Wirral CH43 9QR',
+                type: 'visit'
+            },
+            '2025-10-02': { 
+                school: 'West Kirby Primary School', 
+                timeSlot: 'Afternoon', 
+                time: '1:00 PM - 3:30 PM',
+                location: 'West Kirby, Wirral',
+                address: 'Anglesey Road, West Kirby, Wirral CH48 5EQ',
+                type: 'visit'
+            },
+            '2025-10-03': { 
+                school: 'Training Day', 
+                timeSlot: 'All Day', 
+                time: '9:00 AM - 4:00 PM',
+                location: 'Grit HQ',
+                address: 'Grit Training Centre, Liverpool',
+                type: 'training'
+            },
+            '2025-10-05': { 
+                school: 'Thornton Hough Primary School', 
+                timeSlot: 'All Day', 
+                time: '9:00 AM - 4:00 PM',
+                location: 'Thornton Hough, Wirral',
+                address: 'St George\'s Way, Thornton Hough, Wirral CH63 1JJ',
+                type: 'visit'
+            },
+            '2025-10-07': { 
+                school: 'Woodlands Primary School', 
+                timeSlot: 'Morning', 
+                time: '9:15 AM - 12:30 PM',
+                location: 'Birkenhead',
+                address: 'Conway Street, Birkenhead, Wirral',
+                type: 'visit'
+            },
+            '2025-10-10': { 
+                school: 'Gayton Primary School', 
+                timeSlot: 'Morning', 
+                time: '8:45 AM - 11:30 AM',
+                location: 'Gayton, Heswall',
+                address: 'Gayton Road, Heswall, Wirral CH60 8PZ',
+                type: 'visit'
+            },
+            '2025-10-14': { 
+                school: 'Training Day', 
+                timeSlot: 'Morning', 
+                time: '9:30 AM - 12:30 PM',
+                location: 'Grit HQ',
+                address: 'Grit Training Centre, Liverpool',
+                type: 'training'
+            },
+            '2025-10-15': { 
+                school: 'Heswall Primary School', 
+                timeSlot: 'Afternoon', 
+                time: '1:15 PM - 3:45 PM',
+                location: 'Heswall, Wirral',
+                address: 'Whitfield Lane, Heswall, Wirral CH60 7SD',
+                type: 'visit'
+            },
+            '2025-10-16': { 
+                school: 'The Priory Parish CE Primary School', 
+                timeSlot: 'All Day', 
+                time: '9:00 AM - 4:15 PM',
+                location: 'Birkenhead',
+                address: 'Boundary Road, Birkenhead, Wirral',
+                type: 'visit'
+            },
+            '2025-10-18': { 
+                school: 'Birkenhead Christ Church CE Primary School', 
+                timeSlot: 'Morning', 
+                time: '9:15 AM - 12:15 PM',
+                location: 'Birkenhead',
+                address: 'Christ Church Street, Birkenhead, Wirral',
+                type: 'visit'
+            },
+            '2025-10-22': { 
+                school: 'Egremont Primary School', 
+                timeSlot: 'All Day', 
+                time: '9:00 AM - 4:30 PM',
+                location: 'Wallasey',
+                address: 'Egremont Promenade, Wallasey, Wirral',
+                type: 'visit'
+            },
+            '2025-10-24': { 
+                school: 'St Anne\'s Catholic Primary School', 
+                timeSlot: 'Afternoon', 
+                time: '1:30 PM - 3:30 PM',
+                location: 'Rock Ferry, Wirral',
+                address: 'St Anne\'s Road, Rock Ferry, Wirral',
+                type: 'visit'
+            },
+            '2025-10-29': { 
+                school: 'Kingsway Primary School', 
+                timeSlot: 'Morning', 
+                time: '8:30 AM - 11:45 AM',
+                location: 'Wallasey',
+                address: 'Kingsway, Wallasey, Wirral',
+                type: 'visit'
+            },
+            '2025-11-05': { 
+                school: 'Holy Cross Catholic Primary School', 
+                timeSlot: 'Morning', 
+                time: '8:30 AM - 11:45 AM',
+                location: 'Bidston, Wirral',
+                address: 'Gautby Road, Birkenhead, Wirral CH41 7DU',
+                type: 'visit'
+            },
+            '2025-11-07': { 
+                school: 'Training Day', 
+                timeSlot: 'Afternoon', 
+                time: '1:00 PM - 4:30 PM',
+                location: 'Grit HQ',
+                address: 'Grit Training Centre, Liverpool',
+                type: 'training'
+            },
+            '2025-11-12': { 
+                school: 'Leasowe Primary School', 
+                timeSlot: 'Afternoon', 
+                time: '12:30 PM - 3:15 PM',
+                location: 'Leasowe',
+                address: 'Leasowe Road, Leasowe, Wirral',
+                type: 'visit'
+            },
+            '2025-11-14': { 
+                school: 'Brookdale Primary School', 
+                timeSlot: 'All Day', 
+                time: '9:00 AM - 4:00 PM',
+                location: 'Greasby',
+                address: 'Mill Lane, Greasby, Wirral',
+                type: 'visit'
+            },
+            '2025-11-19': { 
+                school: 'Great Meols Primary School', 
+                timeSlot: 'All Day', 
+                time: '8:45 AM - 4:15 PM',
+                location: 'Meols',
+                address: 'Elwyn Road, Meols, Wirral CH47 7AP',
+                type: 'visit'
+            },
+            '2025-11-21': { 
+                school: 'Sacred Heart Catholic Primary School', 
+                timeSlot: 'Morning', 
+                time: '9:30 AM - 12:00 PM',
+                location: 'Moreton',
+                address: 'Danger Lane, Moreton, Wirral',
+                type: 'visit'
+            },
+            '2025-11-26': { 
+                school: 'New Brighton Primary School', 
+                timeSlot: 'Afternoon', 
+                time: '1:15 PM - 3:45 PM',
+                location: 'New Brighton',
+                address: 'Rowson Street, New Brighton, Wirral',
+                type: 'visit'
+            },
+            '2025-12-03': { 
+                school: 'Grove Street Primary School', 
+                timeSlot: 'Morning', 
+                time: '9:00 AM - 12:15 PM',
+                location: 'New Ferry',
+                address: 'Grove Street, New Ferry, Wirral',
+                type: 'visit'
+            }
+        };
+
+        // Sample director names from your list
+        const directorNames = [
+            'David Thompson', 'Susan Williams', 'Ahmed Hassan', 'Helen Edwards',
+            'Michael Roberts', 'Fatima Khan', 'Robert Wilson', 'Margaret Brown',
+            'Christopher Davies', 'Linda Taylor', 'Andrew Smith', 'Carol Johnson'
+        ];
+
+        function forgotPassword() {
+            alert('Please contact your administrator to reset your password.\n\nEmail: admin@gritdirectors.com\nPhone: 0151-555-0123');
+        }
+
+        function login(username, password) {
+            // Simple auth check
+            if (username === 'admin' && password === 'admin') {
+                showDashboard();
+                return true;
+            }
+            return false;
+        }
+
+        function loginSSO(provider) {
+            // Simulate SSO login
+            showDashboard();
+        }
+
+        function showDashboard() {
+            document.getElementById('loginContainer').style.display = 'none';
+            document.getElementById('dashboard').style.display = 'flex';
+            
+            // Set director name with welcome message
+            document.getElementById('directorName').textContent = 'Welcome Back Symon Winnan';
+            
+            renderCalendar();
+        }
+
+        function logout() {
+            document.getElementById('loginContainer').style.display = 'flex';
+            document.getElementById('dashboard').style.display = 'none';
+            
+            // Clear form
+            document.getElementById('username').value = '';
+            document.getElementById('password').value = '';
+        }
+
+        function renderCalendar() {
+            const monthNames = ['January', 'February', 'March', 'April', 'May', 'June',
+                'July', 'August', 'September', 'October', 'November', 'December'];
+            
+            document.getElementById('currentMonth').textContent = 
+                `${monthNames[currentDate.getMonth()]} ${currentDate.getFullYear()}`;
+
+            const firstDay = new Date(currentDate.getFullYear(), currentDate.getMonth(), 1);
+            const lastDay = new Date(currentDate.getFullYear(), currentDate.getMonth() + 1, 0);
+            const startDate = new Date(firstDay);
+            startDate.setDate(startDate.getDate() - firstDay.getDay());
+
+            const calendarDays = document.getElementById('calendarDays');
+            calendarDays.innerHTML = '';
+
+            const today = new Date();
+            today.setHours(0, 0, 0, 0);
+
+            for (let i = 0; i < 42; i++) {
+                const date = new Date(startDate);
+                date.setDate(startDate.getDate() + i);
+                
+                const dayElement = document.createElement('div');
+                dayElement.className = 'day';
+                
+                if (date.getMonth() !== currentDate.getMonth()) {
+                    dayElement.classList.add('other-month');
+                }
+                
+                if (date.getTime() === today.getTime()) {
+                    dayElement.classList.add('today');
+                }
+
+                const dateString = date.toISOString().split('T')[0];
+                const visit = visits[dateString];
+                
+                if (visit) {
+                    if (visit.type === 'training') {
+                        dayElement.classList.add('has-training');
+                    } else {
+                        dayElement.classList.add('has-visit');
+                    }
+                }
+
+                if (visit) {
+                    const isTraining = visit.type === 'training';
+                    const trainingClass = isTraining ? ' training' : '';
+                    
+                    dayElement.innerHTML = `
+                        <div class="day-number">${date.getDate()}</div>
+                        <div class="visit-info">
+                            <div class="school-name${trainingClass}" title="${visit.school}">${visit.school}</div>
+                            <div class="visit-time${trainingClass}">${visit.timeSlot}</div>
+                            <a href="#" class="map-link${trainingClass}" onclick="openMap('${visit.address}'); event.stopPropagation();">
+                                <svg class="map-icon" viewBox="0 0 24 24" fill="currentColor">
+                                    <path d="M12 2C8.13 2 5 5.13 5 9c0 5.25 7 13 7 13s7-7.75 7-13c0-3.87-3.13-7-7-7zm0 9.5c-1.38 0-2.5-1.12-2.5-2.5s1.12-2.5 2.5-2.5 2.5 1.12 2.5 2.5-1.12 2.5-2.5 2.5z"/>
+                                </svg>
+                                ${isTraining ? 'Location' : 'Map'}
+                            </a>
+                        </div>
+                    `;
+                } else {
+                    dayElement.innerHTML = `<div class="day-number">${date.getDate()}</div>`;
+                }
+
+                dayElement.addEventListener('click', () => {
+                    if (visits[dateString]) {
+                        showVisitDetails(dateString);
+                    }
+                });
+
+                calendarDays.appendChild(dayElement);
+            }
+        }
+
+        function showVisitDetails(dateString) {
+            const visit = visits[dateString];
+            const date = new Date(dateString);
+            const formattedDate = date.toLocaleDateString('en-GB', { 
+                weekday: 'long', 
+                year: 'numeric', 
+                month: 'long', 
+                day: 'numeric' 
+            });
+
+            document.getElementById('visitContent').innerHTML = `
+                <div class="visit-info-item">
+                    <span class="visit-info-label">Date:</span>
+                    <span class="visit-info-value">${formattedDate}</span>
+                </div>
+                <div class="visit-info-item">
+                    <span class="visit-info-label">Time:</span>
+                    <span class="visit-info-value">${visit.time}</span>
+                </div>
+                <div class="visit-info-item">
+                    <span class="visit-info-label">School:</span>
+                    <span class="visit-info-value">${visit.school}</span>
+                </div>
+                <div class="visit-info-item">
+                    <span class="visit-info-label">Address:</span>
+                    <span class="visit-info-value">${visit.address}</span>
+                </div>
+                <div class="visit-info-item">
+                    <span class="visit-info-label">Duration:</span>
+                    <span class="visit-info-value">${visit.timeSlot}</span>
+                </div>
+                <div style="margin-top: 15px; text-align: center;">
+                    <button onclick="openMap('${visit.address}')" style="background: #032717; color: white; border: none; padding: 10px 20px; border-radius: 6px; cursor: pointer; font-weight: 600;">
+                        Open in Maps
+                    </button>
+                </div>
+            `;
+
+            document.getElementById('visitDetails').classList.add('show');
+        }
+
+        function openMap(address) {
+            // Encode the address for URL
+            const encodedAddress = encodeURIComponent(address);
+            
+            // Try to open in Google Maps first, with fallback to Apple Maps on iOS
+            if (navigator.userAgent.includes('iPhone') || navigator.userAgent.includes('iPad')) {
+                window.open(`http://maps.apple.com/?q=${encodedAddress}`, '_blank');
+            } else {
+                window.open(`https://www.google.com/maps/search/?api=1&query=${encodedAddress}`, '_blank');
+            }
+        }
+
+        function closeVisitDetails() {
+            document.getElementById('visitDetails').classList.remove('show');
+        }
+
+        function changeMonth(direction) {
+            const newDate = new Date(currentDate);
+            newDate.setMonth(newDate.getMonth() + direction);
+            
+            // Check bounds
+            if (newDate >= minDate && newDate <= maxDate) {
+                currentDate = newDate;
+                renderCalendar();
+            }
+        }
+
+        // Event listeners
+        document.getElementById('loginForm').addEventListener('submit', (e) => {
+            e.preventDefault();
+            const username = document.getElementById('username').value;
+            const password = document.getElementById('password').value;
+            
+            if (!login(username, password)) {
+                alert('Invalid credentials. Use admin/admin');
+            }
+        });
+
+        document.getElementById('prevMonth').addEventListener('click', () => changeMonth(-1));
+        document.getElementById('nextMonth').addEventListener('click', () => changeMonth(1));
+
+        // Touch swipe support for calendar
+        let touchStartX = 0;
+        let touchEndX = 0;
+
+        document.getElementById('calendarDays').addEventListener('touchstart', (e) => {
+            touchStartX = e.changedTouches[0].screenX;
+        });
+
+        document.getElementById('calendarDays').addEventListener('touchend', (e) => {
+            touchEndX = e.changedTouches[0].screenX;
+            handleSwipe();
+        });
+
+        function handleSwipe() {
+            if (touchEndX < touchStartX - 50) {
+                // Swipe left - next month
+                changeMonth(1);
+            }
+            if (touchEndX > touchStartX + 50) {
+                // Swipe right - previous month
+                changeMonth(-1);
+            }
+        }
+
+        // Navigation items
+        document.querySelectorAll('.nav-item').forEach(item => {
+            item.addEventListener('click', () => {
+                // Remove active class from all items
+                document.querySelectorAll('.nav-item').forEach(nav => nav.classList.remove('active'));
+                // Add active class to clicked item
+                item.classList.add('active');
+                
+                // Show placeholder alert for non-calendar sections
+                const label = item.querySelector('.nav-label').textContent;
+                if (label !== 'Calendar') {
+                    alert(`${label} section coming soon!\n\nThis will include:\n• ${getFeatureList(label)}`);
+                }
+            });
+        });
+
+        function getFeatureList(section) {
+            const features = {
+                'Messages': 'Communication with teachers and staff\n• School visit notifications\n• Administrative announcements\n• Parent/student feedback',
+                'Reports': 'School visit summaries\n• Progress tracking reports\n• Performance analytics\n• Compliance documentation',
+                'Inventory': 'Equipment tracking\n• Resource allocation\n• Supply management\n• Asset monitoring'
+            };
+            return features[section] || 'Feature details';
+        }
+    </script>
+</body>
+</html>
+                
