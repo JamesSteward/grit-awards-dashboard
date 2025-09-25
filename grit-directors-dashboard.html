@@ -289,6 +289,7 @@
             display: grid;
             grid-template-columns: 0.5fr 1fr 1fr 1fr 1fr 1fr 0.5fr;
             gap: 0;
+            border-collapse: collapse;
         }
 
         .day-header {
@@ -306,8 +307,7 @@
             display: flex;
             align-items: flex-start;
             justify-content: center;
-            border-right: 1px solid #f0f0f0;
-            border-bottom: 1px solid #f0f0f0;
+            border: none;
             position: relative;
             cursor: pointer;
             transition: background-color 0.2s;
@@ -315,6 +315,31 @@
             min-height: 120px;
             padding: 4px;
             overflow: hidden;
+            outline: 1px solid #f0f0f0;
+        }
+        
+        /* Grey out Saturday and Sunday */
+        .day:nth-child(7n) {
+            background-color: #f8f9fa;
+            color: #6c757d;
+        }
+        
+        .day:nth-child(7n-6) {
+            background-color: #f8f9fa;
+            color: #6c757d;
+        }
+        
+        /* Mute weekend events */
+        .day:nth-child(7n) .school-name,
+        .day:nth-child(7n) .visit-time,
+        .day:nth-child(7n) .map-link {
+            opacity: 0.6;
+        }
+        
+        .day:nth-child(7n-6) .school-name,
+        .day:nth-child(7n-6) .visit-time,
+        .day:nth-child(7n-6) .map-link {
+            opacity: 0.6;
         }
 
         .day:hover {
