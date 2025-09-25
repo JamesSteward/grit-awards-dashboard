@@ -196,6 +196,9 @@
             align-items: center;
             justify-content: space-between;
             box-shadow: 0 2px 10px rgba(0,0,0,0.1);
+            position: relative;
+            z-index: 1000;
+            min-height: 60px;
         }
 
         .header-left {
@@ -448,6 +451,17 @@
 
         /* Mobile-specific fixes for iPhone Pro Max 15 */
         @media screen and (max-width: 430px) {
+            .header {
+                padding: 12px 15px;
+                min-height: 55px;
+                position: relative;
+                z-index: 1000;
+            }
+            
+            .director-name {
+                font-size: 16px;
+            }
+            
             .nav-icon {
                 width: 28px;
                 height: 28px;
