@@ -176,7 +176,7 @@
             padding: 15px 30px;
             box-shadow: 0 2px 20px rgba(0, 0, 0, 0.1);
             display: flex;
-            justify-content: space-between;
+            justify-content: center;
             align-items: center;
             position: sticky;
             top: 0;
@@ -217,7 +217,7 @@
         .notification-badge {
             position: relative;
             background: transparent;
-            border: 2px solid rgba(255, 255, 255, 0.3);
+            border: 1px solid rgba(255, 255, 255, 0.3);
             border-radius: 12px;
             padding: 10px 16px;
             font-size: 14px;
@@ -303,11 +303,11 @@
             margin-bottom: 30px;
         }
 
-        /* Statistics Cards */
+        /* Statistics Cards - Preview Boxes */
         .stats-section {
             display: grid;
-            grid-template-columns: repeat(auto-fit, minmax(280px, 1fr));
-            gap: 20px;
+            grid-template-columns: repeat(auto-fit, minmax(350px, 1fr));
+            gap: 25px;
             margin-bottom: 40px;
         }
 
@@ -319,6 +319,9 @@
             border: 1px solid #f0f0f0;
             transition: transform 0.2s, box-shadow 0.2s;
             cursor: pointer;
+            min-height: 280px;
+            display: flex;
+            flex-direction: column;
         }
 
         .stat-card:hover {
@@ -326,31 +329,100 @@
             box-shadow: 0 8px 30px rgba(0, 0, 0, 0.12);
         }
 
+        .stat-header {
+            display: flex;
+            align-items: center;
+            gap: 12px;
+            margin-bottom: 20px;
+            padding-bottom: 15px;
+            border-bottom: 1px solid #f0f0f0;
+        }
+
         .stat-icon {
-            width: 50px;
-            height: 50px;
+            width: 40px;
+            height: 40px;
             background: linear-gradient(45deg, #032717, #044d30);
-            border-radius: 12px;
+            border-radius: 10px;
             display: flex;
             align-items: center;
             justify-content: center;
-            font-size: 24px;
-            margin-bottom: 15px;
+            flex-shrink: 0;
         }
 
-        .stat-number {
-            font-size: 36px;
-            font-weight: bold;
+        .stat-title {
+            font-size: 18px;
+            font-weight: 600;
             color: #032717;
-            margin-bottom: 5px;
+            margin: 0;
         }
 
-        .stat-label {
+        .preview-list {
+            flex: 1;
+            display: flex;
+            flex-direction: column;
+            gap: 12px;
+        }
+
+        .preview-item {
+            display: flex;
+            align-items: flex-start;
+            gap: 12px;
+            padding: 12px;
+            border-radius: 8px;
+            transition: background-color 0.2s;
+        }
+
+        .preview-item:hover {
+            background-color: #f8f9fa;
+        }
+
+        .preview-avatar {
+            width: 36px;
+            height: 36px;
+            border-radius: 50%;
+            flex-shrink: 0;
+        }
+
+        .preview-content {
+            flex: 1;
+            min-width: 0;
+        }
+
+        .preview-name {
+            font-weight: 600;
+            color: #032717;
             font-size: 14px;
+            margin-bottom: 4px;
+        }
+
+        .preview-text {
             color: #666;
-            font-weight: 500;
-            text-transform: uppercase;
-            letter-spacing: 0.5px;
+            font-size: 13px;
+            line-height: 1.4;
+            overflow: hidden;
+            display: -webkit-box;
+            -webkit-line-clamp: 2;
+            -webkit-box-orient: vertical;
+        }
+
+        .see-all-link {
+            text-align: right;
+            margin-top: 15px;
+            padding-top: 15px;
+            border-top: 1px solid #f0f0f0;
+        }
+
+        .see-all-link a {
+            color: #032717;
+            text-decoration: none;
+            font-weight: 600;
+            font-size: 14px;
+            transition: color 0.2s;
+        }
+
+        .see-all-link a:hover {
+            color: #044d30;
+            text-decoration: underline;
         }
 
         /* Classes Section */
@@ -479,33 +551,42 @@
             color: white;
         }
 
-        /* Support Section */
-        .support-section {
-            text-align: center;
-            padding: 30px 20px;
+        /* Footer */
+        .dashboard-footer {
             background: #f8f9fa;
-            border-radius: 16px;
-            margin-top: 20px;
+            padding: 20px;
+            margin-top: 40px;
+            border-top: 1px solid #e0e0e0;
         }
 
-        .support-link {
-            display: inline-flex;
+        .footer-links {
+            display: flex;
+            justify-content: center;
             align-items: center;
-            gap: 12px;
-            background: #032717;
-            color: white;
-            text-decoration: none;
-            padding: 15px 30px;
-            border-radius: 12px;
-            font-weight: 600;
-            transition: all 0.3s;
-            font-size: 16px;
+            gap: 40px;
+            flex-wrap: wrap;
         }
 
-        .support-link:hover {
-            background: #044d30;
-            transform: translateY(-2px);
-            box-shadow: 0 8px 25px rgba(0, 0, 0, 0.15);
+        .footer-link {
+            display: flex;
+            align-items: center;
+            gap: 8px;
+            color: #666;
+            text-decoration: none;
+            font-weight: 500;
+            transition: color 0.2s;
+            padding: 8px 12px;
+            border-radius: 6px;
+        }
+
+        .footer-link:hover {
+            color: #032717;
+            background: #f0f0f0;
+        }
+
+        .footer-link svg {
+            width: 18px;
+            height: 18px;
         }
 
         .support-icon {
@@ -515,8 +596,6 @@
         /* Mobile Responsiveness */
         @media (max-width: 768px) {
             .dashboard-header {
-                flex-direction: column;
-                gap: 15px;
                 padding: 20px;
             }
 
@@ -548,6 +627,11 @@
             .notification-badge {
                 padding: 6px 10px;
                 font-size: 12px;
+            }
+
+            .footer-links {
+                flex-direction: column;
+                gap: 20px;
             }
         }
 
@@ -628,7 +712,7 @@
         <!-- Header -->
         <header class="dashboard-header">
             <div class="header-left">
-                <img src="grit-logo.webp" alt="GRIT Awards Logo" class="header-logo">
+                <img src="grit-logo-white.webp" alt="GRIT Awards Logo" class="header-logo">
                 <div>
                     <h1 class="header-title">GRIT Awards</h1>
                     <p class="header-subtitle">Leader Dashboard</p>
@@ -666,17 +750,6 @@
                     GRIT Bits
                     <span class="badge-count">5</span>
                 </div>
-                
-                <button class="logout-btn" id="logoutLink">
-                    <div class="notification-icon">
-                        <svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
-                            <path d="M9 21H5a2 2 0 0 1-2-2V5a2 2 0 0 1 2-2h4"/>
-                            <polyline points="16,17 21,12 16,7"/>
-                            <line x1="21" y1="12" x2="9" y2="12"/>
-                        </svg>
-                    </div>
-                    Logout
-                </button>
             </div>
         </header>
 
@@ -690,39 +763,121 @@
 
             <!-- Statistics Section -->
             <section class="stats-section">
+                <!-- Messages Preview -->
                 <div class="stat-card" onclick="openMessages()">
-                    <div class="stat-icon">
-                        <svg width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="white" stroke-width="2">
-                            <path d="M4 4h16c1.1 0 2 .9 2 2v12c0 1.1-.9 2-2 2H4c-1.1 0-2-.9-2-2V6c0-1.1.9-2 2-2z"/>
-                            <polyline points="22,6 12,13 2,6"/>
-                        </svg>
+                    <div class="stat-header">
+                        <div class="stat-icon">
+                            <svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="white" stroke-width="2">
+                                <path d="M4 4h16c1.1 0 2 .9 2 2v12c0 1.1-.9 2-2 2H4c-1.1 0-2-.9-2-2V6c0-1.1.9-2 2-2z"/>
+                                <polyline points="22,6 12,13 2,6"/>
+                            </svg>
+                        </div>
+                        <h3 class="stat-title">Messages</h3>
                     </div>
-                    <div class="stat-number">7</div>
-                    <div class="stat-label">New Messages</div>
+                    <div class="preview-list">
+                        <div class="preview-item">
+                            <img src="grit-logo.webp" alt="Sarah Johnson" class="preview-avatar">
+                            <div class="preview-content">
+                                <div class="preview-name">Sarah Johnson</div>
+                                <div class="preview-text">Hi! Could you help me understand Tommy's progress in the resilience challenges? He seems to be struggling with...</div>
+                            </div>
+                        </div>
+                        <div class="preview-item">
+                            <img src="grit-logo.webp" alt="Mike Chen" class="preview-avatar">
+                            <div class="preview-content">
+                                <div class="preview-name">Mike Chen</div>
+                                <div class="preview-text">Thanks for the feedback on Emma's portfolio submission. When will the next batch of challenges be available?</div>
+                            </div>
+                        </div>
+                        <div class="preview-item">
+                            <img src="grit-logo.webp" alt="Lisa Williams" class="preview-avatar">
+                            <div class="preview-content">
+                                <div class="preview-name">Lisa Williams</div>
+                                <div class="preview-text">Great work on organizing the GRIT showcase! The parents were really impressed with the student presentations.</div>
+                            </div>
+                        </div>
+                    </div>
+                    <div class="see-all-link">
+                        <a href="#" onclick="event.stopPropagation(); openMessages();">See all</a>
+                    </div>
                 </div>
                 
+                <!-- Reviews Preview -->
                 <div class="stat-card" onclick="openSubmissionReviews()">
-                    <div class="stat-icon">
-                        <svg width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="white" stroke-width="2">
-                            <path d="M14 2H6a2 2 0 0 0-2 2v16a2 2 0 0 0 2 2h12a2 2 0 0 0 2-2V8z"/>
-                            <polyline points="14,2 14,8 20,8"/>
-                            <line x1="16" y1="13" x2="8" y2="13"/>
-                            <line x1="16" y1="17" x2="8" y2="17"/>
-                            <polyline points="10,9 9,9 8,9"/>
-                        </svg>
+                    <div class="stat-header">
+                        <div class="stat-icon">
+                            <svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="white" stroke-width="2">
+                                <path d="M14 2H6a2 2 0 0 0-2 2v16a2 2 0 0 0 2 2h12a2 2 0 0 0 2-2V8z"/>
+                                <polyline points="14,2 14,8 20,8"/>
+                                <line x1="16" y1="13" x2="8" y2="13"/>
+                                <line x1="16" y1="17" x2="8" y2="17"/>
+                                <polyline points="10,9 9,9 8,9"/>
+                            </svg>
+                        </div>
+                        <h3 class="stat-title">Reviews</h3>
                     </div>
-                    <div class="stat-number">12</div>
-                    <div class="stat-label">Submission Reviews</div>
+                    <div class="preview-list">
+                        <div class="preview-item">
+                            <img src="grit-logo.webp" alt="Alex Rivera" class="preview-avatar">
+                            <div class="preview-content">
+                                <div class="preview-name">Alex Rivera</div>
+                                <div class="preview-text">Persistence Challenge: Building a Robot - Submitted a detailed video showing 3 weeks of trial and error...</div>
+                            </div>
+                        </div>
+                        <div class="preview-item">
+                            <img src="grit-logo.webp" alt="Maya Patel" class="preview-avatar">
+                            <div class="preview-content">
+                                <div class="preview-name">Maya Patel</div>
+                                <div class="preview-text">Growth Mindset Portfolio - Reflection essay on overcoming math anxiety through daily practice and positive self-talk...</div>
+                            </div>
+                        </div>
+                        <div class="preview-item">
+                            <img src="grit-logo.webp" alt="Jordan Smith" class="preview-avatar">
+                            <div class="preview-content">
+                                <div class="preview-name">Jordan Smith</div>
+                                <div class="preview-text">Leadership Project: Playground Cleanup - Organized 15 classmates to improve school environment over 2 months...</div>
+                            </div>
+                        </div>
+                    </div>
+                    <div class="see-all-link">
+                        <a href="#" onclick="event.stopPropagation(); openSubmissionReviews();">See all</a>
+                    </div>
                 </div>
                 
+                <!-- GRIT Bits Preview -->
                 <div class="stat-card" onclick="openGritBits()">
-                    <div class="stat-icon">
-                        <svg width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="white" stroke-width="2">
-                            <polygon points="12,2 15.09,8.26 22,9.27 17,14.14 18.18,21.02 12,17.77 5.82,21.02 7,14.14 2,9.27 8.91,8.26"/>
-                        </svg>
+                    <div class="stat-header">
+                        <div class="stat-icon">
+                            <img src="grit-bit.webp" alt="GRIT Bit" style="width: 20px; height: 20px;">
+                        </div>
+                        <h3 class="stat-title">GRIT Bits</h3>
                     </div>
-                    <div class="stat-number">5</div>
-                    <div class="stat-label">GRIT Bits Pending</div>
+                    <div class="preview-list">
+                        <div class="preview-item">
+                            <img src="grit-logo.webp" alt="Sophie Zhang" class="preview-avatar">
+                            <div class="preview-content">
+                                <div class="preview-name">Sophie Zhang</div>
+                                <div class="preview-text">Kindness Chain Reaction - Started a compliment wall in the library that spread to 3 other classes...</div>
+                            </div>
+                        </div>
+                        <div class="preview-item">
+                            <img src="grit-logo.webp" alt="Carlos Martinez" class="preview-avatar">
+                            <div class="preview-content">
+                                <div class="preview-name">Carlos Martinez</div>
+                                <div class="preview-text">Weekend Community Garden - Spent 6 Saturday mornings helping elderly neighbors with their vegetable gardens...</div>
+                            </div>
+                        </div>
+                        <div class="preview-item">
+                            <img src="grit-logo.webp" alt="Aisha Thompson" class="preview-avatar">
+                            <div class="preview-content">
+                                <div class="preview-name">Aisha Thompson</div>
+                                <div class="preview-text">Reading Buddy Program - Volunteered to help younger students with reading during lunch breaks for 8 weeks...</div>
+                            </div>
+                        </div>
+                    </div>
+                    <div class="see-all-link">
+                        <a href="#" onclick="event.stopPropagation(); openGritBits();">See all</a>
+                    </div>
                 </div>
             </section>
 
@@ -822,19 +977,41 @@
                     </div>
                 </div>
             </section>
-
-            <!-- Support Section -->
-            <section class="support-section">
-                <a href="#" class="support-link" onclick="openSupport()">
-                    <svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
-                        <circle cx="12" cy="12" r="10"/>
-                        <path d="M9.09 9a3 3 0 0 1 5.83 1c0 2-3 3-3 3"/>
-                        <line x1="12" y1="17" x2="12.01" y2="17"/>
-                    </svg>
-                    Need help? Contact Support
-                </a>
-            </section>
         </main>
+
+        <!-- Footer -->
+        <footer class="dashboard-footer">
+            <div class="footer-links">
+                <a href="#" class="footer-link" onclick="openFAQ()">
+                    <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
+                        <circle cx="12" cy="12" r="10"/>
+                        <path d="m9,9c0-1.7,1.3-3,3-3s3,1.3,3,3c0,2-3,3-3,3"/>
+                        <point cx="12" cy="17" r="0.5"/>
+                    </svg>
+                    Lost? Read our FAQ
+                </a>
+                
+                <a href="#" class="footer-link" onclick="openSupport()">
+                    <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
+                        <circle cx="12" cy="12" r="10"/>
+                        <circle cx="12" cy="12" r="4"/>
+                        <line x1="21.17" y1="8" x2="12" y2="8"/>
+                        <line x1="3.95" y1="6.06" x2="8.54" y2="14"/>
+                        <line x1="10.88" y1="21.94" x2="15.46" y2="14"/>
+                    </svg>
+                    Need Help? Support Request
+                </a>
+                
+                <a href="#" class="footer-link" id="logoutLink">
+                    <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
+                        <path d="M9 21H5a2 2 0 0 1-2-2V5a2 2 0 0 1 2-2h4"/>
+                        <polyline points="16,17 21,12 16,7"/>
+                        <line x1="21" y1="12" x2="9" y2="12"/>
+                    </svg>
+                    Logout
+                </a>
+            </div>
+        </footer>
     </div>
 
     <script>
@@ -974,6 +1151,10 @@
 
         function openSupport() {
             alert('🛟 GRIT Awards Support\n\nContact options:\n• Email: support@gritawards.com\n• Phone: 1-800-GRIT-HELP\n• Live Chat: Available 9AM-5PM\n• Help Center: help.gritawards.com\n\nWe\'re here to help you succeed!');
+        }
+
+        function openFAQ() {
+            alert('❓ Frequently Asked Questions\n\nCommon topics:\n• Getting started with GRIT Awards\n• Managing student portfolios\n• Understanding progress metrics\n• Troubleshooting common issues\n\nVisit: help.gritawards.com/faq');
         }
     </script>
 </body>
