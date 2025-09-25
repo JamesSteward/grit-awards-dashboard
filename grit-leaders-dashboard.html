@@ -16,7 +16,7 @@
 
         body {
             font-family: -apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, sans-serif;
-            background: linear-gradient(135deg, #032717, #044d30);
+            background: #ffffff;
             min-height: 100vh;
             color: #333;
         }
@@ -167,14 +167,13 @@
         .dashboard {
             display: none;
             min-height: 100vh;
-            background: linear-gradient(135deg, #032717, #044d30);
+            background: #ffffff;
         }
 
         /* Header */
         .dashboard-header {
-            background: rgba(255, 255, 255, 0.95);
-            backdrop-filter: blur(10px);
-            padding: 15px 20px;
+            background: #032717;
+            padding: 15px 30px;
             box-shadow: 0 2px 20px rgba(0, 0, 0, 0.1);
             display: flex;
             justify-content: space-between;
@@ -199,13 +198,13 @@
             font-family: 'Roboto Slab', serif;
             font-size: 24px;
             font-weight: 600;
-            color: #032717;
+            color: white;
             margin: 0;
         }
 
         .header-subtitle {
             font-size: 14px;
-            color: #666;
+            color: rgba(255, 255, 255, 0.8);
             margin: 0;
         }
 
@@ -217,21 +216,36 @@
 
         .notification-badge {
             position: relative;
-            background: #f8f9fa;
-            border: 2px solid #e0e0e0;
+            background: transparent;
+            border: 2px solid rgba(255, 255, 255, 0.3);
             border-radius: 12px;
-            padding: 8px 12px;
+            padding: 10px 16px;
             font-size: 14px;
             font-weight: 600;
-            color: #032717;
+            color: white;
             transition: all 0.2s;
             cursor: pointer;
+            display: flex;
+            align-items: center;
+            gap: 8px;
         }
 
         .notification-badge:hover {
-            background: #032717;
-            color: white;
-            border-color: #032717;
+            background: rgba(255, 255, 255, 0.1);
+            border-color: rgba(255, 255, 255, 0.5);
+        }
+
+        .notification-icon {
+            width: 20px;
+            height: 20px;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+        }
+
+        .grit-bit-icon {
+            width: 20px;
+            height: 20px;
         }
 
         .badge-count {
@@ -246,18 +260,21 @@
 
         .logout-btn {
             background: transparent;
-            border: 2px solid #032717;
-            color: #032717;
-            padding: 8px 16px;
+            border: 2px solid rgba(255, 255, 255, 0.3);
+            color: white;
+            padding: 10px 16px;
             border-radius: 8px;
             font-weight: 600;
             cursor: pointer;
             transition: all 0.2s;
+            display: flex;
+            align-items: center;
+            gap: 8px;
         }
 
         .logout-btn:hover {
-            background: #032717;
-            color: white;
+            background: rgba(255, 255, 255, 0.1);
+            border-color: rgba(255, 255, 255, 0.5);
         }
 
         /* Main Content */
@@ -276,13 +293,13 @@
             font-family: 'Roboto Slab', serif;
             font-size: 32px;
             font-weight: 300;
-            color: white;
+            color: #333;
             margin-bottom: 10px;
         }
 
         .welcome-subtitle {
             font-size: 16px;
-            color: rgba(255, 255, 255, 0.8);
+            color: #666;
             margin-bottom: 30px;
         }
 
@@ -295,18 +312,18 @@
         }
 
         .stat-card {
-            background: rgba(255, 255, 255, 0.95);
-            backdrop-filter: blur(10px);
+            background: white;
             border-radius: 16px;
             padding: 25px;
-            box-shadow: 0 8px 32px rgba(0, 0, 0, 0.1);
+            box-shadow: 0 4px 20px rgba(0, 0, 0, 0.08);
+            border: 1px solid #f0f0f0;
             transition: transform 0.2s, box-shadow 0.2s;
             cursor: pointer;
         }
 
         .stat-card:hover {
             transform: translateY(-5px);
-            box-shadow: 0 12px 40px rgba(0, 0, 0, 0.15);
+            box-shadow: 0 8px 30px rgba(0, 0, 0, 0.12);
         }
 
         .stat-icon {
@@ -345,7 +362,7 @@
             font-family: 'Roboto Slab', serif;
             font-size: 28px;
             font-weight: 500;
-            color: white;
+            color: #333;
             margin-bottom: 20px;
             text-align: center;
         }
@@ -357,11 +374,11 @@
         }
 
         .class-card {
-            background: rgba(255, 255, 255, 0.95);
-            backdrop-filter: blur(10px);
+            background: white;
             border-radius: 16px;
             padding: 30px;
-            box-shadow: 0 8px 32px rgba(0, 0, 0, 0.1);
+            box-shadow: 0 4px 20px rgba(0, 0, 0, 0.08);
+            border: 1px solid #f0f0f0;
             transition: all 0.3s ease;
             cursor: pointer;
             position: relative;
@@ -370,7 +387,7 @@
 
         .class-card:hover {
             transform: translateY(-8px);
-            box-shadow: 0 16px 48px rgba(0, 0, 0, 0.2);
+            box-shadow: 0 12px 40px rgba(0, 0, 0, 0.15);
         }
 
         .class-card::before {
@@ -466,8 +483,7 @@
         .support-section {
             text-align: center;
             padding: 30px 20px;
-            background: rgba(255, 255, 255, 0.1);
-            backdrop-filter: blur(10px);
+            background: #f8f9fa;
             border-radius: 16px;
             margin-top: 20px;
         }
@@ -476,8 +492,8 @@
             display: inline-flex;
             align-items: center;
             gap: 12px;
-            background: rgba(255, 255, 255, 0.9);
-            color: #032717;
+            background: #032717;
+            color: white;
             text-decoration: none;
             padding: 15px 30px;
             border-radius: 12px;
@@ -487,7 +503,7 @@
         }
 
         .support-link:hover {
-            background: white;
+            background: #044d30;
             transform: translateY(-2px);
             box-shadow: 0 8px 25px rgba(0, 0, 0, 0.15);
         }
@@ -621,21 +637,46 @@
             
             <div class="header-actions">
                 <div class="notification-badge" onclick="openMessages()">
-                    📧 Messages
+                    <div class="notification-icon">
+                        <svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
+                            <path d="M4 4h16c1.1 0 2 .9 2 2v12c0 1.1-.9 2-2 2H4c-1.1 0-2-.9-2-2V6c0-1.1.9-2 2-2z"/>
+                            <polyline points="22,6 12,13 2,6"/>
+                        </svg>
+                    </div>
+                    Messages
                     <span class="badge-count">7</span>
                 </div>
                 
                 <div class="notification-badge" onclick="openSubmissionReviews()">
-                    📝 Reviews
+                    <div class="notification-icon">
+                        <svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
+                            <path d="M14 2H6a2 2 0 0 0-2 2v16a2 2 0 0 0 2 2h12a2 2 0 0 0 2-2V8z"/>
+                            <polyline points="14,2 14,8 20,8"/>
+                            <line x1="16" y1="13" x2="8" y2="13"/>
+                            <line x1="16" y1="17" x2="8" y2="17"/>
+                            <polyline points="10,9 9,9 8,9"/>
+                        </svg>
+                    </div>
+                    Reviews
                     <span class="badge-count">12</span>
                 </div>
                 
                 <div class="notification-badge" onclick="openGritBits()">
-                    ⭐ GRIT Bits
+                    <img src="grit-bit.webp" alt="GRIT Bit" class="grit-bit-icon">
+                    GRIT Bits
                     <span class="badge-count">5</span>
                 </div>
                 
-                <button class="logout-btn" id="logoutLink">Logout</button>
+                <button class="logout-btn" id="logoutLink">
+                    <div class="notification-icon">
+                        <svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
+                            <path d="M9 21H5a2 2 0 0 1-2-2V5a2 2 0 0 1 2-2h4"/>
+                            <polyline points="16,17 21,12 16,7"/>
+                            <line x1="21" y1="12" x2="9" y2="12"/>
+                        </svg>
+                    </div>
+                    Logout
+                </button>
             </div>
         </header>
 
@@ -650,19 +691,36 @@
             <!-- Statistics Section -->
             <section class="stats-section">
                 <div class="stat-card" onclick="openMessages()">
-                    <div class="stat-icon">📧</div>
+                    <div class="stat-icon">
+                        <svg width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="white" stroke-width="2">
+                            <path d="M4 4h16c1.1 0 2 .9 2 2v12c0 1.1-.9 2-2 2H4c-1.1 0-2-.9-2-2V6c0-1.1.9-2 2-2z"/>
+                            <polyline points="22,6 12,13 2,6"/>
+                        </svg>
+                    </div>
                     <div class="stat-number">7</div>
                     <div class="stat-label">New Messages</div>
                 </div>
                 
                 <div class="stat-card" onclick="openSubmissionReviews()">
-                    <div class="stat-icon">📝</div>
+                    <div class="stat-icon">
+                        <svg width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="white" stroke-width="2">
+                            <path d="M14 2H6a2 2 0 0 0-2 2v16a2 2 0 0 0 2 2h12a2 2 0 0 0 2-2V8z"/>
+                            <polyline points="14,2 14,8 20,8"/>
+                            <line x1="16" y1="13" x2="8" y2="13"/>
+                            <line x1="16" y1="17" x2="8" y2="17"/>
+                            <polyline points="10,9 9,9 8,9"/>
+                        </svg>
+                    </div>
                     <div class="stat-number">12</div>
                     <div class="stat-label">Submission Reviews</div>
                 </div>
                 
                 <div class="stat-card" onclick="openGritBits()">
-                    <div class="stat-icon">⭐</div>
+                    <div class="stat-icon">
+                        <svg width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="white" stroke-width="2">
+                            <polygon points="12,2 15.09,8.26 22,9.27 17,14.14 18.18,21.02 12,17.77 5.82,21.02 7,14.14 2,9.27 8.91,8.26"/>
+                        </svg>
+                    </div>
                     <div class="stat-number">5</div>
                     <div class="stat-label">GRIT Bits Pending</div>
                 </div>
@@ -768,7 +826,11 @@
             <!-- Support Section -->
             <section class="support-section">
                 <a href="#" class="support-link" onclick="openSupport()">
-                    <span class="support-icon">🛟</span>
+                    <svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
+                        <circle cx="12" cy="12" r="10"/>
+                        <path d="M9.09 9a3 3 0 0 1 5.83 1c0 2-3 3-3 3"/>
+                        <line x1="12" y1="17" x2="12.01" y2="17"/>
+                    </svg>
                     Need help? Contact Support
                 </a>
             </section>
