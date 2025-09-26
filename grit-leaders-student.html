@@ -530,10 +530,10 @@
     <div class="floating-summary">60%</div>
 
     <script>
-        // Check authentication
+        // Check authentication - only redirect if not in a new tab
         (function() {
             const isAuthenticated = localStorage.getItem('grit-leaders-authenticated');
-            if (isAuthenticated !== 'true') {
+            if (isAuthenticated !== 'true' && !window.opener) {
                 window.location.href = 'grit-leaders-dashboard.html';
             }
         })();
