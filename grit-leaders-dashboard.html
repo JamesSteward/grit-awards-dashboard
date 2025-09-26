@@ -1201,6 +1201,13 @@
         window.addEventListener('load', function() {
             console.log('Page loaded, setting up login');
             
+            // Check if user is already authenticated
+            const isAuthenticated = localStorage.getItem('grit-leaders-authenticated');
+            if (isAuthenticated === 'true') {
+                showDashboard();
+                return;
+            }
+            
             const loginButton = document.getElementById('loginButton');
             const googleSignIn = document.getElementById('googleSignIn');
             const microsoftSignIn = document.getElementById('microsoftSignIn');
@@ -1233,6 +1240,7 @@
                     
                     if (username === 'admin' && password === 'admin') {
                         console.log('Valid credentials');
+                        localStorage.setItem('grit-leaders-authenticated', 'true');
                         showDashboard();
                     } else {
                         console.log('Invalid credentials');
@@ -1261,6 +1269,7 @@
             if (logoutLink) {
                 logoutLink.onclick = function() {
                     console.log('Logout clicked');
+                    localStorage.removeItem('grit-leaders-authenticated');
                     window.location.href = 'https://jamessteward.github.io/grit-awards-dashboard/';
                 };
             }
