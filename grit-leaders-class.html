@@ -706,9 +706,13 @@
         // Check authentication immediately (before page renders)
         (function() {
             const isAuthenticated = localStorage.getItem('grit-leaders-authenticated');
+            console.log('Authentication check:', isAuthenticated);
             if (isAuthenticated !== 'true') {
+                console.log('Not authenticated, redirecting to login');
                 // Redirect to login if not authenticated
                 window.location.href = 'grit-leaders-dashboard.html';
+            } else {
+                console.log('Authenticated, staying on class page');
             }
         })();
         

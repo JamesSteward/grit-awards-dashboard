@@ -1203,9 +1203,13 @@
             
             // Check if user is already authenticated
             const isAuthenticated = localStorage.getItem('grit-leaders-authenticated');
+            console.log('Dashboard auth check:', isAuthenticated);
             if (isAuthenticated === 'true') {
+                console.log('Already authenticated, showing dashboard');
                 showDashboard();
                 return;
+            } else {
+                console.log('Not authenticated, showing login');
             }
             
             const loginButton = document.getElementById('loginButton');
@@ -1241,6 +1245,7 @@
                     if (username === 'admin' && password === 'admin') {
                         console.log('Valid credentials');
                         localStorage.setItem('grit-leaders-authenticated', 'true');
+                        console.log('Authentication set, value:', localStorage.getItem('grit-leaders-authenticated'));
                         showDashboard();
                     } else {
                         console.log('Invalid credentials');
