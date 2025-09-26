@@ -703,6 +703,15 @@
     </div>
 
     <script>
+        // Check authentication immediately (before page renders)
+        (function() {
+            const isAuthenticated = localStorage.getItem('grit-leaders-authenticated');
+            if (isAuthenticated !== 'true') {
+                // Redirect to login if not authenticated
+                window.location.href = 'grit-leaders-dashboard.html';
+            }
+        })();
+        
         function sortTable(columnIndex) {
             const table = document.querySelector('table tbody');
             const rows = Array.from(table.querySelectorAll('tr'));
@@ -734,15 +743,6 @@
             table.innerHTML = '';
             rows.forEach(row => table.appendChild(row));
         }
-        
-        // Check authentication on page load
-        window.addEventListener('load', function() {
-            const isAuthenticated = localStorage.getItem('grit-leaders-authenticated');
-            if (isAuthenticated !== 'true') {
-                // Redirect to login if not authenticated
-                window.location.href = 'grit-leaders-dashboard.html';
-            }
-        });
     </script>
 </body>
 </html>
