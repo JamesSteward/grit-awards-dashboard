@@ -27,11 +27,12 @@
         .header-content { 
             display: flex; 
             align-items: center; 
-            justify-content: space-between; 
+            justify-content: center; 
             max-width: 1200px; 
             margin: 0 auto; 
+            position: relative;
         }
-        .back-btn, .menu-btn { 
+        .back-btn { 
             background: none; 
             border: none; 
             color: white; 
@@ -39,6 +40,8 @@
             padding: 0.5rem; 
             border-radius: 8px;
             transition: background-color 0.2s;
+            position: absolute;
+            left: 0;
         }
         .back-btn:hover, .menu-btn:hover {
             background-color: rgba(255, 255, 255, 0.1);
@@ -50,11 +53,10 @@
         }
         .header-title { 
             font-family: 'Roboto Slab', serif; 
-            font-size: 1.2rem; 
+            font-size: 1.4rem; 
             font-weight: 600; 
-            flex: 1;
             text-align: center;
-            margin: 0 1rem;
+            margin: 0;
         }
         .student-header { 
             background: linear-gradient(135deg, #032717 0%, #054d2a 100%); 
@@ -262,6 +264,12 @@
             align-items: center; 
             gap: 1.25rem; 
         }
+        .challenge-text-container {
+            display: flex;
+            align-items: center;
+            gap: 0.75rem;
+            flex: 1;
+        }
         .challenge-number { 
             background: linear-gradient(135deg, #032717 0%, #054d2a 100%); 
             color: white; 
@@ -294,7 +302,16 @@
             font-size: 1rem;
             line-height: 1.5;
         }
-        .grit-indicator { padding: 0.2rem 0.5rem; border-radius: 12px; font-size: 0.7rem; font-weight: 600; text-transform: uppercase; letter-spacing: 0.5px; white-space: nowrap; }
+        .grit-indicator { 
+            padding: 0.3rem 0.6rem; 
+            border-radius: 15px; 
+            font-size: 0.7rem; 
+            font-weight: 600; 
+            text-transform: uppercase; 
+            letter-spacing: 0.3px; 
+            white-space: nowrap; 
+            flex-shrink: 0;
+        }
         .grit-resilience { background-color: rgba(231, 76, 60, 0.1); color: #e74c3c; border: 1px solid rgba(231, 76, 60, 0.2); }
         .grit-integrity { background-color: rgba(52, 152, 219, 0.1); color: #3498db; border: 1px solid rgba(52, 152, 219, 0.2); }
         .grit-teamwork { background-color: rgba(243, 156, 18, 0.1); color: #f39c12; border: 1px solid rgba(243, 156, 18, 0.2); }
@@ -416,15 +433,7 @@
                     <path d="M19 12H5M12 19l-7-7 7-7"/>
                 </svg>
             </button>
-            <img src="grit-logo-white.webp" alt="GRIT Awards Logo" class="header-logo" onclick="window.location.href='index.html'" style="cursor: pointer;">
-            <h1 class="header-title">Student Profile</h1>
-            <button class="menu-btn" onclick="toggleMenu()">
-                <svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
-                    <line x1="3" y1="6" x2="21" y2="6"/>
-                    <line x1="3" y1="12" x2="21" y2="12"/>
-                    <line x1="3" y1="18" x2="21" y2="18"/>
-                </svg>
-            </button>
+            <h1 class="header-title">Riley Furey</h1>
         </div>
     </header>
 
@@ -452,13 +461,76 @@
     <div class="challenges-container">
         <div class="category-section">
             <h3 class="category-header life-skills">Life Skills</h3>
-            <div class="challenge-item" data-status="completed"><div class="challenge-content"><div class="challenge-number">1</div><div class="challenge-text">TIE SHOELACES IN A BOW</div><div class="grit-indicator grit-tenacity">Tenacity</div></div><div class="status-badge status-completed">Completed</div></div>
-            <div class="challenge-item" data-status="completed"><div class="challenge-content"><div class="challenge-number">2</div><div class="challenge-text">MAKE OWN BED</div><div class="grit-indicator grit-integrity">Integrity</div></div><div class="status-badge status-completed">Completed</div></div>
-            <div class="challenge-item" data-status="keep-trying"><div class="challenge-content"><div class="challenge-number">3</div><div class="challenge-text">TIDY BEDROOM</div><div class="grit-indicator grit-integrity">Integrity</div></div><div class="status-badge status-keep-trying">Keep Trying</div></div>
-            <div class="challenge-item" data-status="completed"><div class="challenge-content"><div class="challenge-number">4</div><div class="challenge-text">HELP PUT SHOPPING AWAY</div><div class="grit-indicator grit-teamwork">Teamwork</div></div><div class="status-badge status-completed">Completed</div></div>
-            <div class="challenge-item" data-status="completed"><div class="challenge-content"><div class="challenge-number">5</div><div class="challenge-text">WASH THE DISHES</div><div class="grit-indicator grit-integrity">Integrity</div></div><div class="status-badge status-completed">Completed</div></div>
-            <div class="challenge-item" data-status="completed"><div class="challenge-content"><div class="challenge-number">6</div><div class="challenge-text">PREPARE A SIMPLE LUNCH</div><div class="grit-indicator grit-tenacity">Tenacity</div></div><div class="status-badge status-completed">Completed</div></div>
-            <div class="challenge-item" data-status="completed"><div class="challenge-content"><div class="challenge-number">7</div><div class="challenge-text">BRUSH TEETH TWICE A DAY</div><div class="grit-indicator grit-integrity">Integrity</div></div><div class="status-badge status-completed">Completed</div></div>
+            <div class="challenge-item" data-status="completed">
+                <div class="challenge-content">
+                    <div class="challenge-number">1</div>
+                    <div class="challenge-text-container">
+                        <div class="challenge-text">TIE SHOELACES IN A BOW</div>
+                        <div class="grit-indicator grit-tenacity">Tenacity</div>
+                    </div>
+                </div>
+                <div class="status-badge status-completed">Completed</div>
+            </div>
+            <div class="challenge-item" data-status="completed">
+                <div class="challenge-content">
+                    <div class="challenge-number">2</div>
+                    <div class="challenge-text-container">
+                        <div class="challenge-text">MAKE OWN BED</div>
+                        <div class="grit-indicator grit-integrity">Integrity</div>
+                    </div>
+                </div>
+                <div class="status-badge status-completed">Completed</div>
+            </div>
+            <div class="challenge-item" data-status="keep-trying">
+                <div class="challenge-content">
+                    <div class="challenge-number">3</div>
+                    <div class="challenge-text-container">
+                        <div class="challenge-text">TIDY BEDROOM</div>
+                        <div class="grit-indicator grit-integrity">Integrity</div>
+                    </div>
+                </div>
+                <div class="status-badge status-keep-trying">Keep Trying</div>
+            </div>
+            <div class="challenge-item" data-status="completed">
+                <div class="challenge-content">
+                    <div class="challenge-number">4</div>
+                    <div class="challenge-text-container">
+                        <div class="challenge-text">HELP PUT SHOPPING AWAY</div>
+                        <div class="grit-indicator grit-teamwork">Teamwork</div>
+                    </div>
+                </div>
+                <div class="status-badge status-completed">Completed</div>
+            </div>
+            <div class="challenge-item" data-status="completed">
+                <div class="challenge-content">
+                    <div class="challenge-number">5</div>
+                    <div class="challenge-text-container">
+                        <div class="challenge-text">WASH THE DISHES</div>
+                        <div class="grit-indicator grit-integrity">Integrity</div>
+                    </div>
+                </div>
+                <div class="status-badge status-completed">Completed</div>
+            </div>
+            <div class="challenge-item" data-status="completed">
+                <div class="challenge-content">
+                    <div class="challenge-number">6</div>
+                    <div class="challenge-text-container">
+                        <div class="challenge-text">PREPARE A SIMPLE LUNCH</div>
+                        <div class="grit-indicator grit-tenacity">Tenacity</div>
+                    </div>
+                </div>
+                <div class="status-badge status-completed">Completed</div>
+            </div>
+            <div class="challenge-item" data-status="completed">
+                <div class="challenge-content">
+                    <div class="challenge-number">7</div>
+                    <div class="challenge-text-container">
+                        <div class="challenge-text">BRUSH TEETH TWICE A DAY</div>
+                        <div class="grit-indicator grit-integrity">Integrity</div>
+                    </div>
+                </div>
+                <div class="status-badge status-completed">Completed</div>
+            </div>
             <div class="challenge-item" data-status="completed"><div class="challenge-content"><div class="challenge-number">8</div><div class="challenge-text">COUNT HOW MUCH MONEY THEY HAVE</div><div class="grit-indicator grit-tenacity">Tenacity</div></div><div class="status-badge status-completed">Completed</div></div>
             <div class="challenge-item" data-status="completed"><div class="challenge-content"><div class="challenge-number">9</div><div class="challenge-text">SORT LAUNDRY COLOURS OUT</div><div class="grit-indicator grit-integrity">Integrity</div></div><div class="status-badge status-completed">Completed</div></div>
             <div class="challenge-item" data-status="completed"><div class="challenge-content"><div class="challenge-number">10</div><div class="challenge-text">PUT A LIGHT BULB IN</div><div class="grit-indicator grit-resilience">Resilience</div></div><div class="status-badge status-completed">Completed</div></div>
