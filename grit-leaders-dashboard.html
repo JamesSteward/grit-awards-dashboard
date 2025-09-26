@@ -49,6 +49,7 @@
                         radial-gradient(circle at 90% 40%, rgba(255,255,255,0.1) 1px, transparent 1px);
             background-size: 50px 50px, 50px 50px, 50px 50px, 50px 50px, 50px 50px;
             opacity: 0.3;
+            pointer-events: none;
         }
 
         .login-container {
@@ -59,6 +60,8 @@
             width: 100%;
             max-width: 400px;
             text-align: center;
+            position: relative;
+            z-index: 10;
         }
 
         .login-title {
@@ -1838,6 +1841,15 @@
             const usernameInput = document.getElementById('username');
             const passwordInput = document.getElementById('password');
             const logoutLink = document.getElementById('logoutLink');
+            
+            console.log('Form elements found:', {
+                loginButton: !!loginButton,
+                googleSignIn: !!googleSignIn,
+                microsoftSignIn: !!microsoftSignIn,
+                usernameInput: !!usernameInput,
+                passwordInput: !!passwordInput,
+                logoutLink: !!logoutLink
+            });
 
             function showDashboard() {
                 console.log('Showing dashboard');
