@@ -1,0 +1,639 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Riley Furey - Student Profile</title>
+    <link href="https://fonts.googleapis.com/css2?family=Roboto+Slab:wght@400;600;700&family=Inter:wght@400;500;600&display=swap" rel="stylesheet">
+    <style>
+        * { margin: 0; padding: 0; box-sizing: border-box; }
+        body { font-family: 'Inter', sans-serif; background-color: #ffffff; color: #333; line-height: 1.6; }
+        .header { 
+            background-color: #032717; 
+            color: white; 
+            padding: 1rem; 
+            position: sticky; 
+            top: 0; 
+            z-index: 100; 
+            box-shadow: 0 2px 10px rgba(0,0,0,0.1);
+        }
+        .header-content { 
+            display: flex; 
+            align-items: center; 
+            justify-content: space-between; 
+            max-width: 1200px; 
+            margin: 0 auto; 
+        }
+        .back-btn, .menu-btn { 
+            background: none; 
+            border: none; 
+            color: white; 
+            cursor: pointer; 
+            padding: 0.5rem; 
+            border-radius: 8px;
+            transition: background-color 0.2s;
+        }
+        .back-btn:hover, .menu-btn:hover {
+            background-color: rgba(255, 255, 255, 0.1);
+        }
+        .header-logo {
+            width: 40px;
+            height: 40px;
+            object-fit: contain;
+        }
+        .header-title { 
+            font-family: 'Roboto Slab', serif; 
+            font-size: 1.2rem; 
+            font-weight: 600; 
+            flex: 1;
+            text-align: center;
+            margin: 0 1rem;
+        }
+        .student-header { 
+            background: linear-gradient(135deg, #032717 0%, #054d2a 100%); 
+            color: white; 
+            padding: 2rem 1rem; 
+            text-align: center; 
+            position: relative;
+            overflow: hidden;
+        }
+        .student-header::before {
+            content: '';
+            position: absolute;
+            top: 0;
+            left: 0;
+            right: 0;
+            bottom: 0;
+            background: url('data:image/svg+xml,<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 100 100"><defs><pattern id="grain" width="100" height="100" patternUnits="userSpaceOnUse"><circle cx="25" cy="25" r="1" fill="white" opacity="0.1"/><circle cx="75" cy="75" r="1" fill="white" opacity="0.1"/><circle cx="50" cy="10" r="1" fill="white" opacity="0.1"/><circle cx="10" cy="60" r="1" fill="white" opacity="0.1"/><circle cx="90" cy="40" r="1" fill="white" opacity="0.1"/></pattern></defs><rect width="100" height="100" fill="url(%23grain)"/></svg>');
+            opacity: 0.3;
+        }
+        .student-avatar { 
+            width: 100px; 
+            height: 100px; 
+            border-radius: 50%; 
+            background-color: #b5aa91; 
+            padding: 3px; 
+            margin: 0 auto 1rem; 
+            object-fit: cover; 
+            border: 3px solid rgba(255, 255, 255, 0.2);
+            box-shadow: 0 4px 20px rgba(0, 0, 0, 0.2);
+            position: relative;
+            z-index: 1;
+        }
+        .student-name { 
+            font-family: 'Roboto Slab', serif; 
+            font-size: 2rem; 
+            font-weight: 700; 
+            margin-bottom: 0.5rem; 
+            position: relative;
+            z-index: 1;
+        }
+        .student-class { 
+            opacity: 0.9; 
+            font-size: 1.1rem; 
+            margin-bottom: 1.5rem; 
+            position: relative;
+            z-index: 1;
+        }
+        .progress-section { 
+            background-color: rgba(255, 255, 255, 0.15); 
+            border-radius: 16px; 
+            padding: 1.5rem; 
+            margin-top: 1rem; 
+            backdrop-filter: blur(10px);
+            border: 1px solid rgba(255, 255, 255, 0.2);
+            position: relative;
+            z-index: 1;
+        }
+        .progress-title { font-family: 'Roboto Slab', serif; font-size: 1.1rem; margin-bottom: 1rem; text-align: center; }
+        .progress-bar { background-color: rgba(255, 255, 255, 0.2); border-radius: 20px; height: 12px; overflow: hidden; margin-bottom: 1rem; }
+        .progress-fill { background-color: #4CAF50; height: 100%; width: 60%; border-radius: 20px; transition: width 0.3s ease; }
+        .progress-stats { display: flex; justify-content: space-between; font-size: 0.9rem; opacity: 0.9; }
+        .filters { 
+            padding: 1.5rem; 
+            background: linear-gradient(135deg, #f8f9fa 0%, #e9ecef 100%); 
+            border-bottom: 1px solid #dee2e6; 
+            position: sticky;
+            top: 80px;
+            z-index: 99;
+            box-shadow: 0 2px 10px rgba(0,0,0,0.05);
+        }
+        .filter-buttons { 
+            display: flex; 
+            gap: 0.75rem; 
+            overflow-x: auto; 
+            padding-bottom: 0.5rem; 
+            max-width: 1200px;
+            margin: 0 auto;
+        }
+        .filter-btn { 
+            background-color: white; 
+            border: 2px solid #e9ecef; 
+            border-radius: 25px; 
+            padding: 0.75rem 1.25rem; 
+            font-size: 0.9rem; 
+            font-weight: 500;
+            cursor: pointer; 
+            white-space: nowrap; 
+            transition: all 0.3s ease; 
+            display: flex; 
+            align-items: center; 
+            gap: 0.5rem; 
+            box-shadow: 0 2px 8px rgba(0,0,0,0.05);
+        }
+        .filter-btn:hover {
+            transform: translateY(-2px);
+            box-shadow: 0 4px 15px rgba(0,0,0,0.1);
+            border-color: #032717;
+        }
+        .filter-btn.active { 
+            background-color: #032717; 
+            color: white; 
+            border-color: #032717; 
+            transform: translateY(-2px);
+            box-shadow: 0 4px 15px rgba(3, 39, 23, 0.3);
+        }
+        .filter-btn .count { 
+            background-color: #032717; 
+            color: white; 
+            border-radius: 15px; 
+            padding: 0.25rem 0.6rem; 
+            font-size: 0.75rem; 
+            font-weight: 600;
+            min-width: 24px; 
+            text-align: center; 
+            transition: all 0.3s ease;
+        }
+        .filter-btn.active .count { 
+            background-color: white; 
+            color: #032717; 
+        }
+        .challenges-container { max-width: 1200px; margin: 0 auto; padding: 1rem; }
+        .category-section { margin-bottom: 2rem; }
+        .category-header { font-family: 'Roboto Slab', serif; font-size: 1.3rem; font-weight: 600; color: #032717; margin-bottom: 1rem; padding-bottom: 0.5rem; padding-left: 1rem; position: relative; }
+        .category-header::before { content: ''; position: absolute; left: 0; top: 0; bottom: 0; width: 4px; border-radius: 2px; }
+        .category-header.life-skills { border-bottom: 2px solid #27ae60; } .category-header.life-skills::before { background-color: #27ae60; }
+        .category-header.outdoor-adventure { border-bottom: 2px solid #2980b9; } .category-header.outdoor-adventure::before { background-color: #2980b9; }
+        .category-header.nature-exploration { border-bottom: 2px solid #16a085; } .category-header.nature-exploration::before { background-color: #16a085; }
+        .category-header.sports-physical { border-bottom: 2px solid #e67e22; } .category-header.sports-physical::before { background-color: #e67e22; }
+        .category-header.creative-arts { border-bottom: 2px solid #8e44ad; } .category-header.creative-arts::before { background-color: #8e44ad; }
+        .category-header.social-community { border-bottom: 2px solid #e74c3c; } .category-header.social-community::before { background-color: #e74c3c; }
+        .category-header.academic-skills { border-bottom: 2px solid #34495e; } .category-header.academic-skills::before { background-color: #34495e; }
+        .category-header.practical-skills { border-bottom: 2px solid #d35400; } .category-header.practical-skills::before { background-color: #d35400; }
+        .category-header.personal-development { border-bottom: 2px solid #9b59b6; } .category-header.personal-development::before { background-color: #9b59b6; }
+        .category-header.adventure-challenges { border-bottom: 2px solid #f39c12; } .category-header.adventure-challenges::before { background-color: #f39c12; }
+        .challenge-item { 
+            background-color: white; 
+            border: 2px solid #f1f3f4; 
+            border-radius: 12px; 
+            padding: 1.25rem; 
+            margin-bottom: 0.75rem; 
+            display: flex; 
+            align-items: center; 
+            justify-content: space-between; 
+            transition: all 0.3s ease; 
+            cursor: pointer; 
+            box-shadow: 0 2px 8px rgba(0,0,0,0.04);
+            position: relative;
+            overflow: hidden;
+        }
+        .challenge-item::before {
+            content: '';
+            position: absolute;
+            top: 0;
+            left: 0;
+            width: 4px;
+            height: 100%;
+            background-color: #e9ecef;
+            transition: background-color 0.3s ease;
+        }
+        .challenge-item:hover { 
+            box-shadow: 0 8px 25px rgba(3, 39, 23, 0.15); 
+            border-color: #032717; 
+            transform: translateY(-2px);
+        }
+        .challenge-item:hover::before {
+            background-color: #032717;
+        }
+        .challenge-item[data-status="completed"]::before {
+            background-color: #28a745;
+        }
+        .challenge-item[data-status="keep-trying"]::before {
+            background-color: #ffc107;
+        }
+        .challenge-item[data-status="review"]::before {
+            background-color: #17a2b8;
+        }
+        .challenge-item[data-status="not-attempted"]::before {
+            background-color: #6c757d;
+        }
+        .challenge-content { 
+            flex: 1; 
+            display: flex; 
+            align-items: center; 
+            gap: 1.25rem; 
+        }
+        .challenge-number { 
+            background: linear-gradient(135deg, #032717 0%, #054d2a 100%); 
+            color: white; 
+            border-radius: 50%; 
+            width: 36px; 
+            height: 36px; 
+            display: flex; 
+            align-items: center; 
+            justify-content: center; 
+            font-size: 0.9rem; 
+            font-weight: 700; 
+            flex-shrink: 0; 
+            box-shadow: 0 2px 8px rgba(3, 39, 23, 0.2);
+        }
+        .challenge-text { 
+            font-weight: 600; 
+            color: #2c3e50; 
+            flex: 1; 
+            font-size: 0.95rem;
+            line-height: 1.4;
+        }
+        .grit-indicator { padding: 0.2rem 0.5rem; border-radius: 12px; font-size: 0.7rem; font-weight: 600; text-transform: uppercase; letter-spacing: 0.5px; white-space: nowrap; }
+        .grit-resilience { background-color: rgba(231, 76, 60, 0.1); color: #e74c3c; border: 1px solid rgba(231, 76, 60, 0.2); }
+        .grit-integrity { background-color: rgba(52, 152, 219, 0.1); color: #3498db; border: 1px solid rgba(52, 152, 219, 0.2); }
+        .grit-teamwork { background-color: rgba(243, 156, 18, 0.1); color: #f39c12; border: 1px solid rgba(243, 156, 18, 0.2); }
+        .grit-tenacity { background-color: rgba(155, 89, 182, 0.1); color: #9b59b6; border: 1px solid rgba(155, 89, 182, 0.2); }
+        .status-badge { 
+            padding: 0.5rem 1rem; 
+            border-radius: 20px; 
+            font-size: 0.8rem; 
+            font-weight: 600; 
+            white-space: nowrap; 
+            transition: all 0.3s ease;
+            box-shadow: 0 2px 6px rgba(0,0,0,0.1);
+        }
+        .status-not-attempted { 
+            background-color: #f8f9fa; 
+            color: #6c757d; 
+            border: 2px solid #dee2e6; 
+        }
+        .status-completed { 
+            background-color: #d4edda; 
+            color: #155724; 
+            border: 2px solid #c3e6cb; 
+        }
+        .status-keep-trying { 
+            background-color: #fff3cd; 
+            color: #856404; 
+            border: 2px solid #ffeaa7; 
+        }
+        .status-review { 
+            background-color: #cce5ff; 
+            color: #004085; 
+            border: 2px solid #99ccff; 
+        }
+        .floating-summary { position: fixed; bottom: 20px; right: 20px; background-color: #032717; color: white; border-radius: 50%; width: 60px; height: 60px; display: flex; align-items: center; justify-content: center; font-weight: bold; box-shadow: 0 4px 12px rgba(3, 39, 23, 0.3); cursor: pointer; }
+        @media (max-width: 768px) { 
+            .challenge-item { 
+                flex-direction: column; 
+                align-items: flex-start; 
+                gap: 1rem; 
+                padding: 1rem;
+            } 
+            .challenge-content { 
+                width: 100%; 
+                gap: 0.75rem;
+            } 
+            .status-badge { 
+                align-self: flex-end; 
+                margin-top: 0.5rem;
+            } 
+            .floating-summary { 
+                bottom: 80px; 
+                width: 50px;
+                height: 50px;
+                font-size: 0.9rem;
+            }
+            .header-title {
+                font-size: 1rem;
+            }
+            .student-name {
+                font-size: 1.6rem;
+            }
+            .student-avatar {
+                width: 80px;
+                height: 80px;
+            }
+            .filter-buttons {
+                gap: 0.5rem;
+            }
+            .filter-btn {
+                padding: 0.6rem 1rem;
+                font-size: 0.85rem;
+            }
+            .challenges-container {
+                padding: 0.75rem;
+            }
+            .student-header {
+                padding: 1.5rem 1rem;
+            }
+            .progress-section {
+                padding: 1.25rem;
+            }
+            .category-header {
+                font-size: 1.1rem;
+                padding-left: 0.75rem;
+            }
+        }
+        .hidden { display: none; }
+    </style>
+</head>
+<body>
+    <header class="header">
+        <div class="header-content">
+            <button class="back-btn" onclick="goBack()">
+                <svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
+                    <path d="M19 12H5M12 19l-7-7 7-7"/>
+                </svg>
+            </button>
+            <img src="grit-logo-white.webp" alt="GRIT Awards Logo" class="header-logo" onclick="window.location.href='index.html'" style="cursor: pointer;">
+            <h1 class="header-title">Student Profile</h1>
+            <button class="menu-btn" onclick="toggleMenu()">
+                <svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
+                    <line x1="3" y1="6" x2="21" y2="6"/>
+                    <line x1="3" y1="12" x2="21" y2="12"/>
+                    <line x1="3" y1="18" x2="21" y2="18"/>
+                </svg>
+            </button>
+        </div>
+    </header>
+
+    <div class="student-header">
+        <img src="avatar-astronaut-male.webp" alt="Riley Furey" class="student-avatar">
+        <h2 class="student-name">Riley Furey</h2>
+        <p class="student-class">Year 4</p>
+        <div class="progress-section">
+            <h3 class="progress-title">GRIT Awards Progress</h3>
+            <div class="progress-bar"><div class="progress-fill"></div></div>
+            <div class="progress-stats"><span>60 of 100 completed</span><span>60%</span></div>
+        </div>
+    </div>
+
+    <div class="filters">
+        <div class="filter-buttons">
+            <button class="filter-btn active" data-status="all">All Challenges <span class="count">100</span></button>
+            <button class="filter-btn" data-status="completed">Completed <span class="count">60</span></button>
+            <button class="filter-btn" data-status="keep-trying">Keep Trying <span class="count">25</span></button>
+            <button class="filter-btn" data-status="review">Review <span class="count">10</span></button>
+            <button class="filter-btn" data-status="not-attempted">Not Attempted <span class="count">5</span></button>
+        </div>
+    </div>
+
+    <div class="challenges-container">
+        <div class="category-section">
+            <h3 class="category-header life-skills">Life Skills</h3>
+            <div class="challenge-item" data-status="completed"><div class="challenge-content"><div class="challenge-number">1</div><div class="challenge-text">TIE SHOELACES IN A BOW</div><div class="grit-indicator grit-tenacity">Tenacity</div></div><div class="status-badge status-completed">Completed</div></div>
+            <div class="challenge-item" data-status="completed"><div class="challenge-content"><div class="challenge-number">2</div><div class="challenge-text">MAKE OWN BED</div><div class="grit-indicator grit-integrity">Integrity</div></div><div class="status-badge status-completed">Completed</div></div>
+            <div class="challenge-item" data-status="keep-trying"><div class="challenge-content"><div class="challenge-number">3</div><div class="challenge-text">TIDY BEDROOM</div><div class="grit-indicator grit-integrity">Integrity</div></div><div class="status-badge status-keep-trying">Keep Trying</div></div>
+            <div class="challenge-item" data-status="completed"><div class="challenge-content"><div class="challenge-number">4</div><div class="challenge-text">HELP PUT SHOPPING AWAY</div><div class="grit-indicator grit-teamwork">Teamwork</div></div><div class="status-badge status-completed">Completed</div></div>
+            <div class="challenge-item" data-status="completed"><div class="challenge-content"><div class="challenge-number">5</div><div class="challenge-text">WASH THE DISHES</div><div class="grit-indicator grit-integrity">Integrity</div></div><div class="status-badge status-completed">Completed</div></div>
+            <div class="challenge-item" data-status="completed"><div class="challenge-content"><div class="challenge-number">6</div><div class="challenge-text">PREPARE A SIMPLE LUNCH</div><div class="grit-indicator grit-tenacity">Tenacity</div></div><div class="status-badge status-completed">Completed</div></div>
+            <div class="challenge-item" data-status="completed"><div class="challenge-content"><div class="challenge-number">7</div><div class="challenge-text">BRUSH TEETH TWICE A DAY</div><div class="grit-indicator grit-integrity">Integrity</div></div><div class="status-badge status-completed">Completed</div></div>
+            <div class="challenge-item" data-status="completed"><div class="challenge-content"><div class="challenge-number">8</div><div class="challenge-text">COUNT HOW MUCH MONEY THEY HAVE</div><div class="grit-indicator grit-tenacity">Tenacity</div></div><div class="status-badge status-completed">Completed</div></div>
+            <div class="challenge-item" data-status="completed"><div class="challenge-content"><div class="challenge-number">9</div><div class="challenge-text">SORT LAUNDRY COLOURS OUT</div><div class="grit-indicator grit-integrity">Integrity</div></div><div class="status-badge status-completed">Completed</div></div>
+            <div class="challenge-item" data-status="completed"><div class="challenge-content"><div class="challenge-number">10</div><div class="challenge-text">PUT A LIGHT BULB IN</div><div class="grit-indicator grit-resilience">Resilience</div></div><div class="status-badge status-completed">Completed</div></div>
+        </div>
+
+        <div class="category-section">
+            <h3 class="category-header outdoor-adventure">Outdoor & Adventure</h3>
+            <div class="challenge-item" data-status="completed"><div class="challenge-content"><div class="challenge-number">11</div><div class="challenge-text">RIDE A BIKE WITHOUT STABILISERS</div><div class="grit-indicator grit-resilience">Resilience</div></div><div class="status-badge status-completed">Completed</div></div>
+            <div class="challenge-item" data-status="completed"><div class="challenge-content"><div class="challenge-number">12</div><div class="challenge-text">RIDE A BIKE FOR 1 MILE</div><div class="grit-indicator grit-tenacity">Tenacity</div></div><div class="status-badge status-completed">Completed</div></div>
+            <div class="challenge-item" data-status="completed"><div class="challenge-content"><div class="challenge-number">13</div><div class="challenge-text">BUILD A DEN IN THE GARDEN</div><div class="grit-indicator grit-teamwork">Teamwork</div></div><div class="status-badge status-completed">Completed</div></div>
+            <div class="challenge-item" data-status="keep-trying"><div class="challenge-content"><div class="challenge-number">14</div><div class="challenge-text">BUILD A DEN IN THE WOODS</div><div class="grit-indicator grit-teamwork">Teamwork</div></div><div class="status-badge status-keep-trying">Keep Trying</div></div>
+            <div class="challenge-item" data-status="completed"><div class="challenge-content"><div class="challenge-number">15</div><div class="challenge-text">GO FOR A 2 MILE HIKE</div><div class="grit-indicator grit-tenacity">Tenacity</div></div><div class="status-badge status-completed">Completed</div></div>
+            <div class="challenge-item" data-status="keep-trying"><div class="challenge-content"><div class="challenge-number">16</div><div class="challenge-text">GO FOR A 5 MILE HIKE</div><div class="grit-indicator grit-tenacity">Tenacity</div></div><div class="status-badge status-keep-trying">Keep Trying</div></div>
+            <div class="challenge-item" data-status="completed"><div class="challenge-content"><div class="challenge-number">17</div><div class="challenge-text">CLIMB A TREE</div><div class="grit-indicator grit-resilience">Resilience</div></div><div class="status-badge status-completed">Completed</div></div>
+            <div class="challenge-item" data-status="review"><div class="challenge-content"><div class="challenge-number">18</div><div class="challenge-text">SKIP STONES ON WATER</div><div class="grit-indicator grit-tenacity">Tenacity</div></div><div class="status-badge status-review">Review</div></div>
+            <div class="challenge-item" data-status="keep-trying"><div class="challenge-content"><div class="challenge-number">19</div><div class="challenge-text">BUILD A CAMPFIRE (WITH ADULT)</div><div class="grit-indicator grit-teamwork">Teamwork</div></div><div class="status-badge status-keep-trying">Keep Trying</div></div>
+            <div class="challenge-item" data-status="completed"><div class="challenge-content"><div class="challenge-number">20</div><div class="challenge-text">SLEEP IN A TENT OVERNIGHT</div><div class="grit-indicator grit-resilience">Resilience</div></div><div class="status-badge status-completed">Completed</div></div>
+        </div>
+
+        <div class="category-section">
+            <h3 class="category-header nature-exploration">Nature & Exploration</h3>
+            <div class="challenge-item" data-status="completed"><div class="challenge-content"><div class="challenge-number">21</div><div class="challenge-text">IDENTIFY 5 DIFFERENT BIRDS</div><div class="grit-indicator grit-tenacity">Tenacity</div></div><div class="status-badge status-completed">Completed</div></div>
+            <div class="challenge-item" data-status="completed"><div class="challenge-content"><div class="challenge-number">22</div><div class="challenge-text">IDENTIFY 10 DIFFERENT LEAVES</div><div class="grit-indicator grit-tenacity">Tenacity</div></div><div class="status-badge status-completed">Completed</div></div>
+            <div class="challenge-item" data-status="review"><div class="challenge-content"><div class="challenge-number">23</div><div class="challenge-text">GROW A PLANT FROM SEED</div><div class="grit-indicator grit-integrity">Integrity</div></div><div class="status-badge status-review">Review</div></div>
+            <div class="challenge-item" data-status="completed"><div class="challenge-content"><div class="challenge-number">24</div><div class="challenge-text">COLLECT 20 DIFFERENT SHELLS/STONES</div><div class="grit-indicator grit-tenacity">Tenacity</div></div><div class="status-badge status-completed">Completed</div></div>
+            <div class="challenge-item" data-status="completed"><div class="challenge-content"><div class="challenge-number">25</div><div class="challenge-text">WATCH THE SUNRISE</div><div class="grit-indicator grit-resilience">Resilience</div></div><div class="status-badge status-completed">Completed</div></div>
+            <div class="challenge-item" data-status="completed"><div class="challenge-content"><div class="challenge-number">26</div><div class="challenge-text">WATCH THE SUNSET</div><div class="grit-indicator grit-resilience">Resilience</div></div><div class="status-badge status-completed">Completed</div></div>
+            <div class="challenge-item" data-status="keep-trying"><div class="challenge-content"><div class="challenge-number">27</div><div class="challenge-text">FIND THE NORTH STAR</div><div class="grit-indicator grit-tenacity">Tenacity</div></div><div class="status-badge status-keep-trying">Keep Trying</div></div>
+            <div class="challenge-item" data-status="review"><div class="challenge-content"><div class="challenge-number">28</div><div class="challenge-text">TRACK ANIMAL FOOTPRINTS</div><div class="grit-indicator grit-tenacity">Tenacity</div></div><div class="status-badge status-review">Review</div></div>
+        </div>
+
+        <div class="category-section">
+            <h3 class="category-header sports-physical">Sports & Physical</h3>
+            <div class="challenge-item" data-status="completed"><div class="challenge-content"><div class="challenge-number">29</div><div class="challenge-text">SWIM 25 METRES</div><div class="grit-indicator grit-resilience">Resilience</div></div><div class="status-badge status-completed">Completed</div></div>
+            <div class="challenge-item" data-status="keep-trying"><div class="challenge-content"><div class="challenge-number">30</div><div class="challenge-text">SWIM 100 METRES</div><div class="grit-indicator grit-tenacity">Tenacity</div></div><div class="status-badge status-keep-trying">Keep Trying</div></div>
+            <div class="challenge-item" data-status="completed"><div class="challenge-content"><div class="challenge-number">31</div><div class="challenge-text">SCORE A GOAL IN FOOTBALL</div><div class="grit-indicator grit-teamwork">Teamwork</div></div><div class="status-badge status-completed">Completed</div></div>
+            <div class="challenge-item" data-status="keep-trying"><div class="challenge-content"><div class="challenge-number">32</div><div class="challenge-text">HIT A TENNIS BALL 10 TIMES IN A ROW</div><div class="grit-indicator grit-tenacity">Tenacity</div></div><div class="status-badge status-keep-trying">Keep Trying</div></div>
+            <div class="challenge-item" data-status="completed"><div class="challenge-content"><div class="challenge-number">33</div><div class="challenge-text">DO 10 PRESS-UPS</div><div class="grit-indicator grit-resilience">Resilience</div></div><div class="status-badge status-completed">Completed</div></div>
+            <div class="challenge-item" data-status="completed"><div class="challenge-content"><div class="challenge-number">34</div><div class="challenge-text">DO 20 STAR JUMPS</div><div class="grit-indicator grit-resilience">Resilience</div></div><div class="status-badge status-completed">Completed</div></div>
+            <div class="challenge-item" data-status="completed"><div class="challenge-content"><div class="challenge-number">35</div><div class="challenge-text">BALANCE ON ONE FOOT FOR 30 SECONDS</div><div class="grit-indicator grit-tenacity">Tenacity</div></div><div class="status-badge status-completed">Completed</div></div>
+            <div class="challenge-item" data-status="review"><div class="challenge-content"><div class="challenge-number">36</div><div class="challenge-text">COMPLETE AN OBSTACLE COURSE</div><div class="grit-indicator grit-resilience">Resilience</div></div><div class="status-badge status-review">Review</div></div>
+            <div class="challenge-item" data-status="keep-trying"><div class="challenge-content"><div class="challenge-number">37</div><div class="challenge-text">LEARN TO JUGGLE 3 BALLS</div><div class="grit-indicator grit-tenacity">Tenacity</div></div><div class="status-badge status-keep-trying">Keep Trying</div></div>
+            <div class="challenge-item" data-status="completed"><div class="challenge-content"><div class="challenge-number">38</div><div class="challenge-text">RIDE A SCOOTER</div><div class="grit-indicator grit-resilience">Resilience</div></div><div class="status-badge status-completed">Completed</div></div>
+        </div>
+
+        <div class="category-section">
+            <h3 class="category-header creative-arts">Creative & Arts</h3>
+            <div class="challenge-item" data-status="completed"><div class="challenge-content"><div class="challenge-number">39</div><div class="challenge-text">PAINT A PICTURE OF A LANDSCAPE</div><div class="grit-indicator grit-tenacity">Tenacity</div></div><div class="status-badge status-completed">Completed</div></div>
+            <div class="challenge-item" data-status="review"><div class="challenge-content"><div class="challenge-number">40</div><div class="challenge-text">DRAW A SELF-PORTRAIT</div><div class="grit-indicator grit-integrity">Integrity</div></div><div class="status-badge status-review">Review</div></div>
+            <div class="challenge-item" data-status="keep-trying"><div class="challenge-content"><div class="challenge-number">41</div><div class="challenge-text">MAKE A SCULPTURE FROM CLAY</div><div class="grit-indicator grit-tenacity">Tenacity</div></div><div class="status-badge status-keep-trying">Keep Trying</div></div>
+            <div class="challenge-item" data-status="completed"><div class="challenge-content"><div class="challenge-number">42</div><div class="challenge-text">LEARN TO PLAY A SIMPLE TUNE</div><div class="grit-indicator grit-resilience">Resilience</div></div><div class="status-badge status-completed">Completed</div></div>
+            <div class="challenge-item" data-status="completed"><div class="challenge-content"><div class="challenge-number">43</div><div class="challenge-text">WRITE A SHORT STORY</div><div class="grit-indicator grit-tenacity">Tenacity</div></div><div class="status-badge status-completed">Completed</div></div>
+            <div class="challenge-item" data-status="completed"><div class="challenge-content"><div class="challenge-number">44</div><div class="challenge-text">WRITE A POEM</div><div class="grit-indicator grit-integrity">Integrity</div></div><div class="status-badge status-completed">Completed</div></div>
+            <div class="challenge-item" data-status="keep-trying"><div class="challenge-content"><div class="challenge-number">45</div><div class="challenge-text">PERFORM IN A PLAY OR SHOW</div><div class="grit-indicator grit-resilience">Resilience</div></div><div class="status-badge status-keep-trying">Keep Trying</div></div>
+            <div class="challenge-item" data-status="completed"><div class="challenge-content"><div class="challenge-number">46</div><div class="challenge-text">LEARN A MAGIC TRICK</div><div class="grit-indicator grit-tenacity">Tenacity</div></div><div class="status-badge status-completed">Completed</div></div>
+            <div class="challenge-item" data-status="completed"><div class="challenge-content"><div class="challenge-number">47</div><div class="challenge-text">MAKE A BIRTHDAY CARD</div><div class="grit-indicator grit-integrity">Integrity</div></div><div class="status-badge status-completed">Completed</div></div>
+            <div class="challenge-item" data-status="review"><div class="challenge-content"><div class="challenge-number">48</div><div class="challenge-text">CREATE A PHOTO ALBUM</div><div class="grit-indicator grit-integrity">Integrity</div></div><div class="status-badge status-review">Review</div></div>
+        </div>
+
+        <div class="category-section">
+            <h3 class="category-header social-community">Social & Community</h3>
+            <div class="challenge-item" data-status="completed"><div class="challenge-content"><div class="challenge-number">49</div><div class="challenge-text">HELP AN ELDERLY NEIGHBOUR</div><div class="grit-indicator grit-integrity">Integrity</div></div><div class="status-badge status-completed">Completed</div></div>
+            <div class="challenge-item" data-status="keep-trying"><div class="challenge-content"><div class="challenge-number">50</div><div class="challenge-text">VOLUNTEER AT A LOCAL CHARITY</div><div class="grit-indicator grit-teamwork">Teamwork</div></div><div class="status-badge status-keep-trying">Keep Trying</div></div>
+            <div class="challenge-item" data-status="review"><div class="challenge-content"><div class="challenge-number">51</div><div class="challenge-text">ORGANISE A FUNDRAISING EVENT</div><div class="grit-indicator grit-teamwork">Teamwork</div></div><div class="status-badge status-review">Review</div></div>
+            <div class="challenge-item" data-status="completed"><div class="challenge-content"><div class="challenge-number">52</div><div class="challenge-text">TEACH SOMEONE SOMETHING NEW</div><div class="grit-indicator grit-teamwork">Teamwork</div></div><div class="status-badge status-completed">Completed</div></div>
+            <div class="challenge-item" data-status="completed"><div class="challenge-content"><div class="challenge-number">53</div><div class="challenge-text">MAKE A NEW FRIEND</div><div class="grit-indicator grit-resilience">Resilience</div></div><div class="status-badge status-completed">Completed</div></div>
+            <div class="challenge-item" data-status="completed"><div class="challenge-content"><div class="challenge-number">54</div><div class="challenge-text">APOLOGISE WHEN WRONG</div><div class="grit-indicator grit-integrity">Integrity</div></div><div class="status-badge status-completed">Completed</div></div>
+            <div class="challenge-item" data-status="completed"><div class="challenge-content"><div class="challenge-number">55</div><div class="challenge-text">STAND UP FOR SOMEONE BEING BULLIED</div><div class="grit-indicator grit-integrity">Integrity</div></div><div class="status-badge status-completed">Completed</div></div>
+            <div class="challenge-item" data-status="completed"><div class="challenge-content"><div class="challenge-number">56</div><div class="challenge-text">WRITE A THANK YOU LETTER</div><div class="grit-indicator grit-integrity">Integrity</div></div><div class="status-badge status-completed">Completed</div></div>
+            <div class="challenge-item" data-status="keep-trying"><div class="challenge-content"><div class="challenge-number">57</div><div class="challenge-text">VISIT A CARE HOME</div><div class="grit-indicator grit-teamwork">Teamwork</div></div><div class="status-badge status-keep-trying">Keep Trying</div></div>
+            <div class="challenge-item" data-status="review"><div class="challenge-content"><div class="challenge-number">58</div><div class="challenge-text">HELP AT A COMMUNITY EVENT</div><div class="grit-indicator grit-teamwork">Teamwork</div></div><div class="status-badge status-review">Review</div></div>
+        </div>
+
+        <div class="category-section">
+            <h3 class="category-header academic-skills">Academic Skills</h3>
+            <div class="challenge-item" data-status="completed"><div class="challenge-content"><div class="challenge-number">59</div><div class="challenge-text">READ 10 BOOKS IN A YEAR</div><div class="grit-indicator grit-tenacity">Tenacity</div></div><div class="status-badge status-completed">Completed</div></div>
+            <div class="challenge-item" data-status="keep-trying"><div class="challenge-content"><div class="challenge-number">60</div><div class="challenge-text">READ 25 BOOKS IN A YEAR</div><div class="grit-indicator grit-tenacity">Tenacity</div></div><div class="status-badge status-keep-trying">Keep Trying</div></div>
+            <div class="challenge-item" data-status="completed"><div class="challenge-content"><div class="challenge-number">61</div><div class="challenge-text">LEARN TIMES TABLES TO 12x12</div><div class="grit-indicator grit-resilience">Resilience</div></div><div class="status-badge status-completed">Completed</div></div>
+            <div class="challenge-item" data-status="keep-trying"><div class="challenge-content"><div class="challenge-number">62</div><div class="challenge-text">SOLVE A PUZZLE WITH 100+ PIECES</div><div class="grit-indicator grit-tenacity">Tenacity</div></div><div class="status-badge status-keep-trying">Keep Trying</div></div>
+            <div class="challenge-item" data-status="completed"><div class="challenge-content"><div class="challenge-number">63</div><div class="challenge-text">LEARN TO TELL THE TIME</div><div class="grit-indicator grit-resilience">Resilience</div></div><div class="status-badge status-completed">Completed</div></div>
+            <div class="challenge-item" data-status="completed"><div class="challenge-content"><div class="challenge-number">64</div><div class="challenge-text">COUNT TO 1000</div><div class="grit-indicator grit-tenacity">Tenacity</div></div><div class="status-badge status-completed">Completed</div></div>
+            <div class="challenge-item" data-status="review"><div class="challenge-content"><div class="challenge-number">65</div><div class="challenge-text">WRITE A BOOK REVIEW</div><div class="grit-indicator grit-integrity">Integrity</div></div><div class="status-badge status-review">Review</div></div>
+            <div class="challenge-item" data-status="completed"><div class="challenge-content"><div class="challenge-number">66</div><div class="challenge-text">RESEARCH A HISTORICAL FIGURE</div><div class="grit-indicator grit-tenacity">Tenacity</div></div><div class="status-badge status-completed">Completed</div></div>
+            <div class="challenge-item" data-status="keep-trying"><div class="challenge-content"><div class="challenge-number">67</div><div class="challenge-text">LEARN 20 WORDS IN ANOTHER LANGUAGE</div><div class="grit-indicator grit-resilience">Resilience</div></div><div class="status-badge status-keep-trying">Keep Trying</div></div>
+            <div class="challenge-item" data-status="review"><div class="challenge-content"><div class="challenge-number">68</div><div class="challenge-text">GIVE A PRESENTATION TO THE CLASS</div><div class="grit-indicator grit-resilience">Resilience</div></div><div class="status-badge status-review">Review</div></div>
+        </div>
+
+        <div class="category-section">
+            <h3 class="category-header practical-skills">Practical Skills</h3>
+            <div class="challenge-item" data-status="completed"><div class="challenge-content"><div class="challenge-number">69</div><div class="challenge-text">TIE DIFFERENT TYPES OF KNOTS</div><div class="grit-indicator grit-tenacity">Tenacity</div></div><div class="status-badge status-completed">Completed</div></div>
+            <div class="challenge-item" data-status="keep-trying"><div class="challenge-content"><div class="challenge-number">70</div><div class="challenge-text">USE A MAP AND COMPASS</div><div class="grit-indicator grit-resilience">Resilience</div></div><div class="status-badge status-keep-trying">Keep Trying</div></div>
+            <div class="challenge-item" data-status="not-attempted"><div class="challenge-content"><div class="challenge-number">71</div><div class="challenge-text">CHANGE A BICYCLE TYRE</div><div class="grit-indicator grit-tenacity">Tenacity</div></div><div class="status-badge status-not-attempted">Not Attempted</div></div>
+            <div class="challenge-item" data-status="completed"><div class="challenge-content"><div class="challenge-number">72</div><div class="challenge-text">COOK A MEAL FROM SCRATCH</div><div class="grit-indicator grit-resilience">Resilience</div></div><div class="status-badge status-completed">Completed</div></div>
+            <div class="challenge-item" data-status="completed"><div class="challenge-content"><div class="challenge-number">73</div><div class="challenge-text">SEW ON A BUTTON</div><div class="grit-indicator grit-tenacity">Tenacity</div></div><div class="status-badge status-completed">Completed</div></div>
+            <div class="challenge-item" data-status="keep-trying"><div class="challenge-content"><div class="challenge-number">74</div><div class="challenge-text">IRON A SHIRT</div><div class="grit-indicator grit-integrity">Integrity</div></div><div class="status-badge status-keep-trying">Keep Trying</div></div>
+            <div class="challenge-item" data-status="completed"><div class="challenge-content"><div class="challenge-number">75</div><div class="challenge-text">USE A SCREWDRIVER</div><div class="grit-indicator grit-tenacity">Tenacity</div></div><div class="status-badge status-completed">Completed</div></div>
+            <div class="challenge-item" data-status="keep-trying"><div class="challenge-content"><div class="challenge-number">76</div><div class="challenge-text">PAINT A FENCE OR WALL</div><div class="grit-indicator grit-teamwork">Teamwork</div></div><div class="status-badge status-keep-trying">Keep Trying</div></div>
+            <div class="challenge-item" data-status="completed"><div class="challenge-content"><div class="challenge-number">77</div><div class="challenge-text">PLANT A VEGETABLE GARDEN</div><div class="grit-indicator grit-integrity">Integrity</div></div><div class="status-badge status-completed">Completed</div></div>
+            <div class="challenge-item" data-status="not-attempted"><div class="challenge-content"><div class="challenge-number">78</div><div class="challenge-text">LEARN FIRST AID BASICS</div><div class="grit-indicator grit-teamwork">Teamwork</div></div><div class="status-badge status-not-attempted">Not Attempted</div></div>
+        </div>
+
+        <div class="category-section">
+            <h3 class="category-header personal-development">Personal Development</h3>
+            <div class="challenge-item" data-status="completed"><div class="challenge-content"><div class="challenge-number">79</div><div class="challenge-text">SAVE £10 IN A PIGGY BANK</div><div class="grit-indicator grit-integrity">Integrity</div></div><div class="status-badge status-completed">Completed</div></div>
+            <div class="challenge-item" data-status="keep-trying"><div class="challenge-content"><div class="challenge-number">80</div><div class="challenge-text">SAVE £50 IN A BANK ACCOUNT</div><div class="grit-indicator grit-tenacity">Tenacity</div></div><div class="status-badge status-keep-trying">Keep Trying</div></div>
+            <div class="challenge-item" data-status="completed"><div class="challenge-content"><div class="challenge-number">81</div><div class="challenge-text">PLAN AND PACK FOR A TRIP</div><div class="grit-indicator grit-integrity">Integrity</div></div><div class="status-badge status-completed">Completed</div></div>
+            <div class="challenge-item" data-status="keep-trying"><div class="challenge-content"><div class="challenge-number">82</div><div class="challenge-text">WAKE UP EARLY WITHOUT AN ALARM</div><div class="grit-indicator grit-resilience">Resilience</div></div><div class="status-badge status-keep-trying">Keep Trying</div></div>
+            <div class="challenge-item" data-status="completed"><div class="challenge-content"><div class="challenge-number">83</div><div class="challenge-text">GO TO BED ON TIME FOR A WEEK</div><div class="grit-indicator grit-integrity">Integrity</div></div><div class="status-badge status-completed">Completed</div></div>
+            <div class="challenge-item" data-status="completed"><div class="challenge-content"><div class="challenge-number">84</div><div class="challenge-text">TRY A NEW FOOD</div><div class="grit-indicator grit-resilience">Resilience</div></div><div class="status-badge status-completed">Completed</div></div>
+            <div class="challenge-item" data-status="review"><div class="challenge-content"><div class="challenge-number">85</div><div class="challenge-text">OVERCOME A FEAR</div><div class="grit-indicator grit-resilience">Resilience</div></div><div class="status-badge status-review">Review</div></div>
+            <div class="challenge-item" data-status="completed"><div class="challenge-content"><div class="challenge-number">86</div><div class="challenge-text">SET AND ACHIEVE A PERSONAL GOAL</div><div class="grit-indicator grit-tenacity">Tenacity</div></div><div class="status-badge status-completed">Completed</div></div>
+            <div class="challenge-item" data-status="keep-trying"><div class="challenge-content"><div class="challenge-number">87</div><div class="challenge-text">KEEP A DIARY FOR A MONTH</div><div class="grit-indicator grit-integrity">Integrity</div></div><div class="status-badge status-keep-trying">Keep Trying</div></div>
+            <div class="challenge-item" data-status="not-attempted"><div class="challenge-content"><div class="challenge-number">88</div><div class="challenge-text">LEARN TO MEDITATE</div><div class="grit-indicator grit-resilience">Resilience</div></div><div class="status-badge status-not-attempted">Not Attempted</div></div>
+        </div>
+
+        <div class="category-section">
+            <h3 class="category-header adventure-challenges">Adventure Challenges</h3>
+            <div class="challenge-item" data-status="completed"><div class="challenge-content"><div class="challenge-number">89</div><div class="challenge-text">GO ON A TREASURE HUNT</div><div class="grit-indicator grit-teamwork">Teamwork</div></div><div class="status-badge status-completed">Completed</div></div>
+            <div class="challenge-item" data-status="keep-trying"><div class="challenge-content"><div class="challenge-number">90</div><div class="challenge-text">VISIT 5 DIFFERENT MUSEUMS</div><div class="grit-indicator grit-tenacity">Tenacity</div></div><div class="status-badge status-keep-trying">Keep Trying</div></div>
+            <div class="challenge-item" data-status="completed"><div class="challenge-content"><div class="challenge-number">91</div><div class="challenge-text">EXPLORE A CASTLE</div><div class="grit-indicator grit-resilience">Resilience</div></div><div class="status-badge status-completed">Completed</div></div>
+            <div class="challenge-item" data-status="completed"><div class="challenge-content"><div class="challenge-number">92</div><div class="challenge-text">GO ROCK POOLING</div><div class="grit-indicator grit-tenacity">Tenacity</div></div><div class="status-badge status-completed">Completed</div></div>
+            <div class="challenge-item" data-status="completed"><div class="challenge-content"><div class="challenge-number">93</div><div class="challenge-text">VISIT A FARM</div><div class="grit-indicator grit-teamwork">Teamwork</div></div><div class="status-badge status-completed">Completed</div></div>
+            <div class="challenge-item" data-status="keep-trying"><div class="challenge-content"><div class="challenge-number">94</div><div class="challenge-text">GO ON A BOAT TRIP</div><div class="grit-indicator grit-resilience">Resilience</div></div><div class="status-badge status-keep-trying">Keep Trying</div></div>
+            <div class="challenge-item" data-status="completed"><div class="challenge-content"><div class="challenge-number">95</div><div class="challenge-text">FLY A KITE</div><div class="grit-indicator grit-tenacity">Tenacity</div></div><div class="status-badge status-completed">Completed</div></div>
+            <div class="challenge-item" data-status="completed"><div class="challenge-content"><div class="challenge-number">96</div><div class="challenge-text">GO STARGAZING</div><div class="grit-indicator grit-resilience">Resilience</div></div><div class="status-badge status-completed">Completed</div></div>
+            <div class="challenge-item" data-status="completed"><div class="challenge-content"><div class="challenge-number">97</div><div class="challenge-text">HAVE A PICNIC IN THE PARK</div><div class="grit-indicator grit-teamwork">Teamwork</div></div><div class="status-badge status-completed">Completed</div></div>
+            <div class="challenge-item" data-status="keep-trying"><div class="challenge-content"><div class="challenge-number">98</div><div class="challenge-text">GO GEOCACHING</div><div class="grit-indicator grit-tenacity">Tenacity</div></div><div class="status-badge status-keep-trying">Keep Trying</div></div>
+            <div class="challenge-item" data-status="not-attempted"><div class="challenge-content"><div class="challenge-number">99</div><div class="challenge-text">BUILD A SNOWMAN</div><div class="grit-indicator grit-teamwork">Teamwork</div></div><div class="status-badge status-not-attempted">Not Attempted</div></div>
+            <div class="challenge-item" data-status="completed"><div class="challenge-content"><div class="challenge-number">100</div><div class="challenge-text">COMPLETE A SPONSORED WALK</div><div class="grit-indicator grit-tenacity">Tenacity</div></div><div class="status-badge status-completed">Completed</div></div>
+        </div>
+    </div>
+
+    <div class="floating-summary">60%</div>
+
+    <script>
+        // Check authentication
+        (function() {
+            const isAuthenticated = localStorage.getItem('grit-leaders-authenticated');
+            if (isAuthenticated !== 'true') {
+                window.location.href = 'grit-leaders-dashboard.html';
+            }
+        })();
+
+        function goBack() { 
+            window.location.href = 'grit-leaders-dashboard.html';
+        }
+
+        function toggleMenu() {
+            // Future menu functionality
+            console.log('Menu toggled');
+        }
+
+        // Enhanced filter functionality
+        const filterButtons = document.querySelectorAll('.filter-btn');
+        const challengeItems = document.querySelectorAll('.challenge-item');
+        
+        filterButtons.forEach(button => {
+            button.addEventListener('click', () => {
+                // Remove active class from all buttons
+                filterButtons.forEach(btn => btn.classList.remove('active'));
+                // Add active class to clicked button
+                button.classList.add('active');
+                
+                const filterStatus = button.dataset.status;
+                
+                // Filter challenges with smooth animation
+                challengeItems.forEach((item, index) => {
+                    setTimeout(() => {
+                        if (filterStatus === 'all') {
+                            item.style.display = 'flex';
+                            item.style.opacity = '1';
+                        } else {
+                            const shouldShow = item.dataset.status === filterStatus;
+                            item.style.display = shouldShow ? 'flex' : 'none';
+                            item.style.opacity = shouldShow ? '1' : '0';
+                        }
+                    }, index * 10); // Staggered animation
+                });
+                
+                // Update floating summary
+                updateFloatingSummary(filterStatus);
+            });
+        });
+
+        // Enhanced challenge item interactions
+        challengeItems.forEach(item => {
+            item.addEventListener('click', () => {
+                const challengeNumber = item.querySelector('.challenge-number').textContent;
+                const challengeText = item.querySelector('.challenge-text').textContent;
+                const status = item.dataset.status;
+                
+                // Add click animation
+                item.style.transform = 'scale(0.98)';
+                setTimeout(() => {
+                    item.style.transform = '';
+                }, 150);
+                
+                // Show challenge detail (placeholder for now)
+                showChallengeDetail(challengeNumber, challengeText, status);
+            });
+        });
+
+        function showChallengeDetail(number, text, status) {
+            const statusEmojis = {
+                'completed': '✅',
+                'keep-trying': '🔄',
+                'review': '📝',
+                'not-attempted': '⭕'
+            };
+            
+            alert(`${statusEmojis[status]} Challenge ${number}\n\n${text}\n\nStatus: ${status.charAt(0).toUpperCase() + status.slice(1).replace('-', ' ')}`);
+        }
+
+        function updateFloatingSummary(filterStatus) {
+            const floatingSummary = document.querySelector('.floating-summary');
+            if (!floatingSummary) return;
+            
+            let count = 0;
+            let total = challengeItems.length;
+            
+            if (filterStatus !== 'all') {
+                count = Array.from(challengeItems).filter(item => 
+                    item.dataset.status === filterStatus
+                ).length;
+            } else {
+                count = Array.from(challengeItems).filter(item => 
+                    item.dataset.status === 'completed'
+                ).length;
+            }
+            
+            const percentage = Math.round((count / total) * 100);
+            floatingSummary.textContent = `${percentage}%`;
+        }
+
+        // Initialize floating summary
+        updateFloatingSummary('all');
+
+        // Add smooth scrolling for better UX
+        document.documentElement.style.scrollBehavior = 'smooth';
+    </script>
+</body>
+</html>
