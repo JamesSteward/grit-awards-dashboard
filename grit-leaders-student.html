@@ -7,15 +7,22 @@
     <link href="https://fonts.googleapis.com/css2?family=Roboto+Slab:wght@400;600;700&family=Inter:wght@400;500;600&display=swap" rel="stylesheet">
     <style>
         * { margin: 0; padding: 0; box-sizing: border-box; }
-        body { font-family: 'Inter', sans-serif; background-color: #ffffff; color: #333; line-height: 1.6; }
+        body { 
+            font-family: 'Inter', sans-serif; 
+            background: linear-gradient(135deg, #f8f9fa 0%, #e9ecef 100%);
+            color: #2c3e50; 
+            line-height: 1.6; 
+            min-height: 100vh;
+        }
         .header { 
-            background-color: #032717; 
+            background: linear-gradient(135deg, #032717 0%, #054d2a 100%); 
             color: white; 
-            padding: 1rem; 
+            padding: 1rem 1.5rem; 
             position: sticky; 
             top: 0; 
             z-index: 100; 
-            box-shadow: 0 2px 10px rgba(0,0,0,0.1);
+            box-shadow: 0 4px 20px rgba(3, 39, 23, 0.3);
+            backdrop-filter: blur(10px);
         }
         .header-content { 
             display: flex; 
@@ -52,10 +59,11 @@
         .student-header { 
             background: linear-gradient(135deg, #032717 0%, #054d2a 100%); 
             color: white; 
-            padding: 2rem 1rem; 
+            padding: 3rem 1.5rem; 
             text-align: center; 
             position: relative;
             overflow: hidden;
+            margin-bottom: 2rem;
         }
         .student-header::before {
             content: '';
@@ -68,105 +76,126 @@
             opacity: 0.3;
         }
         .student-avatar { 
-            width: 100px; 
-            height: 100px; 
+            width: 120px; 
+            height: 120px; 
             border-radius: 50%; 
             background-color: #b5aa91; 
-            padding: 3px; 
-            margin: 0 auto 1rem; 
+            padding: 4px; 
+            margin: 0 auto 1.5rem; 
             object-fit: cover; 
-            border: 3px solid rgba(255, 255, 255, 0.2);
-            box-shadow: 0 4px 20px rgba(0, 0, 0, 0.2);
+            border: 4px solid rgba(255, 255, 255, 0.3);
+            box-shadow: 0 8px 32px rgba(0, 0, 0, 0.3);
             position: relative;
             z-index: 1;
         }
         .student-name { 
             font-family: 'Roboto Slab', serif; 
-            font-size: 2rem; 
+            font-size: 2.5rem; 
             font-weight: 700; 
             margin-bottom: 0.5rem; 
             position: relative;
             z-index: 1;
+            text-shadow: 0 2px 4px rgba(0,0,0,0.3);
         }
         .student-class { 
             opacity: 0.9; 
-            font-size: 1.1rem; 
-            margin-bottom: 1.5rem; 
+            font-size: 1.2rem; 
+            margin-bottom: 2rem; 
             position: relative;
             z-index: 1;
+            font-weight: 500;
         }
         .progress-section { 
-            background-color: rgba(255, 255, 255, 0.15); 
-            border-radius: 16px; 
-            padding: 1.5rem; 
-            margin-top: 1rem; 
-            backdrop-filter: blur(10px);
+            background: rgba(255, 255, 255, 0.15); 
+            border-radius: 20px; 
+            padding: 2rem; 
+            margin-top: 1.5rem; 
+            backdrop-filter: blur(15px);
             border: 1px solid rgba(255, 255, 255, 0.2);
             position: relative;
             z-index: 1;
+            box-shadow: 0 8px 32px rgba(0, 0, 0, 0.1);
         }
         .progress-title { font-family: 'Roboto Slab', serif; font-size: 1.1rem; margin-bottom: 1rem; text-align: center; }
         .progress-bar { background-color: rgba(255, 255, 255, 0.2); border-radius: 20px; height: 12px; overflow: hidden; margin-bottom: 1rem; }
         .progress-fill { background-color: #4CAF50; height: 100%; width: 60%; border-radius: 20px; transition: width 0.3s ease; }
         .progress-stats { display: flex; justify-content: space-between; font-size: 0.9rem; opacity: 0.9; }
         .filters { 
-            padding: 1.5rem; 
-            background: linear-gradient(135deg, #f8f9fa 0%, #e9ecef 100%); 
-            border-bottom: 1px solid #dee2e6; 
+            padding: 2rem 1.5rem; 
+            background: white; 
+            border-bottom: 1px solid #e9ecef; 
             position: sticky;
             top: 80px;
             z-index: 99;
-            box-shadow: 0 2px 10px rgba(0,0,0,0.05);
+            box-shadow: 0 4px 20px rgba(0,0,0,0.08);
+            margin-bottom: 2rem;
         }
         .filter-buttons { 
             display: flex; 
-            gap: 0.75rem; 
+            gap: 1rem; 
             overflow-x: auto; 
             padding-bottom: 0.5rem; 
             max-width: 1200px;
             margin: 0 auto;
         }
         .filter-btn { 
-            background-color: white; 
+            background: white; 
             border: 2px solid #e9ecef; 
-            border-radius: 25px; 
-            padding: 0.75rem 1.25rem; 
+            border-radius: 30px; 
+            padding: 1rem 1.5rem; 
             font-size: 0.9rem; 
-            font-weight: 500;
+            font-weight: 600;
             cursor: pointer; 
             white-space: nowrap; 
             transition: all 0.3s ease; 
             display: flex; 
             align-items: center; 
-            gap: 0.5rem; 
-            box-shadow: 0 2px 8px rgba(0,0,0,0.05);
+            gap: 0.75rem; 
+            box-shadow: 0 4px 12px rgba(0,0,0,0.08);
+            position: relative;
+            overflow: hidden;
+        }
+        .filter-btn::before {
+            content: '';
+            position: absolute;
+            top: 0;
+            left: -100%;
+            width: 100%;
+            height: 100%;
+            background: linear-gradient(90deg, transparent, rgba(3, 39, 23, 0.1), transparent);
+            transition: left 0.5s ease;
+        }
+        .filter-btn:hover::before {
+            left: 100%;
         }
         .filter-btn:hover {
-            transform: translateY(-2px);
-            box-shadow: 0 4px 15px rgba(0,0,0,0.1);
+            transform: translateY(-3px);
+            box-shadow: 0 8px 25px rgba(0,0,0,0.15);
             border-color: #032717;
         }
         .filter-btn.active { 
-            background-color: #032717; 
+            background: linear-gradient(135deg, #032717 0%, #054d2a 100%); 
             color: white; 
             border-color: #032717; 
-            transform: translateY(-2px);
-            box-shadow: 0 4px 15px rgba(3, 39, 23, 0.3);
+            transform: translateY(-3px);
+            box-shadow: 0 8px 25px rgba(3, 39, 23, 0.4);
         }
         .filter-btn .count { 
-            background-color: #032717; 
+            background: linear-gradient(135deg, #032717 0%, #054d2a 100%); 
             color: white; 
-            border-radius: 15px; 
-            padding: 0.25rem 0.6rem; 
-            font-size: 0.75rem; 
-            font-weight: 600;
-            min-width: 24px; 
+            border-radius: 20px; 
+            padding: 0.4rem 0.8rem; 
+            font-size: 0.8rem; 
+            font-weight: 700;
+            min-width: 28px; 
             text-align: center; 
             transition: all 0.3s ease;
+            box-shadow: 0 2px 8px rgba(3, 39, 23, 0.3);
         }
         .filter-btn.active .count { 
-            background-color: white; 
+            background: white; 
             color: #032717; 
+            box-shadow: 0 2px 8px rgba(255, 255, 255, 0.3);
         }
         .challenges-container { max-width: 1200px; margin: 0 auto; padding: 1rem; }
         .category-section { margin-bottom: 2rem; }
@@ -183,17 +212,17 @@
         .category-header.personal-development { border-bottom: 2px solid #9b59b6; } .category-header.personal-development::before { background-color: #9b59b6; }
         .category-header.adventure-challenges { border-bottom: 2px solid #f39c12; } .category-header.adventure-challenges::before { background-color: #f39c12; }
         .challenge-item { 
-            background-color: white; 
+            background: white; 
             border: 2px solid #f1f3f4; 
-            border-radius: 12px; 
-            padding: 1.25rem; 
-            margin-bottom: 0.75rem; 
+            border-radius: 16px; 
+            padding: 1.5rem; 
+            margin-bottom: 1rem; 
             display: flex; 
             align-items: center; 
             justify-content: space-between; 
             transition: all 0.3s ease; 
             cursor: pointer; 
-            box-shadow: 0 2px 8px rgba(0,0,0,0.04);
+            box-shadow: 0 4px 20px rgba(0,0,0,0.08);
             position: relative;
             overflow: hidden;
         }
@@ -208,24 +237,24 @@
             transition: background-color 0.3s ease;
         }
         .challenge-item:hover { 
-            box-shadow: 0 8px 25px rgba(3, 39, 23, 0.15); 
+            box-shadow: 0 12px 40px rgba(3, 39, 23, 0.2); 
             border-color: #032717; 
-            transform: translateY(-2px);
+            transform: translateY(-4px);
         }
         .challenge-item:hover::before {
             background-color: #032717;
         }
         .challenge-item[data-status="completed"]::before {
-            background-color: #28a745;
+            background: linear-gradient(135deg, #28a745 0%, #20c997 100%);
         }
         .challenge-item[data-status="keep-trying"]::before {
-            background-color: #ffc107;
+            background: linear-gradient(135deg, #ffc107 0%, #fd7e14 100%);
         }
         .challenge-item[data-status="review"]::before {
-            background-color: #17a2b8;
+            background: linear-gradient(135deg, #17a2b8 0%, #6f42c1 100%);
         }
         .challenge-item[data-status="not-attempted"]::before {
-            background-color: #6c757d;
+            background: linear-gradient(135deg, #6c757d 0%, #495057 100%);
         }
         .challenge-content { 
             flex: 1; 
@@ -237,22 +266,33 @@
             background: linear-gradient(135deg, #032717 0%, #054d2a 100%); 
             color: white; 
             border-radius: 50%; 
-            width: 36px; 
-            height: 36px; 
+            width: 42px; 
+            height: 42px; 
             display: flex; 
             align-items: center; 
             justify-content: center; 
-            font-size: 0.9rem; 
+            font-size: 1rem; 
             font-weight: 700; 
             flex-shrink: 0; 
-            box-shadow: 0 2px 8px rgba(3, 39, 23, 0.2);
+            box-shadow: 0 4px 15px rgba(3, 39, 23, 0.3);
+            position: relative;
+        }
+        .challenge-number::before {
+            content: '';
+            position: absolute;
+            top: 0;
+            left: 0;
+            right: 0;
+            bottom: 0;
+            border-radius: 50%;
+            background: linear-gradient(135deg, rgba(255,255,255,0.2) 0%, transparent 50%);
         }
         .challenge-text { 
             font-weight: 600; 
             color: #2c3e50; 
             flex: 1; 
-            font-size: 0.95rem;
-            line-height: 1.4;
+            font-size: 1rem;
+            line-height: 1.5;
         }
         .grit-indicator { padding: 0.2rem 0.5rem; border-radius: 12px; font-size: 0.7rem; font-weight: 600; text-transform: uppercase; letter-spacing: 0.5px; white-space: nowrap; }
         .grit-resilience { background-color: rgba(231, 76, 60, 0.1); color: #e74c3c; border: 1px solid rgba(231, 76, 60, 0.2); }
@@ -260,35 +300,59 @@
         .grit-teamwork { background-color: rgba(243, 156, 18, 0.1); color: #f39c12; border: 1px solid rgba(243, 156, 18, 0.2); }
         .grit-tenacity { background-color: rgba(155, 89, 182, 0.1); color: #9b59b6; border: 1px solid rgba(155, 89, 182, 0.2); }
         .status-badge { 
-            padding: 0.5rem 1rem; 
-            border-radius: 20px; 
-            font-size: 0.8rem; 
-            font-weight: 600; 
+            padding: 0.75rem 1.25rem; 
+            border-radius: 25px; 
+            font-size: 0.85rem; 
+            font-weight: 700; 
             white-space: nowrap; 
             transition: all 0.3s ease;
-            box-shadow: 0 2px 6px rgba(0,0,0,0.1);
+            box-shadow: 0 4px 15px rgba(0,0,0,0.1);
+            text-transform: uppercase;
+            letter-spacing: 0.5px;
         }
         .status-not-attempted { 
-            background-color: #f8f9fa; 
+            background: linear-gradient(135deg, #f8f9fa 0%, #e9ecef 100%); 
             color: #6c757d; 
             border: 2px solid #dee2e6; 
         }
         .status-completed { 
-            background-color: #d4edda; 
+            background: linear-gradient(135deg, #d4edda 0%, #c3e6cb 100%); 
             color: #155724; 
             border: 2px solid #c3e6cb; 
         }
         .status-keep-trying { 
-            background-color: #fff3cd; 
+            background: linear-gradient(135deg, #fff3cd 0%, #ffeaa7 100%); 
             color: #856404; 
             border: 2px solid #ffeaa7; 
         }
         .status-review { 
-            background-color: #cce5ff; 
+            background: linear-gradient(135deg, #cce5ff 0%, #99ccff 100%); 
             color: #004085; 
             border: 2px solid #99ccff; 
         }
-        .floating-summary { position: fixed; bottom: 20px; right: 20px; background-color: #032717; color: white; border-radius: 50%; width: 60px; height: 60px; display: flex; align-items: center; justify-content: center; font-weight: bold; box-shadow: 0 4px 12px rgba(3, 39, 23, 0.3); cursor: pointer; }
+        .floating-summary { 
+            position: fixed; 
+            bottom: 30px; 
+            right: 30px; 
+            background: linear-gradient(135deg, #032717 0%, #054d2a 100%); 
+            color: white; 
+            border-radius: 50%; 
+            width: 70px; 
+            height: 70px; 
+            display: flex; 
+            align-items: center; 
+            justify-content: center; 
+            font-weight: 700; 
+            font-size: 1.1rem;
+            box-shadow: 0 8px 25px rgba(3, 39, 23, 0.4); 
+            cursor: pointer; 
+            transition: all 0.3s ease;
+            border: 3px solid rgba(255, 255, 255, 0.2);
+        }
+        .floating-summary:hover {
+            transform: scale(1.1);
+            box-shadow: 0 12px 35px rgba(3, 39, 23, 0.5);
+        }
         @media (max-width: 768px) { 
             .challenge-item { 
                 flex-direction: column; 
