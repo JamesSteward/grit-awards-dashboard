@@ -359,29 +359,6 @@
             color: #004085; 
             border: 2px solid #99ccff; 
         }
-        .floating-summary { 
-            position: fixed; 
-            bottom: 30px; 
-            right: 30px; 
-            background: linear-gradient(135deg, #032717 0%, #054d2a 100%); 
-            color: white; 
-            border-radius: 50%; 
-            width: 70px; 
-            height: 70px; 
-            display: flex; 
-            align-items: center; 
-            justify-content: center; 
-            font-weight: 700; 
-            font-size: 1.1rem;
-            box-shadow: 0 8px 25px rgba(3, 39, 23, 0.4); 
-            cursor: pointer; 
-            transition: all 0.3s ease;
-            border: 3px solid rgba(255, 255, 255, 0.2);
-        }
-        .floating-summary:hover {
-            transform: scale(1.1);
-            box-shadow: 0 12px 35px rgba(3, 39, 23, 0.5);
-        }
         @media (max-width: 768px) { 
             .challenge-item { 
                 flex-direction: column; 
@@ -700,7 +677,6 @@
         </div>
     </div>
 
-    <div class="floating-summary">60%</div>
 
     <script>
         // Debug: Log page load
@@ -742,7 +718,6 @@
                 });
                 
                 // Update floating summary
-                updateFloatingSummary(filterStatus);
             });
         });
 
@@ -775,29 +750,6 @@
             alert(`${statusEmojis[status]} Challenge ${number}\n\n${text}\n\nStatus: ${status.charAt(0).toUpperCase() + status.slice(1).replace('-', ' ')}`);
         }
 
-        function updateFloatingSummary(filterStatus) {
-            const floatingSummary = document.querySelector('.floating-summary');
-            if (!floatingSummary) return;
-            
-            let count = 0;
-            let total = challengeItems.length;
-            
-            if (filterStatus !== 'all') {
-                count = Array.from(challengeItems).filter(item => 
-                    item.dataset.status === filterStatus
-                ).length;
-            } else {
-                count = Array.from(challengeItems).filter(item => 
-                    item.dataset.status === 'completed'
-                ).length;
-            }
-            
-            const percentage = Math.round((count / total) * 100);
-            floatingSummary.textContent = `${percentage}%`;
-        }
-
-        // Initialize floating summary
-        updateFloatingSummary('all');
 
         // Add smooth scrolling for better UX
         document.documentElement.style.scrollBehavior = 'smooth';
