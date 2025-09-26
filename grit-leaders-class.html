@@ -77,29 +77,42 @@
         
         .page-header {
             margin-bottom: 30px;
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
         }
         
         .page-title {
             font-family: 'Roboto Slab', serif;
             font-size: 28px;
             color: #333;
-            margin-bottom: 8px;
+            margin: 0;
+        }
+        
+        .dashboard-btn {
             display: flex;
             align-items: center;
-            gap: 20px;
-        }
-        
-        .back-link {
-            font-size: 16px;
-            color: #666;
+            gap: 8px;
+            background: #032717;
+            color: white;
+            padding: 12px 20px;
+            border-radius: 8px;
             text-decoration: none;
-            font-weight: 400;
-            transition: color 0.2s ease;
+            font-weight: 600;
+            font-size: 14px;
+            transition: background-color 0.2s;
+            box-shadow: 0 2px 8px rgba(3, 39, 23, 0.2);
         }
         
-        .back-link:hover {
-            color: #032717;
-            text-decoration: underline;
+        .dashboard-btn:hover {
+            background: #044d30;
+            transform: translateY(-1px);
+            box-shadow: 0 4px 12px rgba(3, 39, 23, 0.3);
+        }
+        
+        .dashboard-icon {
+            width: 18px;
+            height: 18px;
         }
         
         .stats-grid {
@@ -344,10 +357,16 @@
 
     <div class="container">
         <div class="page-header">
-            <h1 class="page-title">
-                Year 4
-                <a href="grit-leaders-dashboard.html" class="back-link">← dashboard</a>
-            </h1>
+            <h1 class="page-title">Year 4</h1>
+            <a href="grit-leaders-dashboard.html" class="dashboard-btn">
+                <svg class="dashboard-icon" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
+                    <rect x="3" y="3" width="7" height="7"/>
+                    <rect x="14" y="3" width="7" height="7"/>
+                    <rect x="14" y="14" width="7" height="7"/>
+                    <rect x="3" y="14" width="7" height="7"/>
+                </svg>
+                Dashboard
+            </a>
         </div>
 
         <div class="stats-grid">
