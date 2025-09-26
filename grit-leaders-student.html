@@ -14,50 +14,6 @@
             line-height: 1.6; 
             min-height: 100vh;
         }
-        .header { 
-            background: linear-gradient(135deg, #032717 0%, #054d2a 100%); 
-            color: white; 
-            padding: 1rem 1.5rem; 
-            position: sticky; 
-            top: 0; 
-            z-index: 100; 
-            box-shadow: 0 4px 20px rgba(3, 39, 23, 0.3);
-            backdrop-filter: blur(10px);
-        }
-        .header-content { 
-            display: flex; 
-            align-items: center; 
-            justify-content: center; 
-            max-width: 1200px; 
-            margin: 0 auto; 
-            position: relative;
-        }
-        .back-btn { 
-            background: none; 
-            border: none; 
-            color: white; 
-            cursor: pointer; 
-            padding: 0.5rem; 
-            border-radius: 8px;
-            transition: background-color 0.2s;
-            position: absolute;
-            left: 0;
-        }
-        .back-btn:hover, .menu-btn:hover {
-            background-color: rgba(255, 255, 255, 0.1);
-        }
-        .header-logo {
-            width: 40px;
-            height: 40px;
-            object-fit: contain;
-        }
-        .header-title { 
-            font-family: 'Roboto Slab', serif; 
-            font-size: 1.4rem; 
-            font-weight: 600; 
-            text-align: center;
-            margin: 0;
-        }
         .student-header { 
             background: linear-gradient(135deg, #032717 0%, #054d2a 100%); 
             color: white; 
@@ -126,9 +82,6 @@
             padding: 2rem 1.5rem; 
             background: white; 
             border-bottom: 1px solid #e9ecef; 
-            position: sticky;
-            top: 80px;
-            z-index: 99;
             box-shadow: 0 4px 20px rgba(0,0,0,0.08);
             margin-bottom: 2rem;
         }
@@ -426,16 +379,6 @@
     </style>
 </head>
 <body>
-    <header class="header">
-        <div class="header-content">
-            <button class="back-btn" onclick="goBack()">
-                <svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
-                    <path d="M19 12H5M12 19l-7-7 7-7"/>
-                </svg>
-            </button>
-            <h1 class="header-title">Riley Furey</h1>
-        </div>
-    </header>
 
     <div class="student-header">
         <img src="avatar-astronaut-male.webp" alt="Riley Furey" class="student-avatar">
@@ -698,11 +641,6 @@
         
         // No authentication check needed - this is a standalone student profile page
         // Authentication is handled by the parent dashboard
-
-        function goBack() { 
-            console.log('Going back to dashboard');
-            window.location.href = 'grit-leaders-dashboard.html';
-        }
 
         function toggleMenu() {
             // Future menu functionality
