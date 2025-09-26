@@ -530,13 +530,8 @@
     <div class="floating-summary">60%</div>
 
     <script>
-        // Check authentication - only redirect if not in a new tab
-        (function() {
-            const isAuthenticated = localStorage.getItem('grit-leaders-authenticated');
-            if (isAuthenticated !== 'true' && !window.opener) {
-                window.location.href = 'grit-leaders-dashboard.html';
-            }
-        })();
+        // No authentication check needed - this is a standalone student profile page
+        // Authentication is handled by the parent dashboard
 
         function goBack() { 
             window.location.href = 'grit-leaders-dashboard.html';
