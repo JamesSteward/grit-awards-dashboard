@@ -1377,6 +1377,12 @@
         }
 
         function manageStudents(yearLevel) {
+            // Special case for Year 4 - navigate to class management page
+            if (yearLevel === 'year4') {
+                window.location.href = 'grit-leaders-class.html';
+                return;
+            }
+            
             const classNames = {
                 'year1': 'Year 1',
                 'year2': 'Year 2', 
