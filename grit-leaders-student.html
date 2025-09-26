@@ -530,10 +530,14 @@
     <div class="floating-summary">60%</div>
 
     <script>
+        // Debug: Log page load
+        console.log('Student page loaded successfully');
+        
         // No authentication check needed - this is a standalone student profile page
         // Authentication is handled by the parent dashboard
 
         function goBack() { 
+            console.log('Going back to dashboard');
             window.location.href = 'grit-leaders-dashboard.html';
         }
 
