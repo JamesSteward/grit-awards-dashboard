@@ -550,6 +550,213 @@
             color: #032717;
             background: #f0f0f0;
         }
+        
+        /* Year 4 Management Section Styles */
+        .year4-management-section {
+            background: white;
+            border-radius: 16px;
+            padding: 30px;
+            margin: 20px 0;
+            box-shadow: 0 8px 32px rgba(0, 0, 0, 0.1);
+            border: 1px solid #e0e0e0;
+        }
+        
+        .management-header {
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            margin-bottom: 30px;
+            padding-bottom: 20px;
+            border-bottom: 2px solid #f0f0f0;
+        }
+        
+        .management-header h2 {
+            font-family: 'Roboto Slab', serif;
+            font-size: 24px;
+            color: #032717;
+            margin: 0;
+        }
+        
+        .close-btn {
+            background: #f8f9fa;
+            border: none;
+            border-radius: 50%;
+            width: 40px;
+            height: 40px;
+            font-size: 20px;
+            color: #666;
+            cursor: pointer;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            transition: all 0.2s;
+        }
+        
+        .close-btn:hover {
+            background: #e9ecef;
+            color: #032717;
+        }
+        
+        .stats-grid {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(200px, 1fr));
+            gap: 20px;
+            margin-bottom: 30px;
+        }
+        
+        .stat-card {
+            background: #f8f9fa;
+            padding: 20px;
+            border-radius: 12px;
+            text-align: center;
+            border: 1px solid #e0e0e0;
+        }
+        
+        .stat-number {
+            font-size: 32px;
+            font-weight: 700;
+            color: #032717;
+            margin-bottom: 8px;
+        }
+        
+        .stat-label {
+            color: #666;
+            font-size: 14px;
+            text-transform: uppercase;
+            letter-spacing: 0.5px;
+        }
+        
+        .students-table-container {
+            background: white;
+            border-radius: 12px;
+            overflow: hidden;
+            border: 1px solid #e0e0e0;
+        }
+        
+        .students-table {
+            width: 100%;
+            border-collapse: collapse;
+        }
+        
+        .students-table th {
+            background: #f8f9fa;
+            padding: 15px 12px;
+            text-align: left;
+            font-weight: 600;
+            color: #333;
+            border-bottom: 2px solid #e0e0e0;
+            cursor: pointer;
+            user-select: none;
+        }
+        
+        .students-table th:hover {
+            background: #e9ecef;
+        }
+        
+        .students-table td {
+            padding: 12px;
+            border-bottom: 1px solid #f0f0f0;
+            vertical-align: middle;
+        }
+        
+        .students-table tr:hover {
+            background: #f8f9fa;
+        }
+        
+        .student-name {
+            font-weight: 600;
+            color: #333;
+            display: flex;
+            align-items: center;
+            gap: 12px;
+        }
+        
+        .student-avatar {
+            width: 32px;
+            height: 32px;
+            border-radius: 50%;
+            object-fit: cover;
+            border: 2px solid #e0e0e0;
+        }
+        
+        .percentage-cell {
+            text-align: center;
+        }
+        
+        .percentage-badge {
+            display: inline-block;
+            padding: 4px 8px;
+            border-radius: 12px;
+            font-size: 12px;
+            font-weight: 600;
+        }
+        
+        .percentage-high {
+            background: #d4edda;
+            color: #155724;
+        }
+        
+        .percentage-medium {
+            background: #fff3cd;
+            color: #856404;
+        }
+        
+        .percentage-low {
+            background: #f8d7da;
+            color: #721c24;
+        }
+        
+        .points-cell {
+            text-align: center;
+            font-weight: 600;
+            color: #032717;
+        }
+        
+        .challenges-cell {
+            text-align: center;
+        }
+        
+        .challenges-badge {
+            background: #032717;
+            color: white;
+            padding: 4px 8px;
+            border-radius: 12px;
+            font-size: 12px;
+            font-weight: 600;
+        }
+        
+        .status-cell {
+            text-align: center;
+        }
+        
+        .status-badge {
+            display: inline-block;
+            padding: 4px 8px;
+            border-radius: 12px;
+            font-size: 12px;
+            font-weight: 600;
+        }
+        
+        .status-none {
+            background: #f8f9fa;
+            color: #6c757d;
+        }
+        
+        .status-review {
+            background: #fff3cd;
+            color: #856404;
+        }
+        
+        .status-message {
+            background: #d1ecf1;
+            color: #0c5460;
+        }
+        
+        .sort-arrow {
+            font-size: 10px;
+            margin-left: 4px;
+            opacity: 0.5;
+        }
 
         .footer-link svg {
             width: 18px;
@@ -1061,7 +1268,100 @@
                         </div>
                         <div class="class-actions">
                             <button class="class-btn btn-primary" onclick="event.stopPropagation(); viewProgress('year4')">View Progress</button>
-                            <button class="class-btn btn-outline" onclick="event.stopPropagation(); manageStudents('year4')">Manage</button>
+                            <button class="class-btn btn-outline" onclick="event.stopPropagation(); toggleYear4Management()">Manage</button>
+                        </div>
+                    </div>
+                    
+                    <!-- Expandable Year 4 Management Section -->
+                    <div id="year4ManagementSection" class="year4-management-section" style="display: none;">
+                        <div class="management-header">
+                            <h2>Year 4 Class Management</h2>
+                            <button class="close-btn" onclick="toggleYear4Management()">×</button>
+                        </div>
+                        
+                        <div class="stats-grid">
+                            <div class="stat-card">
+                                <div class="stat-number" id="avg-completion">69%</div>
+                                <div class="stat-label">Average Completion</div>
+                            </div>
+                            <div class="stat-card">
+                                <div class="stat-number" id="total-students">25</div>
+                                <div class="stat-label">Total Students</div>
+                            </div>
+                            <div class="stat-card">
+                                <div class="stat-number" id="active-challenges">156</div>
+                                <div class="stat-label">Active Challenges</div>
+                            </div>
+                            <div class="stat-card">
+                                <div class="stat-number" id="completed-goals">89</div>
+                                <div class="stat-label">Completed Goals</div>
+                            </div>
+                        </div>
+                        
+                        <div class="students-table-container">
+                            <table class="students-table">
+                                <thead>
+                                    <tr>
+                                        <th onclick="sortTable(0)">Student <span class="sort-arrow">↕</span></th>
+                                        <th onclick="sortTable(1)">Completion <span class="sort-arrow">↕</span></th>
+                                        <th onclick="sortTable(2)">Points <span class="sort-arrow">↕</span></th>
+                                        <th onclick="sortTable(3)">Active Challenges <span class="sort-arrow">↕</span></th>
+                                        <th onclick="sortTable(4)">Status <span class="sort-arrow">↕</span></th>
+                                    </tr>
+                                </thead>
+                                <tbody id="studentsTableBody">
+                                    <tr>
+                                        <td class="student-name">
+                                            <img src="avatar-astronaut-male.webp" alt="Riley F" class="student-avatar">
+                                            Riley F
+                                        </td>
+                                        <td class="percentage-cell"><span class="percentage-badge percentage-medium">60%</span></td>
+                                        <td class="points-cell">15</td>
+                                        <td class="challenges-cell"><span class="challenges-badge">9</span></td>
+                                        <td class="status-cell"><span class="status-badge status-none">-</span></td>
+                                    </tr>
+                                    <tr>
+                                        <td class="student-name">
+                                            <img src="avatar-pilot-male.webp" alt="Jude J" class="student-avatar">
+                                            Jude J
+                                        </td>
+                                        <td class="percentage-cell"><span class="percentage-badge percentage-medium">78%</span></td>
+                                        <td class="points-cell">80</td>
+                                        <td class="challenges-cell"><span class="challenges-badge">20</span></td>
+                                        <td class="status-cell"><span class="status-badge status-review">Review</span></td>
+                                    </tr>
+                                    <tr>
+                                        <td class="student-name">
+                                            <img src="avatar-soldier-male.webp" alt="Lucas B" class="student-avatar">
+                                            Lucas B
+                                        </td>
+                                        <td class="percentage-cell"><span class="percentage-badge percentage-medium">74%</span></td>
+                                        <td class="points-cell">50</td>
+                                        <td class="challenges-cell"><span class="challenges-badge">8</span></td>
+                                        <td class="status-cell"><span class="status-badge status-review">Review</span></td>
+                                    </tr>
+                                    <tr>
+                                        <td class="student-name">
+                                            <img src="avatar-pilot-female.webp" alt="Peggy C" class="student-avatar">
+                                            Peggy C
+                                        </td>
+                                        <td class="percentage-cell"><span class="percentage-badge percentage-low">46%</span></td>
+                                        <td class="points-cell">75</td>
+                                        <td class="challenges-cell"><span class="challenges-badge">4</span></td>
+                                        <td class="status-cell"><span class="status-badge status-review">Review</span></td>
+                                    </tr>
+                                    <tr>
+                                        <td class="student-name">
+                                            <img src="avatar-diver-male.webp" alt="Zach H" class="student-avatar">
+                                            Zach H
+                                        </td>
+                                        <td class="percentage-cell"><span class="percentage-badge percentage-medium">70%</span></td>
+                                        <td class="points-cell">45</td>
+                                        <td class="challenges-cell"><span class="challenges-badge">6</span></td>
+                                        <td class="status-cell"><span class="status-badge status-none">-</span></td>
+                                    </tr>
+                                </tbody>
+                            </table>
                         </div>
                     </div>
 
@@ -1407,6 +1707,53 @@
             };
             
             alert(`👥 Managing ${classNames[yearLevel]}\n\nStudent management options:\n• Add/remove students\n• Update student information\n• Assign individual goals\n• Communication tools`);
+        }
+        
+        function toggleYear4Management() {
+            const section = document.getElementById('year4ManagementSection');
+            if (section.style.display === 'none') {
+                section.style.display = 'block';
+                // Smooth scroll to the section
+                section.scrollIntoView({ behavior: 'smooth', block: 'start' });
+            } else {
+                section.style.display = 'none';
+            }
+        }
+        
+        function sortTable(columnIndex) {
+            const table = document.querySelector('.students-table tbody');
+            const rows = Array.from(table.querySelectorAll('tr'));
+            
+            rows.sort((a, b) => {
+                let aVal, bVal;
+                
+                switch(columnIndex) {
+                    case 0: // Student name
+                        aVal = a.cells[0].textContent.trim();
+                        bVal = b.cells[0].textContent.trim();
+                        return aVal.localeCompare(bVal);
+                    case 1: // Completion percentage
+                        aVal = parseInt(a.cells[1].textContent);
+                        bVal = parseInt(b.cells[1].textContent);
+                        return bVal - aVal;
+                    case 2: // Points
+                        aVal = parseInt(a.cells[2].textContent);
+                        bVal = parseInt(b.cells[2].textContent);
+                        return bVal - aVal;
+                    case 3: // Active challenges
+                        aVal = parseInt(a.cells[3].textContent);
+                        bVal = parseInt(b.cells[3].textContent);
+                        return bVal - aVal;
+                    case 4: // Status
+                        aVal = a.cells[4].textContent.toLowerCase();
+                        bVal = b.cells[4].textContent.toLowerCase();
+                        return aVal.localeCompare(bVal);
+                }
+            });
+            
+            // Clear table and re-append sorted rows
+            table.innerHTML = '';
+            rows.forEach(row => table.appendChild(row));
         }
 
         function openSupport() {
