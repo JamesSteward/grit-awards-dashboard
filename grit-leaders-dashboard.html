@@ -686,6 +686,28 @@
             gap: 12px;
         }
         
+        .student-link {
+            color: #032717;
+            text-decoration: none;
+            font-weight: 600;
+            transition: all 0.2s ease;
+            border-radius: 4px;
+            padding: 2px 4px;
+            margin: -2px -4px;
+        }
+        
+        .student-link:hover {
+            color: #044d30;
+            background-color: rgba(3, 39, 23, 0.05);
+            text-decoration: underline;
+            text-decoration-color: #032717;
+            text-underline-offset: 2px;
+        }
+        
+        .student-link:active {
+            transform: scale(0.98);
+        }
+        
         .student-avatar {
             width: 32px;
             height: 32px;
@@ -1332,7 +1354,7 @@
                                     <tr>
                                         <td class="student-name">
                                             <img src="avatar-astronaut-male.webp" alt="Riley F" class="student-avatar">
-                                            Riley F
+                                            <a href="grit-leaders-student.html" target="_blank" class="student-link">Riley F</a>
                                         </td>
                                         <td class="percentage-cell"><span class="percentage-badge percentage-medium">60%</span></td>
                                         <td class="points-cell">15</td>
