@@ -74,10 +74,69 @@
             z-index: 1;
             box-shadow: 0 8px 32px rgba(0, 0, 0, 0.1);
         }
-        .progress-title { font-family: 'Roboto Slab', serif; font-size: 1.1rem; margin-bottom: 1rem; text-align: center; }
-        .progress-bar { background-color: rgba(255, 255, 255, 0.2); border-radius: 20px; height: 12px; overflow: hidden; margin-bottom: 1rem; }
-        .progress-fill { background-color: #4CAF50; height: 100%; width: 60%; border-radius: 20px; transition: width 0.3s ease; }
-        .progress-stats { display: flex; justify-content: space-between; font-size: 0.9rem; opacity: 0.9; }
+        .progress-title { 
+            font-family: 'Roboto Slab', serif; 
+            font-size: 1.2rem; 
+            margin-bottom: 1.5rem; 
+            text-align: center; 
+            font-weight: 600;
+            text-shadow: 0 2px 4px rgba(0,0,0,0.3);
+        }
+        .progress-container {
+            position: relative;
+            margin-bottom: 1.5rem;
+        }
+        .progress-bar { 
+            background: rgba(255, 255, 255, 0.15); 
+            border-radius: 25px; 
+            height: 16px; 
+            overflow: hidden; 
+            position: relative;
+            box-shadow: inset 0 2px 8px rgba(0, 0, 0, 0.2);
+            border: 1px solid rgba(255, 255, 255, 0.2);
+        }
+        .progress-fill { 
+            background: linear-gradient(135deg, #4CAF50 0%, #45a049 50%, #66bb6a 100%); 
+            height: 100%; 
+            width: 60%; 
+            border-radius: 25px; 
+            transition: width 0.8s cubic-bezier(0.4, 0, 0.2, 1); 
+            position: relative;
+            box-shadow: 0 2px 8px rgba(76, 175, 80, 0.4);
+        }
+        .progress-fill::before {
+            content: '';
+            position: absolute;
+            top: 0;
+            left: 0;
+            right: 0;
+            bottom: 0;
+            background: linear-gradient(90deg, transparent, rgba(255,255,255,0.3), transparent);
+            animation: shimmer 2s infinite;
+        }
+        @keyframes shimmer {
+            0% { transform: translateX(-100%); }
+            100% { transform: translateX(100%); }
+        }
+        .progress-percentage {
+            position: absolute;
+            top: 50%;
+            left: 50%;
+            transform: translate(-50%, -50%);
+            font-weight: 700;
+            font-size: 0.9rem;
+            color: white;
+            text-shadow: 0 1px 3px rgba(0,0,0,0.5);
+            z-index: 2;
+        }
+        .progress-stats { 
+            display: flex; 
+            justify-content: space-between; 
+            font-size: 0.95rem; 
+            opacity: 0.95; 
+            font-weight: 500;
+            text-shadow: 0 1px 2px rgba(0,0,0,0.3);
+        }
         .filters { 
             padding: 2rem 1.5rem; 
             background: white; 
@@ -386,8 +445,16 @@
         <p class="student-class">Year 4</p>
         <div class="progress-section">
             <h3 class="progress-title">GRIT Awards Progress</h3>
-            <div class="progress-bar"><div class="progress-fill"></div></div>
-            <div class="progress-stats"><span>60 of 100 completed</span><span>60%</span></div>
+            <div class="progress-container">
+                <div class="progress-bar">
+                    <div class="progress-fill"></div>
+                    <div class="progress-percentage">60%</div>
+                </div>
+            </div>
+            <div class="progress-stats">
+                <span>60 Challenges Completed</span>
+                <span>40 Remaining</span>
+            </div>
         </div>
     </div>
 
