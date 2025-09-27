@@ -3,41 +3,541 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>GRIT Awards - User Selection</title>
+    <title>Power your entire awards program | GRIT Awards</title>
     <style>
-        @import url('https://fonts.googleapis.com/css2?family=Roboto+Slab:wght@300;400;500;600;700&display=swap');
-        
         * {
             margin: 0;
             padding: 0;
             box-sizing: border-box;
         }
-
+        
+        @import url('https://fonts.googleapis.com/css2?family=Roboto+Slab:wght@400;600;700&display=swap');
+        
         body {
-            font-family: 'Roboto Slab', serif;
+            font-family: -apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, sans-serif;
+            line-height: 1.6;
+            color: #333;
+        }
+        
+        /* Header */
+        .header {
             background: white;
-            min-height: 100vh;
+            padding: 1rem 0;
+            box-shadow: 0 2px 4px rgba(0,0,0,0.1);
+            position: fixed;
+            width: 100%;
+            top: 0;
+            z-index: 1000;
+        }
+        
+        .nav-container {
+            max-width: 1200px;
+            margin: 0 auto;
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            padding: 0 2rem;
+        }
+        
+        .logo {
+            display: flex;
+            align-items: center;
+        }
+        
+        .logo img {
+            height: 40px;
+            width: auto;
+        }
+        
+        .nav-links {
+            display: flex;
+            list-style: none;
+            gap: 2rem;
+        }
+        
+        .nav-links a {
+            text-decoration: none;
+            color: #333;
+            font-weight: 500;
+        }
+        
+        .cta-button {
+            background: #032717;
+            color: white;
+            padding: 0.75rem 1.5rem;
+            border: none;
+            border-radius: 6px;
+            font-weight: 600;
+            cursor: pointer;
+            text-decoration: none;
+        }
+        
+        .cta-button:hover {
+            background: #044d30;
+        }
+        
+        /* Hero Section */
+        .hero {
+            padding: 8rem 2rem 2rem;
+            max-width: 1200px;
+            margin: 0 auto;
+            text-align: center;
+        }
+        
+        .hero-content {
+            margin-bottom: 3rem;
+        }
+        
+        .hero-content h1 {
+            font-family: 'Roboto Slab', serif;
+            font-size: 3rem;
+            font-weight: bold;
+            line-height: 1.2;
+            margin-bottom: 1.5rem;
+            color: #032717;
+        }
+        
+        .hero-content p {
+            font-size: 1.2rem;
+            color: #666;
+            margin-bottom: 2rem;
+            line-height: 1.6;
+            max-width: 600px;
+            margin-left: auto;
+            margin-right: auto;
+        }
+        
+        .hero-image {
+            display: flex;
+            justify-content: center;
+            align-items: center;
+            height: 600px;
+            border-radius: 12px;
+            position: relative;
+            overflow: hidden;
+            background: transparent;
+            width: 100%;
+            margin: 0 auto;
+        }
+        
+        .hero-image img {
+            width: 100%;
+            height: 100%;
+            object-fit: cover;
+            border-radius: 12px;
+            animation: heroSlide 20s ease-in-out infinite alternate;
+        }
+        
+        @keyframes heroSlide {
+            0% {
+                transform: translateX(-2%) scale(1.02);
+            }
+            100% {
+                transform: translateX(2%) scale(1.02);
+            }
+        }
+        
+        /* Product Highlight */
+        .product-highlight {
+            background: #f8f9fa;
+            padding: 3rem 2rem;
+            text-align: center;
+        }
+        
+        .product-highlight .container {
+            max-width: 1200px;
+            margin: 0 auto;
+        }
+        
+        .product-badge {
+            background: #032717;
+            color: white;
+            padding: 0.5rem 1rem;
+            border-radius: 20px;
+            font-size: 0.9rem;
+            font-weight: 600;
+            display: inline-block;
+            margin-bottom: 1rem;
+        }
+        
+        .product-highlight h2 {
+            font-family: 'Roboto Slab', serif;
+            font-size: 2.5rem;
+            font-weight: bold;
+            margin-bottom: 1rem;
+            color: #032717;
+        }
+        
+        .product-highlight p {
+            font-size: 1.1rem;
+            color: #666;
+            max-width: 600px;
+            margin: 0 auto;
+        }
+        
+        /* Category Selector */
+        .category-selector {
+            padding: 2rem;
+            text-align: center;
+            background: white;
+        }
+        
+        .category-buttons {
+            display: flex;
+            justify-content: center;
+            gap: 1rem;
+            margin-bottom: 2rem;
+        }
+        
+        .category-btn {
+            padding: 0.75rem 1.5rem;
+            border: 2px solid #e0e0e0;
+            background: white;
+            border-radius: 25px;
+            cursor: pointer;
+            font-weight: 500;
+        }
+        
+        .category-btn.active {
+            background: #032717;
+            color: white;
+            border-color: #032717;
+        }
+        
+        /* Features Grid */
+        .features-section {
+            padding: 4rem 2rem;
+            max-width: 1200px;
+            margin: 0 auto;
+        }
+        
+        .features-grid {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(300px, 1fr));
+            gap: 3rem;
+            margin-bottom: 4rem;
+        }
+        
+        .feature-card {
+            text-align: left;
+        }
+        
+        .feature-card h3 {
+            font-family: 'Roboto Slab', serif;
+            font-size: 1.5rem;
+            font-weight: bold;
+            margin-bottom: 1rem;
+            color: #032717;
+        }
+        
+        .feature-card p {
+            color: #666;
+            margin-bottom: 1.5rem;
+        }
+        
+        .feature-links {
+            display: flex;
+            flex-direction: column;
+            gap: 0.5rem;
+        }
+        
+        .feature-links a {
+            color: #0066cc;
+            text-decoration: none;
+            font-weight: 500;
+        }
+        
+        /* Business Goals Section */
+        .business-goals {
+            background: #f8f9fa;
+            padding: 4rem 2rem;
+        }
+        
+        .business-goals .container {
+            max-width: 1200px;
+            margin: 0 auto;
+        }
+        
+        .business-goals h2 {
+            font-family: 'Roboto Slab', serif;
+            font-size: 2rem;
+            margin-bottom: 3rem;
+            text-align: center;
+            color: #032717;
+        }
+        
+        .goals-grid {
+            display: grid;
+            grid-template-columns: 1fr 1fr;
+            gap: 3rem;
+        }
+        
+        .goal-item {
+            display: flex;
+            gap: 1rem;
+            align-items: flex-start;
+        }
+        
+        .goal-number {
+            background: #032717;
+            color: white;
+            width: 30px;
+            height: 30px;
+            border-radius: 50%;
             display: flex;
             align-items: center;
             justify-content: center;
-            color: #333;
+            font-weight: bold;
+            flex-shrink: 0;
+        }
+        
+        .goal-content h3 {
+            font-family: 'Roboto Slab', serif;
+            font-weight: bold;
+            margin-bottom: 0.5rem;
+            color: #032717;
+        }
+        
+        .goal-content p {
+            color: #666;
+            font-size: 0.95rem;
+        }
+        
+        /* Testimonials */
+        .testimonials {
+            padding: 4rem 2rem;
+            text-align: center;
+        }
+        
+        .testimonials .container {
+            max-width: 1200px;
+            margin: 0 auto;
+        }
+        
+        .testimonials h2 {
+            font-family: 'Roboto Slab', serif;
+            font-size: 2rem;
+            margin-bottom: 2rem;
+            color: #032717;
+        }
+        
+        .testimonial-quote {
+            background: #032717;
+            color: white;
+            padding: 1.5rem;
+            border-radius: 8px;
+            margin-bottom: 2rem;
+            font-style: italic;
+        }
+        
+        .client-logos {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(150px, 1fr));
+            gap: 2rem;
+            margin-top: 3rem;
+        }
+        
+        .client-logo {
+            background: #f0f0f0;
+            height: 60px;
+            border-radius: 8px;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            font-weight: bold;
+            color: #666;
+        }
+        
+        /* Stats Section */
+        .stats-section {
+            background: #032717;
+            color: white;
+            padding: 4rem 2rem;
+            text-align: center;
+        }
+        
+        .stats-section h2 {
+            font-family: 'Roboto Slab', serif;
+        }
+        
+        .stats-grid {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(200px, 1fr));
+            gap: 3rem;
+            max-width: 1200px;
+            margin: 0 auto;
+        }
+        
+        .stat-item h3 {
+            font-size: 3rem;
+            font-weight: bold;
+            margin-bottom: 0.5rem;
+        }
+        
+        .stat-item p {
+            color: #ccc;
+        }
+        
+        /* Developer Section */
+        .developer-section {
+            padding: 4rem 2rem;
+            background: #f8f9fa;
+        }
+        
+        .developer-section .container {
+            max-width: 1200px;
+            margin: 0 auto;
+            text-align: center;
+        }
+        
+        .developer-section h2 {
+            font-size: 2rem;
+            margin-bottom: 3rem;
+        }
+        
+        .developer-grid {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(250px, 1fr));
+            gap: 2rem;
+        }
+        
+        .developer-card {
+            background: white;
+            padding: 2rem;
+            border-radius: 8px;
+            text-align: left;
+        }
+        
+        .developer-card h3 {
+            font-weight: bold;
+            margin-bottom: 1rem;
+        }
+        
+        /* Footer */
+        .footer {
+            background: #000;
+            color: white;
+            padding: 4rem 2rem 2rem;
+        }
+        
+        .footer .container {
+            max-width: 1200px;
+            margin: 0 auto;
+        }
+        
+        .footer-content {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(250px, 1fr));
+            gap: 3rem;
+            margin-bottom: 2rem;
+        }
+        
+        .footer-section h3 {
+            margin-bottom: 1rem;
+            font-weight: bold;
+        }
+        
+        .footer-section ul {
+            list-style: none;
+        }
+        
+        .footer-section ul li {
+            margin-bottom: 0.5rem;
+        }
+        
+        .footer-section ul li a {
+            color: #ccc;
+            text-decoration: none;
+        }
+        
+        .footer-bottom {
+            border-top: 1px solid #333;
+            padding-top: 2rem;
+            text-align: center;
+            color: #666;
+        }
+
+        /* Login Modal */
+        .overlay {
+            position: fixed;
+            top: 0;
+            left: 0;
+            width: 100%;
+            height: 100%;
+            background: rgba(0, 0, 0, 0.5);
+            z-index: 1000;
+            display: none;
+        }
+
+        .modal-overlay {
+            position: fixed;
+            top: 0;
+            left: 0;
+            width: 100%;
+            height: 100%;
+            display: none;
+            align-items: center;
+            justify-content: center;
+            z-index: 1001;
+        }
+
+        .modal-overlay.active {
+            display: flex;
+        }
+
+        .login-modal {
+            background: white;
+            border-radius: 12px;
+            max-width: 500px;
+            width: 90%;
+            max-height: 90vh;
+            overflow-y: auto;
+            position: relative;
+            animation: modalSlideIn 0.3s ease;
+        }
+
+        @keyframes modalSlideIn {
+            from {
+                opacity: 0;
+                transform: translateY(-50px);
+            }
+            to {
+                opacity: 1;
+                transform: translateY(0);
+            }
+        }
+
+        .modal-close {
+            position: absolute;
+            top: 15px;
+            right: 15px;
+            background: none;
+            border: none;
+            font-size: 24px;
+            cursor: pointer;
+            color: #666;
+            width: 30px;
+            height: 30px;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            border-radius: 50%;
+            transition: background-color 0.2s;
+        }
+
+        .modal-close:hover {
+            background-color: #f0f0f0;
         }
 
         .selection-container {
             text-align: center;
-            max-width: 500px;
-            width: 90%;
             padding: 40px 20px;
         }
 
-        .logo-section {
-            margin-bottom: 60px;
-        }
-
-        .logo {
-            width: 200px;
+        .modal-logo {
+            width: 150px;
             height: auto;
-            margin-bottom: 40px;
+            margin-bottom: 30px;
             display: block;
             margin-left: auto;
             margin-right: auto;
@@ -47,15 +547,15 @@
             display: flex;
             flex-direction: column;
             gap: 16px;
-            margin-bottom: 40px;
+            margin-bottom: 30px;
         }
 
         .user-button {
             background: linear-gradient(135deg, #032717 0%, #054d2a 100%);
             color: white;
             border: none;
-            padding: 20px 40px;
-            font-size: 18px;
+            padding: 18px 30px;
+            font-size: 16px;
             font-weight: 500;
             font-family: 'Roboto Slab', serif;
             border-radius: 8px;
@@ -66,6 +566,7 @@
             position: relative;
             overflow: hidden;
         }
+
         .user-button::before {
             content: '';
             position: absolute;
@@ -89,14 +590,14 @@
         }
 
         .admin-link {
-            margin-top: 40px;
-            padding-top: 30px;
+            margin-top: 30px;
+            padding-top: 20px;
         }
 
         .admin-link a {
             color: #032717;
             text-decoration: none;
-            font-size: 18px;
+            font-size: 16px;
             font-weight: 500;
             font-family: 'Roboto Slab', serif;
             transition: all 0.2s ease;
@@ -108,96 +609,400 @@
             opacity: 0.8;
         }
 
-        .footer-links {
-            margin-top: 60px;
+        .modal-footer-links {
+            margin-top: 30px;
             padding-top: 20px;
             border-top: 1px solid #eee;
-            font-size: 14px;
+            font-size: 12px;
             color: #666;
             line-height: 1.4;
         }
 
-        .footer-links a {
+        .modal-footer-links a {
             color: #032717;
             text-decoration: none;
             font-weight: 400;
             transition: opacity 0.2s ease;
         }
 
-        .footer-links a:hover {
+        .modal-footer-links a:hover {
             opacity: 0.7;
             text-decoration: underline;
         }
 
-        .footer-links .separator {
-            margin: 0 6px;
+        .modal-footer-links .separator {
+            margin: 0 4px;
             color: #999;
         }
-
+        
+        /* Responsive */
         @media (max-width: 768px) {
-            .logo {
-                width: 150px;
+            .hero {
+                grid-template-columns: 1fr;
+                text-align: center;
+                gap: 2rem;
+                padding: 6rem 2rem 2rem;
             }
-
-            .user-button {
-                padding: 18px 30px;
-                font-size: 16px;
+            
+            .hero-content h1 {
+                font-size: 2rem;
             }
-
-            .admin-link a {
-                font-size: 16px;
+            
+            .hero-content p {
+                font-size: 1.1rem;
             }
-
-            .footer-links {
-                font-size: 12px;
-                margin-top: 40px;
+            
+            .hero-image {
+                height: 300px;
+                max-width: 100%;
             }
-
-            .footer-links .separator {
-                margin: 0 4px;
+            
+            /* Reduce animation intensity on mobile for performance */
+            .hero-image img {
+                animation: heroSlideMobile 25s ease-in-out infinite alternate;
+            }
+            
+            @keyframes heroSlideMobile {
+                0% {
+                    transform: translateX(-1%) scale(1.01);
+                }
+                100% {
+                    transform: translateX(1%) scale(1.01);
+                }
+            }
+            
+            .nav-links {
+                display: none;
+            }
+            
+            .goals-grid {
+                grid-template-columns: 1fr;
+            }
+            
+            .category-buttons {
+                flex-wrap: wrap;
             }
         }
     </style>
 </head>
 <body>
-    <div class="selection-container">
-        <div class="logo-section">
-            <img src="grit-logo.webp" alt="GRIT Awards Logo" class="logo">
+    <!-- Header -->
+    <header class="header">
+        <div class="nav-container">
+            <div class="logo">
+                <img src="grit-logo.webp" alt="GRIT Awards">
+            </div>
+            <nav>
+                <ul class="nav-links">
+                    <li><a href="#awards">Awards</a></li>
+                    <li><a href="#nominations">Nominations</a></li>
+                    <li><a href="#judging">Judging</a></li>
+                    <li><a href="#events">Events</a></li>
+                    <li><a href="#analytics">Analytics</a></li>
+                </ul>
+            </nav>
+            <a href="#" onclick="openLoginModal()" class="cta-button">Get Started</a>
         </div>
+    </header>
 
-        <div class="user-options">
-            <button class="user-button" onclick="selectUser('family')">
-                I'm a Family Member
-            </button>
-            
-            <button class="user-button" onclick="selectUser('leader')">
-                GRIT Leaders
-            </button>
-            
-            <button class="user-button" onclick="selectUser('director')">
-                GRIT Directors
-            </button>
+    <!-- Hero Section -->
+    <section class="hero">
+        <div class="hero-content">
+            <h1>Powering all the ways you run awards.</h1>
+            <p>Work smarter, automate for efficiency and create exceptional award experiences on the platform thousands of organizations trust.</p>
+            <a href="#" onclick="openLoginModal()" class="cta-button">Get Started</a>
         </div>
-
-        <div class="admin-link">
-            <a href="#" onclick="selectUser('admin')">I'm a GRIT Administrator</a>
+        <div class="hero-image">
+            <img src="grit-hero.webp" alt="GRIT Awards Platform">
         </div>
+    </section>
 
-        <div class="footer-links">
-            <a href="#">COPPA Direct Notice</a>
-            <span class="separator">•</span>
-            <a href="#">Terms of Service</a>
-            <span class="separator">and</span>
-            <a href="#">Privacy Policy</a>
-            <span class="separator">|</span>
-            <a href="#">Browse Classroom Activities</a>
+    <!-- Product Highlight -->
+    <section class="product-highlight">
+        <div class="container">
+            <span class="product-badge">New</span>
+            <h2>GRIT Awards Mobile</h2>
+            <p>The complete awards management platform built to do more. Introducing GRIT Awards Mobile – manage nominations, judging, and events from anywhere. Built for the modern awards program.</p>
+        </div>
+    </section>
+
+    <!-- Category Selector -->
+    <section class="category-selector">
+        <p>Customise your experience by →</p>
+        <div class="category-buttons">
+            <button class="category-btn active">All</button>
+            <button class="category-btn">Corporate</button>
+            <button class="category-btn">Industry</button>
+            <button class="category-btn">Community</button>
+        </div>
+        <h2>Manage awards easily, quickly and seamlessly.</h2>
+    </section>
+
+    <!-- Features Grid -->
+    <section class="features-section">
+        <div class="features-grid">
+            <div class="feature-card">
+                <h3>Accept nominations anywhere.</h3>
+                <p>Nomination systems and entry management designed to work everywhere.</p>
+                <div class="feature-links">
+                    <a href="#">Secure submission processing</a>
+                    <a href="#">Multi-category nomination forms</a>
+                    <a href="#">Mobile-responsive entry portal</a>
+                </div>
+            </div>
+            <div class="feature-card">
+                <h3>Streamline your judging process.</h3>
+                <p>Manage and coordinate judges across multiple categories and rounds to improve efficiency and fairness.</p>
+                <div class="feature-links">
+                    <a href="#">Judge dashboard and scoring</a>
+                    <a href="#">Conflict of interest management</a>
+                    <a href="#">Automated judge assignments</a>
+                </div>
+            </div>
+            <div class="feature-card">
+                <h3>Create memorable events.</h3>
+                <p>Event management, ticketing, and live ceremony features to celebrate your winners.</p>
+                <div class="feature-links">
+                    <a href="#">Event registration</a>
+                    <a href="#">Live results reveal</a>
+                    <a href="#">Digital certificates</a>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <!-- Business Goals Section -->
+    <section class="business-goals">
+        <div class="container">
+            <h2>Optimize your awards operations.</h2>
+            <div class="goals-grid">
+                <div class="goal-item">
+                    <div class="goal-number">1</div>
+                    <div class="goal-content">
+                        <h3>Increase participation</h3>
+                        <p>Get more nominations with streamlined submission processes and automated reminders for deadlines.</p>
+                    </div>
+                </div>
+                <div class="goal-item">
+                    <div class="goal-number">2</div>
+                    <div class="goal-content">
+                        <h3>Manage your judges</h3>
+                        <p>Coordinate judging panels efficiently with automated assignments and conflict management.</p>
+                    </div>
+                </div>
+                <div class="goal-item">
+                    <div class="goal-number">3</div>
+                    <div class="goal-content">
+                        <h3>Engage stakeholders</h3>
+                        <p>Increase stakeholder engagement with real-time updates and transparent judging processes.</p>
+                    </div>
+                </div>
+                <div class="goal-item">
+                    <div class="goal-number">4</div>
+                    <div class="goal-content">
+                        <h3>Advanced analytics</h3>
+                        <p>Get powerful insights to make confident decisions about your awards program.</p>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <!-- Testimonials -->
+    <section class="testimonials">
+        <div class="container">
+            <h2>Hear from GRIT Awards users.</h2>
+            <div class="testimonial-quote">
+                "Named Best Overall Awards Management Platform for Organizations."
+            </div>
+            <div class="client-logos">
+                <div class="client-logo">TechCorp</div>
+                <div class="client-logo">Innovation Awards</div>
+                <div class="client-logo">Excellence Foundation</div>
+                <div class="client-logo">Industry Leaders</div>
+                <div class="client-logo">Future Awards</div>
+                <div class="client-logo">Global Recognition</div>
+            </div>
+        </div>
+    </section>
+
+    <!-- Stats Section -->
+    <section class="stats-section">
+        <h2 style="margin-bottom: 3rem; color: white;">GRIT Awards by the numbers.</h2>
+        <div class="stats-grid">
+            <div class="stat-item">
+                <h3>10k+</h3>
+                <p>Trusted by 10k+ awards organizers globally</p>
+            </div>
+            <div class="stat-item">
+                <h3>£50M+</h3>
+                <p>in award program value managed</p>
+            </div>
+            <div class="stat-item">
+                <h3>2M</h3>
+                <p>individual nominations processed annually</p>
+            </div>
+        </div>
+    </section>
+
+    <!-- Developer Section -->
+    <section class="developer-section">
+        <div class="container">
+            <h2>Build custom awards experiences.</h2>
+            <div class="developer-grid">
+                <div class="developer-card">
+                    <h3>APIs</h3>
+                    <p>Integrate GRIT Awards with your business software using our APIs for nominations, judging, events, and analytics.</p>
+                </div>
+                <div class="developer-card">
+                    <h3>Integrations</h3>
+                    <p>Connect GRIT Awards to your existing business tools using our comprehensive integration platform.</p>
+                </div>
+                <div class="developer-card">
+                    <h3>Apps</h3>
+                    <p>Use our prebuilt, vetted partner integrations in the GRIT Awards App Marketplace.</p>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <!-- Footer -->
+    <footer class="footer">
+        <div class="container">
+            <div class="footer-content">
+                <div class="footer-section">
+                    <h3>Solutions</h3>
+                    <ul>
+                        <li><a href="#">Corporate Awards</a></li>
+                        <li><a href="#">Industry Recognition</a></li>
+                        <li><a href="#">Community Awards</a></li>
+                        <li><a href="#">Academic Honors</a></li>
+                    </ul>
+                </div>
+                <div class="footer-section">
+                    <h3>Platform</h3>
+                    <ul>
+                        <li><a href="#">Nominations</a></li>
+                        <li><a href="#">Judging</a></li>
+                        <li><a href="#">Events</a></li>
+                        <li><a href="#">Analytics</a></li>
+                    </ul>
+                </div>
+                <div class="footer-section">
+                    <h3>Resources</h3>
+                    <ul>
+                        <li><a href="#">Help Center</a></li>
+                        <li><a href="#">Best Practices</a></li>
+                        <li><a href="#">Case Studies</a></li>
+                        <li><a href="#">API Documentation</a></li>
+                    </ul>
+                </div>
+                <div class="footer-section">
+                    <h3>Company</h3>
+                    <ul>
+                        <li><a href="#">About</a></li>
+                        <li><a href="#">Careers</a></li>
+                        <li><a href="#">Contact</a></li>
+                        <li><a href="#">Privacy</a></li>
+                    </ul>
+                </div>
+            </div>
+            <div class="footer-bottom">
+                <p>&copy; 2025 GRIT Awards. All rights reserved.</p>
+            </div>
+        </div>
+    </footer>
+
+    <!-- Login Modal -->
+    <div class="overlay" id="loginOverlay"></div>
+    <div class="modal-overlay" id="loginModal">
+        <div class="login-modal">
+            <button class="modal-close" onclick="closeLoginModal()">&times;</button>
+            <div class="selection-container">
+                <div class="logo-section">
+                    <img src="grit-logo.webp" alt="GRIT Awards Logo" class="modal-logo">
+                </div>
+
+                <div class="user-options">
+                    <button class="user-button" onclick="selectUser('family')">
+                        I'm a Family Member
+                    </button>
+                    
+                    <button class="user-button" onclick="selectUser('leader')">
+                        GRIT Leaders
+                    </button>
+                    
+                    <button class="user-button" onclick="selectUser('director')">
+                        GRIT Directors
+                    </button>
+                </div>
+
+                <div class="admin-link">
+                    <a href="#" onclick="selectUser('admin')">I'm a GRIT Administrator</a>
+                </div>
+
+                <div class="modal-footer-links">
+                    <a href="#">COPPA Direct Notice</a>
+                    <span class="separator">•</span>
+                    <a href="#">Terms of Service</a>
+                    <span class="separator">and</span>
+                    <a href="#">Privacy Policy</a>
+                    <span class="separator">|</span>
+                    <a href="#">Browse Classroom Activities</a>
+                </div>
+            </div>
         </div>
     </div>
 
     <script>
+        // Category button functionality
+        document.querySelectorAll('.category-btn').forEach(btn => {
+            btn.addEventListener('click', function() {
+                document.querySelectorAll('.category-btn').forEach(b => b.classList.remove('active'));
+                this.classList.add('active');
+            });
+        });
+
+        // Smooth scrolling for anchor links
+        document.querySelectorAll('a[href^="#"]').forEach(anchor => {
+            anchor.addEventListener('click', function (e) {
+                const href = this.getAttribute('href');
+                if (href !== '#' && href.startsWith('#')) {
+                    e.preventDefault();
+                    const target = document.querySelector(href);
+                    if (target) {
+                        target.scrollIntoView({
+                            behavior: 'smooth'
+                        });
+                    }
+                }
+            });
+        });
+
+        // Login Modal Functions
+        function openLoginModal() {
+            const modal = document.getElementById('loginModal');
+            const overlay = document.getElementById('loginOverlay');
+            
+            modal.classList.add('active');
+            overlay.style.display = 'block';
+            document.body.style.overflow = 'hidden'; // Prevent background scrolling
+        }
+
+        function closeLoginModal() {
+            const modal = document.getElementById('loginModal');
+            const overlay = document.getElementById('loginOverlay');
+            
+            modal.classList.remove('active');
+            overlay.style.display = 'none';
+            document.body.style.overflow = 'auto'; // Restore scrolling
+        }
+
         function selectUser(userType) {
             // Store the selected user type for the demo
-            localStorage.setItem('selectedUserType', userType);
+            if (typeof(Storage) !== "undefined") {
+                localStorage.setItem('selectedUserType', userType);
+            }
             
             // Handle navigation based on user type
             switch(userType) {
@@ -224,16 +1029,22 @@
             console.log('Navigating to:', userType, 'interface');
         }
 
-        // Add some interactive feedback
-        document.addEventListener('DOMContentLoaded', function() {
-            // Simple fade-in animation on load
-            const container = document.querySelector('.selection-container');
-            container.style.opacity = '0';
-            
-            setTimeout(() => {
-                container.style.transition = 'opacity 0.4s ease';
-                container.style.opacity = '1';
-            }, 100);
+        // Close modal when clicking outside or on overlay
+        document.getElementById('loginModal').addEventListener('click', function(e) {
+            if (e.target === this) {
+                closeLoginModal();
+            }
+        });
+
+        document.getElementById('loginOverlay').addEventListener('click', function() {
+            closeLoginModal();
+        });
+
+        // Close modal with Escape key
+        document.addEventListener('keydown', function(e) {
+            if (e.key === 'Escape' && document.getElementById('loginModal').classList.contains('active')) {
+                closeLoginModal();
+            }
         });
     </script>
 </body>
