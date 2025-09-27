@@ -126,15 +126,25 @@
             height: auto;
             object-fit: cover;
             border-radius: 12px;
-            animation: heroSlide 20s ease-in-out infinite alternate;
+            animation: heroSlide 25s ease-in-out infinite;
+            will-change: transform;
         }
-        
+
         @keyframes heroSlide {
             0% {
-                transform: translateX(-2%) scale(1.02);
+                transform: translateX(-3%) scale(1.03);
+            }
+            25% {
+                transform: translateX(-1%) scale(1.01);
+            }
+            50% {
+                transform: translateX(0%) scale(1.0);
+            }
+            75% {
+                transform: translateX(1%) scale(1.01);
             }
             100% {
-                transform: translateX(2%) scale(1.02);
+                transform: translateX(3%) scale(1.03);
             }
         }
         
@@ -725,6 +735,7 @@
             </picture>
         </div>
     </section>
+
 
     <!-- Product Highlight -->
     <section class="product-highlight">
