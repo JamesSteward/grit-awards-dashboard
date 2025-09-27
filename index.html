@@ -77,29 +77,30 @@
         
         /* Hero Section */
         .hero {
-            padding: 8rem 2rem 2rem;
-            max-width: 1200px;
-            margin: 0 auto;
+            padding: 8rem 2rem 4rem;
             text-align: center;
         }
         
         .hero-content {
-            margin-bottom: 3rem;
+            margin-bottom: 4rem;
+            max-width: 800px;
+            margin-left: auto;
+            margin-right: auto;
         }
         
         .hero-content h1 {
             font-family: 'Roboto Slab', serif;
-            font-size: 3rem;
+            font-size: 3.5rem;
             font-weight: bold;
-            line-height: 1.2;
-            margin-bottom: 1.5rem;
+            line-height: 1.1;
+            margin-bottom: 2rem;
             color: #032717;
         }
         
         .hero-content p {
-            font-size: 1.2rem;
+            font-size: 1.25rem;
             color: #666;
-            margin-bottom: 2rem;
+            margin-bottom: 2.5rem;
             line-height: 1.6;
             max-width: 600px;
             margin-left: auto;
@@ -110,13 +111,14 @@
             display: flex;
             justify-content: center;
             align-items: center;
-            height: 600px;
-            border-radius: 12px;
+            width: 100vw;
+            height: 60vh;
+            min-height: 500px;
+            margin-left: calc(-50vw + 50%);
+            margin-right: calc(-50vw + 50%);
             position: relative;
             overflow: hidden;
             background: transparent;
-            width: 100%;
-            margin: 0 auto;
         }
         
         .hero-image img {
@@ -649,14 +651,16 @@
         /* Responsive */
         @media (max-width: 768px) {
             .hero {
-                grid-template-columns: 1fr;
-                text-align: center;
-                gap: 2rem;
-                padding: 6rem 2rem 2rem;
+                padding: 6rem 1rem 3rem;
+            }
+            
+            .hero-content {
+                margin-bottom: 3rem;
             }
             
             .hero-content h1 {
-                font-size: 2rem;
+                font-size: 2.5rem;
+                line-height: 1.2;
             }
             
             .hero-content p {
@@ -664,22 +668,10 @@
             }
             
             .hero-image {
-                height: 300px;
-                max-width: 100%;
-            }
-            
-            /* Reduce animation intensity on mobile for performance */
-            .hero-image img {
-                animation: heroSlideMobile 25s ease-in-out infinite alternate;
-            }
-            
-            @keyframes heroSlideMobile {
-                0% {
-                    transform: translateX(-1%) scale(1.01);
-                }
-                100% {
-                    transform: translateX(1%) scale(1.01);
-                }
+                height: 50vh;
+                min-height: 300px;
+                margin-left: calc(-50vw + 50%);
+                margin-right: calc(-50vw + 50%);
             }
             
             .nav-links {
