@@ -4,6 +4,7 @@
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>GRIT Awards - Family Member Sign In</title>
+    <link rel="icon" type="image/webp" href="favicon.webp">
     <link href="https://fonts.googleapis.com/css2?family=Roboto+Slab:wght@400;700&family=Roboto:wght@300;400;500&display=swap" rel="stylesheet">
     <style>
         * {
@@ -16,12 +17,10 @@
             font-family: 'Roboto', sans-serif;
             background: linear-gradient(135deg, #032717 0%, #054d2a 100%);
             min-height: 100vh;
-            display: flex;
-            justify-content: center;
-            align-items: center;
             padding: 20px;
             position: relative;
-            overflow: hidden;
+            overflow-x: hidden;
+            overflow-y: auto;
         }
         body::before {
             content: '';
@@ -42,6 +41,8 @@
             width: 100%;
             max-width: 420px;
             position: relative;
+            margin: 0 auto;
+            margin-top: 60px;
         }
 
         .logo {
@@ -55,9 +56,9 @@
         }
 
         .back-arrow {
-            position: absolute;
-            top: -60px;
-            left: 0;
+            position: fixed;
+            top: 20px;
+            left: 20px;
             color: white;
             font-size: 24px;
             cursor: pointer;
@@ -66,8 +67,10 @@
             text-decoration: none;
             transition: transform 0.2s ease;
             background: rgba(255, 255, 255, 0.2);
-            padding: 8px;
+            padding: 12px;
             border-radius: 50%;
+            z-index: 1000;
+            backdrop-filter: blur(10px);
         }
 
         .back-arrow:hover {
@@ -273,7 +276,8 @@
         @media (max-width: 480px) {
             .container {
                 padding: 30px 20px;
-                margin: 10px;
+                margin: 10px auto;
+                margin-top: 80px;
             }
 
             .title {
@@ -282,7 +286,9 @@
             }
 
             .back-arrow {
-                top: -50px;
+                top: 15px;
+                left: 15px;
+                padding: 10px;
             }
 
             .sso-buttons {
