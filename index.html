@@ -18,7 +18,6 @@
             color: #333;
         }
         
-        /* Header */
         .header {
             background: white;
             padding: 1rem 0;
@@ -75,7 +74,6 @@
             background: #044d30;
         }
         
-        /* Hero Section */
         .hero {
             padding: 8rem 2rem 4rem;
             text-align: center;
@@ -133,24 +131,13 @@
         }
 
         @keyframes heroSlide {
-            0% {
-                transform: translateX(-3%) scale(1.03);
-            }
-            25% {
-                transform: translateX(-1%) scale(1.01);
-            }
-            50% {
-                transform: translateX(0%) scale(1.0);
-            }
-            75% {
-                transform: translateX(1%) scale(1.01);
-            }
-            100% {
-                transform: translateX(3%) scale(1.03);
-            }
+            0% { transform: translateX(-3%) scale(1.03); }
+            25% { transform: translateX(-1%) scale(1.01); }
+            50% { transform: translateX(0%) scale(1.0); }
+            75% { transform: translateX(1%) scale(1.01); }
+            100% { transform: translateX(3%) scale(1.03); }
         }
         
-        /* Product Highlight */
         .product-highlight {
             background: #f8f9fa;
             padding: 3rem 2rem;
@@ -188,7 +175,6 @@
             margin: 0 auto;
         }
         
-        /* Category Selector */
         .category-selector {
             padding: 2rem;
             text-align: center;
@@ -217,7 +203,6 @@
             border-color: #032717;
         }
         
-        /* Features Grid */
         .features-section {
             padding: 4rem 2rem;
             max-width: 1200px;
@@ -260,7 +245,6 @@
             font-weight: 500;
         }
         
-        /* Business Goals Section */
         .business-goals {
             background: #f8f9fa;
             padding: 4rem 2rem;
@@ -316,7 +300,6 @@
             font-size: 0.95rem;
         }
         
-        /* Testimonials */
         .testimonials {
             padding: 4rem 2rem;
             text-align: center;
@@ -361,7 +344,6 @@
             color: #666;
         }
         
-        /* Stats Section */
         .stats-section {
             background: #032717;
             color: white;
@@ -391,7 +373,6 @@
             color: #ccc;
         }
         
-        /* Developer Section */
         .developer-section {
             padding: 4rem 2rem;
             background: #f8f9fa;
@@ -426,7 +407,6 @@
             margin-bottom: 1rem;
         }
         
-        /* Footer */
         .footer {
             background: #032717;
             color: white;
@@ -470,7 +450,6 @@
             color: #666;
         }
 
-        /* Login Modal */
         .overlay {
             position: fixed;
             top: 0;
@@ -580,26 +559,10 @@
             overflow: hidden;
         }
 
-        .user-button::before {
-            content: '';
-            position: absolute;
-            top: 0;
-            left: 0;
-            right: 0;
-            bottom: 0;
-            background: url('data:image/svg+xml,<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 100 100"><defs><pattern id="grain" width="100" height="100" patternUnits="userSpaceOnUse"><circle cx="25" cy="25" r="1" fill="white" opacity="0.1"/><circle cx="75" cy="75" r="1" fill="white" opacity="0.1"/><circle cx="50" cy="10" r="1" fill="white" opacity="0.1"/><circle cx="10" cy="60" r="1" fill="white" opacity="0.1"/><circle cx="90" cy="40" r="1" fill="white" opacity="0.1"/></pattern></defs><rect width="100" height="100" fill="url(%23grain)"/></svg>');
-            opacity: 0.3;
-        }
-
         .user-button:hover {
             background: #1a5f3f;
             transform: translateY(-1px);
             box-shadow: 0 4px 12px rgba(3, 39, 23, 0.3);
-        }
-
-        .user-button:active {
-            transform: translateY(0);
-            box-shadow: 0 2px 8px rgba(3, 39, 23, 0.2);
         }
 
         .admin-link {
@@ -635,12 +598,6 @@
             color: #032717;
             text-decoration: none;
             font-weight: 400;
-            transition: opacity 0.2s ease;
-        }
-
-        .modal-footer-links a:hover {
-            opacity: 0.7;
-            text-decoration: underline;
         }
 
         .modal-footer-links .separator {
@@ -648,30 +605,13 @@
             color: #999;
         }
         
-        /* Responsive */
         @media (max-width: 768px) {
             .hero {
                 padding: 6rem 1rem 3rem;
             }
             
-            .hero-content {
-                margin-bottom: 3rem;
-            }
-            
             .hero-content h1 {
                 font-size: 2.5rem;
-                line-height: 1.2;
-            }
-            
-            .hero-content p {
-                font-size: 1.1rem;
-            }
-            
-            .hero-image {
-                height: 50vh;
-                min-height: 300px;
-                margin-left: calc(-50vw + 50%);
-                margin-right: calc(-50vw + 50%);
             }
             
             .nav-links {
@@ -681,15 +621,10 @@
             .goals-grid {
                 grid-template-columns: 1fr;
             }
-            
-            .category-buttons {
-                flex-wrap: wrap;
-            }
         }
     </style>
 </head>
 <body>
-    <!-- Header -->
     <header class="header">
         <div class="nav-container">
             <div class="logo">
@@ -698,47 +633,37 @@
             <nav>
                 <ul class="nav-links">
                     <li><a href="#awards">Awards</a></li>
-                    <li><a href="#nominations">Schools</a></li>
-                    <li><a href="#judging">Parents</a></li>
+                    <li><a href="#schools">Schools</a></li>
+                    <li><a href="#parent">Parents</a></li>
                     <li><a href="#events">Events</a></li>
-                    <li><a href="#analytics">contact</a></li>
+                    <li><a href="#contact">Contact</a></li>
                 </ul>
             </nav>
             <a href="#" onclick="openLoginModal()" class="cta-button">Get Started</a>
         </div>
     </header>
 
-    <!-- Hero Section -->
     <section class="hero">
         <div class="hero-content">
-            <h1>Powering the Future of Britain.</h1>
-            <p>We inspire our children to Grow, build Resilience, develop Integrity & Independence, to experience a true Transformation for good.</p>
+            <h1>Building Life-Ready Children.</h1>
+            <p>Equipping primary school children with essential life skills and experiences through structured awards that develop Growth, Resilience, Integrity, Independence, and Transformation.</p>
             <a href="#" onclick="openLoginModal()" class="cta-button">Get Started</a>
         </div>
         <div class="hero-image">
             <picture>
-                <img src="grit-hero.webp" 
-                     alt="GRIT Awards Platform"
-                     width="2880"
-                     height="1030"
-                     loading="eager"
-                     fetchpriority="high"
-                     sizes="(min-width: 1680px) 1920px, (min-width: 1280px) 1679px, (min-width: 1024px) 1279px, (min-width: 740px) 1023px, (min-width: 374px) 739px, (min-width: 1px) 373px">
+                <img src="grit-hero.webp" alt="GRIT Awards Platform" width="2880" height="1030">
             </picture>
         </div>
     </section>
 
-
-    <!-- Product Highlight -->
     <section class="product-highlight">
         <div class="container">
             <span class="product-badge">New</span>
-            <h2>GRIT Awards Mobile App</h2>
-            <p>The ultimate App for inspiring Primary aged children to develop skills, achieve excellence and growth with millions of children up and down the UK</p>
+            <h2>GRIT Awards Portal & App</h2>
+            <p>Track progress, upload evidence, and celebrate achievements as children work through Captain's, Major's, and Lt Colonel's Awards—from tying shoelaces to climbing mountains.</p>
         </div>
     </section>
 
-    <!-- Category Selector -->
     <section class="category-selector">
         <p>Customise your experience by →</p>
         <div class="category-buttons">
@@ -747,175 +672,169 @@
             <button class="category-btn">Industry</button>
             <button class="category-btn">Community</button>
         </div>
-        <h2>Manage awards easily, quickly and seamlessly.</h2>
+        <h2>Manage your GRIT programme seamlessly.</h2>
     </section>
 
-    <!-- Features Grid -->
     <section class="features-section">
         <div class="features-grid">
             <div class="feature-card">
-                <h3>Accept nominations anywhere.</h3>
-                <p>Nomination systems and entry management designed to work everywhere.</p>
+                <h3>Track progress anywhere.</h3>
+                <p>Parents, teachers, and learners can upload evidence and monitor achievement across all three assessment pathways.</p>
                 <div class="feature-links">
-                    <a href="#">Secure submission processing</a>
-                    <a href="#">Multi-category nomination forms</a>
-                    <a href="#">Mobile-responsive entry portal</a>
+                    <a href="#">Independent-Led objectives</a>
+                    <a href="#">School-Led objectives</a>
+                    <a href="#">Specialist-Led objectives</a>
                 </div>
             </div>
             <div class="feature-card">
-                <h3>Streamline your judging process.</h3>
-                <p>Manage and coordinate judges across multiple categories and rounds to improve efficiency and fairness.</p>
+                <h3>Support every learner's journey.</h3>
+                <p>Monitor individual progress across 30, 50, or 70 objectives depending on award level, with evidence uploads from home and school.</p>
                 <div class="feature-links">
-                    <a href="#">Judge dashboard and scoring</a>
-                    <a href="#">Conflict of interest management</a>
-                    <a href="#">Automated judge assignments</a>
+                    <a href="#">Captain's Award (Years 1-3)</a>
+                    <a href="#">Major's Award (Year 4)</a>
+                    <a href="#">Lt Colonel's Award (Years 5-6)</a>
                 </div>
             </div>
             <div class="feature-card">
-                <h3>Create memorable events.</h3>
-                <p>Event management, ticketing, and live ceremony features to celebrate your winners.</p>
+                <h3>Celebrate achievements together.</h3>
+                <p>Join GRIT Awards Ceremonies where learners receive recognition from GRIT Ambassadors and schools celebrate exceptional effort.</p>
                 <div class="feature-links">
-                    <a href="#">Event registration</a>
-                    <a href="#">Live results reveal</a>
+                    <a href="#">Awards ceremonies</a>
+                    <a href="#">Special Recognition Awards</a>
                     <a href="#">Digital certificates</a>
                 </div>
             </div>
         </div>
     </section>
 
-    <!-- Business Goals Section -->
     <section class="business-goals">
         <div class="container">
-            <h2>Optimize your awards operations.</h2>
+            <h2>Transform your school's approach to life skills.</h2>
             <div class="goals-grid">
                 <div class="goal-item">
                     <div class="goal-number">1</div>
                     <div class="goal-content">
-                        <h3>Increase participation</h3>
-                        <p>Get more nominations with streamlined submission processes and automated reminders for deadlines.</p>
+                        <h3>Build essential life skills</h3>
+                        <p>From making beds to CPR, from tying shoelaces to climbing mountains—children gain practical abilities they need for life ahead.</p>
                     </div>
                 </div>
                 <div class="goal-item">
                     <div class="goal-number">2</div>
                     <div class="goal-content">
-                        <h3>Manage your judges</h3>
-                        <p>Coordinate judging panels efficiently with automated assignments and conflict management.</p>
+                        <h3>Join the GRIT Network</h3>
+                        <p>Partner with UK Military School, nominate your GRIT representative, and connect with schools sharing best practice and celebrating together.</p>
                     </div>
                 </div>
                 <div class="goal-item">
                     <div class="goal-number">3</div>
                     <div class="goal-content">
-                        <h3>Engage stakeholders</h3>
-                        <p>Increase stakeholder engagement with real-time updates and transparent judging processes.</p>
+                        <h3>Develop well-rounded learners</h3>
+                        <p>Strengthen personal development, behaviour, and welfare through community involvement, teamwork, and responsibility.</p>
                     </div>
                 </div>
                 <div class="goal-item">
                     <div class="goal-number">4</div>
                     <div class="goal-content">
-                        <h3>Advanced analytics</h3>
-                        <p>Get powerful insights to make confident decisions about your awards program.</p>
+                        <h3>Track meaningful progress</h3>
+                        <p>Monitor each child's journey through the GRIT Portal with evidence uploads and progress tracking across all objectives.</p>
                     </div>
                 </div>
             </div>
         </div>
     </section>
 
-    <!-- Testimonials -->
     <section class="testimonials">
         <div class="container">
-            <h2>Hear from GRIT Awards users.</h2>
+            <h2>Trusted by schools across the UK.</h2>
             <div class="testimonial-quote">
-                "Named Best Overall Awards Management Platform for Organizations."
+                "Since 2009, UK Military School has been equipping children with social and emotional learning skills that prepare them for life's challenges."
             </div>
             <div class="client-logos">
-                <div class="client-logo">TechCorp</div>
-                <div class="client-logo">Innovation Awards</div>
-                <div class="client-logo">Excellence Foundation</div>
-                <div class="client-logo">Industry Leaders</div>
-                <div class="client-logo">Future Awards</div>
-                <div class="client-logo">Global Recognition</div>
+                <div class="client-logo">Primary Schools</div>
+                <div class="client-logo">UK Military School</div>
+                <div class="client-logo">GRIT Network</div>
+                <div class="client-logo">Educational Partners</div>
+                <div class="client-logo">Community Groups</div>
+                <div class="client-logo">Local Authorities</div>
             </div>
         </div>
     </section>
 
-    <!-- Stats Section -->
     <section class="stats-section">
-        <h2 style="margin-bottom: 3rem; color: white;">GRIT Awards by the numbers.</h2>
+        <h2 style="margin-bottom: 3rem; color: white;">GRIT Awards impact.</h2>
         <div class="stats-grid">
             <div class="stat-item">
-                <h3>10k+</h3>
-                <p>Trusted by 10k+ awards organizers globally</p>
+                <h3>Since 2009</h3>
+                <p>UK Military School has been building life-ready children</p>
             </div>
             <div class="stat-item">
-                <h3>£50M+</h3>
-                <p>in award program value managed</p>
+                <h3>3 Levels</h3>
+                <p>Captain's, Major's, and Lt Colonel's Awards</p>
             </div>
             <div class="stat-item">
-                <h3>2M</h3>
-                <p>individual nominations processed annually</p>
+                <h3>150+</h3>
+                <p>life skills and challenges across all award levels</p>
             </div>
         </div>
     </section>
 
-    <!-- Developer Section -->
     <section class="developer-section">
         <div class="container">
-            <h2>Build custom awards experiences.</h2>
+            <h2>Built for schools, families, and learners.</h2>
             <div class="developer-grid">
                 <div class="developer-card">
-                    <h3>APIs</h3>
-                    <p>Integrate GRIT Awards with your business software using our APIs for nominations, judging, events, and analytics.</p>
+                    <h3>School Portal</h3>
+                    <p>Full access for GRIT representatives to track learner progress, upload evidence, and coordinate with UK Military School.</p>
                 </div>
                 <div class="developer-card">
-                    <h3>Integrations</h3>
-                    <p>Connect GRIT Awards to your existing business tools using our comprehensive integration platform.</p>
+                    <h3>Family Access</h3>
+                    <p>Parents and carers can upload evidence of Independent-Led objectives completed at home and monitor their child's journey.</p>
                 </div>
                 <div class="developer-card">
-                    <h3>Apps</h3>
-                    <p>Use our prebuilt, vetted partner integrations in the GRIT Awards App Marketplace.</p>
+                    <h3>UKMS Delivery</h3>
+                    <p>Specialist-Led experiences delivered by trained UK Military School staff, from CPR to camping to mountain climbing.</p>
                 </div>
             </div>
         </div>
     </section>
 
-    <!-- Footer -->
     <footer class="footer">
         <div class="container">
             <div class="footer-content">
                 <div class="footer-section">
-                    <h3>Solutions</h3>
+                    <h3>For Schools</h3>
                     <ul>
-                        <li><a href="#">Corporate Awards</a></li>
-                        <li><a href="#">Industry Recognition</a></li>
-                        <li><a href="#">Community Awards</a></li>
-                        <li><a href="#">Academic Honors</a></li>
+                        <li><a href="#">Partner with UKMS</a></li>
+                        <li><a href="#">GRIT Network</a></li>
+                        <li><a href="#">Training & Support</a></li>
+                        <li><a href="#">Award Ceremonies</a></li>
                     </ul>
                 </div>
                 <div class="footer-section">
-                    <h3>Platform</h3>
+                    <h3>Award Levels</h3>
                     <ul>
-                        <li><a href="#">Nominations</a></li>
-                        <li><a href="#">Judging</a></li>
-                        <li><a href="#">Events</a></li>
-                        <li><a href="#">Analytics</a></li>
+                        <li><a href="#">Captain's Award</a></li>
+                        <li><a href="#">Major's Award</a></li>
+                        <li><a href="#">Lt Colonel's Award</a></li>
+                        <li><a href="#">Special Recognition</a></li>
                     </ul>
                 </div>
                 <div class="footer-section">
                     <h3>Resources</h3>
                     <ul>
-                        <li><a href="#">Help Center</a></li>
-                        <li><a href="#">Best Practices</a></li>
-                        <li><a href="#">Case Studies</a></li>
-                        <li><a href="#">API Documentation</a></li>
+                        <li><a href="#">Objective Pathways</a></li>
+                        <li><a href="#">Evidence Guidelines</a></li>
+                        <li><a href="#">Progress Tracking</a></li>
+                        <li><a href="#">Portal Support</a></li>
                     </ul>
                 </div>
                 <div class="footer-section">
-                    <h3>Company</h3>
+                    <h3>About</h3>
                     <ul>
-                        <li><a href="#">About</a></li>
-                        <li><a href="#">Careers</a></li>
-                        <li><a href="#">Contact</a></li>
-                        <li><a href="#">Privacy</a></li>
+                        <li><a href="#">UK Military School</a></li>
+                        <li><a href="#">Our Mission</a></li>
+                        <li><a href="#">Contact Us</a></li>
+                        <li><a href="#">Privacy Policy</a></li>
                     </ul>
                 </div>
             </div>
@@ -925,7 +844,6 @@
         </div>
     </footer>
 
-    <!-- Login Modal -->
     <div class="overlay" id="loginOverlay"></div>
     <div class="modal-overlay" id="loginModal">
         <div class="login-modal">
@@ -934,25 +852,14 @@
                 <div class="logo-section">
                     <img src="grit-logo.webp" alt="GRIT Awards Logo" class="modal-logo">
                 </div>
-
                 <div class="user-options">
-                    <button class="user-button" onclick="selectUser('family')">
-                        I'm a Family Member
-                    </button>
-                    
-                    <button class="user-button" onclick="selectUser('leader')">
-                        GRIT Leaders
-                    </button>
-                    
-                    <button class="user-button" onclick="selectUser('director')">
-                        GRIT Directors
-                    </button>
+                    <button class="user-button" onclick="selectUser('family')">I'm a Family Member</button>
+                    <button class="user-button" onclick="selectUser('leader')">GRIT Leaders</button>
+                    <button class="user-button" onclick="selectUser('director')">GRIT Directors</button>
                 </div>
-
                 <div class="admin-link">
                     <a href="#" onclick="selectUser('admin')">I'm a GRIT Administrator</a>
                 </div>
-
                 <div class="modal-footer-links">
                     <a href="#">COPPA Direct Notice</a>
                     <span class="separator">•</span>
@@ -967,7 +874,6 @@
     </div>
 
     <script>
-        // Category button functionality
         document.querySelectorAll('.category-btn').forEach(btn => {
             btn.addEventListener('click', function() {
                 document.querySelectorAll('.category-btn').forEach(b => b.classList.remove('active'));
@@ -975,7 +881,6 @@
             });
         });
 
-        // Smooth scrolling for anchor links
         document.querySelectorAll('a[href^="#"]').forEach(anchor => {
             anchor.addEventListener('click', function (e) {
                 const href = this.getAttribute('href');
@@ -983,76 +888,49 @@
                     e.preventDefault();
                     const target = document.querySelector(href);
                     if (target) {
-                        target.scrollIntoView({
-                            behavior: 'smooth'
-                        });
+                        target.scrollIntoView({ behavior: 'smooth' });
                     }
                 }
             });
         });
 
-        // Login Modal Functions
         function openLoginModal() {
             const modal = document.getElementById('loginModal');
             const overlay = document.getElementById('loginOverlay');
-            
             modal.classList.add('active');
             overlay.style.display = 'block';
-            document.body.style.overflow = 'hidden'; // Prevent background scrolling
+            document.body.style.overflow = 'hidden';
         }
 
         function closeLoginModal() {
             const modal = document.getElementById('loginModal');
             const overlay = document.getElementById('loginOverlay');
-            
             modal.classList.remove('active');
             overlay.style.display = 'none';
-            document.body.style.overflow = 'auto'; // Restore scrolling
+            document.body.style.overflow = 'auto';
         }
 
         function selectUser(userType) {
-            // Store the selected user type for the demo
             if (typeof(Storage) !== "undefined") {
                 localStorage.setItem('selectedUserType', userType);
             }
-            
-            // Handle navigation based on user type
-            switch(userType) {
-                case 'family':
-                    window.location.href = 'grit-family-signin.html';
-                    break;
-                    
-                case 'leader':
-                    window.location.href = 'grit-leaders-dashboard.html';
-                    break;
-                    
-                case 'director':
-                    window.location.href = 'grit-directors-dashboard.html';
-                    break;
-                    
-                case 'admin':
-                    window.location.href = 'grit-admin-dashboard.html';
-                    break;
-                    
-                default:
-                    console.error('Unknown user type:', userType);
+            const routes = {
+                'family': 'grit-family-signin.html',
+                'leader': 'grit-leaders-dashboard.html',
+                'director': 'grit-directors-dashboard.html',
+                'admin': 'grit-admin-dashboard.html'
+            };
+            if (routes[userType]) {
+                window.location.href = routes[userType];
             }
-            
-            console.log('Navigating to:', userType, 'interface');
         }
 
-        // Close modal when clicking outside or on overlay
         document.getElementById('loginModal').addEventListener('click', function(e) {
-            if (e.target === this) {
-                closeLoginModal();
-            }
+            if (e.target === this) closeLoginModal();
         });
 
-        document.getElementById('loginOverlay').addEventListener('click', function() {
-            closeLoginModal();
-        });
+        document.getElementById('loginOverlay').addEventListener('click', closeLoginModal);
 
-        // Close modal with Escape key
         document.addEventListener('keydown', function(e) {
             if (e.key === 'Escape' && document.getElementById('loginModal').classList.contains('active')) {
                 closeLoginModal();
