@@ -127,21 +127,30 @@
         
         .hero-image img {
             display: block;
-            max-width: 100%;
-            width: 100%;
-            height: auto;
+            width: 120%;
+            height: 100%;
             object-fit: cover;
-            border-radius: 12px;
-            animation: heroSlide 25s ease-in-out infinite;
+            animation: heroSlide 20s ease-in-out infinite;
             will-change: transform;
+            transform-origin: center;
         }
 
         @keyframes heroSlide {
-            0% { transform: translateX(-3%) scale(1.03); }
-            25% { transform: translateX(-1%) scale(1.01); }
-            50% { transform: translateX(0%) scale(1.0); }
-            75% { transform: translateX(1%) scale(1.01); }
-            100% { transform: translateX(3%) scale(1.03); }
+            0% { 
+                transform: translateX(-10%) scale(1.05); 
+            }
+            25% { 
+                transform: translateX(-5%) scale(1.02); 
+            }
+            50% { 
+                transform: translateX(0%) scale(1.0); 
+            }
+            75% { 
+                transform: translateX(5%) scale(1.02); 
+            }
+            100% { 
+                transform: translateX(10%) scale(1.05); 
+            }
         }
         
         .product-highlight {
