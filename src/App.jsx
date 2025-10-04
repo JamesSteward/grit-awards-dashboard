@@ -1,7 +1,6 @@
 import { BrowserRouter as Router, Routes, Route } from 'react-router-dom'
 import { AuthProvider } from './contexts/AuthContext'
 import ProtectedRoute from './components/ProtectedRoute'
-import Login from './pages/Login'
 import HomePage from './pages/HomePage'
 import FamilyDashboard from './pages/FamilyDashboard'
 import LeaderDashboard from './pages/LeaderDashboard'
@@ -19,7 +18,6 @@ function App() {
         <div className="min-h-screen bg-white">
           <Routes>
             <Route path="/" element={<HomePage />} />
-            <Route path="/login" element={<Login />} />
             <Route path="/family" element={
               <ProtectedRoute requiredUserType="family">
                 <FamilyDashboard />

@@ -16,7 +16,7 @@ const ProtectedRoute = ({ children, requiredUserType }) => {
   }
 
   if (!user) {
-    return <Navigate to="/login" replace />
+    return <Navigate to="/" replace />
   }
 
   if (requiredUserType && userType !== requiredUserType) {
@@ -26,7 +26,7 @@ const ProtectedRoute = ({ children, requiredUserType }) => {
     } else if (userType === 'leader') {
       return <Navigate to="/leader" replace />
     } else {
-      return <Navigate to="/login" replace />
+      return <Navigate to="/" replace />
     }
   }
 
