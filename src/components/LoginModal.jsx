@@ -154,14 +154,6 @@ const LoginModal = ({ isOpen, onClose }) => {
       
       {/* Modal */}
       <div className="relative bg-white rounded-lg p-6 sm:p-8 max-w-md w-[95%] max-h-[85vh] overflow-y-auto mx-4 shadow-xl">
-        <button
-          onClick={onClose}
-          className="absolute top-4 right-4 text-gray-400 hover:text-gray-600"
-        >
-          <svg className="w-6 h-6" fill="none" stroke="currentColor" viewBox="0 0 24 24">
-            <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M6 18L18 6M6 6l12 12" />
-          </svg>
-        </button>
         
         {/* GRIT Logo */}
         <div className="flex justify-center mb-8">
@@ -294,8 +286,10 @@ const LoginModal = ({ isOpen, onClose }) => {
             </div>
 
             {/* Divider */}
-            <div className="relative flex justify-center text-sm mb-6">
-              <span className="px-2 bg-white text-gray-500">Sign in with</span>
+            <div className="flex items-center my-8">
+              <div className="flex-1 h-px bg-gray-200"></div>
+              <span className="px-4 text-sm text-gray-500">Sign in with</span>
+              <div className="flex-1 h-px bg-gray-200"></div>
             </div>
 
             {/* SSO Buttons */}
@@ -339,8 +333,10 @@ const LoginModal = ({ isOpen, onClose }) => {
             </div>
 
             {/* Divider */}
-            <div className="relative flex justify-center text-sm mb-6">
-              <span className="px-2 bg-white text-gray-500">or</span>
+            <div className="flex items-center my-8">
+              <div className="flex-1 h-px bg-gray-200"></div>
+              <span className="px-4 text-sm text-gray-500">or</span>
+              <div className="flex-1 h-px bg-gray-200"></div>
             </div>
 
             {/* Create Family Account Button */}
@@ -373,23 +369,34 @@ const LoginModal = ({ isOpen, onClose }) => {
               >
                 <svg viewBox="0 0 100 100" className="w-7 h-7 fill-white">
                   {/* Top-left corner */}
-                  <rect x="5" y="5" width="25" height="25" stroke="currentColor" strokeWidth="2" fill="none"/>
-                  <rect x="13" y="13" width="9" height="9" fill="currentColor"/>
+                  <rect x="10" y="10" width="20" height="20" fill="none" stroke="currentColor" strokeWidth="3"/>
+                  <rect x="15" y="15" width="10" height="10" fill="currentColor"/>
                   
                   {/* Top-right corner */}
-                  <rect x="70" y="5" width="25" height="25" stroke="currentColor" strokeWidth="2" fill="none"/>
-                  <rect x="78" y="13" width="9" height="9" fill="currentColor"/>
+                  <rect x="70" y="10" width="20" height="20" fill="none" stroke="currentColor" strokeWidth="3"/>
+                  <rect x="75" y="15" width="10" height="10" fill="currentColor"/>
                   
                   {/* Bottom-left corner */}
-                  <rect x="5" y="70" width="25" height="25" stroke="currentColor" strokeWidth="2" fill="none"/>
-                  <rect x="13" y="78" width="9" height="9" fill="currentColor"/>
+                  <rect x="10" y="70" width="20" height="20" fill="none" stroke="currentColor" strokeWidth="3"/>
+                  <rect x="15" y="75" width="10" height="10" fill="currentColor"/>
                   
-                  {/* Data dots */}
-                  <rect x="40" y="10" width="5" height="5"/>
-                  <rect x="50" y="10" width="5" height="5"/>
-                  <rect x="40" y="40" width="5" height="5"/>
-                  <rect x="60" y="40" width="5" height="5"/>
-                  <rect x="80" y="40" width="5" height="5"/>
+                  {/* Data dots pattern */}
+                  <rect x="45" y="15" width="4" height="4" fill="currentColor"/>
+                  <rect x="55" y="15" width="4" height="4" fill="currentColor"/>
+                  <rect x="45" y="25" width="4" height="4" fill="currentColor"/>
+                  <rect x="55" y="25" width="4" height="4" fill="currentColor"/>
+                  
+                  <rect x="40" y="45" width="4" height="4" fill="currentColor"/>
+                  <rect x="50" y="45" width="4" height="4" fill="currentColor"/>
+                  <rect x="60" y="45" width="4" height="4" fill="currentColor"/>
+                  
+                  <rect x="75" y="45" width="4" height="4" fill="currentColor"/>
+                  <rect x="85" y="45" width="4" height="4" fill="currentColor"/>
+                  
+                  <rect x="45" y="75" width="4" height="4" fill="currentColor"/>
+                  <rect x="55" y="75" width="4" height="4" fill="currentColor"/>
+                  <rect x="45" y="85" width="4" height="4" fill="currentColor"/>
+                  <rect x="55" y="85" width="4" height="4" fill="currentColor"/>
                 </svg>
                 <span className="text-lg font-semibold text-white">Scan Code</span>
               </button>
@@ -405,8 +412,10 @@ const LoginModal = ({ isOpen, onClose }) => {
             </div>
 
             {/* Divider */}
-            <div className="relative flex justify-center text-sm mb-6">
-              <span className="px-2 bg-white text-gray-500">or</span>
+            <div className="flex items-center my-8">
+              <div className="flex-1 h-px bg-gray-200"></div>
+              <span className="px-4 text-sm text-gray-500">or</span>
+              <div className="flex-1 h-px bg-gray-200"></div>
             </div>
 
             {/* Sign In Link */}
