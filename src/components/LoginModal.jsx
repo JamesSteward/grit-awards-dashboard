@@ -1,16 +1,16 @@
 import React, { useState } from 'react'
 import { useNavigate } from 'react-router-dom'
-import Button from './Button'
 import { supabase } from '../lib/supabaseClient'
 
 const LoginModal = ({ isOpen, onClose }) => {
-  const navigate = useNavigate()
   const [selectedRole, setSelectedRole] = useState(null)
   const [username, setUsername] = useState('')
   const [password, setPassword] = useState('')
-  const [showPassword, setShowPassword] = useState(false)
   const [error, setError] = useState('')
   const [loading, setLoading] = useState(false)
+  const [showPassword, setShowPassword] = useState(false)
+  
+  const navigate = useNavigate()
   
   if (!isOpen) return null
   
@@ -29,6 +29,26 @@ const LoginModal = ({ isOpen, onClose }) => {
     setPassword('')
     setShowPassword(false)
   }
+
+  const handleCreateAccount = () => {
+    setSelectedRole('createAccount')
+    setError('')
+    setUsername('')
+    setPassword('')
+    setShowPassword(false)
+  }
+
+  const handleBackToFamilyLogin = () => {
+    setSelectedRole('family')
+    setError('')
+    setUsername('')
+    setPassword('')
+    setShowPassword(false)
+  }
+
+  const handleScanQR = () => {
+    alert("QR Code scanning feature - Demo only\n\nIn a real implementation, this would:\n1. Open camera\n2. Scan QR code\n3. Extract child/class information\n4. Create family account automatically")
+  }
   
   const handleLogin = async (e) => {
     e.preventDefault()
@@ -36,22 +56,27 @@ const LoginModal = ({ isOpen, onClose }) => {
     setLoading(true)
 
     try {
-      // For family role, use email directly; for others, append @demo.com
-      const email = selectedRole === 'family' ? username : `${username}@demo.com`
+      let email = username
       
-      // Sign in with Supabase
+      // For family login, use email directly
+      if (selectedRole === 'family') {
+        email = username
+      } else {
+        // For other roles, append @demo.com
+        email = `${username}@demo.com`
+      }
+
       const { data, error } = await supabase.auth.signInWithPassword({
         email,
         password
       })
 
       if (error) {
-        setError('Invalid username or password')
-        setLoading(false)
+        setError(error.message)
         return
       }
 
-      // Query users table to get user_type
+      // Get user type from users table
       const { data: userData, error: userError } = await supabase
         .from('users')
         .select('user_type, full_name')
@@ -59,54 +84,66 @@ const LoginModal = ({ isOpen, onClose }) => {
         .single()
 
       if (userError) {
-        setError('Error fetching user data')
-        setLoading(false)
+        setError('Failed to get user information')
         return
       }
 
-      // Check if user type matches selected role
+      // Validate role
       if (selectedRole === 'family' && userData.user_type !== 'family') {
-        setError('This account is not a family account. Please select the correct role.')
-        setLoading(false)
+        setError('This account is not authorized for family access')
         return
       }
       
       if (selectedRole === 'leader' && userData.user_type !== 'leader') {
-        setError('This account is not a leader account. Please select the correct role.')
-        setLoading(false)
-        return
-      }
-      
-      if (selectedRole === 'admin' && userData.user_type !== 'admin') {
-        setError('This account is not an admin account. Please select the correct role.')
-        setLoading(false)
+        setError('This account is not authorized for leader access')
         return
       }
 
-      // Close modal and redirect based on user_type
-      onClose()
+      // Redirect based on user type
       if (userData.user_type === 'family') {
         navigate('/family')
       } else if (userData.user_type === 'leader') {
         navigate('/leader')
-      } else if (userData.user_type === 'admin') {
-        navigate('/admin')
+      } else {
+        setError('Unknown user type')
       }
 
     } catch (err) {
-      setError('Login failed. Please try again.')
+      setError('An unexpected error occurred')
+    } finally {
       setLoading(false)
     }
   }
-  
+
   const getPlaceholder = () => {
-    return selectedRole === 'family' ? 'Enter email' : 'Enter username'
+    if (selectedRole === 'family') {
+      return 'Enter email'
+    } else if (selectedRole === 'leader') {
+      return 'Enter username'
+    }
+    return 'Enter username'
   }
-  
+
   const getDemoCredentials = () => {
+    if (selectedRole === 'family') {
+      return (
+        <div className="mt-4 p-3 bg-blue-50 rounded-lg">
+          <p className="text-sm text-blue-800 font-medium mb-2">Demo Accounts:</p>
+          <p className="text-xs text-blue-700">riley@demo.com / password</p>
+          <p className="text-xs text-blue-700">mia@demo.com / password</p>
+        </div>
+      )
+    } else if (selectedRole === 'leader') {
+      return (
+        <div className="mt-4 p-3 bg-blue-50 rounded-lg">
+          <p className="text-sm text-blue-800 font-medium mb-2">Demo Account:</p>
+          <p className="text-xs text-blue-700">andy / password</p>
+        </div>
+      )
+    }
     return null
   }
-  
+
   return (
     <div className="fixed inset-0 z-50 flex items-center justify-center">
       {/* Backdrop */}
@@ -215,7 +252,7 @@ const LoginModal = ({ isOpen, onClose }) => {
                   <button
                     type="button"
                     onClick={() => setShowPassword(!showPassword)}
-                    className="absolute right-3 top-1/2 transform -translate-y-1/2 text-gray-500 hover:text-gray-700"
+                    className="absolute right-3 top-1/2 transform -translate-y-1/2 text-gray-400 hover:text-gray-600"
                   >
                     {showPassword ? (
                       <svg className="w-5 h-5" fill="none" stroke="currentColor" viewBox="0 0 24 24">
@@ -231,24 +268,22 @@ const LoginModal = ({ isOpen, onClose }) => {
                 </div>
               </div>
 
-              {/* Error Message */}
               {error && (
-                <div className="text-red-600 text-sm text-center bg-red-50 p-3 rounded-md">
+                <div className="text-red-600 text-sm text-center bg-red-50 p-3 rounded-lg">
                   {error}
                 </div>
               )}
 
-              {/* Family Sign In Button */}
               <button
                 type="submit"
                 disabled={loading}
-                className="w-full bg-gradient-to-br from-[#032717] to-[#054d2a] shadow-lg text-white font-semibold py-4 rounded-lg disabled:opacity-50 disabled:cursor-not-allowed"
+                className="w-full bg-gradient-to-br from-[#032717] to-[#054d2a] shadow-lg shadow-[#032717]/20 hover:shadow-xl hover:shadow-[#032717]/30 hover:-translate-y-0.5 transition-all duration-200 text-white font-semibold py-4 px-8 rounded-lg disabled:opacity-50 disabled:cursor-not-allowed disabled:hover:translate-y-0"
               >
                 {loading ? 'Signing in...' : 'Family Sign In'}
               </button>
             </form>
 
-            {/* Forgot Password Link */}
+            {/* Forgot Password */}
             <div className="text-center my-4">
               <button
                 onClick={() => alert("Password reset feature coming soon")}
@@ -258,21 +293,16 @@ const LoginModal = ({ isOpen, onClose }) => {
               </button>
             </div>
 
-            {/* Divider with "Sign in with" */}
-            <div className="relative my-6">
-              <div className="absolute inset-0 flex items-center">
-                <div className="w-full border-t border-gray-300"></div>
-              </div>
-              <div className="relative flex justify-center text-sm">
-                <span className="px-2 bg-white text-gray-500">Sign in with</span>
-              </div>
+            {/* Divider */}
+            <div className="relative flex justify-center text-sm mb-6">
+              <span className="px-2 bg-white text-gray-500">Sign in with</span>
             </div>
 
             {/* SSO Buttons */}
             <div className="flex gap-4 justify-center mb-6">
               <button
                 onClick={() => alert("SSO integration coming soon")}
-                className="w-14 h-14 border-2 border-gray-200 rounded-lg flex items-center justify-center hover:border-gray-300 transition-colors"
+                className="w-14 h-14 border-2 border-gray-200 rounded-lg flex items-center justify-center hover:bg-gray-50 transition-colors"
               >
                 <svg className="w-8 h-8" viewBox="0 0 24 24">
                   <path fill="#4285F4" d="M22.56 12.25c0-.78-.07-1.53-.2-2.25H12v4.26h5.92c-.26 1.37-1.04 2.53-2.21 3.31v2.77h3.57c2.08-1.92 3.28-4.74 3.28-8.09z"/>
@@ -283,43 +313,120 @@ const LoginModal = ({ isOpen, onClose }) => {
               </button>
               <button
                 onClick={() => alert("SSO integration coming soon")}
-                className="w-14 h-14 border-2 border-gray-200 rounded-lg flex items-center justify-center hover:border-gray-300 transition-colors"
+                className="w-14 h-14 border-2 border-gray-200 rounded-lg flex items-center justify-center hover:bg-gray-50 transition-colors"
               >
                 <svg className="w-8 h-8" viewBox="0 0 24 24">
                   <path fill="#F25022" d="M1 1h10v10H1z"/>
-                  <path fill="#7FBA00" d="M13 1h10v10H13z"/>
-                  <path fill="#00A4EF" d="M1 13h10v10H1z"/>
+                  <path fill="#00A4EF" d="M13 1h10v10H13z"/>
+                  <path fill="#7FBA00" d="M1 13h10v10H1z"/>
                   <path fill="#FFB900" d="M13 13h10v10H13z"/>
                 </svg>
               </button>
             </div>
 
             {/* Help Links */}
-            <div className="text-center text-sm space-y-1">
-              <div>
-                <span className="text-gray-600">Trouble signing in? </span>
-                <button className="text-[#032717] hover:underline">Check out the FAQ</button>
+            <div className="text-center text-sm mb-6">
+              <div className="mb-2">
+                <a href="#" className="text-[#032717] text-sm hover:underline">
+                  Trouble signing in? Check out the FAQ
+                </a>
               </div>
-              <div className="text-gray-500">COPPA | GDPR Notice</div>
+              <div>
+                <a href="#" className="text-[#032717] text-sm hover:underline">
+                  COPPA | GDPR Notice
+                </a>
+              </div>
             </div>
 
-            {/* Another Divider */}
-            <div className="relative my-6">
-              <div className="absolute inset-0 flex items-center">
-                <div className="w-full border-t border-gray-300"></div>
-              </div>
-              <div className="relative flex justify-center text-sm">
-                <span className="px-2 bg-white text-gray-500">or</span>
-              </div>
+            {/* Divider */}
+            <div className="relative flex justify-center text-sm mb-6">
+              <span className="px-2 bg-white text-gray-500">or</span>
             </div>
 
             {/* Create Family Account Button */}
             <button
-              onClick={() => alert("Account creation feature coming soon - Contact your school's GRIT Lead for QR code")}
+              onClick={handleCreateAccount}
               className="w-full bg-gradient-to-br from-[#032717] to-[#054d2a] shadow-lg text-white font-semibold py-4 rounded-lg hover:shadow-xl hover:-translate-y-0.5 transition-all duration-200"
             >
               Create Family Account
             </button>
+          </>
+        ) : selectedRole === 'createAccount' ? (
+          /* Create Family Account View */
+          <>
+            <button
+              onClick={handleBackToFamilyLogin}
+              className="absolute top-4 left-4 w-10 h-10 bg-white/20 backdrop-blur-sm hover:bg-white/30 rounded-full shadow-md transition-all duration-200 hover:-translate-x-1 flex items-center justify-center"
+            >
+              <svg className="w-5 h-5 text-[#032717]" fill="currentColor" viewBox="0 0 24 24">
+                <path d="M20 11H7.83l5.59-5.59L12 4l-8 8 8 8 1.41-1.41L7.83 13H20v-2z"/>
+              </svg>
+            </button>
+
+            <h2 className="text-xl sm:text-2xl font-bold text-[#032717] text-center mb-10">Scan the QR code for your child</h2>
+            
+            {/* Scan Button */}
+            <div className="flex justify-center mb-6">
+              <button
+                onClick={handleScanQR}
+                className="w-full sm:w-72 max-w-full bg-gradient-to-br from-[#032717] to-[#054d2a] shadow-lg hover:shadow-xl transition-all duration-200 py-5 px-10 rounded-xl flex items-center justify-center gap-4"
+              >
+                <svg viewBox="0 0 100 100" className="w-7 h-7 fill-white">
+                  {/* Top-left corner */}
+                  <rect x="5" y="5" width="25" height="25" stroke="currentColor" strokeWidth="2" fill="none"/>
+                  <rect x="13" y="13" width="9" height="9" fill="currentColor"/>
+                  
+                  {/* Top-right corner */}
+                  <rect x="70" y="5" width="25" height="25" stroke="currentColor" strokeWidth="2" fill="none"/>
+                  <rect x="78" y="13" width="9" height="9" fill="currentColor"/>
+                  
+                  {/* Bottom-left corner */}
+                  <rect x="5" y="70" width="25" height="25" stroke="currentColor" strokeWidth="2" fill="none"/>
+                  <rect x="13" y="78" width="9" height="9" fill="currentColor"/>
+                  
+                  {/* Data dots */}
+                  <rect x="40" y="10" width="5" height="5"/>
+                  <rect x="50" y="10" width="5" height="5"/>
+                  <rect x="40" y="40" width="5" height="5"/>
+                  <rect x="60" y="40" width="5" height="5"/>
+                  <rect x="80" y="40" width="5" height="5"/>
+                </svg>
+                <span className="text-lg font-semibold text-white">Scan Code</span>
+              </button>
+            </div>
+
+            {/* Help Text */}
+            <div className="text-center text-gray-700 text-base mb-5">
+              Don't have a QR code? Contact your School's GRIT Lead.
+            </div>
+            
+            <div className="text-center text-gray-500 text-sm mb-8">
+              If you are having trouble scanning the QR code, go to the URL at the bottom of the invite handout instead.
+            </div>
+
+            {/* Divider */}
+            <div className="relative flex justify-center text-sm mb-6">
+              <span className="px-2 bg-white text-gray-500">or</span>
+            </div>
+
+            {/* Sign In Link */}
+            <div className="text-center text-base">
+              <span className="text-gray-700">Already have an account? </span>
+              <button
+                onClick={handleBackToFamilyLogin}
+                className="text-[#032717] font-medium hover:underline"
+              >
+                Sign In
+              </button>
+            </div>
+
+            {/* Terms Text */}
+            <div className="text-center text-gray-500 text-sm mt-8">
+              By signing up, I agree to the{' '}
+              <a href="#" className="text-[#032717] font-medium hover:underline">Terms of Service</a>
+              {' '}and{' '}
+              <a href="#" className="text-[#032717] font-medium hover:underline">Privacy Policy</a>
+            </div>
           </>
         ) : (
           /* Other Role Login Form */
