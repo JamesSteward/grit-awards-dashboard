@@ -1,6 +1,5 @@
 import React, { useState, useEffect } from 'react'
 import Button from '../components/Button'
-import DashboardHeader from '../components/DashboardHeader'
 import GrungeOverlay from '../components/GrungeOverlay'
 import { supabase } from '../lib/supabaseClient'
 import { useNavigate } from 'react-router-dom'
@@ -848,29 +847,26 @@ const LeaderDashboard = () => {
 
   return (
     <div className="min-h-screen bg-gray-50">
-      <DashboardHeader userType="leader" />
       <main className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 py-8">
         {/* Hero Section */}
         <section className="bg-grit-green text-white rounded-lg p-8 mb-8 shadow-lg relative overflow-hidden">
           <GrungeOverlay />
           <div className="relative z-10">
-            <div className="flex flex-col lg:flex-row justify-between items-start lg:items-center">
-              <div>
-                <h1 className="text-4xl font-heading font-bold mb-2">
-                  Welcome, Mr Mackenzie
-                </h1>
-                <p className="text-grit-gold-light text-lg">
-                  St Peter's Catholic Primary School
-                </p>
-              </div>
-              <div className="grid grid-cols-1 sm:grid-cols-2 gap-4 mt-6 lg:mt-0">
-                <div className="bg-white bg-opacity-20 rounded-lg p-4 text-center">
-                  <p className="text-grit-gold-light text-sm">Active Challenges</p>
-                  <p className="text-2xl font-bold">{stats.activeChallenges}</p>
+            <div>
+              <h1 className="text-4xl font-heading font-bold mb-2">
+                Welcome, Mr Mackenzie
+              </h1>
+              <p className="text-grit-gold-light text-lg">
+                St Peter's Catholic Primary School
+              </p>
+              <div className="grid grid-cols-2 gap-4 mt-6">
+                <div className="bg-[#1a3d2e] rounded-lg p-4 text-center">
+                  <div className="text-gray-300 text-sm mb-1">Active Challenges</div>
+                  <div className="text-white text-4xl font-bold">66</div>
                 </div>
-                <div className="bg-white bg-opacity-20 rounded-lg p-4 text-center">
-                  <p className="text-grit-gold-light text-sm">This Week's Completions</p>
-                  <p className="text-2xl font-bold">{stats.weeklyCompletions}</p>
+                <div className="bg-[#1a3d2e] rounded-lg p-4 text-center">
+                  <div className="text-gray-300 text-sm mb-1">This Week's Completions</div>
+                  <div className="text-white text-4xl font-bold">17</div>
                 </div>
               </div>
             </div>
@@ -1730,7 +1726,16 @@ const LeaderDashboard = () => {
             <svg className="w-4 h-4" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2"><circle cx="12" cy="12" r="10"/><circle cx="12" cy="12" r="4"/><line x1="21.17" y1="8" x2="12" y2="8"/><line x1="3.95" y1="6.06" x2="8.54" y2="14"/><line x1="10.88" y1="21.94" x2="15.46" y2="14"/></svg>
             Need Help? Support Request
           </a>
-          <button onClick={() => { localStorage.removeItem('auth'); navigate('/'); }} className="flex items-center gap-2 text-gray-600 hover:text-[#032717] transition-colors">
+          <button onClick={async () => { 
+            try {
+              await supabase.auth.signOut()
+              localStorage.removeItem('auth')
+              navigate('/')
+            } catch (error) {
+              console.error('Error signing out:', error)
+              navigate('/')
+            }
+          }} className="flex items-center gap-2 text-gray-600 hover:text-[#032717] transition-colors">
             <svg className="w-4 h-4" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2"><path d="M9 21H5a2 2 0 0 1-2-2V5a2 2 0 0 1 2-2h4"/><polyline points="16,17 21,12 16,7"/><line x1="21" y1="12" x2="9" y2="12"/></svg>
             Log out
           </button>
