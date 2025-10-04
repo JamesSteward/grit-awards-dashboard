@@ -53,37 +53,70 @@ const FamilyDashboard = () => {
   useEffect(() => {
     if (student?.id) {
       fetchStudentChallenges()
-      fetchHomeStats()
     }
   }, [student?.id])
 
+  useEffect(() => {
+    if (student?.id && activeTab === 'home') {
+      fetchHomeStats()
+    }
+  }, [student, activeTab])
+
   const fetchHomeStats = async () => {
+    console.log('Fetching stats for student:', student?.id)
+    
     try {
-      if (!student?.id) return
+      if (!student?.id) {
+        console.log('No student ID found')
+        return
+      }
       
-      const { data: progress } = await supabase
+      const { data: progress, error } = await supabase
         .from('student_progress')
         .select('status, challenge_id')
         .eq('student_id', student.id)
       
-      const total = progress?.length || 1
-      const completed = progress?.filter(p => p.status === 'approved').length || 0
-      const inProgress = progress?.filter(p => p.status === 'in_progress' || p.status === 'submitted').length || 0
+      console.log('Progress data:', progress)
+      console.log('Progress error:', error)
       
-      const approvedIds = progress?.filter(p => p.status === 'approved').map(p => p.challenge_id) || []
-      const { data: challenges } = await supabase
-        .from('challenges')
-        .select('points')
-        .in('id', approvedIds)
+      if (!progress || progress.length === 0) {
+        console.log('No progress found for student')
+        return
+      }
       
-      const points = challenges?.reduce((sum, c) => sum + (c.points || 0), 0) || 0
+      const total = progress.length
+      const completed = progress.filter(p => p.status === 'approved').length
+      const inProgress = progress.filter(p => p.status === 'in_progress' || p.status === 'submitted').length
       
-      setStats({
-        progressPercentage: Math.round((completed / total) * 100),
-        completedCount: completed,
-        inProgressCount: inProgress,
-        gritPoints: points
-      })
+      console.log('Completed:', completed, 'In Progress:', inProgress, 'Total:', total)
+      
+      // Get points for approved challenges
+      const approvedIds = progress.filter(p => p.status === 'approved').map(p => p.challenge_id)
+      
+      if (approvedIds.length > 0) {
+        const { data: challenges } = await supabase
+          .from('challenges')
+          .select('points')
+          .in('id', approvedIds)
+        
+        console.log('Challenges:', challenges)
+        
+        const points = challenges?.reduce((sum, c) => sum + (c.points || 0), 0) || 0
+        
+        setStats({
+          progressPercentage: Math.round((completed / total) * 100),
+          completedCount: completed,
+          inProgressCount: inProgress,
+          gritPoints: points
+        })
+      } else {
+        setStats({
+          progressPercentage: 0,
+          completedCount: 0,
+          inProgressCount: inProgress,
+          gritPoints: 0
+        })
+      }
     } catch (error) {
       console.error('Error fetching home stats:', error)
     }
