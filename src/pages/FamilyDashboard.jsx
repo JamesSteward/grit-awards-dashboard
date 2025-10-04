@@ -1355,7 +1355,7 @@ const FamilyDashboard = () => {
             <svg className="w-6 h-6" fill="currentColor" viewBox="0 0 20 20">
               <path d="M10.707 2.293a1 1 0 00-1.414 0l-7 7a1 1 0 001.414 1.414L4 10.414V17a1 1 0 001 1h2a1 1 0 001-1v-2a1 1 0 011-1h2a1 1 0 011 1v2a1 1 0 001 1h2a1 1 0 001-1v-6.586l.293.293a1 1 0 001.414-1.414l-7-7z"/>
             </svg>
-            <span className="text-xs font-medium uppercase tracking-wide">Home</span>
+            <span className="text-[10px] sm:text-xs mt-1 whitespace-nowrap">Home</span>
           </button>
 
           {/* Challenges */}
@@ -1370,7 +1370,7 @@ const FamilyDashboard = () => {
             <svg className="w-6 h-6" viewBox="0 0 24 24" fill="currentColor">
               <path d="M19 3H5c-1.1 0-2 .9-2 2v14c0 1.1.9 2 2 2h14c1.1 0 2-.9 2-2V5c0-1.1-.9-2-2-2zm-5 14H7v-2h7v2zm3-4H7v-2h10v2zm0-4H7V7h10v2z"/>
             </svg>
-            <span className="text-xs font-medium uppercase tracking-wide">Challenges</span>
+            <span className="text-[10px] sm:text-xs mt-1 whitespace-nowrap">Challenges</span>
           </button>
 
           {/* Progress */}
@@ -1385,7 +1385,7 @@ const FamilyDashboard = () => {
             <svg className="w-6 h-6" viewBox="0 0 24 24" fill="currentColor">
               <path d="M16 6l2.29 2.29-4.88 4.88-4-4L2 16.59 3.41 18l6-6 4 4 6.3-6.29L22 12V6z"/>
             </svg>
-            <span className="text-xs font-medium uppercase tracking-wide">Progress</span>
+            <span className="text-[10px] sm:text-xs mt-1 whitespace-nowrap">Progress</span>
           </button>
 
           {/* Awards */}
@@ -1400,7 +1400,7 @@ const FamilyDashboard = () => {
             <svg className="w-6 h-6" viewBox="0 0 24 24" fill="currentColor">
               <path d="M12 17.27L18.18 21l-1.64-7.03L22 9.24l-7.19-.61L12 2 9.19 8.63 2 9.24l5.46 4.73L5.82 21z"/>
             </svg>
-            <span className="text-xs font-medium uppercase tracking-wide">Awards</span>
+            <span className="text-[10px] sm:text-xs mt-1 whitespace-nowrap">Awards</span>
           </button>
 
           {/* Messages */}
@@ -1415,7 +1415,7 @@ const FamilyDashboard = () => {
             <svg className="w-6 h-6" viewBox="0 0 24 24" fill="currentColor">
               <path d="M20 2H4c-1.1 0-2 .9-2 2v12c0 1.1.9 2 2 2h14l4 4V4c0-1.1-.9-2-2-2zm-2 12H6v-2h12v2zm0-3H6V9h12v2zm0-3H6V6h12v2z"/>
             </svg>
-            <span className="text-xs font-medium uppercase tracking-wide">Messages</span>
+            <span className="text-[10px] sm:text-xs mt-1 whitespace-nowrap">Messages</span>
           </button>
         </div>
       </nav>
@@ -1541,14 +1541,12 @@ const ChallengeCard = ({ challenge, status: displayStatus }) => {
         </div>
         <div className="flex items-center gap-2">
           {isActive && (
-            <div className="border-2 border-[#991b1b] bg-white rounded-full w-6 h-6"></div>
+            <div className="w-6 h-6 rounded-full border-2 border-[#991b1b] bg-white flex items-center justify-center">
+              <img src="/ACTIVE.svg" alt="" className="w-4 h-4" />
+            </div>
           )}
           {isCompleted && (
-            <div className="flex items-center justify-center w-6 h-6 bg-green-500 rounded-full">
-              <svg className="w-4 h-4 text-white" viewBox="0 0 24 24" fill="currentColor">
-                <path d="M9 16.17L4.83 12l-1.42 1.41L9 19 21 7l-1.41-1.41z"/>
-              </svg>
-            </div>
+            <img src="/COMPLETED.svg" className="w-6 h-6" />
           )}
           <StatusBadge status={status} />
         </div>
