@@ -73,7 +73,7 @@ const FamilyDashboard = () => {
       
       const { data: progress, error } = await supabase
         .from('student_progress')
-        .select('status, challenge_id')
+        .select('status, objective_id')
         .eq('student_id', student.id)
       
       console.log('Progress data:', progress)
@@ -91,7 +91,7 @@ const FamilyDashboard = () => {
       console.log('Completed:', completed, 'In Progress:', inProgress, 'Total:', total)
       
       // Get points for approved challenges
-      const approvedIds = progress.filter(p => p.status === 'approved').map(p => p.challenge_id)
+      const approvedIds = progress.filter(p => p.status === 'approved').map(p => p.objective_id)
       
       if (approvedIds.length > 0) {
         const { data: challenges } = await supabase
@@ -124,7 +124,7 @@ const FamilyDashboard = () => {
 
   const calculateStats = (progressData) => {
     if (!progressData || progressData.length === 0) {
-      return { completed: 0, inProgress: 0, gritPoints: 240 }
+      return { completed: 0, inProgress: 0, gritPoints: 0 }
     }
     
     const completed = progressData.filter(p => p.status === 'approved').length
@@ -133,7 +133,7 @@ const FamilyDashboard = () => {
     return {
       completed,
       inProgress,
-      gritPoints: 240
+      gritPoints: 0
     }
   }
 
@@ -771,15 +771,15 @@ const FamilyDashboard = () => {
             {/* Stats Grid */}
             <div className="grid grid-cols-3 gap-3 mb-6">
               <div className="bg-white rounded-lg p-4 text-center shadow-sm">
-                <div className="text-2xl font-bold text-[#032717]">{stats.completedCount}</div>
+                <div className="text-2xl font-bold text-[#032717]">{stats.completedCount || 0}</div>
                 <div className="text-xs text-gray-600 mt-1">Completed</div>
               </div>
               <div className="bg-white rounded-lg p-4 text-center shadow-sm">
-                <div className="text-2xl font-bold text-[#032717]">{stats.inProgressCount}</div>
+                <div className="text-2xl font-bold text-[#032717]">{stats.inProgressCount || 0}</div>
                 <div className="text-xs text-gray-600 mt-1">In Progress</div>
               </div>
               <div className="bg-white rounded-lg p-4 text-center shadow-sm">
-                <div className="text-2xl font-bold text-[#032717]">{stats.gritPoints}</div>
+                <div className="text-2xl font-bold text-[#032717]">{stats.gritPoints || 0}</div>
                 <div className="text-xs text-gray-600 mt-1">GRIT Points</div>
               </div>
             </div>
