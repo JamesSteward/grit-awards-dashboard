@@ -63,19 +63,19 @@ const LoginModal = ({ isOpen, onClose }) => {
 
       // Check if user type matches selected role
       if (selectedRole === 'family' && userData.user_type !== 'family') {
-        setError('This account is not a family account')
+        setError('This account is not a family account. Please select the correct role.')
         setLoading(false)
         return
       }
       
       if (selectedRole === 'leader' && userData.user_type !== 'leader') {
-        setError('This account is not a leader account')
+        setError('This account is not a leader account. Please select the correct role.')
         setLoading(false)
         return
       }
       
       if (selectedRole === 'admin' && userData.user_type !== 'admin') {
-        setError('This account is not an admin account')
+        setError('This account is not an admin account. Please select the correct role.')
         setLoading(false)
         return
       }
@@ -99,11 +99,11 @@ const LoginModal = ({ isOpen, onClose }) => {
   const getPlaceholder = () => {
     switch (selectedRole) {
       case 'family':
-        return 'riley, mia, or andy'
+        return 'riley or mia'
       case 'leader':
-        return 'mia, andy, or teacher'
+        return 'andy'
       case 'admin':
-        return 'admin'
+        return 'coming soon'
       default:
         return 'username'
     }
@@ -115,25 +115,21 @@ const LoginModal = ({ isOpen, onClose }) => {
         return (
           <div className="mt-4 text-center text-sm text-gray-500">
             <p>Demo accounts:</p>
-            <p>riley / password (Family)</p>
-            <p>mia / password (Family)</p>
-            <p>andy / password (Family)</p>
+            <p>riley / password</p>
+            <p>mia / password</p>
           </div>
         )
       case 'leader':
         return (
           <div className="mt-4 text-center text-sm text-gray-500">
             <p>Demo accounts:</p>
-            <p>mia / password (Leader)</p>
-            <p>andy / password (Leader)</p>
-            <p>teacher / password (Leader)</p>
+            <p>andy / password</p>
           </div>
         )
       case 'admin':
         return (
           <div className="mt-4 text-center text-sm text-gray-500">
-            <p>Demo accounts:</p>
-            <p>admin / password (Admin)</p>
+            <p>Coming soon - no demo accounts yet</p>
           </div>
         )
       default:
@@ -183,20 +179,20 @@ const LoginModal = ({ isOpen, onClose }) => {
                 GRIT Leaders
               </Button>
               
-              <Button
-                onClick={() => handleRoleSelect('admin')}
-                className="w-full bg-green-600 hover:bg-green-700 text-white"
+              <button
+                className="w-full bg-gray-400 text-white py-2 px-4 rounded-md cursor-not-allowed"
+                disabled
               >
-                GRIT Directors
-              </Button>
+                GRIT Directors (Coming Soon)
+              </button>
             </div>
             
             <div className="mt-6 pt-6 border-t border-gray-200">
               <button
-                onClick={() => handleRoleSelect('admin')}
-                className="text-sm text-[#032717] hover:text-[#054d2a] underline"
+                className="text-sm text-gray-400 cursor-not-allowed"
+                disabled
               >
-                I'm a GRIT Administrator
+                I'm a GRIT Administrator (Coming Soon)
               </button>
             </div>
           </>
