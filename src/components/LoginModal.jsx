@@ -116,7 +116,7 @@ const LoginModal = ({ isOpen, onClose }) => {
       />
       
       {/* Modal */}
-      <div className="relative bg-white rounded-lg p-8 max-w-md w-full mx-4 shadow-xl">
+      <div className="relative bg-white rounded-lg p-6 sm:p-8 max-w-md w-[95%] max-h-[85vh] overflow-y-auto mx-4 shadow-xl">
         <button
           onClick={onClose}
           className="absolute top-4 right-4 text-gray-400 hover:text-gray-600"
@@ -128,7 +128,7 @@ const LoginModal = ({ isOpen, onClose }) => {
         
         {/* GRIT Logo */}
         <div className="flex justify-center mb-8">
-          <img src="/GRIT-logo.svg" alt="GRIT Awards" className="w-48 h-auto mx-auto" />
+          <img src="/GRIT-logo.svg" alt="GRIT Awards" className="w-40 sm:w-48 h-auto mx-auto" />
         </div>
         
         {!selectedRole ? (
@@ -171,15 +171,14 @@ const LoginModal = ({ isOpen, onClose }) => {
           <>
             <button
               onClick={handleBackToRoles}
-              className="mb-4 text-sm text-[#032717] hover:underline font-medium flex items-center"
+              className="absolute top-4 left-4 w-10 h-10 bg-white/20 backdrop-blur-sm hover:bg-white/30 rounded-full shadow-md transition-all duration-200 hover:-translate-x-1 flex items-center justify-center"
             >
-              <svg className="w-4 h-4 mr-1" fill="none" stroke="currentColor" viewBox="0 0 24 24">
-                <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M15 19l-7-7 7-7" />
+              <svg className="w-5 h-5 text-[#032717]" fill="currentColor" viewBox="0 0 24 24">
+                <path d="M20 11H7.83l5.59-5.59L12 4l-8 8 8 8 1.41-1.41L7.83 13H20v-2z"/>
               </svg>
-              Back to role selection
             </button>
 
-            <h2 className="text-2xl font-bold text-[#032717] mb-8 text-center">Sign In as a Family Member</h2>
+            <h2 className="text-xl sm:text-2xl font-bold text-[#032717] mb-8 text-center">Sign In as a Family Member</h2>
             
             <form onSubmit={handleLogin} className="space-y-6">
               {/* Email Field */}
@@ -328,12 +327,11 @@ const LoginModal = ({ isOpen, onClose }) => {
             {selectedRole !== 'admin' && (
               <button
                 onClick={handleBackToRoles}
-                className="mb-4 text-sm text-[#032717] hover:underline font-medium flex items-center"
+                className="absolute top-4 left-4 w-10 h-10 bg-white/20 backdrop-blur-sm hover:bg-white/30 rounded-full shadow-md transition-all duration-200 hover:-translate-x-1 flex items-center justify-center"
               >
-                <svg className="w-4 h-4 mr-1" fill="none" stroke="currentColor" viewBox="0 0 24 24">
-                  <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M15 19l-7-7 7-7" />
+                <svg className="w-5 h-5 text-[#032717]" fill="currentColor" viewBox="0 0 24 24">
+                  <path d="M20 11H7.83l5.59-5.59L12 4l-8 8 8 8 1.41-1.41L7.83 13H20v-2z"/>
                 </svg>
-                Back to role selection
               </button>
             )}
             
@@ -390,16 +388,6 @@ const LoginModal = ({ isOpen, onClose }) => {
             {getDemoCredentials()}
           </>
         )}
-        
-        <div className="mt-6 pt-6 border-t border-gray-200">
-          <div className="flex justify-center items-center space-x-2 text-xs text-gray-500">
-            <a href="#" className="hover:text-[#032717]">COPPA Direct Notice</a>
-            <span>•</span>
-            <a href="#" className="hover:text-[#032717]">Terms of Service</a>
-            <span>and</span>
-            <a href="#" className="hover:text-[#032717]">Privacy Policy</a>
-          </div>
-        </div>
       </div>
     </div>
   )
