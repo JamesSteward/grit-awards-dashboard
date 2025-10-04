@@ -727,9 +727,9 @@ const FamilyDashboard = () => {
           <div className="relative z-10">
             {/* Header Top Bar */}
             <div className="flex justify-between items-center px-5 py-4">
-              <img src="/GRIT-logo-white.svg" alt="GRIT Awards" className="h-8 w-auto" />
+              <img src="/GRIT-logo-white.svg" alt="GRIT Awards" className="h-10 w-auto" />
               <button onClick={() => setShowProfileModal(true)} className="cursor-pointer">
-                <img src={`/avatars/${student?.avatar || 'avatar-pilot-001.svg'}`} alt={student?.first_name} className="w-10 h-10 rounded-full bg-[#b5aa91] p-1" />
+                <img src={`/avatars/${student?.avatar || 'avatar-pilot-001.svg'}`} alt={student?.first_name} className="w-12 h-12 rounded-full bg-[#b5aa91] p-1" />
               </button>
             </div>
             
@@ -892,26 +892,6 @@ const FamilyDashboard = () => {
 
         {activeTab === 'challenges' && (
           <>
-            {/* Active Challenges Section */}
-            {activeChallenges.length > 0 && (
-              <div className="px-5 py-6">
-                <h2 className="text-xl font-['Roboto_Slab'] font-bold text-[#032717] mb-4 flex items-center gap-2">
-                  <svg className="w-5 h-5" viewBox="0 0 24 24" fill="currentColor">
-                    <path d="M19 3H5c-1.1 0-2 .9-2 2v14c0 1.1.9 2 2 2h14c1.1 0 2-.9 2-2V5c0-1.1-.9-2-2-2zm-5 14H7v-2h7v2zm3-4H7v-2h10v2zm0-4H7V7h10v2z"/>
-                  </svg>
-                  Active Challenges
-                  <div className="flex items-center justify-center w-5 h-5 bg-yellow-400 rounded-full">
-                    <div className="w-2 h-2 bg-yellow-600 rounded-full animate-pulse"></div>
-                  </div>
-                </h2>
-
-                <div className="grid gap-4 md:grid-cols-2 lg:grid-cols-3">
-                  {activeChallenges.map(challenge => (
-                    <ChallengeCard key={challenge.id} challenge={challenge} status="active" />
-                  ))}
-                </div>
-              </div>
-            )}
 
             {/* Available Challenges Section */}
             {availableChallenges.length > 0 && (
@@ -1562,23 +1542,10 @@ const ChallengeCard = ({ challenge, status: displayStatus }) => {
               {points} pts
             </span>
           )}
-          {pathway && (
-            <span className={`px-2 py-1 rounded text-xs font-medium capitalize ${
-              isCompleted 
-                ? 'bg-gray-200 text-gray-500'
-                : pathway === 'independent' 
-                ? 'bg-green-100 text-green-700' 
-                : 'bg-orange-100 text-orange-700'
-            }`}>
-              {pathway}
-            </span>
-          )}
         </div>
         <div className="flex items-center gap-2">
           {isActive && (
-            <div className="flex items-center justify-center w-6 h-6 bg-yellow-400 rounded-full">
-              <div className="w-2 h-2 bg-yellow-600 rounded-full animate-pulse"></div>
-            </div>
+            <div className="border-2 border-red-600 bg-white rounded-full w-8 h-8"></div>
           )}
           {isCompleted && (
             <div className="flex items-center justify-center w-6 h-6 bg-green-500 rounded-full">
