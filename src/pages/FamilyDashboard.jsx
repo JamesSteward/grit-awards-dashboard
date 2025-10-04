@@ -1540,13 +1540,17 @@ const ChallengeCard = ({ challenge, status: displayStatus }) => {
         </div>
         <div className="flex items-center gap-2">
           {isActive && (
-            <img src="/ACTIVE.svg" alt="" className="w-6 h-6" />
+            <div className="w-6 h-6 rounded-full border-2 border-[#991b1b] bg-white flex items-center justify-center">
+              <img src="/ACTIVE.svg" alt="" className="w-4 h-4" />
+            </div>
           )}
           {isCompleted && (
-            <img src="/COMPLETED.svg" alt="" className="w-6 h-6" />
+            <div className="w-6 h-6 rounded-full bg-gray-300 flex items-center justify-center">
+              <img src="/COMPLETED.svg" alt="" className="w-4 h-4" />
+            </div>
           )}
           {!isActive && !isCompleted && (
-            <div className="w-6 h-6 bg-gray-100 text-gray-400 rounded-full"></div>
+            <div className="w-6 h-6 rounded-full border-2 border-gray-300 bg-white"></div>
           )}
         </div>
       </div>
