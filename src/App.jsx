@@ -18,9 +18,8 @@ function App() {
       <Router>
         <div className="min-h-screen bg-white">
           <Routes>
-            <Route path="/" element={<Login />} />
+            <Route path="/" element={<HomePage />} />
             <Route path="/login" element={<Login />} />
-            <Route path="/home" element={<HomePage />} />
             <Route path="/family" element={
               <ProtectedRoute requiredUserType="family">
                 <FamilyDashboard />
