@@ -792,9 +792,6 @@ const FamilyDashboard = () => {
                     <path d="M19 3H5c-1.1 0-2 .9-2 2v14c0 1.1.9 2 2 2h14c1.1 0 2-.9 2-2V5c0-1.1-.9-2-2-2zm-5 14H7v-2h7v2zm3-4H7v-2h10v2zm0-4H7V7h10v2z"/>
                   </svg>
                   Active Challenges
-                  <div className="flex items-center justify-center w-5 h-5 bg-yellow-400 rounded-full">
-                    <div className="w-2 h-2 bg-yellow-600 rounded-full animate-pulse"></div>
-                  </div>
                 </h2>
 
                 <div className="grid gap-4 md:grid-cols-2 lg:grid-cols-3">
@@ -861,20 +858,19 @@ const FamilyDashboard = () => {
                 Quick Actions
               </h2>
               <div className="space-y-3 mb-8">
-                <button className="w-full bg-white border-2 border-[#991b1b] text-[#7f1d1d] font-medium px-6 py-3 rounded-xl hover:bg-[#991b1b] hover:text-white transition-all flex items-center justify-center">
-                  <svg className="w-5 h-5 mr-2" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2">
-                    <path d="M23 19a2 2 0 0 1-2 2H3a2 2 0 0 1-2-2V8a2 2 0 0 1 2-2h4l2-3h6l2 3h4a2 2 0 0 1 2 2z"/>
-                    <circle cx="12" cy="13" r="4"/>
+                <button className="w-full bg-gradient-to-br from-[#032717] to-[#054d2a] text-white font-medium px-6 py-3 rounded-xl hover:shadow-lg transition-all flex items-center justify-center">
+                  <svg className="w-5 h-5 mr-2" fill="currentColor" viewBox="0 0 20 20">
+                    <path fillRule="evenodd" d="M16.707 5.293a1 1 0 010 1.414l-8 8a1 1 0 01-1.414 0l-4-4a1 1 0 011.414-1.414L8 12.586l7.293-7.293a1 1 0 011.414 0z" clipRule="evenodd"/>
                   </svg>
-                  Upload Evidence
+                  GRIT BIT Submission
                 </button>
-                <button className="w-full bg-[#032717] text-white font-medium px-6 py-3 rounded-xl hover:bg-[#054d2a] transition-all flex items-center justify-center">
+                <button className="w-full bg-gradient-to-br from-[#032717] to-[#054d2a] text-white font-medium px-6 py-3 rounded-xl hover:shadow-lg transition-all flex items-center justify-center">
                   <svg className="w-5 h-5 mr-2" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2">
                     <path d="M21 15a2 2 0 0 1-2 2H7l-4 4V5a2 2 0 0 1 2-2h14a2 2 0 0 1 2 2z"/>
                   </svg>
-                  Message Teacher
+                  Message GRIT Lead
                 </button>
-                <button className="w-full bg-white border-2 border-[#847147] text-[#5a4a2f] font-medium px-6 py-3 rounded-xl hover:bg-[#847147] hover:text-white transition-all flex items-center justify-center">
+                <button onClick={() => setActiveTab('challenges')} className="w-full bg-gradient-to-br from-[#032717] to-[#054d2a] text-white font-medium px-6 py-3 rounded-xl hover:shadow-lg transition-all flex items-center justify-center">
                   <svg className="w-5 h-5 mr-2" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2">
                     <line x1="8" y1="6" x2="21" y2="6"/>
                     <line x1="8" y1="12" x2="21" y2="12"/>
@@ -1545,7 +1541,7 @@ const ChallengeCard = ({ challenge, status: displayStatus }) => {
         </div>
         <div className="flex items-center gap-2">
           {isActive && (
-            <div className="border-2 border-red-600 bg-white rounded-full w-8 h-8"></div>
+            <div className="border-2 border-[#991b1b] bg-white rounded-full w-6 h-6"></div>
           )}
           {isCompleted && (
             <div className="flex items-center justify-center w-6 h-6 bg-green-500 rounded-full">
