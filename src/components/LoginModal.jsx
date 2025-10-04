@@ -97,44 +97,11 @@ const LoginModal = ({ isOpen, onClose }) => {
   }
   
   const getPlaceholder = () => {
-    switch (selectedRole) {
-      case 'family':
-        return 'riley or mia'
-      case 'leader':
-        return 'andy'
-      case 'admin':
-        return 'coming soon'
-      default:
-        return 'username'
-    }
+    return 'Enter username'
   }
   
   const getDemoCredentials = () => {
-    switch (selectedRole) {
-      case 'family':
-        return (
-          <div className="mt-4 text-center text-sm text-gray-500">
-            <p>Demo accounts:</p>
-            <p>riley / password</p>
-            <p>mia / password</p>
-          </div>
-        )
-      case 'leader':
-        return (
-          <div className="mt-4 text-center text-sm text-gray-500">
-            <p>Demo accounts:</p>
-            <p>andy / password</p>
-          </div>
-        )
-      case 'admin':
-        return (
-          <div className="mt-4 text-center text-sm text-gray-500">
-            <p>Coming soon - no demo accounts yet</p>
-          </div>
-        )
-      default:
-        return null
-    }
+    return null
   }
   
   return (
@@ -158,29 +125,29 @@ const LoginModal = ({ isOpen, onClose }) => {
         
         {/* GRIT Logo */}
         <div className="flex justify-center mb-8">
-          <img src="/GRIT-logo.svg" alt="GRIT Awards" className="h-12 w-auto" />
+          <img src="/GRIT-logo.svg" alt="GRIT Awards" className="w-48 h-auto mx-auto" />
         </div>
         
         {!selectedRole ? (
           /* Role Selection */
           <>
             <div className="space-y-4">
-              <Button
+              <button
                 onClick={() => handleRoleSelect('family')}
-                className="w-full bg-green-600 hover:bg-green-700 text-white"
+                className="w-full bg-gradient-to-br from-[#032717] to-[#054d2a] shadow-lg shadow-[#032717]/20 hover:shadow-xl hover:shadow-[#032717]/30 hover:-translate-y-0.5 transition-all duration-200 text-white font-semibold py-4 px-8 rounded-lg"
               >
                 I'm a Family Member
-              </Button>
-              
-              <Button
-                onClick={() => handleRoleSelect('leader')}
-                className="w-full bg-green-600 hover:bg-green-700 text-white"
-              >
-                GRIT Leaders
-              </Button>
+              </button>
               
               <button
-                className="w-full bg-gray-400 text-white py-2 px-4 rounded-md cursor-not-allowed"
+                onClick={() => handleRoleSelect('leader')}
+                className="w-full bg-gradient-to-br from-[#032717] to-[#054d2a] shadow-lg shadow-[#032717]/20 hover:shadow-xl hover:shadow-[#032717]/30 hover:-translate-y-0.5 transition-all duration-200 text-white font-semibold py-4 px-8 rounded-lg"
+              >
+                GRIT Leaders
+              </button>
+              
+              <button
+                className="w-full bg-gray-400 text-white py-4 px-8 rounded-lg cursor-not-allowed"
                 disabled
               >
                 GRIT Directors (Coming Soon)
@@ -202,7 +169,7 @@ const LoginModal = ({ isOpen, onClose }) => {
             {selectedRole !== 'admin' && (
               <button
                 onClick={handleBackToRoles}
-                className="mb-4 text-sm text-gray-600 hover:text-gray-800 flex items-center"
+                className="mb-4 text-sm text-[#032717] hover:underline font-medium flex items-center"
               >
                 <svg className="w-4 h-4 mr-1" fill="none" stroke="currentColor" viewBox="0 0 24 24">
                   <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M15 19l-7-7 7-7" />
@@ -254,7 +221,7 @@ const LoginModal = ({ isOpen, onClose }) => {
               <button
                 type="submit"
                 disabled={loading}
-                className="w-full bg-yellow-400 hover:bg-yellow-500 text-black font-semibold py-2 px-4 rounded-md transition duration-200 disabled:opacity-50 disabled:cursor-not-allowed"
+                className="w-full bg-gradient-to-br from-[#032717] to-[#054d2a] shadow-lg shadow-[#032717]/20 hover:shadow-xl hover:shadow-[#032717]/30 hover:-translate-y-0.5 transition-all duration-200 text-white font-semibold py-4 px-8 rounded-lg disabled:opacity-50 disabled:cursor-not-allowed disabled:hover:translate-y-0"
               >
                 {loading ? 'Signing in...' : 'Login'}
               </button>
@@ -272,8 +239,6 @@ const LoginModal = ({ isOpen, onClose }) => {
             <a href="#" className="hover:text-[#032717]">Terms of Service</a>
             <span>and</span>
             <a href="#" className="hover:text-[#032717]">Privacy Policy</a>
-            <span>|</span>
-            <a href="#" className="hover:text-[#032717]">Browse Classroom Activities</a>
           </div>
         </div>
       </div>
