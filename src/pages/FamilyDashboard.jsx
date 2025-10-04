@@ -1,14 +1,14 @@
 import React, { useState, useEffect } from 'react'
-import { useLocation, Link } from 'react-router-dom'
+import { useLocation, Link, useNavigate } from 'react-router-dom'
 import Footer from '../components/Footer'
 import Button from '../components/Button'
-import DashboardHeader from '../components/DashboardHeader'
 import GrungeOverlay from '../components/GrungeOverlay'
 import { supabase } from '../lib/supabaseClient'
 import confetti from 'canvas-confetti'
 
 const FamilyDashboard = () => {
   const location = useLocation()
+  const navigate = useNavigate()
   const [student, setStudent] = useState(null)
   const [loading, setLoading] = useState(true)
   const [error, setError] = useState(null)
@@ -576,13 +576,21 @@ const FamilyDashboard = () => {
     )
   }
 
-  const ProfileModal = () => {
-    const handleSignOut = () => {
+  const handleSignOut = async () => {
+    try {
+      await supabase.auth.signOut()
       // Clear any stored data
       localStorage.removeItem('selectedUserType')
       // Redirect to homepage
-      window.location.href = '/'
+      navigate('/')
+    } catch (error) {
+      console.error('Error signing out:', error)
+      // Still redirect even if signout fails
+      navigate('/')
     }
+  }
+
+  const ProfileModal = () => {
 
     return (
       <div className="fixed inset-0 z-50 flex items-center justify-center">
@@ -645,7 +653,6 @@ const FamilyDashboard = () => {
 
   return (
     <div className="min-h-screen bg-gray-50">
-      <DashboardHeader userType="family" />
       <main className="w-full pb-24">
         {/* Student Profile Header */}
         <section className="bg-gradient-to-br from-[#032717] to-[#054d2a] text-white relative overflow-hidden">
@@ -673,22 +680,6 @@ const FamilyDashboard = () => {
               <p className="text-sm opacity-80 mb-5">
                 GRIT Leader: Mr A Mackenzie
               </p>
-              
-              {/* Stats Row */}
-              <div className="flex justify-around max-w-md mx-auto">
-                <div className="text-center">
-                  <div className="text-2xl font-semibold">{stats.completed}</div>
-                  <div className="text-xs uppercase opacity-80 tracking-wider">Completed</div>
-                </div>
-                <div className="text-center">
-                  <div className="text-2xl font-semibold">{stats.inProgress}</div>
-                  <div className="text-xs uppercase opacity-80 tracking-wider">In Progress</div>
-                </div>
-                <div className="text-center">
-                  <div className="text-2xl font-semibold">{stats.gritPoints}</div>
-                  <div className="text-xs uppercase opacity-80 tracking-wider">GRIT Points</div>
-                </div>
-              </div>
             </div>
           </div>
         </section>
