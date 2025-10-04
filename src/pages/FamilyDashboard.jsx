@@ -1540,20 +1540,14 @@ const ChallengeCard = ({ challenge, status: displayStatus }) => {
         </div>
         <div className="flex items-center gap-2">
           {isActive && (
-            <div className="w-6 h-6 rounded-full border-2 border-[#991b1b] bg-white flex items-center justify-center">
-              <svg className="w-4 h-4" viewBox="0 0 20 20" fill="currentColor">
-                <path fillRule="evenodd" d="M16.707 5.293a1 1 0 010 1.414l-8 8a1 1 0 01-1.414 0l-4-4a1 1 0 011.414-1.414L8 12.586l7.293-7.293a1 1 0 011.414 0z" clipRule="evenodd" className="text-[#991b1b]"/>
-              </svg>
-            </div>
+            <img src="/ACTIVE.svg" alt="" className="w-6 h-6" />
           )}
           {isCompleted && (
-            <div className="w-6 h-6 rounded-full bg-gray-300 flex items-center justify-center">
-              <svg className="w-4 h-4" viewBox="0 0 20 20" fill="currentColor">
-                <path fillRule="evenodd" d="M16.707 5.293a1 1 0 010 1.414l-8 8a1 1 0 01-1.414 0l-4-4a1 1 0 011.414-1.414L8 12.586l7.293-7.293a1 1 0 011.414 0z" clipRule="evenodd" className="text-green-600"/>
-              </svg>
-            </div>
+            <img src="/COMPLETED.svg" alt="" className="w-6 h-6" />
           )}
-          <StatusBadge status={status} />
+          {!isActive && !isCompleted && (
+            <div className="w-6 h-6 bg-gray-100 text-gray-400 rounded-full"></div>
+          )}
         </div>
       </div>
       
@@ -1578,10 +1572,5 @@ const ChallengeCard = ({ challenge, status: displayStatus }) => {
   )
 }
 
-const StatusBadge = ({ status }) => {
-  // Only show grey circle for "not started" status
-  // Active and completed status icons are handled separately in ChallengeCard
-  return <div className="w-6 h-6 bg-gray-100 text-gray-400 rounded-full"></div>
-}
 
 export default FamilyDashboard
