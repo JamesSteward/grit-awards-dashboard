@@ -16,11 +16,12 @@ const FamilyDashboard = () => {
   const [showProfileModal, setShowProfileModal] = useState(false)
   const [showAllAvailable, setShowAllAvailable] = useState(false)
   const [showAllCompleted, setShowAllCompleted] = useState(false)
-  const [activeTab, setActiveTab] = useState('challenges') // 'challenges', 'progress', 'awards', 'messages'
+  const [activeTab, setActiveTab] = useState('home') // 'home', 'challenges', 'progress', 'awards', 'messages'
   const [stats, setStats] = useState({
-    completed: 0,
-    inProgress: 0,
-    gritPoints: 240
+    progressPercentage: 0,
+    completedCount: 0,
+    inProgressCount: 0,
+    gritPoints: 0
   })
 
   // Messaging state
@@ -52,8 +53,41 @@ const FamilyDashboard = () => {
   useEffect(() => {
     if (student?.id) {
       fetchStudentChallenges()
+      fetchHomeStats()
     }
   }, [student?.id])
+
+  const fetchHomeStats = async () => {
+    try {
+      if (!student?.id) return
+      
+      const { data: progress } = await supabase
+        .from('student_progress')
+        .select('status, challenge_id')
+        .eq('student_id', student.id)
+      
+      const total = progress?.length || 1
+      const completed = progress?.filter(p => p.status === 'approved').length || 0
+      const inProgress = progress?.filter(p => p.status === 'in_progress' || p.status === 'submitted').length || 0
+      
+      const approvedIds = progress?.filter(p => p.status === 'approved').map(p => p.challenge_id) || []
+      const { data: challenges } = await supabase
+        .from('challenges')
+        .select('points')
+        .in('id', approvedIds)
+      
+      const points = challenges?.reduce((sum, c) => sum + (c.points || 0), 0) || 0
+      
+      setStats({
+        progressPercentage: Math.round((completed / total) * 100),
+        completedCount: completed,
+        inProgressCount: inProgress,
+        gritPoints: points
+      })
+    } catch (error) {
+      console.error('Error fetching home stats:', error)
+    }
+  }
 
   const calculateStats = (progressData) => {
     if (!progressData || progressData.length === 0) {
@@ -685,6 +719,144 @@ const FamilyDashboard = () => {
         </section>
 
         {/* Tab Content */}
+        {activeTab === 'home' && (
+          <div className="pb-20 px-4">
+            {/* Progress Bar */}
+            <div className="bg-white rounded-lg p-4 mb-4 shadow-sm">
+              <div className="flex justify-between items-center mb-2">
+                <span className="text-sm font-medium text-gray-700">Overall Progress</span>
+                <span className="text-sm font-bold text-[#032717]">{stats.progressPercentage}%</span>
+              </div>
+              <div className="w-full bg-gray-200 rounded-full h-3">
+                <div 
+                  className="bg-gradient-to-r from-[#032717] to-[#054d2a] h-3 rounded-full"
+                  style={{ width: `${stats.progressPercentage}%` }}
+                />
+              </div>
+            </div>
+
+            {/* Stats Grid */}
+            <div className="grid grid-cols-3 gap-3 mb-6">
+              <div className="bg-white rounded-lg p-4 text-center shadow-sm">
+                <div className="text-2xl font-bold text-[#032717]">{stats.completedCount}</div>
+                <div className="text-xs text-gray-600 mt-1">Completed</div>
+              </div>
+              <div className="bg-white rounded-lg p-4 text-center shadow-sm">
+                <div className="text-2xl font-bold text-[#032717]">{stats.inProgressCount}</div>
+                <div className="text-xs text-gray-600 mt-1">In Progress</div>
+              </div>
+              <div className="bg-white rounded-lg p-4 text-center shadow-sm">
+                <div className="text-2xl font-bold text-[#032717]">{stats.gritPoints}</div>
+                <div className="text-xs text-gray-600 mt-1">GRIT Points</div>
+              </div>
+            </div>
+
+            {/* Active Challenges Section */}
+            {activeChallenges.length > 0 && (
+              <div className="mb-6">
+                <h2 className="text-xl font-['Roboto_Slab'] font-bold text-[#032717] mb-4 flex items-center gap-2">
+                  <svg className="w-5 h-5" viewBox="0 0 24 24" fill="currentColor">
+                    <path d="M19 3H5c-1.1 0-2 .9-2 2v14c0 1.1.9 2 2 2h14c1.1 0 2-.9 2-2V5c0-1.1-.9-2-2-2zm-5 14H7v-2h7v2zm3-4H7v-2h10v2zm0-4H7V7h10v2z"/>
+                  </svg>
+                  Active Challenges
+                  <div className="flex items-center justify-center w-5 h-5 bg-yellow-400 rounded-full">
+                    <div className="w-2 h-2 bg-yellow-600 rounded-full animate-pulse"></div>
+                  </div>
+                </h2>
+
+                <div className="grid gap-4 md:grid-cols-2 lg:grid-cols-3">
+                  {activeChallenges.map(challenge => (
+                    <ChallengeCard key={challenge.id} challenge={challenge} status="active" />
+                  ))}
+                </div>
+              </div>
+            )}
+
+            {/* Recent Activity Section */}
+            <div className="mb-8">
+              <h2 className="text-xl font-['Roboto_Slab'] font-bold text-gray-900 mb-4 flex items-center gap-2">
+                <svg className="w-5 h-5" viewBox="0 0 24 24" fill="currentColor">
+                  <path d="M13 3c-4.97 0-9 4.03-9 9H1l3.89 3.89.07.14L9 12H6c0-3.87 3.13-7 7-7s7 3.13 7 7-3.13 7-7 7c-1.93 0-3.68-.79-4.94-2.06l-1.42 1.42C8.27 19.99 10.51 21 13 21c4.97 0 9-4.03 9-9s-4.03-9-9-9zm-1 5v5l4.28 2.54.72-1.21-3.5-2.08V8H12z"/>
+                </svg>
+                Recent Activity
+              </h2>
+              <div className="space-y-3">
+                <div className="flex items-center p-4 bg-gray-50 rounded-lg">
+                  <div className="w-10 h-10 bg-green-100 rounded-full flex items-center justify-center mr-4">
+                    <svg className="w-5 h-5 text-green-600" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2">
+                      <polyline points="20,6 9,17 4,12"/>
+                    </svg>
+                  </div>
+                  <div>
+                    <p className="font-medium text-gray-900">{student?.first_name} completed 'Tie shoelaces'</p>
+                    <p className="text-sm text-gray-500">2 hours ago</p>
+                  </div>
+                </div>
+                
+                <div className="flex items-center p-4 bg-gray-50 rounded-lg">
+                  <div className="w-10 h-10 bg-yellow-100 rounded-full flex items-center justify-center mr-4">
+                    <svg className="w-5 h-5 text-yellow-600" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2">
+                      <polygon points="12,2 15.09,8.26 22,9.27 17,14.14 18.18,21.02 12,17.77 5.82,21.02 7,14.14 2,9.27 8.91,8.26"/>
+                    </svg>
+                  </div>
+                  <div>
+                    <p className="font-medium text-gray-900">Badge earned: Week Warrior</p>
+                    <p className="text-sm text-gray-500">Yesterday</p>
+                  </div>
+                </div>
+                
+                <div className="flex items-center p-4 bg-gray-50 rounded-lg">
+                  <div className="w-10 h-10 bg-blue-100 rounded-full flex items-center justify-center mr-4">
+                    <svg className="w-5 h-5 text-blue-600" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2">
+                      <path d="M21 15a2 2 0 0 1-2 2H7l-4 4V5a2 2 0 0 1 2-2h14a2 2 0 0 1 2 2z"/>
+                    </svg>
+                  </div>
+                  <div>
+                    <p className="font-medium text-gray-900">New message from Mr Mackenzie</p>
+                    <p className="text-sm text-gray-500">3 days ago</p>
+                  </div>
+                </div>
+              </div>
+            </div>
+
+            {/* Quick Actions Section */}
+            <div className="mb-8">
+              <h2 className="text-xl font-['Roboto_Slab'] font-bold text-gray-900 mb-4 flex items-center gap-2">
+                <svg className="w-5 h-5" viewBox="0 0 24 24" fill="currentColor">
+                  <path d="M19 13h-6v6h-2v-6H5v-2h6V5h2v6h6v2z"/>
+                </svg>
+                Quick Actions
+              </h2>
+              <div className="space-y-3 mb-8">
+                <button className="w-full bg-white border-2 border-[#991b1b] text-[#7f1d1d] font-medium px-6 py-3 rounded-xl hover:bg-[#991b1b] hover:text-white transition-all flex items-center justify-center">
+                  <svg className="w-5 h-5 mr-2" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2">
+                    <path d="M23 19a2 2 0 0 1-2 2H3a2 2 0 0 1-2-2V8a2 2 0 0 1 2-2h4l2-3h6l2 3h4a2 2 0 0 1 2 2z"/>
+                    <circle cx="12" cy="13" r="4"/>
+                  </svg>
+                  Upload Evidence
+                </button>
+                <button className="w-full bg-[#032717] text-white font-medium px-6 py-3 rounded-xl hover:bg-[#054d2a] transition-all flex items-center justify-center">
+                  <svg className="w-5 h-5 mr-2" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2">
+                    <path d="M21 15a2 2 0 0 1-2 2H7l-4 4V5a2 2 0 0 1 2-2h14a2 2 0 0 1 2 2z"/>
+                  </svg>
+                  Message Teacher
+                </button>
+                <button className="w-full bg-white border-2 border-[#847147] text-[#5a4a2f] font-medium px-6 py-3 rounded-xl hover:bg-[#847147] hover:text-white transition-all flex items-center justify-center">
+                  <svg className="w-5 h-5 mr-2" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2">
+                    <line x1="8" y1="6" x2="21" y2="6"/>
+                    <line x1="8" y1="12" x2="21" y2="12"/>
+                    <line x1="8" y1="18" x2="21" y2="18"/>
+                    <line x1="3" y1="6" x2="3.01" y2="6"/>
+                    <line x1="3" y1="12" x2="3.01" y2="12"/>
+                    <line x1="3" y1="18" x2="3.01" y2="18"/>
+                  </svg>
+                  View All Challenges
+                </button>
+              </div>
+            </div>
+          </div>
+        )}
+
         {activeTab === 'challenges' && (
           <>
             {/* Active Challenges Section */}
@@ -1157,93 +1329,26 @@ const FamilyDashboard = () => {
           </div>
         )}
 
-        {/* Recent Activity Section */}
-        <section className="mb-8">
-          <h2 className="text-xl font-['Roboto_Slab'] font-bold text-gray-900 mb-4 flex items-center gap-2 px-5">
-            <svg className="w-5 h-5" viewBox="0 0 24 24" fill="currentColor">
-              <path d="M13 3c-4.97 0-9 4.03-9 9H1l3.89 3.89.07.14L9 12H6c0-3.87 3.13-7 7-7s7 3.13 7 7-3.13 7-7 7c-1.93 0-3.68-.79-4.94-2.06l-1.42 1.42C8.27 19.99 10.51 21 13 21c4.97 0 9-4.03 9-9s-4.03-9-9-9zm-1 5v5l4.28 2.54.72-1.21-3.5-2.08V8H12z"/>
-            </svg>
-            Recent Activity
-          </h2>
-          <div className="px-5 space-y-3">
-              <div className="flex items-center p-4 bg-gray-50 rounded-lg">
-                <div className="w-10 h-10 bg-green-100 rounded-full flex items-center justify-center mr-4">
-                  <svg className="w-5 h-5 text-green-600" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2">
-                    <polyline points="20,6 9,17 4,12"/>
-                  </svg>
-                </div>
-                <div>
-                  <p className="font-medium text-gray-900">{student?.first_name} completed 'Tie shoelaces'</p>
-                  <p className="text-sm text-gray-500">2 hours ago</p>
-                </div>
-              </div>
-              
-              <div className="flex items-center p-4 bg-gray-50 rounded-lg">
-                <div className="w-10 h-10 bg-yellow-100 rounded-full flex items-center justify-center mr-4">
-                  <svg className="w-5 h-5 text-yellow-600" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2">
-                    <polygon points="12,2 15.09,8.26 22,9.27 17,14.14 18.18,21.02 12,17.77 5.82,21.02 7,14.14 2,9.27 8.91,8.26"/>
-                  </svg>
-                </div>
-                <div>
-                  <p className="font-medium text-gray-900">Badge earned: Week Warrior</p>
-                  <p className="text-sm text-gray-500">Yesterday</p>
-                </div>
-              </div>
-              
-              <div className="flex items-center p-4 bg-gray-50 rounded-lg">
-                <div className="w-10 h-10 bg-blue-100 rounded-full flex items-center justify-center mr-4">
-                  <svg className="w-5 h-5 text-blue-600" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2">
-                    <path d="M21 15a2 2 0 0 1-2 2H7l-4 4V5a2 2 0 0 1 2-2h14a2 2 0 0 1 2 2z"/>
-                  </svg>
-                </div>
-                <div>
-                  <p className="font-medium text-gray-900">New message from Mr Mackenzie</p>
-                  <p className="text-sm text-gray-500">3 days ago</p>
-                </div>
-              </div>
-          </div>
-        </section>
-
-        {/* Action Buttons */}
-        <section className="mb-8">
-          <h2 className="text-xl font-['Roboto_Slab'] font-bold text-gray-900 mb-4 flex items-center gap-2 px-5">
-            <svg className="w-5 h-5" viewBox="0 0 24 24" fill="currentColor">
-              <path d="M19 13h-6v6h-2v-6H5v-2h6V5h2v6h6v2z"/>
-            </svg>
-            Quick Actions
-          </h2>
-          <div className="px-5 space-y-3 mb-8">
-            <button className="w-full bg-white border-2 border-[#991b1b] text-[#7f1d1d] font-medium px-6 py-3 rounded-xl hover:bg-[#991b1b] hover:text-white transition-all flex items-center justify-center">
-              <svg className="w-5 h-5 mr-2" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2">
-                <path d="M23 19a2 2 0 0 1-2 2H3a2 2 0 0 1-2-2V8a2 2 0 0 1 2-2h4l2-3h6l2 3h4a2 2 0 0 1 2 2z"/>
-                <circle cx="12" cy="13" r="4"/>
-              </svg>
-              Upload Evidence
-            </button>
-            <button className="w-full bg-[#032717] text-white font-medium px-6 py-3 rounded-xl hover:bg-[#054d2a] transition-all flex items-center justify-center">
-              <svg className="w-5 h-5 mr-2" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2">
-                <path d="M21 15a2 2 0 0 1-2 2H7l-4 4V5a2 2 0 0 1 2-2h14a2 2 0 0 1 2 2z"/>
-              </svg>
-              Message Teacher
-            </button>
-            <button className="w-full bg-white border-2 border-[#847147] text-[#5a4a2f] font-medium px-6 py-3 rounded-xl hover:bg-[#847147] hover:text-white transition-all flex items-center justify-center">
-              <svg className="w-5 h-5 mr-2" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2">
-                <line x1="8" y1="6" x2="21" y2="6"/>
-                <line x1="8" y1="12" x2="21" y2="12"/>
-                <line x1="8" y1="18" x2="21" y2="18"/>
-                <line x1="3" y1="6" x2="3.01" y2="6"/>
-                <line x1="3" y1="12" x2="3.01" y2="12"/>
-                <line x1="3" y1="18" x2="3.01" y2="18"/>
-              </svg>
-              View All Challenges
-            </button>
-          </div>
-        </section>
       </main>
 
       {/* Bottom Navigation Bar */}
       <nav className="fixed bottom-0 left-0 right-0 bg-white border-t border-gray-200 z-50">
         <div className="flex justify-around py-3">
+          {/* Home */}
+          <button 
+            onClick={() => setActiveTab('home')}
+            className={`flex flex-col items-center gap-1 px-4 py-2 rounded-lg transition-colors ${
+              activeTab === 'home' 
+                ? 'bg-[#032717]/10 text-[#032717] border-b-2 border-[#847147]' 
+                : 'text-gray-500 hover:bg-[#032717]/5'
+            }`}
+          >
+            <svg className="w-6 h-6" fill="currentColor" viewBox="0 0 20 20">
+              <path d="M10.707 2.293a1 1 0 00-1.414 0l-7 7a1 1 0 001.414 1.414L4 10.414V17a1 1 0 001 1h2a1 1 0 001-1v-2a1 1 0 011-1h2a1 1 0 011 1v2a1 1 0 001 1h2a1 1 0 001-1v-6.586l.293.293a1 1 0 001.414-1.414l-7-7z"/>
+            </svg>
+            <span className="text-xs font-medium uppercase tracking-wide">Home</span>
+          </button>
+
           {/* Challenges */}
           <button 
             onClick={() => setActiveTab('challenges')}
