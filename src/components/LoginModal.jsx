@@ -365,40 +365,10 @@ const LoginModal = ({ isOpen, onClose }) => {
             <div className="flex justify-center mb-6">
               <button
                 onClick={handleScanQR}
-                className="w-full sm:w-72 max-w-full bg-gradient-to-br from-[#032717] to-[#054d2a] shadow-lg hover:shadow-xl transition-all duration-200 py-5 px-10 rounded-xl flex items-center justify-center gap-4"
+                className="w-full sm:w-72 max-w-full bg-gradient-to-br from-[#032717] to-[#054d2a] py-5 px-10 rounded-xl text-lg font-semibold text-white shadow-lg hover:shadow-xl transition-all duration-200 flex items-center justify-center gap-4"
               >
-                <svg viewBox="0 0 100 100" className="w-7 h-7 fill-white">
-                  {/* Top-left corner */}
-                  <rect x="10" y="10" width="20" height="20" fill="none" stroke="currentColor" strokeWidth="3"/>
-                  <rect x="15" y="15" width="10" height="10" fill="currentColor"/>
-                  
-                  {/* Top-right corner */}
-                  <rect x="70" y="10" width="20" height="20" fill="none" stroke="currentColor" strokeWidth="3"/>
-                  <rect x="75" y="15" width="10" height="10" fill="currentColor"/>
-                  
-                  {/* Bottom-left corner */}
-                  <rect x="10" y="70" width="20" height="20" fill="none" stroke="currentColor" strokeWidth="3"/>
-                  <rect x="15" y="75" width="10" height="10" fill="currentColor"/>
-                  
-                  {/* Data dots pattern */}
-                  <rect x="45" y="15" width="4" height="4" fill="currentColor"/>
-                  <rect x="55" y="15" width="4" height="4" fill="currentColor"/>
-                  <rect x="45" y="25" width="4" height="4" fill="currentColor"/>
-                  <rect x="55" y="25" width="4" height="4" fill="currentColor"/>
-                  
-                  <rect x="40" y="45" width="4" height="4" fill="currentColor"/>
-                  <rect x="50" y="45" width="4" height="4" fill="currentColor"/>
-                  <rect x="60" y="45" width="4" height="4" fill="currentColor"/>
-                  
-                  <rect x="75" y="45" width="4" height="4" fill="currentColor"/>
-                  <rect x="85" y="45" width="4" height="4" fill="currentColor"/>
-                  
-                  <rect x="45" y="75" width="4" height="4" fill="currentColor"/>
-                  <rect x="55" y="75" width="4" height="4" fill="currentColor"/>
-                  <rect x="45" y="85" width="4" height="4" fill="currentColor"/>
-                  <rect x="55" y="85" width="4" height="4" fill="currentColor"/>
-                </svg>
-                <span className="text-lg font-semibold text-white">Scan Code</span>
+                <img src="/QR.svg" alt="QR Code" className="w-7 h-7" />
+                Scan Code
               </button>
             </div>
 
