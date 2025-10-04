@@ -121,9 +121,9 @@ function Login() {
         {/* Demo Instructions */}
         <div className="mt-6 text-center text-sm text-gray-500">
           <p>Demo accounts:</p>
-          <p>riley / password123 (Family)</p>
-          <p>mia / password123 (Leader)</p>
-          <p>andy / password123 (Leader)</p>
+          <p>riley / password (Family)</p>
+          <p>mia / password (Family)</p>
+          <p>andy / password (Leader)</p>
         </div>
       </div>
     </div>

@@ -10,6 +10,7 @@
     "preview": "vite preview"
   },
   "dependencies": {
+    "@rolldown/pluginutils": "^1.0.0-beta.41",
     "@supabase/supabase-js": "^2.38.4",
     "baseline-browser-mapping": "^2.8.12",
     "canvas-confetti": "^1.9.3",
