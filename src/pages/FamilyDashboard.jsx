@@ -40,7 +40,6 @@ const FamilyDashboard = () => {
 
   useEffect(() => {
     fetchStudent()
-    fetchRileyChallenges()
     if (activeTab === 'messages') {
       fetchConversations()
     }
@@ -49,6 +48,12 @@ const FamilyDashboard = () => {
       setConfettiLaunched(true)
     }
   }, [activeTab])
+
+  useEffect(() => {
+    if (student?.id) {
+      fetchStudentChallenges()
+    }
+  }, [student?.id])
 
   const calculateStats = (progressData) => {
     if (!progressData || progressData.length === 0) {
@@ -65,14 +70,14 @@ const FamilyDashboard = () => {
     }
   }
 
-  const fetchRileyChallenges = async () => {
+  const fetchStudentChallenges = async () => {
     try {
-      const rileyId = '63a61037-19ff-48e0-b9e3-53338b46a849'
+      if (!student?.id) return
       
       const { data, error } = await supabase
         .from('student_progress')
         .select('*, challenges(*)')
-        .eq('student_id', rileyId)
+        .eq('student_id', student.id)
       
       if (error) throw error
       
@@ -99,23 +104,39 @@ const FamilyDashboard = () => {
       setLoading(true)
       setError(null)
       
-      // For now, fetch Riley by his specific ID since we know it
-      const rileyId = '63a61037-19ff-48e0-b9e3-53338b46a849'
+      // Get the current authenticated user
+      const { data: { user }, error: authError } = await supabase.auth.getUser()
       
-      const { data, error } = await supabase
-        .from('students')
-        .select('id, first_name, last_name, year_level, current_award, progress_percentage, current_streak, total_badges, avatar, school_id, family_user_id')
-        .eq('id', rileyId)
-        .single()
-      
-      if (error) {
-        console.error('Error fetching student:', error)
-        setError(error.message)
-        setLoading(false)
+      if (authError || !user) {
+        setError('User not authenticated')
         return
       }
       
-      setStudent(data)
+      // Get the user record from users table
+      const { data: userRecord, error: userError } = await supabase
+        .from('users')
+        .select('id')
+        .eq('email', user.email)
+        .single()
+      
+      if (userError || !userRecord) {
+        setError('User record not found')
+        return
+      }
+      
+      // Find the student record where family_user_id matches this user id
+      const { data: studentData, error: studentError } = await supabase
+        .from('students')
+        .select('id, first_name, last_name, year_level, current_award, progress_percentage, current_streak, total_badges, avatar, school_id, family_user_id')
+        .eq('family_user_id', userRecord.id)
+        .single()
+      
+      if (studentError || !studentData) {
+        setError('Student record not found')
+        return
+      }
+      
+      setStudent(studentData)
     } catch (err) {
       console.error('Error fetching student:', err)
       setError(err.message)
@@ -127,13 +148,13 @@ const FamilyDashboard = () => {
   // Messaging functions
   const fetchConversations = async () => {
     try {
-      const rileyId = '63a61037-19ff-48e0-b9e3-53338b46a849'
+      if (!student?.id) return
       
-      // Get Riley's individual conversations, Year 3 announcements, and whole school announcements
+      // Get student's individual conversations, their year level announcements, and whole school announcements
       const { data, error } = await supabase
         .from('conversations')
         .select('*')
-        .or(`student_id.eq.${rileyId},and(student_id.is.null,year_level.eq.3),and(student_id.is.null,year_level.is.null)`)
+        .or(`student_id.eq.${student.id},and(student_id.is.null,year_level.eq.${student.year_level}),and(student_id.is.null,year_level.is.null)`)
         .order('last_message_at', { ascending: false })
 
       if (error) throw error
@@ -214,7 +235,7 @@ const FamilyDashboard = () => {
         .insert({
           conversation_id: selectedConversation.id,
           sender_type: 'family',
-          sender_id: '63a61037-19ff-48e0-b9e3-53338b46a849', // Riley's ID
+          sender_id: student.id,
           content: newMessage.trim()
         })
 
@@ -578,7 +599,7 @@ const FamilyDashboard = () => {
           {/* Profile section */}
           <div className="text-center p-8 pb-6">
             <img src={`/avatars/${student?.avatar || 'avatar-pilot-001.svg'}`} alt={student?.first_name} className="w-20 h-20 rounded-full bg-[#b5aa91] p-2 mx-auto mb-4" />
-            <h2 className="text-2xl font-['Roboto_Slab'] font-bold text-[#032717] mb-2">Riley Johnson</h2>
+            <h2 className="text-2xl font-['Roboto_Slab'] font-bold text-[#032717] mb-2">{student?.first_name} {student?.last_name}</h2>
             <div className="text-gray-600 text-sm mb-1">St Peter's Catholic Primary School</div>
             <div className="text-gray-500 text-xs mb-2">St Peter's Way, Noctorum, Birkenhead, Prenton CH43 9QR</div>
             <div className="text-gray-500 text-xs">GRIT Leader: Mr A Mackenzie</div>
@@ -626,7 +647,7 @@ const FamilyDashboard = () => {
     <div className="min-h-screen bg-gray-50">
       <DashboardHeader userType="family" />
       <main className="w-full pb-24">
-        {/* Riley Johnson Profile Header */}
+        {/* Student Profile Header */}
         <section className="bg-gradient-to-br from-[#032717] to-[#054d2a] text-white relative overflow-hidden">
           <GrungeOverlay />
           <div className="relative z-10">
@@ -641,7 +662,7 @@ const FamilyDashboard = () => {
             {/* Child Info Section */}
             <div className="text-center pb-8">
               <h1 className="text-2xl font-['Roboto_Slab'] font-bold mb-2">
-                Riley Johnson
+                {student?.first_name} {student?.last_name}
               </h1>
               <p className="text-base opacity-90 mb-1">
                 St Peter's Catholic Primary School
@@ -776,7 +797,7 @@ const FamilyDashboard = () => {
             <div className="relative bg-gradient-to-br from-[#032717] to-[#054d2a] text-white overflow-hidden rounded-lg mb-6">
               <div className="absolute inset-0 opacity-30" style={{backgroundImage: `url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 100 100'%3E%3Cdefs%3E%3Cpattern id='grain' width='100' height='100' patternUnits='userSpaceOnUse'%3E%3Ccircle cx='25' cy='25' r='1' fill='white' opacity='0.1'/%3E%3Ccircle cx='75' cy='75' r='1' fill='white' opacity='0.1'/%3E%3Ccircle cx='50' cy='10' r='1' fill='white' opacity='0.1'/%3E%3Ccircle cx='10' cy='60' r='1' fill='white' opacity='0.1'/%3E%3Ccircle cx='90' cy='40' r='1' fill='white' opacity='0.1'/%3E%3C/pattern%3E%3C/defs%3E%3Crect width='100' height='100' fill='url(%23grain)'/%3E%3C/svg%3E")`}}></div>
               <div className="relative z-10 px-6 py-8 text-center">
-                <div className="text-2xl font-bold mb-2">Congratulations Riley!</div>
+                <div className="text-2xl font-bold mb-2">Congratulations {student?.first_name}!</div>
                 <div className="text-base opacity-90 max-w-md mx-auto">You've shown <strong>Growth</strong>, built <strong>Resilience</strong>, developed <strong>Integrity</strong> & <strong>Independence</strong>, and experienced a true <strong>Transformation for good.</strong></div>
               </div>
             </div>
@@ -1161,7 +1182,7 @@ const FamilyDashboard = () => {
                   </svg>
                 </div>
                 <div>
-                  <p className="font-medium text-gray-900">Riley completed 'Tie shoelaces'</p>
+                  <p className="font-medium text-gray-900">{student?.first_name} completed 'Tie shoelaces'</p>
                   <p className="text-sm text-gray-500">2 hours ago</p>
                 </div>
               </div>
