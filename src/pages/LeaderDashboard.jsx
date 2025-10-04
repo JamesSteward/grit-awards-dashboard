@@ -1,5 +1,6 @@
 import React, { useState, useEffect } from 'react'
 import Button from '../components/Button'
+import DashboardHeader from '../components/DashboardHeader'
 import GrungeOverlay from '../components/GrungeOverlay'
 import { supabase } from '../lib/supabaseClient'
 import { useNavigate } from 'react-router-dom'
@@ -847,7 +848,7 @@ const LeaderDashboard = () => {
 
   return (
     <div className="min-h-screen bg-gray-50">
-      
+      <DashboardHeader userType="leader" />
       <main className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 py-8">
         {/* Hero Section */}
         <section className="bg-grit-green text-white rounded-lg p-8 mb-8 shadow-lg relative overflow-hidden">

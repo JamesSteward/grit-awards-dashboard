@@ -2,6 +2,7 @@ import React, { useState, useEffect } from 'react'
 import { useLocation, Link } from 'react-router-dom'
 import Footer from '../components/Footer'
 import Button from '../components/Button'
+import DashboardHeader from '../components/DashboardHeader'
 import GrungeOverlay from '../components/GrungeOverlay'
 import { supabase } from '../lib/supabaseClient'
 import confetti from 'canvas-confetti'
@@ -623,6 +624,7 @@ const FamilyDashboard = () => {
 
   return (
     <div className="min-h-screen bg-gray-50">
+      <DashboardHeader userType="family" />
       <main className="w-full pb-24">
         {/* Riley Johnson Profile Header */}
         <section className="bg-gradient-to-br from-[#032717] to-[#054d2a] text-white relative overflow-hidden">

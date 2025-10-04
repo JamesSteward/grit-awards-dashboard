@@ -1,4 +1,7 @@
 import { BrowserRouter as Router, Routes, Route } from 'react-router-dom'
+import { AuthProvider } from './contexts/AuthContext'
+import ProtectedRoute from './components/ProtectedRoute'
+import Login from './pages/Login'
 import HomePage from './pages/HomePage'
 import FamilyDashboard from './pages/FamilyDashboard'
 import LeaderDashboard from './pages/LeaderDashboard'
@@ -11,21 +14,37 @@ import StudentDetail from './pages/StudentDetail'
 
 function App() {
   return (
-    <Router>
-      <div className="min-h-screen bg-white">
-        <Routes>
-          <Route path="/" element={<HomePage />} />
-          <Route path="/family" element={<FamilyDashboard />} />
-          <Route path="/leader" element={<LeaderDashboard />} />
-          <Route path="/leader/student/:studentId" element={<StudentDetail />} />
-          <Route path="/admin/seed" element={<AdminSeed />} />
-          <Route path="/admin/reset-demo" element={<AdminResetDemo />} />
-          <Route path="/test" element={<TestDatabase />} />
-          <Route path="/diagnostic" element={<DiagnosticDashboard />} />
-          <Route path="/schema" element={<SchemaCheck />} />
-        </Routes>
-      </div>
-    </Router>
+    <AuthProvider>
+      <Router>
+        <div className="min-h-screen bg-white">
+          <Routes>
+            <Route path="/" element={<Login />} />
+            <Route path="/login" element={<Login />} />
+            <Route path="/home" element={<HomePage />} />
+            <Route path="/family" element={
+              <ProtectedRoute requiredUserType="family">
+                <FamilyDashboard />
+              </ProtectedRoute>
+            } />
+            <Route path="/leader" element={
+              <ProtectedRoute requiredUserType="leader">
+                <LeaderDashboard />
+              </ProtectedRoute>
+            } />
+            <Route path="/leader/student/:studentId" element={
+              <ProtectedRoute requiredUserType="leader">
+                <StudentDetail />
+              </ProtectedRoute>
+            } />
+            <Route path="/admin/seed" element={<AdminSeed />} />
+            <Route path="/admin/reset-demo" element={<AdminResetDemo />} />
+            <Route path="/test" element={<TestDatabase />} />
+            <Route path="/diagnostic" element={<DiagnosticDashboard />} />
+            <Route path="/schema" element={<SchemaCheck />} />
+          </Routes>
+        </div>
+      </Router>
+    </AuthProvider>
   )
 }
 
