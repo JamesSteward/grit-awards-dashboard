@@ -21,18 +21,23 @@ const Header = () => {
               <a href="#awards" className="hover:text-grit-gold-light transition-colors">Awards</a>
               <a href="#schools" className="hover:text-grit-gold-light transition-colors">Schools</a>
               <a href="#parents" className="hover:text-grit-gold-light transition-colors">Parents</a>
-              <a href="#events" className="hover:text-grit-gold-light transition-colors">Events</a>
               <a href="#contact" className="hover:text-grit-gold-light transition-colors">Contact</a>
             </nav>
             
-            {/* Desktop CTA Button */}
-            <div className="hidden md:block">
+            {/* Desktop CTA Buttons */}
+            <div className="hidden md:flex items-center space-x-3">
+              <button
+                onClick={() => alert("Demo request feature coming soon")}
+                className="bg-transparent border-2 border-white text-white px-6 py-2 rounded-md hover:bg-white hover:text-[#032717] transition-all duration-200"
+              >
+                Request a Demo
+              </button>
               <Button
                 onClick={() => setIsLoginModalOpen(true)}
                 variant="secondary"
-                className="text-grit-green bg-white hover:bg-grit-gold-light"
+                className="text-grit-green bg-white hover:bg-grit-gold-light px-6 py-2"
               >
-                Get Started
+                Log In
               </Button>
             </div>
             
@@ -56,15 +61,22 @@ const Header = () => {
                 <a href="#awards" className="hover:text-grit-gold-light transition-colors">Awards</a>
                 <a href="#schools" className="hover:text-grit-gold-light transition-colors">Schools</a>
                 <a href="#parents" className="hover:text-grit-gold-light transition-colors">Parents</a>
-                <a href="#events" className="hover:text-grit-gold-light transition-colors">Events</a>
                 <a href="#contact" className="hover:text-grit-gold-light transition-colors">Contact</a>
-                <Button
-                  onClick={() => setIsLoginModalOpen(true)}
-                  variant="secondary"
-                  className="mt-4 text-grit-green bg-white hover:bg-grit-gold-light"
-                >
-                  Get Started
-                </Button>
+                <div className="flex flex-col space-y-3 mt-4">
+                  <button
+                    onClick={() => alert("Demo request feature coming soon")}
+                    className="bg-transparent border-2 border-white text-white px-6 py-2 rounded-md hover:bg-white hover:text-[#032717] transition-all duration-200"
+                  >
+                    Request a Demo
+                  </button>
+                  <Button
+                    onClick={() => setIsLoginModalOpen(true)}
+                    variant="secondary"
+                    className="text-grit-green bg-white hover:bg-grit-gold-light px-6 py-2"
+                  >
+                    Log In
+                  </Button>
+                </div>
               </nav>
             </div>
           )}
