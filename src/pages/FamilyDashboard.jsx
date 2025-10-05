@@ -159,11 +159,35 @@ const FamilyDashboard = () => {
     }
   }
 
-  // Placeholder functions for challenge actions
+  // Begin Challenge functionality
   const handleBeginChallenge = async (challengeId) => {
-    console.log('Begin challenge:', challengeId)
-    // TODO: Implement in Phase 2
-    alert('Begin challenge functionality coming in Phase 2')
+    try {
+      // Update student_progress status to 'in_progress'
+      const { error } = await supabase
+        .from('student_progress')
+        .update({ 
+          status: 'in_progress',
+          started_at: new Date().toISOString()
+        })
+        .eq('student_id', student.id)
+        .eq('objective_id', challengeId);
+
+      if (error) throw error;
+
+      // Refresh data
+      await fetchStudentChallenges();
+      await fetchHomeStats();
+      
+      // Close expanded view
+      setExpandedChallenge(null);
+      
+      // Navigate to HOME tab to show new active challenge
+      setActiveTab('home');
+      
+    } catch (error) {
+      console.error('Error starting challenge:', error);
+      alert('Failed to start challenge. Please try again.');
+    }
   }
 
   const handleCompleteChallenge = async (challengeId) => {
