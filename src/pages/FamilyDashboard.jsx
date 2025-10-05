@@ -5,6 +5,7 @@ import Button from '../components/Button'
 import GrungeOverlay from '../components/GrungeOverlay'
 import { supabase } from '../lib/supabaseClient'
 import confetti from 'canvas-confetti'
+import ImageCarousel from '../components/ImageCarousel'
 
 const FamilyDashboard = () => {
   const location = useLocation()
@@ -17,6 +18,7 @@ const FamilyDashboard = () => {
   const [showAllAvailable, setShowAllAvailable] = useState(false)
   const [showAllCompleted, setShowAllCompleted] = useState(false)
   const [activeTab, setActiveTab] = useState('home') // 'home', 'challenges', 'progress', 'awards', 'messages'
+  const [expandedChallenge, setExpandedChallenge] = useState(null)
   const [stats, setStats] = useState({
     progressPercentage: 0,
     completedCount: 0,
@@ -155,6 +157,19 @@ const FamilyDashboard = () => {
     } catch (error) {
       console.error('Error fetching challenges:', error)
     }
+  }
+
+  // Placeholder functions for challenge actions
+  const handleBeginChallenge = async (challengeId) => {
+    console.log('Begin challenge:', challengeId)
+    // TODO: Implement in Phase 2
+    alert('Begin challenge functionality coming in Phase 2')
+  }
+
+  const handleCompleteChallenge = async (challengeId) => {
+    console.log('Complete challenge:', challengeId)
+    // TODO: Implement in Phase 3
+    alert('Complete challenge functionality coming in Phase 3')
   }
 
   // Filter challenges by status
@@ -796,7 +811,14 @@ const FamilyDashboard = () => {
 
                 <div className="grid gap-4 md:grid-cols-2 lg:grid-cols-3">
                   {activeChallenges.map(challenge => (
-                    <ChallengeCard key={challenge.id} challenge={challenge} status="active" />
+                    <ChallengeCard 
+                      key={challenge.id} 
+                      challenge={challenge} 
+                      status="active" 
+                      isExpanded={expandedChallenge === challenge.id}
+                      onExpand={() => setExpandedChallenge(challenge.id)}
+                      onCollapse={() => setExpandedChallenge(null)}
+                    />
                   ))}
                 </div>
               </div>
@@ -901,7 +923,14 @@ const FamilyDashboard = () => {
 
                 <div className="grid gap-4 md:grid-cols-2 lg:grid-cols-3 mb-4">
                   {displayedAvailable.map(challenge => (
-                    <ChallengeCard key={challenge.id} challenge={challenge} status="available" />
+                    <ChallengeCard 
+                      key={challenge.id} 
+                      challenge={challenge} 
+                      status="available" 
+                      isExpanded={expandedChallenge === challenge.id}
+                      onExpand={() => setExpandedChallenge(challenge.id)}
+                      onCollapse={() => setExpandedChallenge(null)}
+                    />
                   ))}
                 </div>
 
@@ -930,7 +959,14 @@ const FamilyDashboard = () => {
 
                 <div className="grid gap-4 md:grid-cols-2 lg:grid-cols-3 mb-4">
                   {displayedCompleted.map(challenge => (
-                    <ChallengeCard key={challenge.id} challenge={challenge} status="completed" />
+                    <ChallengeCard 
+                      key={challenge.id} 
+                      challenge={challenge} 
+                      status="completed" 
+                      isExpanded={expandedChallenge === challenge.id}
+                      onExpand={() => setExpandedChallenge(challenge.id)}
+                      onCollapse={() => setExpandedChallenge(null)}
+                    />
                   ))}
                 </div>
 
@@ -1495,7 +1531,7 @@ const FamilyDashboard = () => {
   )
 }
 
-const ChallengeCard = ({ challenge, status: displayStatus }) => {
+const ChallengeCard = ({ challenge, status: displayStatus, isExpanded, onExpand, onCollapse }) => {
   const trait = challenge.challenges?.trait
   const points = challenge.challenges?.points
   const status = challenge.status
@@ -1523,20 +1559,73 @@ const ChallengeCard = ({ challenge, status: displayStatus }) => {
     ? `bg-white rounded-xl p-5 shadow-sm hover:shadow-md transition-all cursor-pointer border border-[#032717] ${colors.border}`
     : `bg-white rounded-xl p-5 shadow-sm hover:shadow-md transition-all cursor-pointer border-l-4 ${colors.border}`
   
+  // Collapsed view
+  if (!isExpanded) {
+    return (
+      <div className={`${cardClasses} transition-all duration-300 ease-in-out`} onClick={() => onExpand()}>
+        <div className="flex justify-between items-start mb-3">
+          <div className="flex items-center gap-2 flex-wrap">
+            <span className={`${isCompleted ? 'bg-gray-200 text-gray-500' : colors.bg + ' ' + colors.text} px-3 py-1 rounded-full text-xs font-medium uppercase tracking-wide`}>
+              {trait}
+            </span>
+            {points && (
+              <span className={`px-2 py-1 rounded text-xs font-bold ${
+                isCompleted ? 'bg-gray-300 text-gray-600' : 'bg-[#b5aa91] text-[#032717]'
+              }`}>
+                {points} pts
+              </span>
+            )}
+          </div>
+          <div className="flex items-center gap-2">
+            {isActive && (
+              <div className="w-6 h-6 rounded-full border border-[#991b1b] bg-white flex items-center justify-center">
+                <img src="/ACTIVE.svg" alt="" className="w-4 h-4" />
+              </div>
+            )}
+            {isCompleted && (
+              <div className="w-6 h-6 rounded-full bg-gray-300 flex items-center justify-center">
+                <img src="/COMPLETED.svg" alt="" className="w-4 h-4" />
+              </div>
+            )}
+            {!isActive && !isCompleted && (
+              <div className="w-6 h-6 rounded-full border border-gray-300 bg-white"></div>
+            )}
+          </div>
+        </div>
+        
+        <h3 className={`font-['Roboto_Slab'] font-semibold text-base mb-2 uppercase tracking-wide ${
+          isCompleted ? 'text-gray-500' : 'text-[#032717]'
+        }`}>
+          {challenge.challenges?.title}
+        </h3>
+        
+        <p className={`text-sm leading-relaxed mb-3 ${
+          isCompleted ? 'text-gray-400' : 'text-gray-600'
+        }`}>
+          {challenge.challenges?.description}
+        </p>
+        
+        {displayStatus === 'available' && (
+          <button className="w-full bg-[#032717] text-white font-medium py-2 px-4 rounded-lg hover:bg-[#054d2a] transition-colors text-sm">
+            Start Challenge
+          </button>
+        )}
+      </div>
+    )
+  }
+
+  // Expanded view
   return (
-    <div className={cardClasses}>
-      <div className="flex justify-between items-start mb-3">
-        <div className="flex items-center gap-2 flex-wrap">
-          <span className={`${isCompleted ? 'bg-gray-200 text-gray-500' : colors.bg + ' ' + colors.text} px-3 py-1 rounded-full text-xs font-medium uppercase tracking-wide`}>
+    <div className="border border-gray-200 rounded-lg p-4 bg-white shadow-lg transition-all duration-300 ease-in-out">
+      {/* Header - same as collapsed */}
+      <div className="flex items-center justify-between mb-3">
+        <div className="flex gap-2">
+          <span className="bg-blue-100 text-blue-800 px-3 py-1 rounded text-xs font-semibold">
             {trait}
           </span>
-          {points && (
-            <span className={`px-2 py-1 rounded text-xs font-bold ${
-              isCompleted ? 'bg-gray-300 text-gray-600' : 'bg-[#b5aa91] text-[#032717]'
-            }`}>
-              {points} pts
-            </span>
-          )}
+          <span className="bg-gray-100 text-gray-700 px-3 py-1 rounded text-xs font-semibold">
+            {points} pts
+          </span>
         </div>
         <div className="flex items-center gap-2">
           {isActive && (
@@ -1554,24 +1643,79 @@ const ChallengeCard = ({ challenge, status: displayStatus }) => {
           )}
         </div>
       </div>
-      
-      <h3 className={`font-['Roboto_Slab'] font-semibold text-base mb-2 uppercase tracking-wide ${
-        isCompleted ? 'text-gray-500' : 'text-[#032717]'
-      }`}>
-        {challenge.challenges?.title}
-      </h3>
-      
-      <p className={`text-sm leading-relaxed mb-3 ${
-        isCompleted ? 'text-gray-400' : 'text-gray-600'
-      }`}>
-        {challenge.challenges?.description}
-      </p>
-      
-      {displayStatus === 'available' && (
-        <button className="w-full bg-[#032717] text-white font-medium py-2 px-4 rounded-lg hover:bg-[#054d2a] transition-colors text-sm">
-          Start Challenge
-        </button>
+
+      {/* Title and Overview */}
+      <h3 className="text-lg font-bold text-[#032717] mb-2">{challenge.challenges?.title}</h3>
+      <p className="text-sm text-gray-600 mb-4">{challenge.challenges?.description}</p>
+
+      {/* Hero Image/Carousel */}
+      {(challenge.challenges?.hero_image_url || challenge.challenges?.additional_images?.length > 0) && (
+        <div className="mb-4 rounded-lg overflow-hidden">
+          {/* If only hero_image_url, show single image */}
+          {!challenge.challenges?.additional_images?.length && (
+            <img 
+              src={challenge.challenges?.hero_image_url} 
+              alt={challenge.challenges?.title}
+              className="w-full h-48 object-cover"
+            />
+          )}
+          
+          {/* If additional_images exist, show carousel */}
+          {challenge.challenges?.additional_images?.length > 0 && (
+            <ImageCarousel 
+              images={[challenge.challenges?.hero_image_url, ...challenge.challenges?.additional_images]} 
+            />
+          )}
+        </div>
       )}
+
+      {/* Detailed Description */}
+      <div className="mb-4">
+        <h4 className="font-semibold text-sm text-[#032717] mb-2">More Information:</h4>
+        <p className="text-sm text-gray-700 leading-relaxed">
+          {challenge.challenges?.detailed_description || challenge.challenges?.description}
+        </p>
+      </div>
+
+      {/* Hints */}
+      {challenge.challenges?.hints?.length > 0 && (
+        <div className="mb-4">
+          <h4 className="font-semibold text-sm text-[#032717] mb-2">Hints:</h4>
+          <ul className="list-disc list-inside space-y-1">
+            {challenge.challenges?.hints.map((hint, index) => (
+              <li key={index} className="text-sm text-gray-700">{hint}</li>
+            ))}
+          </ul>
+        </div>
+      )}
+
+      {/* Action Buttons */}
+      <div className="flex gap-3 mt-4">
+        {status === 'not_started' && (
+          <button
+            onClick={() => handleBeginChallenge(challenge.challenges?.id)}
+            className="flex-1 bg-gradient-to-br from-[#032717] to-[#054d2a] text-white py-3 rounded-lg font-semibold"
+          >
+            Begin Challenge
+          </button>
+        )}
+        
+        {(status === 'in_progress' || status === 'submitted') && (
+          <button
+            onClick={() => handleCompleteChallenge(challenge.challenges?.id)}
+            className="flex-1 bg-gradient-to-br from-[#032717] to-[#054d2a] text-white py-3 rounded-lg font-semibold"
+          >
+            Complete Challenge
+          </button>
+        )}
+
+        <button
+          onClick={onCollapse}
+          className="px-6 py-3 border border-gray-300 rounded-lg text-gray-700 font-semibold"
+        >
+          Close
+        </button>
+      </div>
     </div>
   )
 }
