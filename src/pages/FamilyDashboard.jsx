@@ -161,9 +161,12 @@ const FamilyDashboard = () => {
 
   // Begin Challenge functionality
   const handleBeginChallenge = async (challengeId) => {
+    console.log('Begin Challenge clicked');
+    console.log('Challenge ID:', challengeId);
+    console.log('Student ID:', student?.id);
+    
     try {
-      // Update student_progress status to 'in_progress'
-      const { error } = await supabase
+      const { data, error } = await supabase
         .from('student_progress')
         .update({ 
           status: 'in_progress',
@@ -172,21 +175,25 @@ const FamilyDashboard = () => {
         .eq('student_id', student.id)
         .eq('objective_id', challengeId);
 
+      console.log('Update response:', { data, error });
+
       if (error) throw error;
 
-      // Refresh data
+      console.log('Refreshing challenges...');
       await fetchStudentChallenges();
+      
+      console.log('Refreshing stats...');
       await fetchHomeStats();
       
-      // Close expanded view
+      console.log('Closing expanded view...');
       setExpandedChallenge(null);
       
-      // Navigate to HOME tab to show new active challenge
+      console.log('Switching to home tab...');
       setActiveTab('home');
       
     } catch (error) {
       console.error('Error starting challenge:', error);
-      alert('Failed to start challenge. Please try again.');
+      alert('Failed to start challenge: ' + error.message);
     }
   }
 
@@ -1560,6 +1567,11 @@ const ChallengeCard = ({ challenge, status: displayStatus, isExpanded, onExpand,
   const points = challenge.challenges?.points
   const status = challenge.status
   
+  // Log challenge structure when expanded
+  if (isExpanded) {
+    console.log('Expanded challenge structure:', challenge);
+  }
+  
   const traitColors = {
     'COURAGE': { bg: 'bg-red-50', text: 'text-red-600', border: 'border-l-red-500' },
     'KINDNESS': { bg: 'bg-pink-50', text: 'text-pink-600', border: 'border-l-pink-500' },
@@ -1717,7 +1729,10 @@ const ChallengeCard = ({ challenge, status: displayStatus, isExpanded, onExpand,
       <div className="flex gap-3 mt-4">
         {status === 'not_started' && (
           <button
-            onClick={() => handleBeginChallenge(challenge.challenges?.id)}
+            onClick={() => {
+              console.log('Begin button clicked, challenge:', challenge);
+              handleBeginChallenge(challenge.challenges?.id || challenge.id);
+            }}
             className="flex-1 bg-gradient-to-br from-[#032717] to-[#054d2a] text-white py-3 rounded-lg font-semibold"
           >
             Begin Challenge
