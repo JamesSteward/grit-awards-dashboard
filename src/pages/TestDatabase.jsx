@@ -122,7 +122,7 @@ const TestDatabase = () => {
                   <img 
                     src={`/avatars/${student.avatar || 'avatar-astronaut-001.svg'}`} 
                     alt={`${student.first_name} ${student.last_name}`}
-                    className="w-12 h-12 rounded-full border-2 border-[#032717] mr-4"
+                    className="w-12 h-12 rounded-full border border-[#032717] mr-4"
                   />
                   <div>
                     <h3 className="text-lg font-heading font-semibold text-grit-green">

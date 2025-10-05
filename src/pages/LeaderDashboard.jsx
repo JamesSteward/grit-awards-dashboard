@@ -1084,7 +1084,7 @@ const LeaderDashboard = () => {
                                 <img 
                                   src={`/avatars/${evidence.students?.avatar || 'avatar-pilot-001.svg'}`} 
                                   alt={`${evidence.students?.first_name} ${evidence.students?.last_name}`}
-                                  className="w-12 h-12 rounded-full border-2 border-gray-200"
+                                  className="w-12 h-12 rounded-full border border-gray-200"
                                 />
                                 <div className="flex-1">
                                   <div className="flex items-center gap-2 mb-2">
@@ -1192,13 +1192,13 @@ const LeaderDashboard = () => {
                                 <button
                                   onClick={() => handleRequestChanges(evidence.id)}
                                   disabled={approvingId === evidence.id}
-                                  className="bg-white border-2 border-[#847147] text-[#5a4a2f] hover:bg-[#847147] hover:text-white transition-all px-4 py-2 disabled:opacity-50 disabled:cursor-not-allowed font-medium rounded-lg"
+                                  className="bg-white border border-[#847147] text-[#5a4a2f] hover:bg-[#847147] hover:text-white transition-all px-4 py-2 disabled:opacity-50 disabled:cursor-not-allowed font-medium rounded-lg"
                                 >
                                   Request Changes
                                 </button>
                                 <button
                                   onClick={() => handleViewConversation(evidence)}
-                                  className="bg-gray-100 border-2 border-gray-300 text-gray-700 hover:bg-gray-200 transition-all px-4 py-2 font-medium rounded-lg"
+                                  className="bg-gray-100 border border-gray-300 text-gray-700 hover:bg-gray-200 transition-all px-4 py-2 font-medium rounded-lg"
                                 >
                                   View Conversation
                                 </button>
@@ -1295,7 +1295,7 @@ const LeaderDashboard = () => {
                     setActiveTab('evidence')
                     window.scrollTo({ top: 0, behavior: 'smooth' })
                   }}
-                  className="w-full bg-white border-2 border-[#991b1b] text-[#991b1b] font-semibold px-6 py-3 rounded-xl hover:bg-[#991b1b] hover:text-white transition-all relative"
+                  className="w-full bg-white border border-[#991b1b] text-[#991b1b] font-semibold px-6 py-3 rounded-xl hover:bg-[#991b1b] hover:text-white transition-all relative"
                 >
                   <svg className="w-5 h-5 mr-2 inline" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2">
                     <path d="M9 5H7a2 2 0 00-2 2v12a2 2 0 002 2h10a2 2 0 002-2V7a2 2 0 00-2-2h-2M9 5a2 2 0 002 2h2a2 2 0 002-2M9 5a2 2 0 012-2h2a2 2 0 012 2"/>
@@ -1310,7 +1310,7 @@ const LeaderDashboard = () => {
                 </button>
                 
                 <button 
-                  className="w-full bg-white border-2 border-[#032717] text-[#032717] font-semibold px-6 py-3 rounded-xl hover:bg-[#032717] hover:text-white transition-all"
+                  className="w-full bg-white border border-[#032717] text-[#032717] font-semibold px-6 py-3 rounded-xl hover:bg-[#032717] hover:text-white transition-all"
                   onClick={() => setShowAnnouncementModal(true)}
                 >
                   <svg className="w-5 h-5 mr-2 inline" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2">
@@ -1323,7 +1323,7 @@ const LeaderDashboard = () => {
                 </button>
                 
                 <button 
-                  className="w-full bg-white border-2 border-[#847147] text-[#5a4a2f] font-semibold px-6 py-3 rounded-xl hover:bg-[#847147] hover:text-white transition-all"
+                  className="w-full bg-white border border-[#847147] text-[#5a4a2f] font-semibold px-6 py-3 rounded-xl hover:bg-[#847147] hover:text-white transition-all"
                 >
                   <svg className="w-5 h-5 mr-2 inline" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2">
                     <line x1="18" y1="20" x2="18" y2="10"/>

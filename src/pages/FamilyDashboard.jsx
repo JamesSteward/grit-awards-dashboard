@@ -909,7 +909,7 @@ const FamilyDashboard = () => {
                   <div className="flex justify-center">
                     <button
                       onClick={() => setShowAllAvailable(!showAllAvailable)}
-                      className="bg-white border-2 border-[#032717] text-[#032717] font-medium px-6 py-2 rounded-xl hover:bg-[#032717] hover:text-white transition-all"
+                      className="bg-white border border-[#032717] text-[#032717] font-medium px-6 py-2 rounded-xl hover:bg-[#032717] hover:text-white transition-all"
                     >
                       {showAllAvailable ? 'Show Less' : `See More (${availableChallenges.length - 3} remaining)`}
                     </button>
@@ -938,7 +938,7 @@ const FamilyDashboard = () => {
                   <div className="flex justify-center">
                     <button
                       onClick={() => setShowAllCompleted(!showAllCompleted)}
-                      className="bg-white border-2 border-gray-400 text-gray-600 font-medium px-6 py-2 rounded-xl hover:bg-gray-100 transition-all"
+                      className="bg-white border border-gray-400 text-gray-600 font-medium px-6 py-2 rounded-xl hover:bg-gray-100 transition-all"
                     >
                       {showAllCompleted ? 'Show Less' : `See More (${completedChallenges.length - 3} remaining)`}
                     </button>
@@ -1071,7 +1071,7 @@ const FamilyDashboard = () => {
                     onClick={() => handleBadgeClick(badge)}
                     className={`p-4 rounded-xl text-center cursor-pointer transition-all duration-300 hover:scale-105 animate-[fadeInUp_0.6s_ease-out_${3 + (index * 0.1)}s_both] ${
                       badge.earned 
-                        ? 'bg-white border-2 border-[#032717] shadow-sm hover:shadow-md' 
+                        ? 'bg-white border border-[#032717] shadow-sm hover:shadow-md' 
                         : 'bg-gray-100 opacity-60'
                     }`}
                   >
@@ -1520,7 +1520,7 @@ const ChallengeCard = ({ challenge, status: displayStatus }) => {
   const cardClasses = isCompleted 
     ? 'bg-gray-50 rounded-xl p-5 shadow-sm hover:shadow-md transition-all cursor-pointer border-l-4 border-l-gray-300 opacity-70 grayscale'
     : isActive
-    ? `bg-white rounded-xl p-5 shadow-sm hover:shadow-md transition-all cursor-pointer border-2 border-[#032717] ${colors.border}`
+    ? `bg-white rounded-xl p-5 shadow-sm hover:shadow-md transition-all cursor-pointer border border-[#032717] ${colors.border}`
     : `bg-white rounded-xl p-5 shadow-sm hover:shadow-md transition-all cursor-pointer border-l-4 ${colors.border}`
   
   return (
@@ -1540,7 +1540,7 @@ const ChallengeCard = ({ challenge, status: displayStatus }) => {
         </div>
         <div className="flex items-center gap-2">
           {isActive && (
-            <div className="w-6 h-6 rounded-full border-2 border-[#991b1b] bg-white flex items-center justify-center">
+            <div className="w-6 h-6 rounded-full border border-[#991b1b] bg-white flex items-center justify-center">
               <img src="/ACTIVE.svg" alt="" className="w-4 h-4" />
             </div>
           )}
@@ -1550,7 +1550,7 @@ const ChallengeCard = ({ challenge, status: displayStatus }) => {
             </div>
           )}
           {!isActive && !isCompleted && (
-            <div className="w-6 h-6 rounded-full border-2 border-gray-300 bg-white"></div>
+            <div className="w-6 h-6 rounded-full border border-gray-300 bg-white"></div>
           )}
         </div>
       </div>

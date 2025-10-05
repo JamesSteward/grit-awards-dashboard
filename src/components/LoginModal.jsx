@@ -221,7 +221,7 @@ const LoginModal = ({ isOpen, onClose }) => {
                   value={username}
                   onChange={(e) => setUsername(e.target.value)}
                   placeholder="Enter email"
-                  className="w-full px-4 py-3 border-2 border-gray-200 rounded-lg focus:outline-none focus:ring-2 focus:ring-[#032717]/20 focus:border-[#032717]"
+                  className="w-full px-4 py-3 border border-gray-200 rounded-lg focus:outline-none focus:ring-2 focus:ring-[#032717]/20 focus:border-[#032717]"
                   required
                 />
               </div>
@@ -238,7 +238,7 @@ const LoginModal = ({ isOpen, onClose }) => {
                     value={password}
                     onChange={(e) => setPassword(e.target.value)}
                     placeholder="Enter password"
-                    className="w-full px-4 py-3 pr-12 border-2 border-gray-200 rounded-lg focus:outline-none focus:ring-2 focus:ring-[#032717]/20 focus:border-[#032717]"
+                    className="w-full px-4 py-3 pr-12 border border-gray-200 rounded-lg focus:outline-none focus:ring-2 focus:ring-[#032717]/20 focus:border-[#032717]"
                     required
                   />
                   <button
@@ -296,7 +296,7 @@ const LoginModal = ({ isOpen, onClose }) => {
             <div className="flex gap-4 justify-center mb-6">
               <button
                 onClick={() => alert("SSO integration coming soon")}
-                className="w-14 h-14 border-2 border-gray-200 rounded-lg flex items-center justify-center hover:bg-gray-50 transition-colors"
+                className="w-14 h-14 border border-gray-200 rounded-lg flex items-center justify-center hover:bg-gray-50 transition-colors"
               >
                 <svg className="w-8 h-8" viewBox="0 0 24 24">
                   <path fill="#4285F4" d="M22.56 12.25c0-.78-.07-1.53-.2-2.25H12v4.26h5.92c-.26 1.37-1.04 2.53-2.21 3.31v2.77h3.57c2.08-1.92 3.28-4.74 3.28-8.09z"/>
@@ -307,7 +307,7 @@ const LoginModal = ({ isOpen, onClose }) => {
               </button>
               <button
                 onClick={() => alert("SSO integration coming soon")}
-                className="w-14 h-14 border-2 border-gray-200 rounded-lg flex items-center justify-center hover:bg-gray-50 transition-colors"
+                className="w-14 h-14 border border-gray-200 rounded-lg flex items-center justify-center hover:bg-gray-50 transition-colors"
               >
                 <svg className="w-8 h-8" viewBox="0 0 24 24">
                   <path fill="#F25022" d="M1 1h10v10H1z"/>
@@ -434,7 +434,7 @@ const LoginModal = ({ isOpen, onClose }) => {
                   value={username}
                   onChange={(e) => setUsername(e.target.value)}
                   placeholder="Enter your username"
-                  className="w-full px-4 py-3 border-2 border-gray-200 rounded-lg focus:outline-none focus:ring-2 focus:ring-[#032717]/20 focus:border-[#032717]"
+                  className="w-full px-4 py-3 border border-gray-200 rounded-lg focus:outline-none focus:ring-2 focus:ring-[#032717]/20 focus:border-[#032717]"
                   required
                 />
               </div>
@@ -450,7 +450,7 @@ const LoginModal = ({ isOpen, onClose }) => {
                   value={password}
                   onChange={(e) => setPassword(e.target.value)}
                   placeholder="Enter your password"
-                  className="w-full px-4 py-3 border-2 border-gray-200 rounded-lg focus:outline-none focus:ring-2 focus:ring-[#032717]/20 focus:border-[#032717]"
+                  className="w-full px-4 py-3 border border-gray-200 rounded-lg focus:outline-none focus:ring-2 focus:ring-[#032717]/20 focus:border-[#032717]"
                   required
                 />
               </div>
@@ -481,7 +481,7 @@ const LoginModal = ({ isOpen, onClose }) => {
             <div className="space-y-3">
               <button
                 onClick={() => alert("SSO integration coming soon")}
-                className="w-full flex items-center justify-center gap-3 px-4 py-3 border-2 border-gray-200 rounded-lg bg-white hover:border-[#032717] transition-all"
+                className="w-full flex items-center justify-center gap-3 px-4 py-3 border border-gray-200 rounded-lg bg-white hover:border-[#032717] transition-all"
               >
                 <svg className="w-6 h-6" viewBox="0 0 24 24">
                   <path fill="#4285F4" d="M22.56 12.25c0-.78-.07-1.53-.2-2.25H12v4.26h5.92c-.26 1.37-1.04 2.53-2.21 3.31v2.77h3.57c2.08-1.92 3.28-4.74 3.28-8.09z"/>
@@ -494,7 +494,7 @@ const LoginModal = ({ isOpen, onClose }) => {
 
               <button
                 onClick={() => alert("SSO integration coming soon")}
-                className="w-full flex items-center justify-center gap-3 px-4 py-3 border-2 border-gray-200 rounded-lg bg-white hover:border-[#032717] transition-all"
+                className="w-full flex items-center justify-center gap-3 px-4 py-3 border border-gray-200 rounded-lg bg-white hover:border-[#032717] transition-all"
               >
                 <svg className="w-6 h-6" viewBox="0 0 24 24">
                   <path fill="#F25022" d="M1 1h10v10H1z"/>

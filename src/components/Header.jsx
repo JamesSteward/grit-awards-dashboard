@@ -28,7 +28,7 @@ const Header = () => {
             <div className="hidden md:flex items-center space-x-3">
               <button
                 onClick={() => alert("Demo request feature coming soon")}
-                className="bg-transparent border-2 border-white text-white px-6 py-2 rounded-md hover:bg-white hover:text-[#032717] transition-all duration-200"
+                className="bg-transparent border border-white text-white px-6 py-2 rounded-md hover:bg-white hover:text-[#032717] transition-all duration-200"
               >
                 Request a Demo
               </button>
@@ -65,7 +65,7 @@ const Header = () => {
                 <div className="flex flex-col space-y-3 mt-4">
                   <button
                     onClick={() => alert("Demo request feature coming soon")}
-                    className="bg-transparent border-2 border-white text-white px-6 py-2 rounded-md hover:bg-white hover:text-[#032717] transition-all duration-200"
+                    className="bg-transparent border border-white text-white px-6 py-2 rounded-md hover:bg-white hover:text-[#032717] transition-all duration-200"
                   >
                     Request a Demo
                   </button>
