@@ -1888,11 +1888,11 @@ const ChallengeCard = ({ challenge, status: displayStatus, isExpanded, onExpand,
 
   // Expanded view
   return (
-    <div className="border border-grit-gold-dark rounded-lg p-4 bg-white shadow-lg transition-all duration-300 ease-in-out">
+    <div className={`border-l-4 ${colors.border} rounded-lg p-4 bg-white shadow-lg transition-all duration-300 ease-in-out`}>
       {/* Header - same as collapsed */}
       <div className="flex items-center justify-between mb-3">
         <div className="flex gap-2">
-          <span className="bg-blue-100 text-blue-800 px-3 py-1 rounded-full text-xs font-semibold">
+          <span className={`${colors.bg} ${colors.text} px-3 py-1 rounded-full text-xs font-semibold`}>
             {trait}
           </span>
           <span className="bg-grit-gold-dark text-white px-3 py-1 rounded-full text-xs font-semibold">
