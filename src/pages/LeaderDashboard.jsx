@@ -603,12 +603,20 @@ const LeaderDashboard = () => {
     }
 
     try {
-      // 1. Update evidence_submissions with feedback
+      // Check evidence_submissions schema first
+      console.log('Checking evidence_submissions schema...');
+      const { data: schemaCheck } = await supabase
+        .from('evidence_submissions')
+        .select('*')
+        .limit(1);
+      console.log('Available columns:', schemaCheck ? Object.keys(schemaCheck[0]) : 'No data');
+
+      // Store feedback by prepending to evidence_text (since feedback column doesn't exist)
       const { error: submissionError } = await supabase
         .from('evidence_submissions')
         .update({ 
-          feedback: feedbackText,
-          status: 'needs_revision'
+          status: 'needs_revision',
+          text_content: `[FEEDBACK FROM LEADER]: ${feedbackText}\n\n[ORIGINAL]: ${reviewingSubmission.text_content}`
         })
         .eq('id', reviewingSubmission.id);
 
