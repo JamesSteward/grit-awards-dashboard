@@ -15,7 +15,7 @@ const Input = ({
   children, // for select options
   ...props 
 }) => {
-  const baseClasses = 'w-full px-3 py-2 bg-transparent text-grit-gold border border-grit-gold-dark rounded-lg focus:border-grit-gold focus:ring-1 focus:ring-grit-gold transition-all duration-200'
+  const baseClasses = 'w-full px-3 py-2 bg-white text-gray-900 border border-gray-300 rounded-lg focus:border-blue-500 focus:ring-1 focus:ring-blue-500 transition-all duration-200'
   
   const disabledClasses = disabled ? 'opacity-50 cursor-not-allowed' : ''
   const combinedClasses = `${baseClasses} ${disabledClasses} ${className}`.trim()
