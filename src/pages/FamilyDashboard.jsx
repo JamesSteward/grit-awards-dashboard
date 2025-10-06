@@ -1129,14 +1129,153 @@ const FamilyDashboard = () => {
 
         {activeTab === 'progress' && (
           <div className="px-5 py-6">
-            <h2 className="text-xl font-['Roboto_Slab'] font-bold text-grit-green mb-4 flex items-center gap-2">
+            <h2 className="text-xl font-['Roboto_Slab'] font-bold text-grit-green mb-6 flex items-center gap-2">
               <svg className="w-5 h-5" viewBox="0 0 24 24" fill="currentColor">
                 <path d="M16 6l2.29 2.29-4.88 4.88-4-4L2 16.59 3.41 18l6-6 4 4 6.3-6.29L22 12V6z"/>
               </svg>
               Progress Overview
             </h2>
-            <div className="bg-white rounded-lg shadow-sm border border-grit-gold-dark p-6">
-              <p className="text-gray-900 text-center">Progress view coming soon...</p>
+
+            {/* Hero Stats Cards */}
+            <div className="grid grid-cols-1 md:grid-cols-3 gap-6 mb-8">
+              {/* Total Badges */}
+              <div className="bg-gradient-to-br from-grit-green to-grit-green-dark rounded-2xl p-6 text-white shadow-lg hover:shadow-xl transition-all duration-300 transform hover:-translate-y-1">
+                <div className="flex items-center justify-between mb-4">
+                  <div className="bg-white/20 rounded-full p-3">
+                    <svg className="w-8 h-8" viewBox="0 0 24 24" fill="currentColor">
+                      <path d="M12 2l3.09 6.26L22 9.27l-5 4.87 1.18 6.88L12 17.77l-6.18 3.25L7 14.14 2 9.27l6.91-1.01L12 2z"/>
+                    </svg>
+                  </div>
+                  <div className="text-right">
+                    <div className="text-3xl font-bold">6</div>
+                    <div className="text-sm opacity-90">Total Badges</div>
+                  </div>
+                </div>
+                <div className="text-sm opacity-80">Earned through challenges</div>
+              </div>
+
+              {/* Day Streak */}
+              <div className="bg-gradient-to-br from-orange-500 to-red-500 rounded-2xl p-6 text-white shadow-lg hover:shadow-xl transition-all duration-300 transform hover:-translate-y-1">
+                <div className="flex items-center justify-between mb-4">
+                  <div className="bg-white/20 rounded-full p-3">
+                    <svg className="w-8 h-8" viewBox="0 0 24 24" fill="currentColor">
+                      <path d="M13 2L3 14h9l-1 8 10-12h-9l1-8z"/>
+                    </svg>
+                  </div>
+                  <div className="text-right">
+                    <div className="text-3xl font-bold">7</div>
+                    <div className="text-sm opacity-90">Day Streak</div>
+                  </div>
+                </div>
+                <div className="text-sm opacity-80">Keep it going!</div>
+              </div>
+
+              {/* GRIT Points */}
+              <div className="bg-gradient-to-br from-grit-gold to-grit-gold-dark rounded-2xl p-6 text-grit-green shadow-lg hover:shadow-xl transition-all duration-300 transform hover:-translate-y-1">
+                <div className="flex items-center justify-between mb-4">
+                  <div className="bg-grit-green/20 rounded-full p-3">
+                    <svg className="w-8 h-8" viewBox="0 0 24 24" fill="currentColor">
+                      <path d="M12 2C6.48 2 2 6.48 2 12s4.48 10 10 10 10-4.48 10-10S17.52 2 12 2zm-2 15l-5-5 1.41-1.41L10 14.17l7.59-7.59L19 8l-9 9z"/>
+                    </svg>
+                  </div>
+                  <div className="text-right">
+                    <div className="text-3xl font-bold">240</div>
+                    <div className="text-sm opacity-90">GRIT Points</div>
+                  </div>
+                </div>
+                <div className="text-sm opacity-80">Total earned</div>
+              </div>
+            </div>
+
+            {/* Overall Progress Section */}
+            <div className="bg-white rounded-2xl p-8 shadow-lg border border-grit-gold-dark mb-8">
+              <div className="text-center mb-6">
+                <h3 className="text-2xl font-['Roboto_Slab'] font-bold text-grit-green mb-2">Overall Progress</h3>
+                <p className="text-gray-900">Your journey through GRIT challenges</p>
+              </div>
+
+              {/* Circular Progress */}
+              <div className="flex flex-col items-center mb-8">
+                <div className="relative w-48 h-48 mb-6">
+                  {/* Background Circle */}
+                  <svg className="w-48 h-48 transform -rotate-90" viewBox="0 0 100 100">
+                    <circle
+                      cx="50"
+                      cy="50"
+                      r="40"
+                      stroke="#E5E7EB"
+                      strokeWidth="8"
+                      fill="none"
+                    />
+                    {/* Progress Circle */}
+                    <circle
+                      cx="50"
+                      cy="50"
+                      r="40"
+                      stroke="#032717"
+                      strokeWidth="8"
+                      fill="none"
+                      strokeLinecap="round"
+                      strokeDasharray={`${2 * Math.PI * 40}`}
+                      strokeDashoffset={`${2 * Math.PI * 40 * (1 - (stats.progressPercentage || 0) / 100)}`}
+                      className="transition-all duration-1000 ease-out"
+                    />
+                  </svg>
+                  
+                  {/* Center Content */}
+                  <div className="absolute inset-0 flex flex-col items-center justify-center">
+                    <div className="text-4xl font-bold text-grit-green mb-1">
+                      {stats.progressPercentage || 0}%
+                    </div>
+                    <div className="text-sm text-gray-900">Complete</div>
+                  </div>
+                </div>
+
+                {/* Progress Stats */}
+                <div className="grid grid-cols-3 gap-6 text-center">
+                  <div className="bg-gray-50 rounded-lg p-4">
+                    <div className="text-2xl font-bold text-grit-green mb-1">{stats.completedCount || 0}</div>
+                    <div className="text-sm text-gray-900">Completed</div>
+                  </div>
+                  <div className="bg-gray-50 rounded-lg p-4">
+                    <div className="text-2xl font-bold text-orange-500 mb-1">{stats.inProgressCount || 0}</div>
+                    <div className="text-sm text-gray-900">In Progress</div>
+                  </div>
+                  <div className="bg-gray-50 rounded-lg p-4">
+                    <div className="text-2xl font-bold text-gray-500 mb-1">{challenges.length - (stats.completedCount || 0) - (stats.inProgressCount || 0)}</div>
+                    <div className="text-sm text-gray-900">Available</div>
+                  </div>
+                </div>
+              </div>
+            </div>
+
+            {/* Recent Achievements */}
+            <div className="bg-white rounded-2xl p-6 shadow-lg border border-grit-gold-dark">
+              <h3 className="text-xl font-['Roboto_Slab'] font-bold text-grit-green mb-4 flex items-center gap-2">
+                <svg className="w-5 h-5" viewBox="0 0 24 24" fill="currentColor">
+                  <path d="M12 2l3.09 6.26L22 9.27l-5 4.87 1.18 6.88L12 17.77l-6.18 3.25L7 14.14 2 9.27l6.91-1.01L12 2z"/>
+                </svg>
+                Recent Achievements
+              </h3>
+              
+              <div className="space-y-4">
+                {badges.filter(badge => badge.earned).slice(0, 3).map((badge, index) => (
+                  <div key={badge.id} className="flex items-center gap-4 p-4 bg-gradient-to-r from-grit-green/5 to-grit-gold/5 rounded-lg border border-grit-gold/20">
+                    <div className="bg-grit-green text-white rounded-full p-3">
+                      {badge.icon}
+                    </div>
+                    <div className="flex-1">
+                      <h4 className="font-semibold text-grit-green mb-1">{badge.name}</h4>
+                      <p className="text-sm text-gray-900">{badge.description}</p>
+                    </div>
+                    <div className="text-grit-gold-dark">
+                      <svg className="w-6 h-6" viewBox="0 0 24 24" fill="currentColor">
+                        <path d="M9 16.17L4.83 12l-1.42 1.41L9 19 21 7l-1.41-1.41z"/>
+                      </svg>
+                    </div>
+                  </div>
+                ))}
+              </div>
             </div>
           </div>
         )}
