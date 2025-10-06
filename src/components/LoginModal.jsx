@@ -181,22 +181,24 @@ const LoginModal = ({ isOpen, onClose }) => {
               </Button>
               
               <Button
-                className="w-full py-4 px-8 bg-gray-400 cursor-not-allowed"
+                className="w-full py-4 px-8 bg-gray-400 text-gray-600 cursor-not-allowed"
                 disabled
               >
                 GRIT Directors (Coming Soon)
               </Button>
               
-              <Button
-                className="w-full py-4 px-8 bg-gray-400 cursor-not-allowed"
-                disabled
-              >
-                I'm a GRIT Administrator (Coming Soon)
-              </Button>
+              <div className="text-center">
+                <button
+                  className="text-sm text-grit-gold-dark cursor-not-allowed"
+                  disabled
+                >
+                  I'm a GRIT Administrator (Coming Soon)
+                </button>
+              </div>
             </div>
             
             <div className="mt-6 pt-6 border-t" style={{borderColor: '#CEC6B5'}}>
-              <div className="text-center text-sm text-grit-gold-dark">
+              <div className="text-center text-xs text-grit-gold-dark">
                 COPPA Direct Notice • GDPR • Terms of Service • Privacy Policy
               </div>
             </div>
