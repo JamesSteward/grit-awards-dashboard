@@ -18,6 +18,8 @@ const FamilyDashboard = () => {
   const [showAllAvailable, setShowAllAvailable] = useState(false)
   const [showAllCompleted, setShowAllCompleted] = useState(false)
   const [activeTab, setActiveTab] = useState('home') // 'home', 'challenges', 'progress', 'awards', 'messages'
+  const [searchQuery, setSearchQuery] = useState('')
+  const [showSearchOverlay, setShowSearchOverlay] = useState(false)
   const [expandedChallenge, setExpandedChallenge] = useState(null)
   const [showEvidenceModal, setShowEvidenceModal] = useState(false)
   const [showSuccessModal, setShowSuccessModal] = useState(false)
@@ -327,9 +329,24 @@ const FamilyDashboard = () => {
   const availableChallenges = challenges.filter(c => c.status === 'not_started')
   const completedChallenges = challenges.filter(c => c.status === 'approved')
 
+  // Search filtering function
+  const filterChallengesBySearch = (challengeList) => {
+    if (!searchQuery.trim()) return challengeList
+    return challengeList.filter(challenge => 
+      challenge.challenges?.title?.toLowerCase().includes(searchQuery.toLowerCase()) ||
+      challenge.challenges?.description?.toLowerCase().includes(searchQuery.toLowerCase()) ||
+      challenge.challenges?.trait?.toLowerCase().includes(searchQuery.toLowerCase())
+    )
+  }
+
+  // Apply search filter to all challenge lists
+  const filteredActiveChallenges = filterChallengesBySearch(activeChallenges)
+  const filteredAvailableChallenges = filterChallengesBySearch(availableChallenges)
+  const filteredCompletedChallenges = filterChallengesBySearch(completedChallenges)
+
   // Pagination
-  const displayedAvailable = showAllAvailable ? availableChallenges : availableChallenges.slice(0, 3)
-  const displayedCompleted = showAllCompleted ? completedChallenges : completedChallenges.slice(0, 3)
+  const displayedAvailable = showAllAvailable ? filteredAvailableChallenges : filteredAvailableChallenges.slice(0, 3)
+  const displayedCompleted = showAllCompleted ? filteredCompletedChallenges : filteredCompletedChallenges.slice(0, 3)
 
   const fetchStudent = async () => {
     try {
@@ -1048,9 +1065,70 @@ const FamilyDashboard = () => {
 
         {activeTab === 'challenges' && (
           <>
+            {/* Search Overlay */}
+            <div className="relative">
+              {/* Search Toggle Button */}
+              <div className="px-5 py-4">
+                <button
+                  onClick={() => setShowSearchOverlay(!showSearchOverlay)}
+                  className="w-full bg-white border border-grit-gold-dark rounded-lg px-4 py-3 flex items-center gap-3 text-gray-900 hover:bg-gray-50 transition-colors"
+                >
+                  <svg className="w-5 h-5 text-gray-900" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2">
+                    <circle cx="11" cy="11" r="8"/>
+                    <path d="m21 21-4.35-4.35"/>
+                  </svg>
+                  <span className="flex-1 text-left">
+                    {searchQuery ? `Searching: "${searchQuery}"` : 'Search challenges...'}
+                  </span>
+                  <svg className={`w-5 h-5 transition-transform duration-200 ${showSearchOverlay ? 'rotate-180' : ''}`} viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2">
+                    <polyline points="6,9 12,15 18,9"/>
+                  </svg>
+                </button>
+              </div>
+
+              {/* Search Input Overlay */}
+              {showSearchOverlay && (
+                <div className="absolute top-0 left-0 right-0 z-50 bg-white border border-grit-gold-dark rounded-lg mx-5 shadow-lg">
+                  <div className="p-4">
+                    <div className="flex items-center gap-3">
+                      <svg className="w-5 h-5 text-gray-900" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2">
+                        <circle cx="11" cy="11" r="8"/>
+                        <path d="m21 21-4.35-4.35"/>
+                      </svg>
+                      <input
+                        type="text"
+                        value={searchQuery}
+                        onChange={(e) => setSearchQuery(e.target.value)}
+                        placeholder="Search challenges by name, description, or trait..."
+                        className="flex-1 px-3 py-2 border border-gray-300 rounded-lg focus:outline-none focus:ring-2 focus:ring-grit-green/20 focus:border-grit-green"
+                        autoFocus
+                      />
+                      {searchQuery && (
+                        <button
+                          onClick={() => setSearchQuery('')}
+                          className="p-2 text-gray-900 hover:bg-gray-100 rounded-lg transition-colors"
+                        >
+                          <svg className="w-4 h-4" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2">
+                            <line x1="18" y1="6" x2="6" y2="18"/>
+                            <line x1="6" y1="6" x2="18" y2="18"/>
+                          </svg>
+                        </button>
+                      )}
+                    </div>
+                    
+                    {/* Search Results Count */}
+                    {searchQuery && (
+                      <div className="mt-3 text-sm text-gray-900">
+                        Found {filteredAvailableChallenges.length + filteredActiveChallenges.length + filteredCompletedChallenges.length} challenges
+                      </div>
+                    )}
+                  </div>
+                </div>
+              )}
+            </div>
 
             {/* Available Challenges Section */}
-            {availableChallenges.length > 0 && (
+            {filteredAvailableChallenges.length > 0 && (
               <div className="px-5 py-6">
                 <h2 className="text-xl font-['Roboto_Slab'] font-bold text-grit-green mb-4 flex items-center gap-2">
                   <svg className="w-5 h-5" viewBox="0 0 24 24" fill="currentColor">
@@ -1074,13 +1152,13 @@ const FamilyDashboard = () => {
                   ))}
                 </div>
 
-                {availableChallenges.length > 3 && (
+                {filteredAvailableChallenges.length > 3 && (
                   <div className="flex justify-center">
                     <button
                       onClick={() => setShowAllAvailable(!showAllAvailable)}
                       className="bg-white border border-grit-green text-grit-green font-medium px-6 py-2 rounded-xl hover:bg-grit-green hover:text-white transition-all"
                     >
-                      {showAllAvailable ? 'Show Less' : `See More (${availableChallenges.length - 3} remaining)`}
+                      {showAllAvailable ? 'Show Less' : `See More (${filteredAvailableChallenges.length - 3} remaining)`}
                     </button>
                   </div>
                 )}
@@ -1088,7 +1166,7 @@ const FamilyDashboard = () => {
             )}
 
             {/* Completed Challenges Section */}
-            {completedChallenges.length > 0 && (
+            {filteredCompletedChallenges.length > 0 && (
               <div className="px-5 py-6">
                 <h2 className="text-xl font-['Roboto_Slab'] font-bold text-grit-green mb-4 flex items-center gap-2">
                   <svg className="w-5 h-5" viewBox="0 0 24 24" fill="currentColor">
@@ -1112,13 +1190,13 @@ const FamilyDashboard = () => {
                   ))}
                 </div>
 
-                {completedChallenges.length > 3 && (
+                {filteredCompletedChallenges.length > 3 && (
                   <div className="flex justify-center">
                     <button
                       onClick={() => setShowAllCompleted(!showAllCompleted)}
                       className="bg-white border border-gray-400 text-gray-900 font-medium px-6 py-2 rounded-xl hover:bg-gray-100 transition-all"
                     >
-                      {showAllCompleted ? 'Show Less' : `See More (${completedChallenges.length - 3} remaining)`}
+                      {showAllCompleted ? 'Show Less' : `See More (${filteredCompletedChallenges.length - 3} remaining)`}
                     </button>
                   </div>
                 )}
