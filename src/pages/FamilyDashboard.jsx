@@ -886,14 +886,14 @@ const FamilyDashboard = () => {
     <div className="min-h-screen bg-gray-50">
       <main className="w-full pb-24">
         {/* Student Profile Header */}
-        <section className="bg-gradient-to-br from-grit-green to-grit-green-dark text-white relative overflow-hidden">
+        <section className="bg-white text-gray-900 relative overflow-hidden">
           <GrungeOverlay />
           <div className="relative z-10">
             {/* Header Top Bar */}
             <div className="flex justify-between items-center px-5 py-4">
-              <img src="/GRIT-logo-white.svg" alt="GRIT Awards" className="h-10 w-auto" />
+              <img src="/GRIT-logo.svg" alt="GRIT Awards" className="h-10 w-auto" />
               <button onClick={() => setShowProfileModal(true)} className="cursor-pointer">
-                <img src={`/avatars/${student?.avatar || 'avatar-pilot-001.svg'}`} alt={student?.first_name} className="w-12 h-12 rounded-full bg-grit-gold-dark p-1" />
+                <img src={`/avatars/${student?.avatar || 'avatar-pilot-001.svg'}`} alt={student?.first_name} className="w-12 h-12 rounded-full bg-grit-gold p-1" />
               </button>
             </div>
             
