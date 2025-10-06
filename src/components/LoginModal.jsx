@@ -210,7 +210,7 @@ const LoginModal = ({ isOpen, onClose }) => {
               onClick={handleBackToRoles}
               className="absolute top-4 left-4 w-10 h-10 bg-white/20 backdrop-blur-sm hover:bg-white/30 rounded-full shadow-md transition-all duration-200 hover:-translate-x-1 flex items-center justify-center"
             >
-              <svg className="w-5 h-5 text-gray-900" fill="currentColor" viewBox="0 0 24 24">
+              <svg className="w-5 h-5 text-grit-gold" fill="currentColor" viewBox="0 0 24 24">
                 <path d="M20 11H7.83l5.59-5.59L12 4l-8 8 8 8 1.41-1.41L7.83 13H20v-2z"/>
               </svg>
             </button>
@@ -294,16 +294,16 @@ const LoginModal = ({ isOpen, onClose }) => {
 
             {/* Divider */}
             <div className="flex items-center my-8">
-              <div className="flex-1 h-px bg-gray-200"></div>
+              <div className="flex-1 h-px bg-grit-gold"></div>
               <span className="px-4 text-sm text-gray-900-dark">Sign in with</span>
-              <div className="flex-1 h-px bg-gray-200"></div>
+              <div className="flex-1 h-px bg-grit-gold"></div>
             </div>
 
             {/* SSO Buttons */}
             <div className="flex gap-4 justify-center mb-6">
               <button
                 onClick={() => alert("SSO integration coming soon")}
-                className="w-14 h-14 border border-grit-gold-dark rounded-lg flex items-center justify-center hover:bg-gray-50 transition-colors"
+                className="w-14 h-14 border border-grit-gold rounded-lg flex items-center justify-center hover:bg-gray-50 transition-colors"
               >
                 <svg className="w-8 h-8" viewBox="0 0 24 24">
                   <path fill="#4285F4" d="M22.56 12.25c0-.78-.07-1.53-.2-2.25H12v4.26h5.92c-.26 1.37-1.04 2.53-2.21 3.31v2.77h3.57c2.08-1.92 3.28-4.74 3.28-8.09z"/>
@@ -314,7 +314,7 @@ const LoginModal = ({ isOpen, onClose }) => {
               </button>
               <button
                 onClick={() => alert("SSO integration coming soon")}
-                className="w-14 h-14 border border-grit-gold-dark rounded-lg flex items-center justify-center hover:bg-gray-50 transition-colors"
+                className="w-14 h-14 border border-grit-gold rounded-lg flex items-center justify-center hover:bg-gray-50 transition-colors"
               >
                 <svg className="w-8 h-8" viewBox="0 0 24 24">
                   <path fill="#F25022" d="M1 1h10v10H1z"/>
@@ -341,9 +341,9 @@ const LoginModal = ({ isOpen, onClose }) => {
 
             {/* Divider */}
             <div className="flex items-center my-8">
-              <div className="flex-1 h-px bg-gray-200"></div>
+              <div className="flex-1 h-px bg-grit-gold"></div>
               <span className="px-4 text-sm text-gray-900-dark">or</span>
-              <div className="flex-1 h-px bg-gray-200"></div>
+              <div className="flex-1 h-px bg-grit-gold"></div>
             </div>
 
             {/* Create Family Account Button */}
@@ -361,7 +361,7 @@ const LoginModal = ({ isOpen, onClose }) => {
               onClick={handleBackToFamilyLogin}
               className="absolute top-4 left-4 w-10 h-10 bg-white/20 backdrop-blur-sm hover:bg-white/30 rounded-full shadow-md transition-all duration-200 hover:-translate-x-1 flex items-center justify-center"
             >
-              <svg className="w-5 h-5 text-gray-900" fill="currentColor" viewBox="0 0 24 24">
+              <svg className="w-5 h-5 text-grit-gold" fill="currentColor" viewBox="0 0 24 24">
                 <path d="M20 11H7.83l5.59-5.59L12 4l-8 8 8 8 1.41-1.41L7.83 13H20v-2z"/>
               </svg>
             </button>
@@ -390,9 +390,9 @@ const LoginModal = ({ isOpen, onClose }) => {
 
             {/* Divider */}
             <div className="flex items-center my-8">
-              <div className="flex-1 h-px bg-gray-200"></div>
+              <div className="flex-1 h-px bg-grit-gold"></div>
               <span className="px-4 text-sm text-gray-900-dark">or</span>
-              <div className="flex-1 h-px bg-gray-200"></div>
+              <div className="flex-1 h-px bg-grit-gold"></div>
             </div>
 
             {/* Sign In Link */}
@@ -421,7 +421,7 @@ const LoginModal = ({ isOpen, onClose }) => {
               onClick={handleBackToRoles}
               className="absolute top-4 left-4 w-10 h-10 bg-white/20 backdrop-blur-sm hover:bg-white/30 rounded-full shadow-md transition-all duration-200 hover:-translate-x-1 flex items-center justify-center"
             >
-              <svg className="w-5 h-5 text-gray-900" fill="currentColor" viewBox="0 0 24 24">
+              <svg className="w-5 h-5 text-grit-gold" fill="currentColor" viewBox="0 0 24 24">
                 <path d="M20 11H7.83l5.59-5.59L12 4l-8 8 8 8 1.41-1.41L7.83 13H20v-2z"/>
               </svg>
             </button>
@@ -477,16 +477,16 @@ const LoginModal = ({ isOpen, onClose }) => {
 
             {/* Divider */}
             <div className="flex items-center my-8">
-              <div className="flex-1 h-px bg-gray-200"></div>
+              <div className="flex-1 h-px bg-grit-gold"></div>
               <span className="px-4 text-sm text-gray-900-dark">or</span>
-              <div className="flex-1 h-px bg-gray-200"></div>
+              <div className="flex-1 h-px bg-grit-gold"></div>
             </div>
 
             {/* SSO Buttons */}
             <div className="space-y-3">
               <button
                 onClick={() => alert("SSO integration coming soon")}
-                className="w-full flex items-center justify-center gap-3 px-4 py-3 border border-grit-gold-dark rounded-lg bg-white hover:border-grit-green transition-all"
+                className="w-full flex items-center justify-center gap-3 px-4 py-3 border border-grit-gold rounded-lg bg-white hover:border-grit-green transition-all"
               >
                 <svg className="w-6 h-6" viewBox="0 0 24 24">
                   <path fill="#4285F4" d="M22.56 12.25c0-.78-.07-1.53-.2-2.25H12v4.26h5.92c-.26 1.37-1.04 2.53-2.21 3.31v2.77h3.57c2.08-1.92 3.28-4.74 3.28-8.09z"/>
@@ -499,7 +499,7 @@ const LoginModal = ({ isOpen, onClose }) => {
 
               <button
                 onClick={() => alert("SSO integration coming soon")}
-                className="w-full flex items-center justify-center gap-3 px-4 py-3 border border-grit-gold-dark rounded-lg bg-white hover:border-grit-green transition-all"
+                className="w-full flex items-center justify-center gap-3 px-4 py-3 border border-grit-gold rounded-lg bg-white hover:border-grit-green transition-all"
               >
                 <svg className="w-6 h-6" viewBox="0 0 24 24">
                   <path fill="#F25022" d="M1 1h10v10H1z"/>
@@ -519,7 +519,7 @@ const LoginModal = ({ isOpen, onClose }) => {
                 onClick={handleBackToRoles}
                 className="absolute top-4 left-4 w-10 h-10 bg-white/20 backdrop-blur-sm hover:bg-white/30 rounded-full shadow-md transition-all duration-200 hover:-translate-x-1 flex items-center justify-center"
               >
-                <svg className="w-5 h-5 text-gray-900" fill="currentColor" viewBox="0 0 24 24">
+                <svg className="w-5 h-5 text-grit-gold" fill="currentColor" viewBox="0 0 24 24">
                   <path d="M20 11H7.83l5.59-5.59L12 4l-8 8 8 8 1.41-1.41L7.83 13H20v-2z"/>
                 </svg>
               </button>
