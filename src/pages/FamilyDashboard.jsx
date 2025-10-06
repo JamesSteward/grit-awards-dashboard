@@ -1065,13 +1065,13 @@ const FamilyDashboard = () => {
 
         {activeTab === 'challenges' && (
           <>
-            {/* Search Overlay */}
-            <div className="relative">
+            {/* Search Overlay - Overlapping Header */}
+            <div className="relative -mt-8 z-20 px-4 mb-6">
               {/* Search Toggle Button */}
-              <div className="px-5 py-4">
+              <div className="bg-white rounded-lg p-4 shadow-lg border border-gray-100">
                 <button
                   onClick={() => setShowSearchOverlay(!showSearchOverlay)}
-                  className="w-full bg-white border border-grit-gold-dark rounded-lg px-4 py-3 flex items-center gap-3 text-gray-900 hover:bg-gray-50 transition-colors"
+                  className="w-full flex items-center gap-3 text-gray-900 hover:bg-gray-50 transition-colors rounded-lg p-2"
                 >
                   <svg className="w-5 h-5 text-gray-900" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2">
                     <circle cx="11" cy="11" r="8"/>
@@ -1084,12 +1084,10 @@ const FamilyDashboard = () => {
                     <polyline points="6,9 12,15 18,9"/>
                   </svg>
                 </button>
-              </div>
 
-              {/* Search Input Overlay */}
-              {showSearchOverlay && (
-                <div className="absolute top-0 left-0 right-0 z-50 bg-white border border-grit-gold-dark rounded-lg mx-5 shadow-lg">
-                  <div className="p-4">
+                {/* Search Input */}
+                {showSearchOverlay && (
+                  <div className="mt-4 pt-4 border-t border-gray-100">
                     <div className="flex items-center gap-3">
                       <svg className="w-5 h-5 text-gray-900" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2">
                         <circle cx="11" cy="11" r="8"/>
@@ -1123,8 +1121,8 @@ const FamilyDashboard = () => {
                       </div>
                     )}
                   </div>
-                </div>
-              )}
+                )}
+              </div>
             </div>
 
             {/* Available Challenges Section */}
