@@ -622,11 +622,11 @@ const LeaderDashboard = () => {
 
       if (submissionError) throw submissionError;
 
-      // 2. Update student_progress status only (no feedback column)
+      // 2. Update student_progress - use 'submitted' instead of 'needs_revision' (constraint violation)
       const { error: progressError } = await supabase
         .from('student_progress')
         .update({ 
-          status: 'needs_revision'
+          status: 'submitted'  // CHANGED: Use allowed status value
         })
         .eq('student_id', reviewingSubmission.student_id)
         .eq('objective_id', reviewingSubmission.challenge_id);
