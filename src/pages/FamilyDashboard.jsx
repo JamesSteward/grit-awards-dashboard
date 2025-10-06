@@ -1233,29 +1233,17 @@ const FamilyDashboard = () => {
               </div>
             </div>
 
-            {/* Stats Cards */}
-            <div className="mb-6">
-              <div className="grid grid-cols-3 gap-4">
-                <div className="bg-white rounded-xl p-4 text-center shadow-sm animate-[fadeInUp_0.6s_ease-out_2.5s_both]">
-                  <div className="text-2xl font-bold text-grit-green mb-1">9</div>
-                  <div className="text-xs uppercase tracking-wide text-gray-900-dark">Total Badges</div>
-                </div>
-                <div className="bg-white rounded-xl p-4 text-center shadow-sm animate-[fadeInUp_0.6s_ease-out_2.7s_both]">
-                  <div className="text-2xl font-bold text-grit-green mb-1">7</div>
-                  <div className="text-xs uppercase tracking-wide text-gray-900-dark">Day Streak</div>
-                </div>
-                <div className="bg-white rounded-xl p-4 text-center shadow-sm animate-[fadeInUp_0.6s_ease-out_2.9s_both]">
-                  <div className="text-2xl font-bold text-grit-green mb-1">240</div>
-                  <div className="text-xs uppercase tracking-wide text-gray-900-dark">GRIT Points</div>
-                </div>
-              </div>
-            </div>
 
             {/* Achievement Badges */}
             <div className="mb-6">
-              <h3 className="text-xl font-['Roboto_Slab'] font-bold text-grit-green mb-4">
-                Achievement Badges
-              </h3>
+              <div className="flex items-center gap-3 mb-4">
+                <h3 className="text-xl font-['Roboto_Slab'] font-bold text-grit-green">
+                  Achievement Badges
+                </h3>
+                <div className="bg-grit-gold-dark text-white rounded-full w-8 h-8 flex items-center justify-center text-sm font-bold">
+                  9
+                </div>
+              </div>
               <div className="grid grid-cols-3 gap-3">
                 {badges.map((badge, index) => (
                   <div
@@ -1267,7 +1255,7 @@ const FamilyDashboard = () => {
                         : 'bg-gray-100 opacity-60'
                     }`}
                   >
-                    <div className={`${badge.earned ? 'text-grit-green' : 'text-gray-900-dark'} mb-2`}>
+                    <div className={`${badge.earned ? 'text-grit-green' : 'text-gray-900-dark'} mb-2 flex items-center justify-center`}>
                       {badge.icon}
                     </div>
                     <div className={`text-xs font-medium ${badge.earned ? 'text-grit-green' : 'text-gray-900-dark'}`}>
