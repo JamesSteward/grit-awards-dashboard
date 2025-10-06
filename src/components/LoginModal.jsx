@@ -181,10 +181,10 @@ const LoginModal = ({ isOpen, onClose }) => {
               </Button>
               
               <button
-                className="w-full py-4 px-8 bg-gray-400 text-gray-600 rounded-lg cursor-not-allowed"
+                className="w-full py-4 px-8 bg-gray-200 text-gray-500 rounded-lg cursor-not-allowed"
                 disabled
               >
-                GRIT Directors (Coming Soon)
+                GRIT Directors
               </button>
               
               <div className="text-center">
@@ -192,7 +192,7 @@ const LoginModal = ({ isOpen, onClose }) => {
                   className="text-sm text-grit-gold-dark cursor-not-allowed"
                   disabled
                 >
-                  I'm a GRIT Administrator (Coming Soon)
+                  I'm a GRIT Administrator
                 </button>
               </div>
             </div>
