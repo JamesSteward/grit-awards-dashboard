@@ -39,6 +39,7 @@ const FamilyDashboard = () => {
   const [evidenceSubmission, setEvidenceSubmission] = useState(null)
   const [newMessage, setNewMessage] = useState('')
   const [sending, setSending] = useState(false)
+  const [showConversationList, setShowConversationList] = useState(true)
 
   // Awards state
   const [showBadgeModal, setShowBadgeModal] = useState(false)
@@ -493,6 +494,7 @@ const FamilyDashboard = () => {
   // Handle conversation selection
   const handleConversationSelect = async (conversation) => {
     setSelectedConversation(conversation)
+    setShowConversationList(false) // Hide conversation list on mobile
     await fetchMessages(conversation.id)
     
     // Fetch evidence submission if needed
@@ -1311,9 +1313,11 @@ const FamilyDashboard = () => {
 
         {activeTab === 'messages' && (
           <div className="px-5 py-6">
-            <div className="flex gap-6 h-[calc(100vh-300px)]">
+            <div className="flex flex-col lg:flex-row gap-6 h-[calc(100vh-300px)]">
               {/* Left Sidebar - Conversation List */}
-              <div className="w-[30%] bg-white rounded-lg shadow-sm border border-grit-gold-dark flex flex-col">
+              <div className={`w-full lg:w-[30%] bg-white rounded-lg shadow-sm border border-grit-gold-dark flex flex-col ${
+                showConversationList ? 'block' : 'hidden lg:block'
+              }`}>
                 <div className="p-4 border-b border-grit-gold-dark">
                   <h2 className="text-lg font-semibold text-gray-900">Conversations</h2>
                 </div>
@@ -1351,18 +1355,18 @@ const FamilyDashboard = () => {
                               )}
                               
                               <div className="flex-1 min-w-0">
-                                <div className="flex items-center gap-2 mb-1">
-                                  <h3 className={`font-medium truncate ${
+                                <div className="flex flex-col sm:flex-row sm:items-center gap-1 sm:gap-2 mb-1">
+                                  <h3 className={`font-medium text-sm sm:text-base ${
                                     !conversation.is_read ? 'font-bold' : 'font-normal'
                                   }`}>
                                     {conversation.subject}
                                   </h3>
-                                  <span className={`px-2 py-1 text-xs rounded-full ${badge.color}`}>
+                                  <span className={`px-2 py-1 text-xs rounded-full ${badge.color} self-start sm:self-center`}>
                                     {badge.text}
                                   </span>
                                 </div>
                                 
-                                <p className="text-sm text-gray-900 truncate mb-1">
+                                <p className="text-sm text-gray-900 mb-1 leading-relaxed">
                                   {conversation.last_message_preview || 'No messages yet'}
                                 </p>
                                 
@@ -1380,11 +1384,22 @@ const FamilyDashboard = () => {
               </div>
 
               {/* Right Panel - Conversation Thread */}
-              <div className="flex-1 bg-white rounded-lg shadow-sm border border-grit-gold-dark flex flex-col">
+              <div className="w-full lg:flex-1 bg-white rounded-lg shadow-sm border border-grit-gold-dark flex flex-col">
                 {selectedConversation ? (
                   <>
                     {/* Conversation Header */}
                     <div className="p-4 border-b border-grit-gold-dark">
+                      {/* Back button for mobile */}
+                      <button
+                        onClick={() => setShowConversationList(true)}
+                        className="lg:hidden mb-3 flex items-center gap-2 text-grit-green hover:text-grit-green-dark transition-colors"
+                      >
+                        <svg className="w-5 h-5" viewBox="0 0 24 24" fill="currentColor">
+                          <path d="M20 11H7.83l5.59-5.59L12 4l-8 8 8 8 1.41-1.41L7.83 13H20v-2z"/>
+                        </svg>
+                        Back to Conversations
+                      </button>
+                      
                       <h2 className="text-lg font-semibold text-gray-900">
                         {selectedConversation.subject}
                       </h2>
