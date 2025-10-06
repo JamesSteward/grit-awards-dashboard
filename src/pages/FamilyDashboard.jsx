@@ -1823,10 +1823,18 @@ const ChallengeCard = ({ challenge, status: displayStatus, isExpanded, onExpand,
     'DETERMINATION': { bg: 'bg-violet-500', text: 'text-white', border: 'border-l-violet-500' },
     'COOPERATION': { bg: 'bg-amber-500', text: 'text-black', border: 'border-l-amber-500' },
     'PATIENCE': { bg: 'bg-slate-500', text: 'text-white', border: 'border-l-slate-500' },
-    'FAIRNESS': { bg: 'bg-stone-500', text: 'text-white', border: 'border-l-stone-500' }
+    'FAIRNESS': { bg: 'bg-stone-500', text: 'text-white', border: 'border-l-stone-500' },
+    // Common variations that might be in the database
+    'GROWTH': { bg: 'bg-green-500', text: 'text-white', border: 'border-l-green-500' },
+    'INDEPENDENCE': { bg: 'bg-blue-500', text: 'text-white', border: 'border-l-blue-500' },
+    'TEAMWORK': { bg: 'bg-cyan-500', text: 'text-white', border: 'border-l-cyan-500' },
+    'TRANSFORMATION': { bg: 'bg-purple-500', text: 'text-white', border: 'border-l-purple-500' }
   }
   
   const colors = traitColors[trait] || traitColors['RESILIENCE']
+  
+  // Debug: Log the trait value to see what we're getting
+  console.log('Trait value:', trait, 'Colors:', colors)
   
   // Completed challenges styling
   const isCompleted = displayStatus === 'completed'
