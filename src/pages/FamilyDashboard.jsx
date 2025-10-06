@@ -977,7 +977,7 @@ const FamilyDashboard = () => {
 
             {/* Recent Activity Section */}
             <div className="mb-8">
-              <h2 className="text-xl font-['Roboto_Slab'] font-bold text-grit-gold mb-4 flex items-center gap-2">
+              <h2 className="text-xl font-['Roboto_Slab'] font-bold text-grit-green mb-4 flex items-center gap-2">
                 <svg className="w-5 h-5" viewBox="0 0 24 24" fill="currentColor">
                   <path d="M13 3c-4.97 0-9 4.03-9 9H1l3.89 3.89.07.14L9 12H6c0-3.87 3.13-7 7-7s7 3.13 7 7-3.13 7-7 7c-1.93 0-3.68-.79-4.94-2.06l-1.42 1.42C8.27 19.99 10.51 21 13 21c4.97 0 9-4.03 9-9s-4.03-9-9-9zm-1 5v5l4.28 2.54.72-1.21-3.5-2.08V8H12z"/>
                 </svg>
@@ -1024,7 +1024,7 @@ const FamilyDashboard = () => {
 
             {/* Quick Actions Section */}
             <div className="mb-8">
-              <h2 className="text-xl font-['Roboto_Slab'] font-bold text-grit-gold mb-4 flex items-center gap-2">
+              <h2 className="text-xl font-['Roboto_Slab'] font-bold text-grit-green mb-4 flex items-center gap-2">
                 <svg className="w-5 h-5" viewBox="0 0 24 24" fill="currentColor">
                   <path d="M19 13h-6v6h-2v-6H5v-2h6V5h2v6h6v2z"/>
                 </svg>
@@ -1103,7 +1103,7 @@ const FamilyDashboard = () => {
             {/* Completed Challenges Section */}
             {completedChallenges.length > 0 && (
               <div className="px-5 py-6">
-                <h2 className="text-xl font-['Roboto_Slab'] font-bold text-grit-gold mb-4 flex items-center gap-2">
+                <h2 className="text-xl font-['Roboto_Slab'] font-bold text-grit-green mb-4 flex items-center gap-2">
                   <svg className="w-5 h-5" viewBox="0 0 24 24" fill="currentColor">
                     <path d="M9 16.17L4.83 12l-1.42 1.41L9 19 21 7l-1.41-1.41z"/>
                   </svg>
@@ -1252,7 +1252,7 @@ const FamilyDashboard = () => {
 
             {/* Achievement Badges */}
             <div className="mb-6">
-              <h3 className="text-xl font-['Roboto_Slab'] font-bold text-grit-gold mb-4">
+              <h3 className="text-xl font-['Roboto_Slab'] font-bold text-grit-green mb-4">
                 Achievement Badges
               </h3>
               <div className="grid grid-cols-3 gap-3">
@@ -1279,7 +1279,7 @@ const FamilyDashboard = () => {
 
             {/* Rewards Section */}
             <div className="mb-6">
-              <h3 className="text-xl font-['Roboto_Slab'] font-bold text-grit-gold mb-4">
+              <h3 className="text-xl font-['Roboto_Slab'] font-bold text-grit-green mb-4">
                 Rewards & Prizes
               </h3>
               <div className="bg-white rounded-xl p-6 shadow-sm">
@@ -1916,7 +1916,7 @@ const ChallengeCard = ({ challenge, status: displayStatus, isExpanded, onExpand,
 
       {/* Title and Overview */}
       <h3 className="text-lg font-bold text-grit-green mb-2">{challenge.challenges?.title}</h3>
-      <p className="text-sm text-grit-gold mb-4">{challenge.challenges?.description}</p>
+      <p className="text-sm text-grit-green mb-4">{challenge.challenges?.description}</p>
 
       {/* Hero Image/Carousel */}
       {(challenge.challenges?.hero_image_url || challenge.challenges?.additional_images?.length > 0) && (

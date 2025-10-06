@@ -215,7 +215,7 @@ const LoginModal = ({ isOpen, onClose }) => {
               </svg>
             </button>
 
-            <h2 className="text-xl sm:text-2xl font-bold text-grit-gold mb-8 text-center">Sign In as a Family Member</h2>
+            <h2 className="text-xl sm:text-2xl font-bold text-grit-green mb-8 text-center">Sign In as a Family Member</h2>
             
             <form onSubmit={handleLogin} className="space-y-6">
               {/* Email Field */}
@@ -366,7 +366,7 @@ const LoginModal = ({ isOpen, onClose }) => {
               </svg>
             </button>
 
-            <h2 className="text-xl sm:text-2xl font-bold text-grit-gold text-center mb-10">Scan the QR code for your child</h2>
+            <h2 className="text-xl sm:text-2xl font-bold text-grit-green text-center mb-10">Scan the QR code for your child</h2>
             
             {/* Scan Button */}
             <div className="flex justify-center mb-6">
@@ -426,7 +426,7 @@ const LoginModal = ({ isOpen, onClose }) => {
               </svg>
             </button>
 
-            <h2 className="text-2xl font-bold text-grit-gold text-center mb-2">Welcome Back</h2>
+            <h2 className="text-2xl font-bold text-grit-green text-center mb-2">Welcome Back</h2>
             <p className="text-sm text-grit-gold-dark text-center mb-8">Sign in to access your dashboard</p>
             
             <form onSubmit={handleLogin} className="space-y-6">

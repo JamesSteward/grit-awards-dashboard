@@ -1223,7 +1223,7 @@ const LeaderDashboard = () => {
                 {activeTab === 'review' && (
                   <div>
                     <div className="mb-6">
-                      <h2 className="text-xl font-bold text-grit-gold mb-4">Review Evidence</h2>
+                      <h2 className="text-xl font-bold text-grit-green mb-4">Review Evidence</h2>
                       
                       {pendingSubmissions.length === 0 ? (
                         <Card className="text-center">
