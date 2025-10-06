@@ -20,6 +20,8 @@ const FamilyDashboard = () => {
   const [activeTab, setActiveTab] = useState('home') // 'home', 'challenges', 'progress', 'awards', 'messages'
   const [searchQuery, setSearchQuery] = useState('')
   const [showSearchOverlay, setShowSearchOverlay] = useState(false)
+  const [availableChallengesToShow, setAvailableChallengesToShow] = useState(10)
+  const [completedChallengesToShow, setCompletedChallengesToShow] = useState(10)
   const [expandedChallenge, setExpandedChallenge] = useState(null)
   const [showEvidenceModal, setShowEvidenceModal] = useState(false)
   const [showSuccessModal, setShowSuccessModal] = useState(false)
@@ -60,6 +62,12 @@ const FamilyDashboard = () => {
       setConfettiLaunched(true)
     }
   }, [activeTab])
+
+  // Reset pagination when search query changes or tab changes
+  useEffect(() => {
+    setAvailableChallengesToShow(10)
+    setCompletedChallengesToShow(10)
+  }, [searchQuery, activeTab])
 
   useEffect(() => {
     if (student?.id) {
@@ -345,8 +353,17 @@ const FamilyDashboard = () => {
   const filteredCompletedChallenges = filterChallengesBySearch(completedChallenges)
 
   // Pagination
-  const displayedAvailable = showAllAvailable ? filteredAvailableChallenges : filteredAvailableChallenges.slice(0, 3)
-  const displayedCompleted = showAllCompleted ? filteredCompletedChallenges : filteredCompletedChallenges.slice(0, 3)
+  const displayedAvailable = filteredAvailableChallenges.slice(0, availableChallengesToShow)
+  const displayedCompleted = filteredCompletedChallenges.slice(0, completedChallengesToShow)
+
+  // Show more functions
+  const showMoreAvailable = () => {
+    setAvailableChallengesToShow(prev => Math.min(prev + 10, filteredAvailableChallenges.length))
+  }
+
+  const showMoreCompleted = () => {
+    setCompletedChallengesToShow(prev => Math.min(prev + 10, filteredCompletedChallenges.length))
+  }
 
   const fetchStudent = async () => {
     try {
@@ -1150,13 +1167,13 @@ const FamilyDashboard = () => {
                   ))}
                 </div>
 
-                {filteredAvailableChallenges.length > 3 && (
+                {availableChallengesToShow < filteredAvailableChallenges.length && (
                   <div className="flex justify-center">
                     <button
-                      onClick={() => setShowAllAvailable(!showAllAvailable)}
+                      onClick={showMoreAvailable}
                       className="bg-white border border-grit-green text-grit-green font-medium px-6 py-2 rounded-xl hover:bg-grit-green hover:text-white transition-all"
                     >
-                      {showAllAvailable ? 'Show Less' : `See More (${filteredAvailableChallenges.length - 3} remaining)`}
+                      Show More ({filteredAvailableChallenges.length - availableChallengesToShow} remaining)
                     </button>
                   </div>
                 )}
@@ -1188,13 +1205,13 @@ const FamilyDashboard = () => {
                   ))}
                 </div>
 
-                {filteredCompletedChallenges.length > 3 && (
+                {completedChallengesToShow < filteredCompletedChallenges.length && (
                   <div className="flex justify-center">
                     <button
-                      onClick={() => setShowAllCompleted(!showAllCompleted)}
+                      onClick={showMoreCompleted}
                       className="bg-white border border-gray-400 text-gray-900 font-medium px-6 py-2 rounded-xl hover:bg-gray-100 transition-all"
                     >
-                      {showAllCompleted ? 'Show Less' : `See More (${filteredCompletedChallenges.length - 3} remaining)`}
+                      Show More ({filteredCompletedChallenges.length - completedChallengesToShow} remaining)
                     </button>
                   </div>
                 )}
