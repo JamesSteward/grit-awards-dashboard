@@ -1824,11 +1824,34 @@ const ChallengeCard = ({ challenge, status: displayStatus, isExpanded, onExpand,
     'COOPERATION': { bg: 'bg-amber-500', text: 'text-black', border: 'border-l-amber-500' },
     'PATIENCE': { bg: 'bg-slate-500', text: 'text-white', border: 'border-l-slate-500' },
     'FAIRNESS': { bg: 'bg-stone-500', text: 'text-white', border: 'border-l-stone-500' },
-    // Common variations that might be in the database
-    'GROWTH': { bg: 'bg-green-500', text: 'text-white', border: 'border-l-green-500' },
+    // Database traits from console
+    'OPENNESS': { bg: 'bg-sky-500', text: 'text-white', border: 'border-l-sky-500' },
+    'BRAVERY': { bg: 'bg-red-600', text: 'text-white', border: 'border-l-red-600' },
+    'JUSTICE': { bg: 'bg-blue-600', text: 'text-white', border: 'border-l-blue-600' },
+    'CONFIDENCE': { bg: 'bg-yellow-600', text: 'text-black', border: 'border-l-yellow-600' },
     'INDEPENDENCE': { bg: 'bg-blue-500', text: 'text-white', border: 'border-l-blue-500' },
-    'TEAMWORK': { bg: 'bg-cyan-500', text: 'text-white', border: 'border-l-cyan-500' },
-    'TRANSFORMATION': { bg: 'bg-purple-500', text: 'text-white', border: 'border-l-purple-500' }
+    'WISDOM': { bg: 'bg-indigo-600', text: 'text-white', border: 'border-l-indigo-600' },
+    'SKILL': { bg: 'bg-green-600', text: 'text-white', border: 'border-l-green-600' },
+    'COMMUNICATION': { bg: 'bg-cyan-500', text: 'text-white', border: 'border-l-cyan-500' },
+    'ARTISTRY': { bg: 'bg-pink-600', text: 'text-white', border: 'border-l-pink-600' },
+    'AWARENESS': { bg: 'bg-teal-600', text: 'text-white', border: 'border-l-teal-600' },
+    'INNOVATION': { bg: 'bg-purple-600', text: 'text-white', border: 'border-l-purple-600' },
+    'LOGIC': { bg: 'bg-gray-600', text: 'text-white', border: 'border-l-gray-600' },
+    'CURIOSITY': { bg: 'bg-orange-600', text: 'text-white', border: 'border-l-orange-600' },
+    'ORGANISATION': { bg: 'bg-emerald-600', text: 'text-white', border: 'border-l-emerald-600' },
+    'POSITIVITY': { bg: 'bg-lime-600', text: 'text-black', border: 'border-l-lime-600' },
+    'REFLECTION': { bg: 'bg-violet-600', text: 'text-white', border: 'border-l-violet-600' },
+    'MINDFULNESS': { bg: 'bg-rose-600', text: 'text-white', border: 'border-l-rose-600' },
+    'SELF-CONTROL': { bg: 'bg-slate-600', text: 'text-white', border: 'border-l-slate-600' },
+    'KNOWLEDGE': { bg: 'bg-blue-700', text: 'text-white', border: 'border-l-blue-700' },
+    'SERVICE': { bg: 'bg-green-700', text: 'text-white', border: 'border-l-green-700' },
+    'DISCIPLINE': { bg: 'bg-gray-700', text: 'text-white', border: 'border-l-gray-700' },
+    'PERSISTENCE': { bg: 'bg-red-700', text: 'text-white', border: 'border-l-red-700' },
+    'INITIATIVE': { bg: 'bg-purple-700', text: 'text-white', border: 'border-l-purple-700' },
+    'APPRECIATION': { bg: 'bg-yellow-700', text: 'text-black', border: 'border-l-yellow-700' },
+    'ADVENTURE': { bg: 'bg-orange-700', text: 'text-white', border: 'border-l-orange-700' },
+    'THOUGHTFULNESS': { bg: 'bg-pink-700', text: 'text-white', border: 'border-l-pink-700' },
+    'STORYTELLING': { bg: 'bg-indigo-700', text: 'text-white', border: 'border-l-indigo-700' }
   }
   
   const colors = traitColors[trait] || traitColors['RESILIENCE']
