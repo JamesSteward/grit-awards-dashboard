@@ -1031,19 +1031,19 @@ const FamilyDashboard = () => {
                 Quick Actions
               </h2>
               <div className="space-y-3 mb-8">
-                <button className="w-full bg-gradient-to-br from-grit-green to-grit-green-dark text-white font-medium px-6 py-3 rounded-xl hover:shadow-lg transition-all flex items-center justify-center">
+                <Button className="w-full px-6 py-3 flex items-center justify-center">
                   <svg className="w-5 h-5 mr-2" fill="currentColor" viewBox="0 0 20 20">
                     <path fillRule="evenodd" d="M16.707 5.293a1 1 0 010 1.414l-8 8a1 1 0 01-1.414 0l-4-4a1 1 0 011.414-1.414L8 12.586l7.293-7.293a1 1 0 011.414 0z" clipRule="evenodd"/>
                   </svg>
                   GRIT BIT Submission
-                </button>
-                <button className="w-full bg-gradient-to-br from-grit-green to-grit-green-dark text-white font-medium px-6 py-3 rounded-xl hover:shadow-lg transition-all flex items-center justify-center">
+                </Button>
+                <Button className="w-full px-6 py-3 flex items-center justify-center">
                   <svg className="w-5 h-5 mr-2" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2">
                     <path d="M21 15a2 2 0 0 1-2 2H7l-4 4V5a2 2 0 0 1 2-2h14a2 2 0 0 1 2 2z"/>
                   </svg>
                   Message GRIT Lead
-                </button>
-                <button onClick={() => setActiveTab('challenges')} className="w-full bg-gradient-to-br from-grit-green to-grit-green-dark text-white font-medium px-6 py-3 rounded-xl hover:shadow-lg transition-all flex items-center justify-center">
+                </Button>
+                <Button onClick={() => setActiveTab('challenges')} className="w-full px-6 py-3 flex items-center justify-center">
                   <svg className="w-5 h-5 mr-2" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2">
                     <line x1="8" y1="6" x2="21" y2="6"/>
                     <line x1="8" y1="12" x2="21" y2="12"/>
@@ -1053,7 +1053,7 @@ const FamilyDashboard = () => {
                     <line x1="3" y1="18" x2="3.01" y2="18"/>
                   </svg>
                   View All Challenges
-                </button>
+                </Button>
               </div>
             </div>
           </div>
@@ -1725,13 +1725,13 @@ const FamilyDashboard = () => {
               >
                 Cancel
               </button>
-              <button
+              <Button
                 onClick={handleSubmitEvidence}
                 disabled={!evidenceText.trim() || submittingEvidence}
-                className="flex-1 bg-gradient-to-br from-grit-green to-grit-green-dark text-white py-2 rounded-lg font-semibold disabled:opacity-50 disabled:cursor-not-allowed"
+                className="flex-1 py-2"
               >
                 {submittingEvidence ? 'Submitting...' : 'Submit Evidence'}
-              </button>
+              </Button>
             </div>
           </div>
         </div>
@@ -1778,17 +1778,17 @@ const FamilyDashboard = () => {
             </div>
 
             {/* Begin New Challenge button */}
-            <button
+            <Button
               onClick={() => {
                 setShowSuccessModal(false);
                 setShowEvidenceModal(false);
                 setExpandedChallenge(null);
                 setActiveTab('challenges');
               }}
-              className="w-full bg-gradient-to-br from-grit-green to-grit-green-dark text-white py-3 rounded-lg font-semibold hover:shadow-lg transition-shadow"
+              className="w-full py-3"
             >
               Begin a New Challenge
-            </button>
+            </Button>
           </div>
         </div>
       )}
@@ -1962,24 +1962,24 @@ const ChallengeCard = ({ challenge, status: displayStatus, isExpanded, onExpand,
       {/* Action Buttons */}
       <div className="flex gap-3 mt-4">
         {(status === 'not_started' || displayStatus === 'available') && (
-          <button
+          <Button
             onClick={() => {
               console.log('Begin button clicked, challenge:', challenge);
               onBeginChallenge(challenge.challenges?.id || challenge.id);
             }}
-            className="flex-1 bg-gradient-to-br from-grit-green to-grit-green-dark text-white py-3 rounded-lg font-semibold"
+            className="flex-1 py-3"
           >
             Begin Challenge
-          </button>
+          </Button>
         )}
         
         {(status === 'in_progress' || status === 'submitted') && (
-          <button
+          <Button
             onClick={() => onCompleteChallenge(challenge.challenges?.id)}
-            className="flex-1 bg-gradient-to-br from-grit-green to-grit-green-dark text-white py-3 rounded-lg font-semibold"
+            className="flex-1 py-3"
           >
             Complete Challenge
-          </button>
+          </Button>
         )}
 
         <button
