@@ -186,15 +186,19 @@ const LoginModal = ({ isOpen, onClose }) => {
               >
                 GRIT Directors (Coming Soon)
               </Button>
-            </div>
-            
-            <div className="mt-6 pt-6 border-t border-grit-gold-dark">
-              <button
-                className="text-sm text-grit-gold-dark cursor-not-allowed"
+              
+              <Button
+                className="w-full py-4 px-8 bg-gray-400 cursor-not-allowed"
                 disabled
               >
                 I'm a GRIT Administrator (Coming Soon)
-              </button>
+              </Button>
+            </div>
+            
+            <div className="mt-6 pt-6 border-t" style={{borderColor: '#CEC6B5'}}>
+              <div className="text-center text-sm text-grit-gold-dark">
+                COPPA Direct Notice • GDPR • Terms of Service • Privacy Policy
+              </div>
             </div>
           </>
         ) : selectedRole === 'family' ? (
