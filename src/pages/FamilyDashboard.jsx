@@ -1809,14 +1809,14 @@ const ChallengeCard = ({ challenge, status: displayStatus, isExpanded, onExpand,
   }
   
   const traitColors = {
-    'COURAGE': { bg: 'bg-red-50', text: 'text-red-600', border: 'border-l-red-500' },
-    'KINDNESS': { bg: 'bg-pink-50', text: 'text-pink-600', border: 'border-l-pink-500' },
-    'RESILIENCE': { bg: 'bg-blue-50', text: 'text-blue-600', border: 'border-l-blue-500' },
-    'INTEGRITY': { bg: 'bg-green-50', text: 'text-green-600', border: 'border-l-green-500' },
-    'RESPECT': { bg: 'bg-purple-50', text: 'text-purple-600', border: 'border-l-purple-500' },
-    'RESPONSIBILITY': { bg: 'bg-orange-50', text: 'text-orange-600', border: 'border-l-orange-500' },
-    'PERSEVERANCE': { bg: 'bg-indigo-50', text: 'text-indigo-600', border: 'border-l-indigo-500' },
-    'EMPATHY': { bg: 'bg-teal-50', text: 'text-teal-600', border: 'border-l-teal-500' }
+    'COURAGE': { bg: 'bg-red-500', text: 'text-white', border: 'border-l-red-500' },
+    'KINDNESS': { bg: 'bg-pink-500', text: 'text-white', border: 'border-l-pink-500' },
+    'RESILIENCE': { bg: 'bg-orange-500', text: 'text-white', border: 'border-l-orange-500' },
+    'INTEGRITY': { bg: 'bg-blue-500', text: 'text-white', border: 'border-l-blue-500' },
+    'RESPECT': { bg: 'bg-purple-500', text: 'text-white', border: 'border-l-purple-500' },
+    'RESPONSIBILITY': { bg: 'bg-green-500', text: 'text-white', border: 'border-l-green-500' },
+    'PERSEVERANCE': { bg: 'bg-indigo-500', text: 'text-white', border: 'border-l-indigo-500' },
+    'EMPATHY': { bg: 'bg-teal-500', text: 'text-white', border: 'border-l-teal-500' }
   }
   
   const colors = traitColors[trait] || traitColors['RESILIENCE']
@@ -1826,10 +1826,10 @@ const ChallengeCard = ({ challenge, status: displayStatus, isExpanded, onExpand,
   const isActive = displayStatus === 'active'
   
   const cardClasses = isCompleted 
-    ? 'bg-gray-50 rounded-xl p-5 shadow-sm hover:shadow-md transition-all cursor-pointer border-l-4 border-l-gray-300 opacity-70 grayscale'
+    ? 'bg-white rounded-lg p-4 shadow-sm hover:shadow-md transition-all cursor-pointer border-l-4 border-l-gray-300 opacity-70'
     : isActive
-    ? `bg-white rounded-xl p-5 shadow-sm hover:shadow-md transition-all cursor-pointer border border-grit-green ${colors.border}`
-    : `bg-white rounded-xl p-5 shadow-sm hover:shadow-md transition-all cursor-pointer border-l-4 ${colors.border}`
+    ? `bg-white rounded-lg p-4 shadow-sm hover:shadow-md transition-all cursor-pointer border-l-4 ${colors.border}`
+    : `bg-white rounded-lg p-4 shadow-sm hover:shadow-md transition-all cursor-pointer border-l-4 ${colors.border}`
   
   // Collapsed view
   if (!isExpanded) {
@@ -1837,14 +1837,14 @@ const ChallengeCard = ({ challenge, status: displayStatus, isExpanded, onExpand,
       <div className={`${cardClasses} transition-all duration-300 ease-in-out`} onClick={() => onExpand()}>
         <div className="flex justify-between items-start mb-3">
           <div className="flex items-center gap-2 flex-wrap">
-            <span className={`${isCompleted ? 'bg-gray-200 text-gray-900-dark' : colors.bg + ' ' + colors.text} px-3 py-1 rounded-full text-xs font-medium uppercase tracking-wide`}>
+            <span className={`${isCompleted ? 'bg-gray-200 text-gray-900' : colors.bg + ' ' + colors.text} px-3 py-1 rounded-full text-xs font-medium uppercase tracking-wide`}>
               {trait}
             </span>
             {points && (
               <span className={`px-2 py-1 rounded text-xs font-bold ${
-                isCompleted ? 'bg-gray-300 text-gray-900' : 'bg-grit-gold-dark text-grit-green'
+                isCompleted ? 'bg-gray-300 text-gray-900' : 'bg-white text-grit-gold'
               }`}>
-                {points} pts
+                {points} Points
               </span>
             )}
           </div>
@@ -1892,11 +1892,11 @@ const ChallengeCard = ({ challenge, status: displayStatus, isExpanded, onExpand,
       {/* Header - same as collapsed */}
       <div className="flex items-center justify-between mb-3">
         <div className="flex gap-2">
-          <span className="bg-blue-100 text-blue-800 px-3 py-1 rounded text-xs font-semibold">
+          <span className="bg-blue-100 text-blue-800 px-3 py-1 rounded-full text-xs font-semibold">
             {trait}
           </span>
-          <span className="bg-gray-100 text-gray-900 px-3 py-1 rounded text-xs font-semibold">
-            {points} pts
+          <span className="bg-white text-grit-gold px-3 py-1 rounded-full text-xs font-semibold">
+            {points} Points
           </span>
         </div>
         <div className="flex items-center gap-2">
