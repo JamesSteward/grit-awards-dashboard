@@ -216,6 +216,24 @@ const FamilyDashboard = () => {
 
     try {
       const mediaUrls = [];
+      
+      // Find the challenge and get the correct challenge ID
+      const challenge = challenges.find(c => {
+        const progressId = c.id; // student_progress id
+        const challengeId = c.challenges?.id || c.objective_id;
+        return progressId === expandedChallenge || challengeId === expandedChallenge;
+      });
+
+      // Extract the actual challenge ID from the challenges table
+      const actualChallengeId = challenge?.challenges?.id || challenge?.objective_id;
+      
+      console.log('Challenge found:', challenge);
+      console.log('Using challenge ID:', actualChallengeId);
+      console.log('Expanded challenge was:', expandedChallenge);
+
+      if (!actualChallengeId) {
+        throw new Error('Could not find challenge ID');
+      }
 
       // File uploads temporarily disabled due to storage configuration
       // TODO: Uncomment when Supabase storage is properly configured
@@ -261,18 +279,11 @@ const FamilyDashboard = () => {
       }
       */
 
-      // Find the challenge title
-      const challenge = challenges.find(c => {
-        const challengeId = c.challenges?.id || c.objective_id;
-        return challengeId === expandedChallenge;
-      });
-
-      // Create evidence submission record
       const { error: submitError } = await supabase
         .from('evidence_submissions')
         .insert({
           student_id: student.id,
-          challenge_id: expandedChallenge,
+          challenge_id: actualChallengeId,  // Use the correct challenges.id
           submission_type: 'challenge',
           title: challenge?.challenges?.title || challenge?.title || 'Challenge Evidence',
           text_content: evidenceText,
@@ -280,31 +291,23 @@ const FamilyDashboard = () => {
           status: 'pending'
         });
 
-      if (submitError) {
-        console.error('Evidence submission error:', submitError);
-        throw submitError;
-      }
+      if (submitError) throw submitError;
 
-      // Update student_progress to 'submitted'
+      // Update progress using the correct objective_id
       const { error: updateError } = await supabase
         .from('student_progress')
         .update({ status: 'submitted' })
         .eq('student_id', student.id)
-        .eq('objective_id', expandedChallenge);
+        .eq('objective_id', actualChallengeId);
 
-      if (updateError) {
-        console.error('Progress update error:', updateError);
-        throw updateError;
-      }
+      if (updateError) throw updateError;
 
-      // Reset modal state
       setShowEvidenceModal(false);
       setEvidenceText('');
       setEvidenceImages([]);
       setEvidenceVideo(null);
       setExpandedChallenge(null);
 
-      // Refresh data
       await fetchStudentChallenges();
       await fetchHomeStats();
 
