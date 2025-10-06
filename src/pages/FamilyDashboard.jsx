@@ -1327,16 +1327,16 @@ const FamilyDashboard = () => {
                 {/* Progress Stats */}
                 <div className="grid grid-cols-3 gap-6 text-center">
                   <div className="bg-gray-50 rounded-lg p-4">
-                    <div className="text-2xl font-bold text-grit-green mb-1">{stats.completedCount || 0}</div>
+                    <div className="text-2xl font-bold text-grit-gold-dark mb-1">{stats.completedCount || 0}</div>
                     <div className="text-sm text-gray-900">Completed</div>
                   </div>
                   <div className="bg-gray-50 rounded-lg p-4">
-                    <div className="text-2xl font-bold text-grit-gold-dark mb-1">{stats.inProgressCount || 0}</div>
+                    <div className="text-2xl font-bold text-grit-green mb-1">{stats.inProgressCount || 0}</div>
                     <div className="text-sm text-gray-900">In Progress</div>
                   </div>
                   <div className="bg-gray-50 rounded-lg p-4">
                     <div className="text-2xl font-bold text-gray-500 mb-1">{challenges.length - (stats.completedCount || 0) - (stats.inProgressCount || 0)}</div>
-                    <div className="text-sm text-gray-900">Available</div>
+                    <div className="text-sm text-gray-900">Yet to Start</div>
                   </div>
                 </div>
               </div>
