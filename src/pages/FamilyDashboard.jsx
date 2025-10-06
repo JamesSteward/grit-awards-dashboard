@@ -20,6 +20,7 @@ const FamilyDashboard = () => {
   const [activeTab, setActiveTab] = useState('home') // 'home', 'challenges', 'progress', 'awards', 'messages'
   const [expandedChallenge, setExpandedChallenge] = useState(null)
   const [showEvidenceModal, setShowEvidenceModal] = useState(false)
+  const [showSuccessModal, setShowSuccessModal] = useState(false)
   const [evidenceText, setEvidenceText] = useState('')
   const [evidenceImages, setEvidenceImages] = useState([])
   const [evidenceVideo, setEvidenceVideo] = useState(null)
@@ -302,16 +303,15 @@ const FamilyDashboard = () => {
 
       if (updateError) throw updateError;
 
-      setShowEvidenceModal(false);
       setEvidenceText('');
       setEvidenceImages([]);
       setEvidenceVideo(null);
-      setExpandedChallenge(null);
 
       await fetchStudentChallenges();
       await fetchHomeStats();
 
-      alert('Evidence submitted successfully! Your GRIT Lead will review your text description soon.');
+      setShowSuccessModal(true);
+      // Don't close the evidence modal yet - let success modal handle it
       
     } catch (error) {
       console.error('Error submitting evidence:', error);
@@ -1733,6 +1733,62 @@ const FamilyDashboard = () => {
                 {submittingEvidence ? 'Submitting...' : 'Submit Evidence'}
               </button>
             </div>
+          </div>
+        </div>
+      )}
+
+      {/* Success Modal */}
+      {showSuccessModal && (
+        <div className="fixed inset-0 bg-black bg-opacity-50 flex items-center justify-center z-50 p-4">
+          <div className="bg-white rounded-lg p-8 max-w-md w-full relative">
+            {/* Close X button */}
+            <button
+              onClick={() => {
+                setShowSuccessModal(false);
+                setShowEvidenceModal(false);
+                setExpandedChallenge(null);
+              }}
+              className="absolute top-4 right-4 text-gray-400 hover:text-gray-600 text-2xl w-8 h-8 flex items-center justify-center"
+            >
+              ×
+            </button>
+
+            {/* Animated SUBMITTED stamp */}
+            <div className="flex justify-center mb-6">
+              <img 
+                src="/SUBMITTED.svg" 
+                alt="Submitted" 
+                className="w-32 h-32 animate-bounce"
+              />
+            </div>
+
+            {/* Success message with student and teacher names */}
+            <div className="text-center mb-6">
+              <p className="text-lg text-gray-800 leading-relaxed">
+                Well done, <span className="font-bold text-[#032717]">{student?.first_name}</span>!
+                <br />
+                Your evidence has been submitted successfully!
+                <br />
+                <br />
+                Your GRIT Lead <span className="font-bold text-[#032717]">Mr Mackenzie</span> will review your challenge soon.
+                <br />
+                <br />
+                Good luck!
+              </p>
+            </div>
+
+            {/* Begin New Challenge button */}
+            <button
+              onClick={() => {
+                setShowSuccessModal(false);
+                setShowEvidenceModal(false);
+                setExpandedChallenge(null);
+                setActiveTab('challenges');
+              }}
+              className="w-full bg-gradient-to-br from-[#032717] to-[#054d2a] text-white py-3 rounded-lg font-semibold hover:shadow-lg transition-shadow"
+            >
+              Begin a New Challenge
+            </button>
           </div>
         </div>
       )}
