@@ -1842,7 +1842,7 @@ const ChallengeCard = ({ challenge, status: displayStatus, isExpanded, onExpand,
             </span>
             {points && (
               <span className={`px-2 py-1 rounded text-xs font-bold ${
-                isCompleted ? 'bg-gray-300 text-gray-900' : 'bg-white text-grit-gold'
+                isCompleted ? 'bg-gray-300 text-gray-900' : 'bg-grit-gold-dark text-white'
               }`}>
                 {points} Points
               </span>
@@ -1895,7 +1895,7 @@ const ChallengeCard = ({ challenge, status: displayStatus, isExpanded, onExpand,
           <span className="bg-blue-100 text-blue-800 px-3 py-1 rounded-full text-xs font-semibold">
             {trait}
           </span>
-          <span className="bg-white text-grit-gold px-3 py-1 rounded-full text-xs font-semibold">
+          <span className="bg-grit-gold-dark text-white px-3 py-1 rounded-full text-xs font-semibold">
             {points} Points
           </span>
         </div>
