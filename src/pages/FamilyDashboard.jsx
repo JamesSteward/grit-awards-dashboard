@@ -849,6 +849,8 @@ const FamilyDashboard = () => {
                       isExpanded={expandedChallenge === challenge.id}
                       onExpand={() => setExpandedChallenge(challenge.id)}
                       onCollapse={() => setExpandedChallenge(null)}
+                      onBeginChallenge={handleBeginChallenge}
+                      onCompleteChallenge={handleCompleteChallenge}
                     />
                   ))}
                 </div>
@@ -961,6 +963,8 @@ const FamilyDashboard = () => {
                       isExpanded={expandedChallenge === challenge.id}
                       onExpand={() => setExpandedChallenge(challenge.id)}
                       onCollapse={() => setExpandedChallenge(null)}
+                      onBeginChallenge={handleBeginChallenge}
+                      onCompleteChallenge={handleCompleteChallenge}
                     />
                   ))}
                 </div>
@@ -997,6 +1001,8 @@ const FamilyDashboard = () => {
                       isExpanded={expandedChallenge === challenge.id}
                       onExpand={() => setExpandedChallenge(challenge.id)}
                       onCollapse={() => setExpandedChallenge(null)}
+                      onBeginChallenge={handleBeginChallenge}
+                      onCompleteChallenge={handleCompleteChallenge}
                     />
                   ))}
                 </div>
@@ -1562,7 +1568,7 @@ const FamilyDashboard = () => {
   )
 }
 
-const ChallengeCard = ({ challenge, status: displayStatus, isExpanded, onExpand, onCollapse }) => {
+const ChallengeCard = ({ challenge, status: displayStatus, isExpanded, onExpand, onCollapse, onBeginChallenge, onCompleteChallenge }) => {
   const trait = challenge.challenges?.trait
   const points = challenge.challenges?.points
   const status = challenge.status
@@ -1727,11 +1733,11 @@ const ChallengeCard = ({ challenge, status: displayStatus, isExpanded, onExpand,
 
       {/* Action Buttons */}
       <div className="flex gap-3 mt-4">
-        {status === 'not_started' && (
+        {(status === 'not_started' || displayStatus === 'available') && (
           <button
             onClick={() => {
               console.log('Begin button clicked, challenge:', challenge);
-              handleBeginChallenge(challenge.challenges?.id || challenge.id);
+              onBeginChallenge(challenge.challenges?.id || challenge.id);
             }}
             className="flex-1 bg-gradient-to-br from-[#032717] to-[#054d2a] text-white py-3 rounded-lg font-semibold"
           >
@@ -1741,7 +1747,7 @@ const ChallengeCard = ({ challenge, status: displayStatus, isExpanded, onExpand,
         
         {(status === 'in_progress' || status === 'submitted') && (
           <button
-            onClick={() => handleCompleteChallenge(challenge.challenges?.id)}
+            onClick={() => onCompleteChallenge(challenge.challenges?.id)}
             className="flex-1 bg-gradient-to-br from-[#032717] to-[#054d2a] text-white py-3 rounded-lg font-semibold"
           >
             Complete Challenge
