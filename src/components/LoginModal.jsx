@@ -267,13 +267,13 @@ const LoginModal = ({ isOpen, onClose }) => {
                 </div>
               )}
 
-              <button
+              <Button
                 type="submit"
                 disabled={loading}
-                className="w-full bg-gradient-to-br from-grit-green to-grit-green-dark shadow-lg shadow-grit-green/20 hover:shadow-xl hover:shadow-grit-green/30 hover:-translate-y-0.5 transition-all duration-200 text-white font-semibold py-4 px-8 rounded-lg disabled:opacity-50 disabled:cursor-not-allowed disabled:hover:translate-y-0"
+                className="w-full py-4 px-8"
               >
                 {loading ? 'Signing in...' : 'Family Sign In'}
-              </button>
+              </Button>
             </form>
 
             {/* Forgot Password */}
@@ -341,12 +341,12 @@ const LoginModal = ({ isOpen, onClose }) => {
             </div>
 
             {/* Create Family Account Button */}
-            <button
+            <Button
               onClick={handleCreateAccount}
-              className="w-full bg-gradient-to-br from-grit-green to-grit-green-dark shadow-lg text-white font-semibold py-4 rounded-lg hover:shadow-xl hover:-translate-y-0.5 transition-all duration-200"
+              className="w-full py-4"
             >
               Create Family Account
-            </button>
+            </Button>
           </>
         ) : selectedRole === 'createAccount' ? (
           /* Create Family Account View */
@@ -364,13 +364,13 @@ const LoginModal = ({ isOpen, onClose }) => {
             
             {/* Scan Button */}
             <div className="flex justify-center mb-6">
-              <button
+              <Button
                 onClick={handleScanQR}
-                className="w-full sm:w-72 max-w-full bg-gradient-to-br from-grit-green to-grit-green-dark py-5 px-10 rounded-xl text-lg font-semibold text-white shadow-lg hover:shadow-xl transition-all duration-200 flex items-center justify-center gap-4"
+                className="w-full sm:w-72 max-w-full py-5 px-10 flex items-center justify-center gap-4"
               >
                 <img src="/QR.svg" alt="QR Code" className="w-7 h-7" />
                 Scan Code
-              </button>
+              </Button>
             </div>
 
             {/* Help Text */}
@@ -460,13 +460,13 @@ const LoginModal = ({ isOpen, onClose }) => {
                 </div>
               )}
 
-              <button
+              <Button
                 type="submit"
                 disabled={loading}
-                className="w-full bg-gradient-to-br from-grit-green to-grit-green-dark py-3.5 rounded-lg text-white font-semibold disabled:opacity-50 disabled:cursor-not-allowed"
+                className="w-full py-3.5"
               >
                 {loading ? 'Signing in...' : 'Sign In'}
-              </button>
+              </Button>
             </form>
 
             {/* Divider */}
@@ -557,13 +557,13 @@ const LoginModal = ({ isOpen, onClose }) => {
               )}
 
               {/* Login Button */}
-              <button
+              <Button
                 type="submit"
                 disabled={loading}
-                className="w-full bg-gradient-to-br from-grit-green to-grit-green-dark shadow-lg shadow-grit-green/20 hover:shadow-xl hover:shadow-grit-green/30 hover:-translate-y-0.5 transition-all duration-200 text-white font-semibold py-4 px-8 rounded-lg disabled:opacity-50 disabled:cursor-not-allowed disabled:hover:translate-y-0"
+                className="w-full py-4 px-8"
               >
                 {loading ? 'Signing in...' : 'Login'}
-              </button>
+              </Button>
             </form>
 
             {/* Demo Instructions */}
