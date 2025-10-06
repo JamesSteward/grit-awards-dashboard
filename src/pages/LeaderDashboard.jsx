@@ -50,6 +50,11 @@ const LeaderDashboard = () => {
   const [showFeedbackModal, setShowFeedbackModal] = useState(false)
   const [feedbackText, setFeedbackText] = useState('')
   
+  // Points awarded modal states
+  const [showPointsModal, setShowPointsModal] = useState(false)
+  const [awardedStudentName, setAwardedStudentName] = useState('')
+  const [awardedPoints, setAwardedPoints] = useState(0)
+  
   // Announcement states
   const [announcementFilters, setAnnouncementFilters] = useState({
     yearLevel: 'all',        // 'all', '3', '4', '5', '6'
@@ -191,7 +196,20 @@ const LeaderDashboard = () => {
       return;
     }
 
-    setPendingSubmissions(data || []);
+    // Deduplicate submissions - keep only the latest for each student/challenge combination
+    const deduplicatedSubmissions = [];
+    const seenCombinations = new Set();
+
+    (data || []).forEach(submission => {
+      const key = `${submission.student_id}-${submission.challenge_id}`;
+      
+      if (!seenCombinations.has(key)) {
+        seenCombinations.add(key);
+        deduplicatedSubmissions.push(submission);
+      }
+    });
+
+    setPendingSubmissions(deduplicatedSubmissions);
   }
 
   // Update recipient count when announcement modal opens
@@ -463,7 +481,15 @@ const LeaderDashboard = () => {
       // Refresh submissions list
       await fetchPendingSubmissions();
 
-      alert(`Approved! ${submission.students.first_name} earned ${submission.challenges.points} points.`);
+      // Show custom points awarded modal
+      setAwardedStudentName(submission.students.first_name);
+      setAwardedPoints(submission.challenges.points);
+      setShowPointsModal(true);
+
+      // Auto-close modal after 2 seconds
+      setTimeout(() => {
+        setShowPointsModal(false);
+      }, 2000);
       
     } catch (error) {
       console.error('Error approving evidence:', error);
@@ -585,7 +611,10 @@ const LeaderDashboard = () => {
       // Update student_progress to needs_revision
       const { error: progressError } = await supabase
         .from('student_progress')
-        .update({ status: 'needs_revision' })
+        .update({ 
+          status: 'needs_revision',
+          feedback: feedbackText 
+        })
         .eq('student_id', reviewingSubmission.student_id)
         .eq('objective_id', reviewingSubmission.challenge_id);
 
@@ -1918,6 +1947,18 @@ const LeaderDashboard = () => {
               >
                 Send Feedback
               </button>
+            </div>
+          </div>
+        </div>
+      )}
+
+      {/* Points Awarded Modal */}
+      {showPointsModal && (
+        <div className="fixed inset-0 bg-black/50 flex items-center justify-center z-50 animate-fade-in">
+          <div className="bg-white rounded-lg p-8 text-center">
+            <p className="text-gray-700 mb-4">Points awarded to {awardedStudentName}</p>
+            <div className="w-24 h-24 rounded-full bg-[#b5aa91] flex items-center justify-center mx-auto">
+              <span className="text-4xl font-bold text-white" style={{fontFamily: 'Roboto Slab'}}>{awardedPoints}</span>
             </div>
           </div>
         </div>
