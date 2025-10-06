@@ -1256,12 +1256,12 @@ const LeaderDashboard = () => {
 
                               {/* Action Buttons */}
                               <div className="flex gap-3">
-                                <button
+                                <Button
                                   onClick={() => handleApproveEvidence(submission)}
-                                  className="flex-1 bg-gradient-to-br from-grit-green to-grit-green-dark text-white py-2 rounded-lg font-semibold hover:shadow-lg"
+                                  className="flex-1 py-2"
                                 >
                                   Approve
-                                </button>
+                                </Button>
                                 <button
                                   onClick={() => {
                                     setReviewingSubmission(submission);
