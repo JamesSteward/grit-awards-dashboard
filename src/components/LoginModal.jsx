@@ -180,12 +180,12 @@ const LoginModal = ({ isOpen, onClose }) => {
                 GRIT Leaders
               </Button>
               
-              <Button
-                className="w-full py-4 px-8 bg-gray-400 text-gray-600 cursor-not-allowed"
+              <button
+                className="w-full py-4 px-8 bg-gray-400 text-gray-600 rounded-lg cursor-not-allowed"
                 disabled
               >
                 GRIT Directors (Coming Soon)
-              </Button>
+              </button>
               
               <div className="text-center">
                 <button
