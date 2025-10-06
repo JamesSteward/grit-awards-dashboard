@@ -1052,11 +1052,21 @@ const FamilyDashboard = () => {
                 Quick Actions
               </h2>
               <div className="space-y-3 mb-8">
-                <Button className="w-full px-6 py-3 flex items-center justify-center">
-                  <svg className="w-5 h-5 mr-2" fill="currentColor" viewBox="0 0 20 20">
-                    <path fillRule="evenodd" d="M16.707 5.293a1 1 0 010 1.414l-8 8a1 1 0 01-1.414 0l-4-4a1 1 0 011.414-1.414L8 12.586l7.293-7.293a1 1 0 011.414 0z" clipRule="evenodd"/>
-                  </svg>
-                  GRIT BIT Submission
+                <Button 
+                  onClick={() => {
+                    // Open evidence submission modal for any active challenge
+                    const activeChallenge = challenges.find(c => c.status === 'in_progress');
+                    if (activeChallenge) {
+                      setExpandedChallenge(activeChallenge.id);
+                      setShowEvidenceModal(true);
+                    } else {
+                      alert('No active challenges to submit evidence for. Start a challenge first!');
+                    }
+                  }}
+                  className="w-full px-6 py-3 flex items-center justify-center bg-grit-gold-dark text-white hover:bg-grit-gold-dark/90"
+                >
+                  <img src="/SUBMITTED.svg" alt="Submit" className="w-5 h-5 mr-2" />
+                  Submit GRIT BIT
                 </Button>
                 <Button className="w-full px-6 py-3 flex items-center justify-center">
                   <svg className="w-5 h-5 mr-2" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2">
