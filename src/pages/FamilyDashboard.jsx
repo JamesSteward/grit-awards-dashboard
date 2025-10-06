@@ -849,7 +849,7 @@ const FamilyDashboard = () => {
           {/* Close button */}
           <button 
             onClick={() => setShowProfileModal(false)}
-            className="absolute top-4 right-4 w-8 h-8 flex items-center justify-center rounded-full hover:bg-gray-100 text-gray-900-dark"
+            className="absolute top-4 right-4 w-10 h-10 flex items-center justify-center rounded-full hover:bg-gray-100 text-gray-900-dark text-xl font-bold"
           >
             ×
           </button>
@@ -1494,14 +1494,18 @@ const FamilyDashboard = () => {
                     <div
                       key={reward.id}
                       onClick={() => handleRewardClick(reward)}
-                      className="flex items-center gap-4 p-4 rounded-lg hover:bg-gray-50 cursor-pointer transition-colors"
+                      className={`flex items-center gap-4 p-4 rounded-lg hover:bg-gray-50 cursor-pointer transition-colors ${
+                        !reward.available ? 'opacity-50' : ''
+                      }`}
                     >
-                      <div className="w-12 h-12 bg-grit-green/10 rounded-full flex items-center justify-center text-grit-green">
+                      <div className={`w-12 h-12 rounded-full flex items-center justify-center ${
+                        reward.available ? 'bg-grit-green/10 text-grit-green' : 'bg-gray-100 text-gray-400'
+                      }`}>
                         {reward.icon}
                       </div>
                       <div className="flex-1">
-                        <h4 className="font-semibold text-gray-900">{reward.title}</h4>
-                        <p className="text-sm text-gray-900">{reward.description}</p>
+                        <h4 className={`font-semibold ${reward.available ? 'text-gray-900' : 'text-gray-500'}`}>{reward.title}</h4>
+                        <p className={`text-sm ${reward.available ? 'text-gray-900' : 'text-gray-500'}`}>{reward.description}</p>
                       </div>
                       <div className={`px-3 py-1 rounded-full text-xs font-medium ${
                         reward.available 
@@ -1547,10 +1551,10 @@ const FamilyDashboard = () => {
           <div className="px-5 py-6 pb-32">
             <div className="flex flex-col lg:flex-row gap-6 min-h-[calc(100vh-300px)] lg:h-[calc(100vh-300px)]">
               {/* Left Sidebar - Conversation List */}
-              <div className={`w-full lg:w-[30%] bg-white rounded-lg shadow-sm border border-grit-gold-dark flex flex-col ${
+              <div className={`w-full lg:w-[30%] bg-white rounded-lg shadow-lg border border-gray-200 flex flex-col ${
                 showConversationList ? 'block' : 'hidden lg:block'
               }`}>
-                <div className="p-4 border-b border-grit-gold-dark">
+                <div className="p-4 border-b border-gray-200">
                   <h2 className="text-lg font-semibold text-gray-900">Conversations</h2>
                 </div>
                 
@@ -1616,11 +1620,11 @@ const FamilyDashboard = () => {
               </div>
 
               {/* Right Panel - Conversation Thread */}
-              <div className="w-full lg:flex-1 bg-white rounded-lg shadow-sm border border-grit-gold-dark flex flex-col min-h-[400px] lg:h-full">
+              <div className="w-full lg:flex-1 bg-white rounded-lg shadow-lg border border-gray-200 flex flex-col min-h-[400px] lg:h-full">
                 {selectedConversation ? (
                   <>
                     {/* Conversation Header */}
-                    <div className="p-4 border-b border-grit-gold-dark">
+                    <div className="p-4 border-b border-gray-200">
                       {/* Back button for mobile */}
                       <button
                         onClick={() => setShowConversationList(true)}
@@ -1708,7 +1712,7 @@ const FamilyDashboard = () => {
 
                     {/* Message Input */}
                     {selectedConversation.conversation_type !== 'announcement' && (
-                      <div className="p-4 border-t border-grit-gold-dark bg-white sticky bottom-0 z-10">
+                      <div className="p-4 border-t border-gray-200 bg-white sticky bottom-0 z-10">
                         <div className="flex gap-3">
                           <input
                             type="text"
@@ -1716,7 +1720,7 @@ const FamilyDashboard = () => {
                             onChange={(e) => setNewMessage(e.target.value)}
                             onKeyPress={(e) => e.key === 'Enter' && sendMessage()}
                             placeholder="Type your message..."
-                            className="flex-1 px-3 py-3 border border-grit-gold-dark rounded-lg focus:ring-2 focus:ring-grit-green focus:border-transparent text-base"
+                            className="flex-1 px-3 py-3 border border-gray-300 rounded-lg focus:ring-2 focus:ring-grit-green focus:border-transparent text-base"
                             disabled={sending}
                           />
                           <button
