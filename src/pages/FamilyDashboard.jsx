@@ -25,10 +25,13 @@ const FamilyDashboard = () => {
   const [expandedChallenge, setExpandedChallenge] = useState(null)
   const [showEvidenceModal, setShowEvidenceModal] = useState(false)
   const [showSuccessModal, setShowSuccessModal] = useState(false)
+  const [showGritBitModal, setShowGritBitModal] = useState(false)
   const [evidenceText, setEvidenceText] = useState('')
   const [evidenceImages, setEvidenceImages] = useState([])
   const [evidenceVideo, setEvidenceVideo] = useState(null)
   const [submittingEvidence, setSubmittingEvidence] = useState(false)
+  const [gritBitText, setGritBitText] = useState('')
+  const [submittingGritBit, setSubmittingGritBit] = useState(false)
   const [stats, setStats] = useState({
     progressPercentage: 0,
     completedCount: 0,
@@ -840,6 +843,65 @@ const FamilyDashboard = () => {
     }
   }
 
+  const handleSubmitGritBit = async () => {
+    if (!gritBitText.trim()) {
+      alert('Please describe what you did to earn GRIT points!')
+      return
+    }
+
+    setSubmittingGritBit(true)
+    
+    try {
+      // Get current user
+      const { data: { user } } = await supabase.auth.getUser()
+      if (!user) throw new Error('Not authenticated')
+
+      // Get user record
+      const { data: userRecord } = await supabase
+        .from('users')
+        .select('id')
+        .eq('email', user.email)
+        .single()
+
+      if (!userRecord) throw new Error('User not found')
+
+      // Get student record
+      const { data: studentRecord } = await supabase
+        .from('students')
+        .select('id')
+        .eq('family_user_id', userRecord.id)
+        .single()
+
+      if (!studentRecord) throw new Error('Student not found')
+
+      // Insert GRIT Bit submission
+      const { error } = await supabase
+        .from('grit_bit_submissions')
+        .insert({
+          student_id: studentRecord.id,
+          description: gritBitText.trim(),
+          status: 'pending',
+          points_awarded: 5 // Default points for GRIT Bits
+        })
+
+      if (error) throw error
+
+      // Success
+      setShowGritBitModal(false)
+      setGritBitText('')
+      alert('GRIT Bit submitted! Your GRIT Lead will review it and award points.')
+      
+      // Refresh stats
+      fetchHomeStats()
+      
+    } catch (error) {
+      console.error('Error submitting GRIT Bit:', error)
+      alert('Failed to submit GRIT Bit. Please try again.')
+    } finally {
+      setSubmittingGritBit(false)
+    }
+  }
+
   const ProfileModal = () => {
 
     return (
@@ -950,19 +1012,19 @@ const FamilyDashboard = () => {
                     style={{ width: `${stats.progressPercentage}%` }}
                   />
                 </div>
+                </div>
               </div>
-            </div>
 
             {/* Stats Grid */}
             <div className="grid grid-cols-3 gap-3 mb-6">
               <div className="bg-white rounded-lg p-4 text-center shadow-sm">
                 <div className="text-2xl font-bold text-grit-green">{stats.completedCount || 0}</div>
                 <div className="text-xs text-gray-900 mt-1">Completed</div>
-              </div>
+            </div>
               <div className="bg-white rounded-lg p-4 text-center shadow-sm">
                 <div className="text-2xl font-bold text-grit-green">{stats.inProgressCount || 0}</div>
                 <div className="text-xs text-gray-900 mt-1">In Progress</div>
-              </div>
+          </div>
               <div className="bg-white rounded-lg p-4 text-center shadow-sm">
                 <div className="text-2xl font-bold text-grit-green">{stats.gritPoints || 0}</div>
                 <div className="text-xs text-gray-900 mt-1">GRIT Points</div>
@@ -1053,16 +1115,7 @@ const FamilyDashboard = () => {
               </h2>
               <div className="space-y-3 mb-8">
                 <Button 
-                  onClick={() => {
-                    // Open evidence submission modal for any active challenge
-                    const activeChallenge = challenges.find(c => c.status === 'in_progress');
-                    if (activeChallenge) {
-                      setExpandedChallenge(activeChallenge.id);
-                      setShowEvidenceModal(true);
-                    } else {
-                      alert('No active challenges to submit evidence for. Start a challenge first!');
-                    }
-                  }}
+                  onClick={() => setShowGritBitModal(true)}
                   className="w-full px-6 py-3 flex items-center justify-center bg-grit-gold-dark text-white hover:bg-grit-gold-dark/90"
                 >
                   <img src="/SUBMITTED.svg" alt="Submit" className="w-5 h-5 mr-2" />
@@ -1465,8 +1518,8 @@ const FamilyDashboard = () => {
             <div className="mb-6">
               <div className="flex items-center gap-3 mb-4">
                 <h3 className="text-xl font-['Roboto_Slab'] font-bold text-grit-green">
-                  Achievement Badges
-                </h3>
+                Achievement Badges
+              </h3>
                 <div className="bg-grit-gold-dark text-white rounded-full w-8 h-8 flex items-center justify-center text-sm font-bold">
                   6
                 </div>
@@ -2025,6 +2078,55 @@ const FamilyDashboard = () => {
           </div>
         </div>
       )}
+
+      {/* GRIT Bit Submission Modal */}
+      {showGritBitModal && (
+        <div className="fixed inset-0 bg-black bg-opacity-50 flex items-center justify-center z-50 p-4">
+          <div className="bg-white rounded-lg p-6 max-w-md w-full max-h-[90vh] overflow-y-auto">
+            <h3 className="text-xl font-bold text-grit-green mb-4">Submit GRIT BIT</h3>
+            <p className="text-gray-600 mb-4 text-sm">
+              Tell us about something you did outside of challenges that shows GRIT! 
+              Your GRIT Lead will review and award points.
+            </p>
+            
+            {/* Description Field */}
+            <div className="mb-6">
+              <label className="block text-sm font-medium text-gray-900 mb-2">
+                What did you do? <span className="text-red-600">*</span>
+              </label>
+              <textarea
+                value={gritBitText}
+                onChange={(e) => setGritBitText(e.target.value)}
+                placeholder="E.g., I helped my neighbor carry groceries, I practiced piano for 30 minutes, I cleaned my room without being asked..."
+                className="w-full px-3 py-2 border border-gray-300 rounded-lg resize-none focus:outline-none focus:ring-2 focus:ring-grit-green/20 focus:border-grit-green"
+                rows={4}
+                required
+              />
+            </div>
+
+            {/* Action Buttons */}
+            <div className="flex gap-3">
+              <button
+                onClick={() => {
+                  setShowGritBitModal(false)
+                  setGritBitText('')
+                }}
+                className="flex-1 px-4 py-2 border border-gray-300 text-gray-700 rounded-lg hover:bg-gray-50 transition-colors"
+                disabled={submittingGritBit}
+              >
+                Cancel
+              </button>
+              <button
+                onClick={handleSubmitGritBit}
+                disabled={!gritBitText.trim() || submittingGritBit}
+                className="flex-1 px-4 py-2 bg-grit-gold-dark text-white rounded-lg hover:bg-grit-gold-dark/90 disabled:opacity-50 disabled:cursor-not-allowed transition-colors"
+              >
+                {submittingGritBit ? 'Submitting...' : 'Submit GRIT BIT'}
+              </button>
+            </div>
+          </div>
+        </div>
+      )}
     </div>
   )
 }
@@ -2103,61 +2205,61 @@ const ChallengeCard = ({ challenge, status: displayStatus, isExpanded, onExpand,
   
   // Collapsed view
   if (!isExpanded) {
-    return (
+  return (
       <div className={`${cardClasses} transition-all duration-300 ease-in-out`} onClick={() => onExpand()}>
-        <div className="flex justify-between items-start mb-3">
-          <div className="flex items-center gap-2 flex-wrap">
+      <div className="flex justify-between items-start mb-3">
+        <div className="flex items-center gap-2 flex-wrap">
             <span className={`${isCompleted ? 'bg-gray-200 text-gray-900' : colors.bg + ' ' + colors.text} px-3 py-1 rounded-full text-xs font-medium uppercase tracking-wide`}>
-              {trait}
-            </span>
-            {points && (
-              <span className={`px-2 py-1 rounded text-xs font-bold ${
+            {trait}
+          </span>
+          {points && (
+            <span className={`px-2 py-1 rounded text-xs font-bold ${
                 isCompleted ? 'bg-gray-300 text-gray-900' : 'bg-grit-gold-dark text-white'
               }`}>
                 {points} Points
-              </span>
-            )}
-          </div>
-          <div className="flex items-center gap-2">
-            {isActive && (
+            </span>
+          )}
+        </div>
+        <div className="flex items-center gap-2">
+          {isActive && (
               <div className="w-6 h-6 rounded-full border border-[#991b1b] bg-white flex items-center justify-center">
                 <img src="/ACTIVE.svg" alt="" className="w-4 h-4" />
-              </div>
-            )}
-            {isCompleted && (
+            </div>
+          )}
+          {isCompleted && (
               <div className="w-6 h-6 rounded-full bg-gray-300 flex items-center justify-center">
                 <img src="/COMPLETED.svg" alt="" className="w-4 h-4" />
-              </div>
-            )}
+            </div>
+          )}
             {!isActive && !isCompleted && (
               <div className="w-6 h-6 rounded-full border border-grit-gold-dark bg-white"></div>
             )}
-          </div>
         </div>
-        
-        <h3 className={`font-['Roboto_Slab'] font-semibold text-base mb-2 uppercase tracking-wide ${
-          isCompleted ? 'text-gray-900-dark' : 'text-grit-green'
-        }`}>
-          {challenge.challenges?.title}
-        </h3>
-        
-        <p className={`text-sm leading-relaxed mb-3 ${
-          isCompleted ? 'text-gray-900-dark' : 'text-gray-900'
-        }`}>
-          {challenge.challenges?.description}
-        </p>
-        
-        {displayStatus === 'available' && (
-          <button className="w-full bg-grit-green text-white font-medium py-2 px-4 rounded-lg hover:bg-grit-green-dark transition-colors text-sm">
-            Start Challenge
-          </button>
-        )}
       </div>
-    )
-  }
+      
+      <h3 className={`font-['Roboto_Slab'] font-semibold text-base mb-2 uppercase tracking-wide ${
+          isCompleted ? 'text-gray-900-dark' : 'text-grit-green'
+      }`}>
+        {challenge.challenges?.title}
+      </h3>
+      
+      <p className={`text-sm leading-relaxed mb-3 ${
+          isCompleted ? 'text-gray-900-dark' : 'text-gray-900'
+      }`}>
+        {challenge.challenges?.description}
+      </p>
+      
+      {displayStatus === 'available' && (
+          <button className="w-full bg-grit-green text-white font-medium py-2 px-4 rounded-lg hover:bg-grit-green-dark transition-colors text-sm">
+          Start Challenge
+        </button>
+      )}
+    </div>
+  )
+}
 
   // Expanded view
-  return (
+    return (
     <div 
       className={`border-l-4 ${colors.border} rounded-lg p-4 bg-white shadow-lg transition-all duration-300 ease-in-out cursor-pointer`}
       onClick={onCollapse}
@@ -2171,7 +2273,7 @@ const ChallengeCard = ({ challenge, status: displayStatus, isExpanded, onExpand,
           <span className="bg-grit-gold-dark text-white px-3 py-1 rounded-full text-xs font-semibold">
             {points} Points
           </span>
-        </div>
+      </div>
         <div className="flex items-center gap-2">
           {isActive && (
             <div className="w-6 h-6 rounded-full border border-[#991b1b] bg-white flex items-center justify-center">
@@ -2261,8 +2363,8 @@ const ChallengeCard = ({ challenge, status: displayStatus, isExpanded, onExpand,
           </Button>
         )}
       </div>
-    </div>
-  )
+      </div>
+    )
 }
 
 
