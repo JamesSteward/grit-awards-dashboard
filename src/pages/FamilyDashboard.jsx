@@ -709,27 +709,18 @@ const FamilyDashboard = () => {
     {
       id: 1,
       title: 'Family Cinema Tickets',
-      description: 'Birkenhead Cinema - 4 tickets',
+      description: 'Odeon Cinema - 2 Child tickets',
       icon: (
-        <svg className="w-6 h-6" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2">
-          <rect x="2" y="3" width="20" height="14" rx="2" ry="2"/>
-          <line x1="8" y1="21" x2="16" y2="21"/>
-          <line x1="12" y1="17" x2="12" y2="21"/>
-        </svg>
+        <img src="/odeon.svg" alt="Odeon" className="w-6 h-6" />
       ),
       available: true
     },
     {
       id: 2,
-      title: 'Pizza Express Voucher',
+      title: 'Leon Voucher',
       description: '£20 voucher for family meal',
       icon: (
-        <svg className="w-6 h-6" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2">
-          <circle cx="12" cy="12" r="10"/>
-          <path d="M8 14s1.5 2 4 2 4-2 4-2"/>
-          <line x1="9" y1="9" x2="9.01" y2="9"/>
-          <line x1="15" y1="9" x2="15.01" y2="9"/>
-        </svg>
+        <img src="/leon.svg" alt="Leon" className="w-6 h-6" />
       ),
       available: true
     },
@@ -738,10 +729,7 @@ const FamilyDashboard = () => {
       title: 'Waterstones Book Token',
       description: '£15 token for educational books',
       icon: (
-        <svg className="w-6 h-6" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2">
-          <path d="M4 19.5A2.5 2.5 0 0 1 6.5 17H20"/>
-          <path d="M6.5 2H20v20H6.5A2.5 2.5 0 0 1 4 19.5v-15A2.5 2.5 0 0 1 6.5 2z"/>
-        </svg>
+        <img src="/waterstones.svg" alt="Waterstones" className="w-6 h-6" />
       ),
       available: true
     },
@@ -750,12 +738,7 @@ const FamilyDashboard = () => {
       title: 'Sports Direct Discount',
       description: '20% off sports equipment',
       icon: (
-        <svg className="w-6 h-6" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2">
-          <circle cx="12" cy="12" r="10"/>
-          <path d="M8 14s1.5 2 4 2 4-2 4-2"/>
-          <line x1="9" y1="9" x2="9.01" y2="9"/>
-          <line x1="15" y1="9" x2="15.01" y2="9"/>
-        </svg>
+        <img src="/sportsdirect.svg" alt="Sports Direct" className="w-6 h-6" />
       ),
       available: false
     }
@@ -1241,7 +1224,7 @@ const FamilyDashboard = () => {
                   Achievement Badges
                 </h3>
                 <div className="bg-grit-gold-dark text-white rounded-full w-8 h-8 flex items-center justify-center text-sm font-bold">
-                  9
+                  6
                 </div>
               </div>
               <div className="grid grid-cols-3 gap-3">
