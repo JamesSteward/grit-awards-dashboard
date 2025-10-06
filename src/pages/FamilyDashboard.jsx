@@ -1810,20 +1810,20 @@ const ChallengeCard = ({ challenge, status: displayStatus, isExpanded, onExpand,
   const traitColors = {
     'COURAGE': { bg: 'bg-red-500', text: 'text-white', border: 'border-l-red-500' },
     'KINDNESS': { bg: 'bg-pink-500', text: 'text-white', border: 'border-l-pink-500' },
-    'RESILIENCE': { bg: 'bg-blue-500', text: 'text-white', border: 'border-l-blue-500' },
+    'RESILIENCE': { bg: 'bg-orange-500', text: 'text-white', border: 'border-l-orange-500' },
     'INTEGRITY': { bg: 'bg-green-500', text: 'text-white', border: 'border-l-green-500' },
     'RESPECT': { bg: 'bg-purple-500', text: 'text-white', border: 'border-l-purple-500' },
     'RESPONSIBILITY': { bg: 'bg-indigo-500', text: 'text-white', border: 'border-l-indigo-500' },
     'PERSEVERANCE': { bg: 'bg-teal-500', text: 'text-white', border: 'border-l-teal-500' },
-    'EMPATHY': { bg: 'bg-cyan-500', text: 'text-white', border: 'border-l-cyan-500' },
-    'CREATIVITY': { bg: 'bg-orange-500', text: 'text-white', border: 'border-l-orange-500' },
-    'LEADERSHIP': { bg: 'bg-yellow-500', text: 'text-black', border: 'border-l-yellow-500' },
+    'EMPATHY': { bg: 'bg-rose-500', text: 'text-white', border: 'border-l-rose-500' },
+    'CREATIVITY': { bg: 'bg-yellow-500', text: 'text-black', border: 'border-l-yellow-500' },
+    'LEADERSHIP': { bg: 'bg-lime-500', text: 'text-black', border: 'border-l-lime-500' },
     'HONESTY': { bg: 'bg-emerald-500', text: 'text-white', border: 'border-l-emerald-500' },
-    'COMPASSION': { bg: 'bg-rose-500', text: 'text-white', border: 'border-l-rose-500' },
+    'COMPASSION': { bg: 'bg-fuchsia-500', text: 'text-white', border: 'border-l-fuchsia-500' },
     'DETERMINATION': { bg: 'bg-violet-500', text: 'text-white', border: 'border-l-violet-500' },
-    'COOPERATION': { bg: 'bg-sky-500', text: 'text-white', border: 'border-l-sky-500' },
-    'PATIENCE': { bg: 'bg-lime-500', text: 'text-black', border: 'border-l-lime-500' },
-    'FAIRNESS': { bg: 'bg-amber-500', text: 'text-black', border: 'border-l-amber-500' }
+    'COOPERATION': { bg: 'bg-amber-500', text: 'text-black', border: 'border-l-amber-500' },
+    'PATIENCE': { bg: 'bg-slate-500', text: 'text-white', border: 'border-l-slate-500' },
+    'FAIRNESS': { bg: 'bg-stone-500', text: 'text-white', border: 'border-l-stone-500' }
   }
   
   const colors = traitColors[trait] || traitColors['RESILIENCE']
