@@ -1217,7 +1217,7 @@ const FamilyDashboard = () => {
             {/* Hero Stats Cards */}
             <div className="grid grid-cols-1 md:grid-cols-3 gap-6 mb-8">
               {/* Total Badges */}
-              <div className="bg-gradient-to-br from-grit-green to-grit-green-dark rounded-2xl p-6 text-white shadow-lg hover:shadow-xl transition-all duration-300 transform hover:-translate-y-1">
+              <div className="bg-grit-green rounded-2xl p-6 text-white shadow-lg hover:shadow-xl transition-all duration-300 transform hover:-translate-y-1">
                 <div className="flex items-center justify-between mb-4">
                   <div className="bg-white/20 rounded-full p-3">
                     <svg className="w-8 h-8" viewBox="0 0 24 24" fill="currentColor">
@@ -1233,9 +1233,9 @@ const FamilyDashboard = () => {
               </div>
 
               {/* Day Streak */}
-              <div className="bg-gradient-to-br from-orange-500 to-red-500 rounded-2xl p-6 text-white shadow-lg hover:shadow-xl transition-all duration-300 transform hover:-translate-y-1">
+              <div className="bg-grit-gold rounded-2xl p-6 text-grit-green shadow-lg hover:shadow-xl transition-all duration-300 transform hover:-translate-y-1">
                 <div className="flex items-center justify-between mb-4">
-                  <div className="bg-white/20 rounded-full p-3">
+                  <div className="bg-grit-green/20 rounded-full p-3">
                     <svg className="w-8 h-8" viewBox="0 0 24 24" fill="currentColor">
                       <path d="M13 2L3 14h9l-1 8 10-12h-9l1-8z"/>
                     </svg>
@@ -1249,9 +1249,9 @@ const FamilyDashboard = () => {
               </div>
 
               {/* GRIT Points */}
-              <div className="bg-gradient-to-br from-grit-gold to-grit-gold-dark rounded-2xl p-6 text-grit-green shadow-lg hover:shadow-xl transition-all duration-300 transform hover:-translate-y-1">
+              <div className="bg-grit-gold-dark rounded-2xl p-6 text-white shadow-lg hover:shadow-xl transition-all duration-300 transform hover:-translate-y-1">
                 <div className="flex items-center justify-between mb-4">
-                  <div className="bg-grit-green/20 rounded-full p-3">
+                  <div className="bg-white/20 rounded-full p-3">
                     <svg className="w-8 h-8" viewBox="0 0 24 24" fill="currentColor">
                       <path d="M12 2C6.48 2 2 6.48 2 12s4.48 10 10 10 10-4.48 10-10S17.52 2 12 2zm-2 15l-5-5 1.41-1.41L10 14.17l7.59-7.59L19 8l-9 9z"/>
                     </svg>
