@@ -55,6 +55,10 @@ const LeaderDashboard = () => {
   const [awardedStudentName, setAwardedStudentName] = useState('')
   const [awardedPoints, setAwardedPoints] = useState(0)
   
+  // Feedback sent modal states
+  const [showFeedbackSentModal, setShowFeedbackSentModal] = useState(false)
+  const [feedbackSentStudentName, setFeedbackSentStudentName] = useState('')
+  
   // Announcement states
   const [announcementFilters, setAnnouncementFilters] = useState({
     yearLevel: 'all',        // 'all', '3', '4', '5', '6'
@@ -639,7 +643,14 @@ const LeaderDashboard = () => {
 
       await fetchPendingSubmissions();
 
-      alert('Feedback sent. Student will see your comments and can resubmit.');
+      // Show custom feedback sent modal
+      setFeedbackSentStudentName(reviewingSubmission.students.first_name);
+      setShowFeedbackSentModal(true);
+
+      // Auto-close modal after 2 seconds
+      setTimeout(() => {
+        setShowFeedbackSentModal(false);
+      }, 2000);
       
     } catch (error) {
       console.error('Error requesting changes:', error);
@@ -1970,6 +1981,26 @@ const LeaderDashboard = () => {
             <div className="w-24 h-24 rounded-full bg-[#b5aa91] flex items-center justify-center mx-auto">
               <span className="text-4xl font-bold text-white" style={{fontFamily: 'Roboto Slab'}}>{awardedPoints}</span>
             </div>
+          </div>
+        </div>
+      )}
+
+      {/* Feedback Sent Modal */}
+      {showFeedbackSentModal && (
+        <div className="fixed inset-0 bg-black/50 flex items-center justify-center z-50 animate-fade-in">
+          <div className="bg-white rounded-lg p-8 text-center max-w-md">
+            <div className="w-16 h-16 rounded-full bg-[#032717] flex items-center justify-center mx-auto mb-4">
+              <svg className="w-8 h-8 text-white" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M9 12l2 2 4-4m6 2a9 9 0 11-18 0 9 9 0 0118 0z" />
+              </svg>
+            </div>
+            <h3 className="text-xl font-bold text-[#032717] mb-2">Feedback Sent!</h3>
+            <p className="text-gray-700 mb-4">
+              Your feedback to <span className="font-semibold text-[#032717]">{feedbackSentStudentName}</span> has been sent.
+            </p>
+            <p className="text-sm text-gray-600">
+              They will see your comments and can resubmit.
+            </p>
           </div>
         </div>
       )}
