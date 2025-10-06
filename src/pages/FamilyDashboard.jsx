@@ -539,7 +539,7 @@ const FamilyDashboard = () => {
     const badges = {
       evidence_review: { text: 'Evidence Review', color: 'bg-yellow-100 text-yellow-800' },
       announcement: { text: 'Announcement', color: 'bg-blue-100 text-blue-800' },
-      general: { text: 'General', color: 'bg-gray-100 text-grit-gold' }
+      general: { text: 'General', color: 'bg-gray-100 text-gray-900' }
     }
     return badges[type] || badges.general
   }
@@ -777,7 +777,7 @@ const FamilyDashboard = () => {
         <div className="flex items-center justify-center min-h-[60vh]">
           <div className="text-center">
             <div className="animate-spin rounded-full h-12 w-12 border-b-2 border-grit-green mx-auto mb-4"></div>
-            <p className="text-xl text-grit-gold">Loading dashboard...</p>
+            <p className="text-xl text-gray-900">Loading dashboard...</p>
           </div>
         </div>
       </div>
@@ -797,7 +797,7 @@ const FamilyDashboard = () => {
             <h2 className="text-2xl font-heading font-bold text-grit-red mb-4">
               Error Loading Dashboard
             </h2>
-            <p className="text-grit-gold mb-6">{error}</p>
+            <p className="text-gray-900 mb-6">{error}</p>
             <Button onClick={fetchStudent} variant="primary">
               Try Again
             </Button>
@@ -830,7 +830,7 @@ const FamilyDashboard = () => {
           {/* Close button */}
           <button 
             onClick={() => setShowProfileModal(false)}
-            className="absolute top-4 right-4 w-8 h-8 flex items-center justify-center rounded-full hover:bg-gray-100 text-grit-gold-dark"
+            className="absolute top-4 right-4 w-8 h-8 flex items-center justify-center rounded-full hover:bg-gray-100 text-gray-900-dark"
           >
             ×
           </button>
@@ -839,32 +839,32 @@ const FamilyDashboard = () => {
           <div className="text-center p-8 pb-6">
             <img src={`/avatars/${student?.avatar || 'avatar-pilot-001.svg'}`} alt={student?.first_name} className="w-20 h-20 rounded-full bg-grit-gold-dark p-2 mx-auto mb-4" />
             <h2 className="text-2xl font-['Roboto_Slab'] font-bold text-grit-green mb-2">{student?.first_name} {student?.last_name}</h2>
-            <div className="text-grit-gold text-sm mb-1">St Peter's Catholic Primary School</div>
-            <div className="text-grit-gold-dark text-xs mb-2">St Peter's Way, Noctorum, Birkenhead, Prenton CH43 9QR</div>
-            <div className="text-grit-gold-dark text-xs">GRIT Leader: Mr A Mackenzie</div>
+            <div className="text-gray-900 text-sm mb-1">St Peter's Catholic Primary School</div>
+            <div className="text-gray-900-dark text-xs mb-2">St Peter's Way, Noctorum, Birkenhead, Prenton CH43 9QR</div>
+            <div className="text-gray-900-dark text-xs">GRIT Leader: Mr A Mackenzie</div>
           </div>
 
           {/* Menu items */}
           <div className="border-t border-grit-gold-dark">
             <button className="w-full flex items-center gap-4 px-6 py-4 hover:bg-gray-50 transition-colors">
-              <svg className="w-5 h-5 text-grit-gold" viewBox="0 0 24 24" fill="currentColor">
+              <svg className="w-5 h-5 text-gray-900" viewBox="0 0 24 24" fill="currentColor">
                 <path d="M19.14,12.94c0.04-0.3,0.06-0.61,0.06-0.94c0-0.32-0.02-0.64-0.07-0.94l2.03-1.58c0.18-0.14,0.23-0.41,0.12-0.61 l-1.92-3.32c-0.12-0.22-0.37-0.29-0.59-0.22l-2.39,0.96c-0.5-0.38-1.03-0.7-1.62-0.94L14.4,2.81c-0.04-0.24-0.24-0.41-0.48-0.41 h-3.84c-0.24,0-0.43,0.17-0.47,0.41L9.25,5.35C8.66,5.59,8.12,5.92,7.63,6.29L5.24,5.33c-0.22-0.08-0.47,0-0.59,0.22L2.74,8.87 C2.62,9.08,2.66,9.34,2.86,9.48l2.03,1.58C4.84,11.36,4.82,11.69,4.82,12s0.02,0.64,0.07,0.94l-2.03,1.58 c-0.18,0.14-0.23,0.41-0.12,0.61l1.92,3.32c0.12,0.22,0.37,0.29,0.59,0.22l2.39-0.96c0.5,0.38,1.03,0.7,1.62,0.94l0.36,2.54 c0.05,0.24,0.24,0.41,0.48,0.41h3.84c0.24,0,0.44-0.17,0.47-0.41l0.36-2.54c0.59-0.24,1.13-0.56,1.62-0.94l2.39,0.96 c0.22,0.08,0.47,0,0.59-0.22l1.92-3.32c0.12-0.22,0.07-0.47-0.12-0.61L19.14,12.94z M12,15.6c-1.98,0-3.6-1.62-3.6-3.6 s1.62-3.6,3.6-3.6s3.6,1.62,3.6,3.6S13.98,15.6,12,15.6z"/>
               </svg>
-              <span className="text-grit-gold font-medium">Account Settings</span>
+              <span className="text-gray-900 font-medium">Account Settings</span>
             </button>
 
             <button className="w-full flex items-center gap-4 px-6 py-4 hover:bg-gray-50 transition-colors">
-              <svg className="w-5 h-5 text-grit-gold" viewBox="0 0 24 24" fill="currentColor">
+              <svg className="w-5 h-5 text-gray-900" viewBox="0 0 24 24" fill="currentColor">
                 <path d="M12,1L3,5V11C3,16.55 6.84,21.74 12,23C17.16,21.74 21,16.55 21,11V5L12,1M10,17L6,13L7.41,11.59L10,14.17L16.59,7.58L18,9L10,17Z"/>
               </svg>
-              <span className="text-grit-gold font-medium">Privacy & Safety</span>
+              <span className="text-gray-900 font-medium">Privacy & Safety</span>
             </button>
 
             <button className="w-full flex items-center gap-4 px-6 py-4 hover:bg-gray-50 transition-colors">
-              <svg className="w-5 h-5 text-grit-gold" viewBox="0 0 24 24" fill="currentColor">
+              <svg className="w-5 h-5 text-gray-900" viewBox="0 0 24 24" fill="currentColor">
                 <path d="M11,18h2v-2h-2v2M12,2C6.48,2 2,6.48 2,12s4.48,10 10,10 10-4.48,10-10S17.52,2 12,2zM13,16h-2v-6h2v6zM13,8h-2V6h2v2z"/>
               </svg>
-              <span className="text-grit-gold font-medium">Help & Support</span>
+              <span className="text-gray-900 font-medium">Help & Support</span>
             </button>
 
             <button 
@@ -921,7 +921,7 @@ const FamilyDashboard = () => {
             {/* Progress Bar */}
             <div className="bg-white rounded-lg p-4 mb-4 shadow-sm">
               <div className="flex justify-between items-center mb-2">
-                <span className="text-sm font-medium text-grit-gold">Overall Progress</span>
+                <span className="text-sm font-medium text-gray-900">Overall Progress</span>
                 <span className="text-sm font-bold text-grit-green">{stats.progressPercentage}%</span>
               </div>
               <div className="w-full bg-gray-200 rounded-full h-3">
@@ -936,15 +936,15 @@ const FamilyDashboard = () => {
             <div className="grid grid-cols-3 gap-3 mb-6">
               <div className="bg-white rounded-lg p-4 text-center shadow-sm">
                 <div className="text-2xl font-bold text-grit-green">{stats.completedCount || 0}</div>
-                <div className="text-xs text-grit-gold mt-1">Completed</div>
+                <div className="text-xs text-gray-900 mt-1">Completed</div>
               </div>
               <div className="bg-white rounded-lg p-4 text-center shadow-sm">
                 <div className="text-2xl font-bold text-grit-green">{stats.inProgressCount || 0}</div>
-                <div className="text-xs text-grit-gold mt-1">In Progress</div>
+                <div className="text-xs text-gray-900 mt-1">In Progress</div>
               </div>
               <div className="bg-white rounded-lg p-4 text-center shadow-sm">
                 <div className="text-2xl font-bold text-grit-green">{stats.gritPoints || 0}</div>
-                <div className="text-xs text-grit-gold mt-1">GRIT Points</div>
+                <div className="text-xs text-gray-900 mt-1">GRIT Points</div>
               </div>
             </div>
 
@@ -991,8 +991,8 @@ const FamilyDashboard = () => {
                     </svg>
                   </div>
                   <div>
-                    <p className="font-medium text-grit-gold">{student?.first_name} completed 'Tie shoelaces'</p>
-                    <p className="text-sm text-grit-gold-dark">2 hours ago</p>
+                    <p className="font-medium text-gray-900">{student?.first_name} completed 'Tie shoelaces'</p>
+                    <p className="text-sm text-gray-900-dark">2 hours ago</p>
                   </div>
                 </div>
                 
@@ -1003,8 +1003,8 @@ const FamilyDashboard = () => {
                     </svg>
                   </div>
                   <div>
-                    <p className="font-medium text-grit-gold">Badge earned: Week Warrior</p>
-                    <p className="text-sm text-grit-gold-dark">Yesterday</p>
+                    <p className="font-medium text-gray-900">Badge earned: Week Warrior</p>
+                    <p className="text-sm text-gray-900-dark">Yesterday</p>
                   </div>
                 </div>
                 
@@ -1015,8 +1015,8 @@ const FamilyDashboard = () => {
                     </svg>
                   </div>
                   <div>
-                    <p className="font-medium text-grit-gold">New message from Mr Mackenzie</p>
-                    <p className="text-sm text-grit-gold-dark">3 days ago</p>
+                    <p className="font-medium text-gray-900">New message from Mr Mackenzie</p>
+                    <p className="text-sm text-gray-900-dark">3 days ago</p>
                   </div>
                 </div>
               </div>
@@ -1129,7 +1129,7 @@ const FamilyDashboard = () => {
                   <div className="flex justify-center">
                     <button
                       onClick={() => setShowAllCompleted(!showAllCompleted)}
-                      className="bg-white border border-gray-400 text-grit-gold font-medium px-6 py-2 rounded-xl hover:bg-gray-100 transition-all"
+                      className="bg-white border border-gray-400 text-gray-900 font-medium px-6 py-2 rounded-xl hover:bg-gray-100 transition-all"
                     >
                       {showAllCompleted ? 'Show Less' : `See More (${completedChallenges.length - 3} remaining)`}
                     </button>
@@ -1149,7 +1149,7 @@ const FamilyDashboard = () => {
               Progress Overview
             </h2>
             <div className="bg-white rounded-lg shadow-sm border border-grit-gold-dark p-6">
-              <p className="text-grit-gold text-center">Progress view coming soon...</p>
+              <p className="text-gray-900 text-center">Progress view coming soon...</p>
             </div>
           </div>
         )}
@@ -1194,7 +1194,7 @@ const FamilyDashboard = () => {
                   </div>
                   
                   {/* Certificate Header */}
-                  <h3 className="text-sm font-medium text-grit-gold-dark uppercase tracking-wider mb-2">
+                  <h3 className="text-sm font-medium text-gray-900-dark uppercase tracking-wider mb-2">
                     Certificate of Achievement
                   </h3>
                   
@@ -1204,7 +1204,7 @@ const FamilyDashboard = () => {
                   </h4>
                   
                   {/* Awarded To */}
-                  <p className="text-sm text-grit-gold-dark uppercase tracking-wider mb-2">
+                  <p className="text-sm text-gray-900-dark uppercase tracking-wider mb-2">
                     Awarded to
                   </p>
                   <p className="text-2xl font-bold text-grit-green mb-6 border-b-2 border-grit-green pb-2 inline-block">
@@ -1212,12 +1212,12 @@ const FamilyDashboard = () => {
                   </p>
                   
                   {/* Description */}
-                  <p className="text-grit-gold mb-6 max-w-md mx-auto leading-relaxed italic">
+                  <p className="text-gray-900 mb-6 max-w-md mx-auto leading-relaxed italic">
                     For demonstrating exceptional resilience and determination in completing challenges and encouraging fellow students at St Peter's Catholic Primary School.
                   </p>
                   
                   {/* Date */}
-                  <p className="text-sm text-grit-gold-dark mb-6">
+                  <p className="text-sm text-gray-900-dark mb-6">
                     Year {student?.year_level || 3} | September 2025
                   </p>
                   
@@ -1237,15 +1237,15 @@ const FamilyDashboard = () => {
               <div className="grid grid-cols-3 gap-4">
                 <div className="bg-white rounded-xl p-4 text-center shadow-sm animate-[fadeInUp_0.6s_ease-out_2.5s_both]">
                   <div className="text-2xl font-bold text-grit-green mb-1">9</div>
-                  <div className="text-xs uppercase tracking-wide text-grit-gold-dark">Total Badges</div>
+                  <div className="text-xs uppercase tracking-wide text-gray-900-dark">Total Badges</div>
                 </div>
                 <div className="bg-white rounded-xl p-4 text-center shadow-sm animate-[fadeInUp_0.6s_ease-out_2.7s_both]">
                   <div className="text-2xl font-bold text-grit-green mb-1">7</div>
-                  <div className="text-xs uppercase tracking-wide text-grit-gold-dark">Day Streak</div>
+                  <div className="text-xs uppercase tracking-wide text-gray-900-dark">Day Streak</div>
                 </div>
                 <div className="bg-white rounded-xl p-4 text-center shadow-sm animate-[fadeInUp_0.6s_ease-out_2.9s_both]">
                   <div className="text-2xl font-bold text-grit-green mb-1">240</div>
-                  <div className="text-xs uppercase tracking-wide text-grit-gold-dark">GRIT Points</div>
+                  <div className="text-xs uppercase tracking-wide text-gray-900-dark">GRIT Points</div>
                 </div>
               </div>
             </div>
@@ -1266,10 +1266,10 @@ const FamilyDashboard = () => {
                         : 'bg-gray-100 opacity-60'
                     }`}
                   >
-                    <div className={`${badge.earned ? 'text-grit-green' : 'text-grit-gold-dark'} mb-2`}>
+                    <div className={`${badge.earned ? 'text-grit-green' : 'text-gray-900-dark'} mb-2`}>
                       {badge.icon}
                     </div>
-                    <div className={`text-xs font-medium ${badge.earned ? 'text-grit-green' : 'text-grit-gold-dark'}`}>
+                    <div className={`text-xs font-medium ${badge.earned ? 'text-grit-green' : 'text-gray-900-dark'}`}>
                       {badge.name}
                     </div>
                   </div>
@@ -1294,8 +1294,8 @@ const FamilyDashboard = () => {
                         {reward.icon}
                       </div>
                       <div className="flex-1">
-                        <h4 className="font-semibold text-grit-gold">{reward.title}</h4>
-                        <p className="text-sm text-grit-gold">{reward.description}</p>
+                        <h4 className="font-semibold text-gray-900">{reward.title}</h4>
+                        <p className="text-sm text-gray-900">{reward.description}</p>
                       </div>
                       <div className={`px-3 py-1 rounded-full text-xs font-medium ${
                         reward.available 
@@ -1343,14 +1343,14 @@ const FamilyDashboard = () => {
               {/* Left Sidebar - Conversation List */}
               <div className="w-[30%] bg-white rounded-lg shadow-sm border border-grit-gold-dark flex flex-col">
                 <div className="p-4 border-b border-grit-gold-dark">
-                  <h2 className="text-lg font-semibold text-grit-gold">Conversations</h2>
+                  <h2 className="text-lg font-semibold text-gray-900">Conversations</h2>
                 </div>
                 
                 <div className="flex-1 overflow-y-auto">
                   {conversations.length === 0 ? (
-                    <div className="p-6 text-center text-grit-gold-dark">
+                    <div className="p-6 text-center text-gray-900-dark">
                       <div className="mb-2">
-                        <svg className="w-12 h-12 mx-auto text-grit-gold-dark" fill="currentColor" viewBox="0 0 24 24">
+                        <svg className="w-12 h-12 mx-auto text-gray-900-dark" fill="currentColor" viewBox="0 0 24 24">
                           <path d="M20 2H4c-1.1 0-2 .9-2 2v12c0 1.1.9 2 2 2h4l4 4 4-4h4c1.1 0 2-.9 2-2V4c0-1.1-.9-2-2-2zm-2 12H6v-2h12v2zm0-3H6V9h12v2zm0-3H6V6h12v2z"/>
                         </svg>
                       </div>
@@ -1390,11 +1390,11 @@ const FamilyDashboard = () => {
                                   </span>
                                 </div>
                                 
-                                <p className="text-sm text-grit-gold truncate mb-1">
+                                <p className="text-sm text-gray-900 truncate mb-1">
                                   {conversation.last_message_preview || 'No messages yet'}
                                 </p>
                                 
-                                <p className="text-xs text-grit-gold-dark">
+                                <p className="text-xs text-gray-900-dark">
                                   {formatTimeAgo(conversation.last_message_at)}
                                 </p>
                               </div>
@@ -1413,7 +1413,7 @@ const FamilyDashboard = () => {
                   <>
                     {/* Conversation Header */}
                     <div className="p-4 border-b border-grit-gold-dark">
-                      <h2 className="text-lg font-semibold text-grit-gold">
+                      <h2 className="text-lg font-semibold text-gray-900">
                         {selectedConversation.subject}
                       </h2>
                       <div className="flex items-center gap-2 mt-1">
@@ -1428,13 +1428,13 @@ const FamilyDashboard = () => {
                     {/* Evidence Submission Details */}
                     {evidenceSubmission && (
                       <div className="p-4 bg-yellow-50 border-b border-yellow-200">
-                        <h3 className="font-medium text-grit-gold mb-2">Evidence Submission</h3>
+                        <h3 className="font-medium text-gray-900 mb-2">Evidence Submission</h3>
                         <div className="bg-white p-3 rounded border">
-                          <h4 className="font-medium text-grit-gold mb-2">
+                          <h4 className="font-medium text-gray-900 mb-2">
                             {evidenceSubmission.title || evidenceSubmission.challenges?.title}
                           </h4>
                           {evidenceSubmission.text_content && (
-                            <p className="text-grit-gold text-sm mb-2">{evidenceSubmission.text_content}</p>
+                            <p className="text-gray-900 text-sm mb-2">{evidenceSubmission.text_content}</p>
                           )}
                           {evidenceSubmission.media_urls && evidenceSubmission.media_urls.length > 0 && (
                             <div className="flex gap-2 flex-wrap">
@@ -1456,7 +1456,7 @@ const FamilyDashboard = () => {
                     {/* Messages */}
                     <div className="flex-1 overflow-y-auto p-4 space-y-4">
                       {messages.length === 0 ? (
-                        <div className="text-center text-grit-gold-dark py-8">
+                        <div className="text-center text-gray-900-dark py-8">
                           <div className="text-4xl mb-2">💭</div>
                           <p>No messages in this conversation</p>
                         </div>
@@ -1471,13 +1471,13 @@ const FamilyDashboard = () => {
                                 message.sender_type === 'family'
                                   ? 'bg-blue-500 text-white'
                                   : message.sender_type === 'announcement'
-                                  ? 'bg-yellow-100 text-grit-gold border border-yellow-200'
-                                  : 'bg-gray-100 text-grit-gold'
+                                  ? 'bg-yellow-100 text-gray-900 border border-yellow-200'
+                                  : 'bg-gray-100 text-gray-900'
                               }`}
                             >
                               <p className="text-sm">{message.content}</p>
                               <p className={`text-xs mt-1 ${
-                                message.sender_type === 'family' ? 'text-blue-100' : 'text-grit-gold-dark'
+                                message.sender_type === 'family' ? 'text-blue-100' : 'text-gray-900-dark'
                               }`}>
                                 {formatMessageTime(message.created_at)}
                               </p>
@@ -1512,10 +1512,10 @@ const FamilyDashboard = () => {
                     )}
                   </>
                 ) : (
-                  <div className="flex-1 flex items-center justify-center text-grit-gold-dark">
+                  <div className="flex-1 flex items-center justify-center text-gray-900-dark">
                     <div className="text-center">
                       <div className="mb-4">
-                        <svg className="w-16 h-16 mx-auto text-grit-gold-dark" fill="currentColor" viewBox="0 0 24 24">
+                        <svg className="w-16 h-16 mx-auto text-gray-900-dark" fill="currentColor" viewBox="0 0 24 24">
                           <path d="M20 4H4c-1.1 0-1.99.9-1.99 2L2 18c0 1.1.9 2 2 2h16c1.1 0 2-.9 2-2V6c0-1.1-.9-2-2-2zm0 4l-8 5-8-5V6l8 5 8-5v2z"/>
                         </svg>
                       </div>
@@ -1540,7 +1540,7 @@ const FamilyDashboard = () => {
             className={`flex flex-col items-center gap-1 px-4 py-2 rounded-lg transition-colors ${
               activeTab === 'home' 
                 ? 'bg-grit-green/10 text-grit-green border-b-2 border-grit-gold-dark' 
-                : 'text-grit-gold-dark hover:bg-grit-green/5'
+                : 'text-gray-900-dark hover:bg-grit-green/5'
             }`}
           >
             <svg className="w-6 h-6" fill="currentColor" viewBox="0 0 20 20">
@@ -1555,7 +1555,7 @@ const FamilyDashboard = () => {
             className={`flex flex-col items-center gap-1 px-4 py-2 rounded-lg transition-colors ${
               activeTab === 'challenges' 
                 ? 'bg-grit-green/10 text-grit-green border-b-2 border-grit-gold-dark' 
-                : 'text-grit-gold-dark hover:bg-grit-green/5'
+                : 'text-gray-900-dark hover:bg-grit-green/5'
             }`}
           >
             <svg className="w-6 h-6" viewBox="0 0 24 24" fill="currentColor">
@@ -1570,7 +1570,7 @@ const FamilyDashboard = () => {
             className={`flex flex-col items-center gap-1 px-4 py-2 rounded-lg transition-colors ${
               activeTab === 'progress' 
                 ? 'bg-grit-green/10 text-grit-green border-b-2 border-grit-gold-dark' 
-                : 'text-grit-gold-dark hover:bg-grit-green/5'
+                : 'text-gray-900-dark hover:bg-grit-green/5'
             }`}
           >
             <svg className="w-6 h-6" viewBox="0 0 24 24" fill="currentColor">
@@ -1585,7 +1585,7 @@ const FamilyDashboard = () => {
             className={`flex flex-col items-center gap-1 px-4 py-2 rounded-lg transition-colors ${
               activeTab === 'awards' 
                 ? 'bg-grit-green/10 text-grit-green border-b-2 border-grit-gold-dark' 
-                : 'text-grit-gold-dark hover:bg-grit-green/5'
+                : 'text-gray-900-dark hover:bg-grit-green/5'
             }`}
           >
             <svg className="w-6 h-6" viewBox="0 0 24 24" fill="currentColor">
@@ -1600,7 +1600,7 @@ const FamilyDashboard = () => {
             className={`flex flex-col items-center gap-1 px-4 py-2 rounded-lg transition-colors ${
               activeTab === 'messages' 
                 ? 'bg-grit-green/10 text-grit-green border-b-2 border-grit-gold-dark' 
-                : 'text-grit-gold-dark hover:bg-grit-green/5'
+                : 'text-gray-900-dark hover:bg-grit-green/5'
             }`}
           >
             <svg className="w-6 h-6" viewBox="0 0 24 24" fill="currentColor">
@@ -1618,7 +1618,7 @@ const FamilyDashboard = () => {
           <div className="relative bg-white rounded-2xl max-w-md w-full mx-4 shadow-2xl">
             <button 
               onClick={() => setShowBadgeModal(false)}
-              className="absolute top-4 right-4 w-8 h-8 flex items-center justify-center rounded-full hover:bg-gray-100 text-grit-gold-dark"
+              className="absolute top-4 right-4 w-8 h-8 flex items-center justify-center rounded-full hover:bg-gray-100 text-gray-900-dark"
             >
               ×
             </button>
@@ -1631,11 +1631,11 @@ const FamilyDashboard = () => {
               <h3 className="text-2xl font-['Roboto_Slab'] font-bold text-grit-green mb-4">
                 {selectedBadge.name}
               </h3>
-              <p className="text-grit-gold mb-6">{selectedBadge.description}</p>
+              <p className="text-gray-900 mb-6">{selectedBadge.description}</p>
               <div className={`px-6 py-3 rounded-full text-sm font-medium ${
                 selectedBadge.earned 
                   ? 'bg-green-100 text-green-700' 
-                  : 'bg-gray-100 text-grit-gold-dark'
+                  : 'bg-gray-100 text-gray-900-dark'
               }`}>
                 {selectedBadge.earned ? 'Earned!' : 'Locked'}
               </div>
@@ -1651,7 +1651,7 @@ const FamilyDashboard = () => {
           <div className="relative bg-white rounded-2xl max-w-md w-full mx-4 shadow-2xl">
             <button 
               onClick={() => setShowRewardModal(false)}
-              className="absolute top-4 right-4 w-8 h-8 flex items-center justify-center rounded-full hover:bg-gray-100 text-grit-gold-dark"
+              className="absolute top-4 right-4 w-8 h-8 flex items-center justify-center rounded-full hover:bg-gray-100 text-gray-900-dark"
             >
               ×
             </button>
@@ -1664,10 +1664,10 @@ const FamilyDashboard = () => {
               <h3 className="text-2xl font-['Roboto_Slab'] font-bold text-grit-green mb-4">
                 {selectedReward.title}
               </h3>
-              <p className="text-grit-gold mb-6">{selectedReward.description}</p>
+              <p className="text-gray-900 mb-6">{selectedReward.description}</p>
               <div className="bg-blue-50 p-4 rounded-lg mb-6">
-                <h4 className="font-semibold text-grit-gold mb-2">How to Claim:</h4>
-                <p className="text-sm text-grit-gold">
+                <h4 className="font-semibold text-gray-900 mb-2">How to Claim:</h4>
+                <p className="text-sm text-gray-900">
                   Contact your GRIT leader (Mr A Mackenzie) to arrange collection. 
                   Present your student ID and mention this reward.
                 </p>
@@ -1691,7 +1691,7 @@ const FamilyDashboard = () => {
             
             {/* Description Field */}
             <div className="mb-4">
-              <label className="block text-sm font-medium text-grit-gold mb-2">
+              <label className="block text-sm font-medium text-gray-900 mb-2">
                 Description: <span className="text-red-600">*</span>
               </label>
               <textarea
@@ -1706,7 +1706,7 @@ const FamilyDashboard = () => {
 
             {/* File Upload Notice */}
             <div className="mb-4 p-3 bg-gray-50 rounded-lg border border-grit-gold-dark">
-              <p className="text-sm text-grit-gold">
+              <p className="text-sm text-gray-900">
                 File uploads temporarily unavailable due to storage configuration. Text descriptions only.
               </p>
             </div>
@@ -1720,7 +1720,7 @@ const FamilyDashboard = () => {
                   setEvidenceImages([]);
                   setEvidenceVideo(null);
                 }}
-                className="flex-1 px-4 py-2 border border-grit-gold-dark rounded-lg text-grit-gold font-semibold hover:bg-gray-50"
+                className="flex-1 px-4 py-2 border border-grit-gold-dark rounded-lg text-gray-900 font-semibold hover:bg-gray-50"
                 disabled={submittingEvidence}
               >
                 Cancel
@@ -1748,7 +1748,7 @@ const FamilyDashboard = () => {
                 setShowEvidenceModal(false);
                 setExpandedChallenge(null);
               }}
-              className="absolute top-4 right-4 text-grit-gold-dark hover:text-grit-gold text-2xl w-8 h-8 flex items-center justify-center"
+              className="absolute top-4 right-4 text-gray-900-dark hover:text-gray-900 text-2xl w-8 h-8 flex items-center justify-center"
             >
               ×
             </button>
@@ -1764,7 +1764,7 @@ const FamilyDashboard = () => {
 
             {/* Success message with student and teacher names */}
             <div className="text-center mb-6">
-              <p className="text-lg text-grit-gold leading-relaxed">
+              <p className="text-lg text-gray-900 leading-relaxed">
                 Well done, <span className="font-bold text-grit-green">{student?.first_name}</span>!
                 <br />
                 Your evidence has been submitted successfully!
@@ -1835,12 +1835,12 @@ const ChallengeCard = ({ challenge, status: displayStatus, isExpanded, onExpand,
       <div className={`${cardClasses} transition-all duration-300 ease-in-out`} onClick={() => onExpand()}>
         <div className="flex justify-between items-start mb-3">
           <div className="flex items-center gap-2 flex-wrap">
-            <span className={`${isCompleted ? 'bg-gray-200 text-grit-gold-dark' : colors.bg + ' ' + colors.text} px-3 py-1 rounded-full text-xs font-medium uppercase tracking-wide`}>
+            <span className={`${isCompleted ? 'bg-gray-200 text-gray-900-dark' : colors.bg + ' ' + colors.text} px-3 py-1 rounded-full text-xs font-medium uppercase tracking-wide`}>
               {trait}
             </span>
             {points && (
               <span className={`px-2 py-1 rounded text-xs font-bold ${
-                isCompleted ? 'bg-gray-300 text-grit-gold' : 'bg-grit-gold-dark text-grit-green'
+                isCompleted ? 'bg-gray-300 text-gray-900' : 'bg-grit-gold-dark text-grit-green'
               }`}>
                 {points} pts
               </span>
@@ -1864,13 +1864,13 @@ const ChallengeCard = ({ challenge, status: displayStatus, isExpanded, onExpand,
         </div>
         
         <h3 className={`font-['Roboto_Slab'] font-semibold text-base mb-2 uppercase tracking-wide ${
-          isCompleted ? 'text-grit-gold-dark' : 'text-grit-green'
+          isCompleted ? 'text-gray-900-dark' : 'text-grit-green'
         }`}>
           {challenge.challenges?.title}
         </h3>
         
         <p className={`text-sm leading-relaxed mb-3 ${
-          isCompleted ? 'text-grit-gold-dark' : 'text-grit-gold'
+          isCompleted ? 'text-gray-900-dark' : 'text-gray-900'
         }`}>
           {challenge.challenges?.description}
         </p>
@@ -1893,7 +1893,7 @@ const ChallengeCard = ({ challenge, status: displayStatus, isExpanded, onExpand,
           <span className="bg-blue-100 text-blue-800 px-3 py-1 rounded text-xs font-semibold">
             {trait}
           </span>
-          <span className="bg-gray-100 text-grit-gold px-3 py-1 rounded text-xs font-semibold">
+          <span className="bg-gray-100 text-gray-900 px-3 py-1 rounded text-xs font-semibold">
             {points} pts
           </span>
         </div>
@@ -1942,7 +1942,7 @@ const ChallengeCard = ({ challenge, status: displayStatus, isExpanded, onExpand,
       {/* Detailed Description */}
       <div className="mb-4">
         <h4 className="font-semibold text-sm text-grit-green mb-2">More Information:</h4>
-        <p className="text-sm text-grit-gold leading-relaxed">
+        <p className="text-sm text-gray-900 leading-relaxed">
           {challenge.challenges?.detailed_description || challenge.challenges?.description}
         </p>
       </div>
@@ -1953,7 +1953,7 @@ const ChallengeCard = ({ challenge, status: displayStatus, isExpanded, onExpand,
           <h4 className="font-semibold text-sm text-grit-green mb-2">Hints:</h4>
           <ul className="list-disc list-inside space-y-1">
             {challenge.challenges?.hints.map((hint, index) => (
-              <li key={index} className="text-sm text-grit-gold">{hint}</li>
+              <li key={index} className="text-sm text-gray-900">{hint}</li>
             ))}
           </ul>
         </div>
@@ -1984,7 +1984,7 @@ const ChallengeCard = ({ challenge, status: displayStatus, isExpanded, onExpand,
 
         <button
           onClick={onCollapse}
-          className="px-6 py-3 border border-grit-gold-dark rounded-lg text-grit-gold font-semibold"
+          className="px-6 py-3 border border-grit-gold-dark rounded-lg text-gray-900 font-semibold"
         >
           Close
         </button>

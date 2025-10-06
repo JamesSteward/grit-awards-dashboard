@@ -974,7 +974,7 @@ const LeaderDashboard = () => {
         <div className="flex items-center justify-center min-h-[60vh]">
           <div className="text-center">
             <div className="animate-spin rounded-full h-12 w-12 border-b-2 border-grit-green mx-auto mb-4"></div>
-            <p className="text-xl text-grit-gold">Loading dashboard...</p>
+            <p className="text-xl text-gray-900">Loading dashboard...</p>
           </div>
         </div>
       </div>
@@ -994,7 +994,7 @@ const LeaderDashboard = () => {
                 <h2 className="text-2xl font-heading font-bold text-red-jacket mb-4">
                   Error Loading Dashboard
                 </h2>
-                <p className="text-grit-gold mb-6">{error}</p>
+                <p className="text-gray-900 mb-6">{error}</p>
                 <Button onClick={fetchAllData} variant="primary">
                   Try Again
                 </Button>
@@ -1015,16 +1015,16 @@ const LeaderDashboard = () => {
               <h1 className="text-4xl font-heading font-bold mb-2">
                 Welcome, Mr Mackenzie
               </h1>
-              <p className="text-grit-gold-light text-lg">
+              <p className="text-gray-900-light text-lg">
                 St Peter's Catholic Primary School
               </p>
               <div className="grid grid-cols-2 gap-4 mt-6">
                 <div className="bg-grit-gold-dark rounded-lg p-4 text-center">
-                  <div className="text-grit-gold-dark text-sm mb-1">Active Challenges</div>
+                  <div className="text-gray-900-dark text-sm mb-1">Active Challenges</div>
                   <div className="text-white text-4xl font-bold">66</div>
                 </div>
                 <div className="bg-grit-gold-dark rounded-lg p-4 text-center">
-                  <div className="text-grit-gold-dark text-sm mb-1">This Week's Completions</div>
+                  <div className="text-gray-900-dark text-sm mb-1">This Week's Completions</div>
                   <div className="text-white text-4xl font-bold">17</div>
                 </div>
               </div>
@@ -1051,7 +1051,7 @@ const LeaderDashboard = () => {
                       className={`py-4 px-1 border-b-2 font-medium text-sm ${
                         activeTab === tab.id
                           ? 'border-grit-green text-grit-green'
-                          : 'border-transparent text-grit-gold-dark hover:text-grit-gold hover:border-grit-gold-dark'
+                          : 'border-transparent text-gray-900-dark hover:text-gray-900 hover:border-grit-gold-dark'
                       }`}
                     >
                       {tab.label}
@@ -1079,7 +1079,7 @@ const LeaderDashboard = () => {
                           onChange={(e) => setSearchTerm(e.target.value)}
                           className="w-full px-4 py-2 pr-10 border border-grit-gold-dark rounded-lg focus:ring-2 focus:ring-grit-green focus:border-transparent"
                         />
-                        <svg className="absolute right-3 top-1/2 -translate-y-1/2 w-4 h-4 text-grit-gold-dark pointer-events-none" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2"><circle cx="11" cy="11" r="8"/><path d="m21 21-4.35-4.35"/></svg>
+                        <svg className="absolute right-3 top-1/2 -translate-y-1/2 w-4 h-4 text-gray-900-dark pointer-events-none" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2"><circle cx="11" cy="11" r="8"/><path d="m21 21-4.35-4.35"/></svg>
                       </div>
                       <select
                         value={yearFilter}
@@ -1097,11 +1097,11 @@ const LeaderDashboard = () => {
                     {/* Students Table */}
                     {sortedStudents.length === 0 ? (
                       <div className="text-center py-12">
-                        <div className="text-grit-gold-dark text-6xl mb-4">👥</div>
-                        <h3 className="text-xl font-heading font-semibold text-grit-gold mb-2">
+                        <div className="text-gray-900-dark text-6xl mb-4">👥</div>
+                        <h3 className="text-xl font-heading font-semibold text-gray-900 mb-2">
                           No Students Found
                         </h3>
-                        <p className="text-grit-gold-dark">
+                        <p className="text-gray-900-dark">
                           {searchTerm || yearFilter !== 'all' 
                             ? 'Try adjusting your search or filter criteria.'
                             : 'No students are enrolled in your school yet.'
@@ -1113,25 +1113,25 @@ const LeaderDashboard = () => {
                         <table className="w-full">
                           <thead>
                             <tr className="border-b border-grit-gold-dark">
-                              <th className="text-left py-3 px-4 font-medium text-grit-gold">Name</th>
-                              <th className="text-left py-3 px-4 font-medium text-grit-gold">Year</th>
-                              <th className="text-left py-3 px-4 font-medium text-grit-gold">Current Award</th>
+                              <th className="text-left py-3 px-4 font-medium text-gray-900">Name</th>
+                              <th className="text-left py-3 px-4 font-medium text-gray-900">Year</th>
+                              <th className="text-left py-3 px-4 font-medium text-gray-900">Current Award</th>
                               <th 
-                                className="text-left py-3 px-4 font-medium text-grit-gold cursor-pointer hover:text-grit-green transition-colors select-none"
+                                className="text-left py-3 px-4 font-medium text-gray-900 cursor-pointer hover:text-grit-green transition-colors select-none"
                                 onClick={() => handleSort('progress')}
                               >
                                 <div className="flex items-center gap-1">
                                   Progress
                                   <div className="flex flex-col">
                                     <svg 
-                                      className={`w-3 h-3 ${sortColumn === 'progress' && sortDirection === 'asc' ? 'text-grit-green' : 'text-grit-gold-dark'}`} 
+                                      className={`w-3 h-3 ${sortColumn === 'progress' && sortDirection === 'asc' ? 'text-grit-green' : 'text-gray-900-dark'}`} 
                                       viewBox="0 0 24 24" 
                                       fill="currentColor"
                                     >
                                       <path d="M7 14l5-5 5 5z"/>
                                     </svg>
                                     <svg 
-                                      className={`w-3 h-3 -mt-1 ${sortColumn === 'progress' && sortDirection === 'desc' ? 'text-grit-green' : 'text-grit-gold-dark'}`} 
+                                      className={`w-3 h-3 -mt-1 ${sortColumn === 'progress' && sortDirection === 'desc' ? 'text-grit-green' : 'text-gray-900-dark'}`} 
                                       viewBox="0 0 24 24" 
                                       fill="currentColor"
                                     >
@@ -1141,21 +1141,21 @@ const LeaderDashboard = () => {
                                 </div>
                               </th>
                               <th 
-                                className="text-left py-3 px-4 font-medium text-grit-gold cursor-pointer hover:text-grit-green transition-colors select-none"
+                                className="text-left py-3 px-4 font-medium text-gray-900 cursor-pointer hover:text-grit-green transition-colors select-none"
                                 onClick={() => handleSort('grit_points')}
                               >
                                 <div className="flex items-center gap-1">
                                   GRIT Points
                                   <div className="flex flex-col">
                                     <svg 
-                                      className={`w-3 h-3 ${sortColumn === 'grit_points' && sortDirection === 'asc' ? 'text-grit-green' : 'text-grit-gold-dark'}`} 
+                                      className={`w-3 h-3 ${sortColumn === 'grit_points' && sortDirection === 'asc' ? 'text-grit-green' : 'text-gray-900-dark'}`} 
                                       viewBox="0 0 24 24" 
                                       fill="currentColor"
                                     >
                                       <path d="M7 14l5-5 5 5z"/>
                                     </svg>
                                     <svg 
-                                      className={`w-3 h-3 -mt-1 ${sortColumn === 'grit_points' && sortDirection === 'desc' ? 'text-grit-green' : 'text-grit-gold-dark'}`} 
+                                      className={`w-3 h-3 -mt-1 ${sortColumn === 'grit_points' && sortDirection === 'desc' ? 'text-grit-green' : 'text-gray-900-dark'}`} 
                                       viewBox="0 0 24 24" 
                                       fill="currentColor"
                                     >
@@ -1176,7 +1176,7 @@ const LeaderDashboard = () => {
                                   >
                                     <img src={`/avatars/${student.avatar || 'avatar-astronaut-001.svg'}`} alt={student.first_name} className="w-10 h-10 rounded-full mr-3" />
                                     <div>
-                                      <p className="font-medium text-grit-gold hover:text-grit-green transition-colors">
+                                      <p className="font-medium text-gray-900 hover:text-grit-green transition-colors">
                                         {student.first_name} {student.last_name}
                                       </p>
                                     </div>
@@ -1188,7 +1188,7 @@ const LeaderDashboard = () => {
                                   </span>
                                 </td>
                                 <td className="py-4 px-4">
-                                  <p className="text-grit-gold">
+                                  <p className="text-gray-900">
                                     {formatAward(student.current_award) || 'No award yet'}
                                   </p>
                                 </td>
@@ -1200,7 +1200,7 @@ const LeaderDashboard = () => {
                                         style={{ width: `${student.calculated_progress || 0}%` }}
                                       ></div>
                                     </div>
-                                    <span className="text-sm text-grit-gold">
+                                    <span className="text-sm text-gray-900">
                                       {student.calculated_progress || 0}%
                                     </span>
                                   </div>
@@ -1236,22 +1236,22 @@ const LeaderDashboard = () => {
                               {/* Student and Challenge Info */}
                               <div className="flex justify-between items-start mb-4">
                                 <div>
-                                  <h3 className="font-bold text-lg text-grit-gold">
+                                  <h3 className="font-bold text-lg text-gray-900">
                                     {submission.students.first_name} {submission.students.last_name}
                                   </h3>
-                                  <p className="text-grit-gold">{submission.challenges.title}</p>
-                                  <p className="text-sm text-grit-gold">
+                                  <p className="text-gray-900">{submission.challenges.title}</p>
+                                  <p className="text-sm text-gray-900">
                                     {submission.challenges.points} points
                                   </p>
                                 </div>
-                                <div className="text-sm text-grit-gold">
+                                <div className="text-sm text-gray-900">
                                   {new Date(submission.created_at).toLocaleDateString()}
                                 </div>
                               </div>
 
                               {/* Evidence Text */}
                               <div className="mb-4 p-4 bg-gray-50 rounded-lg">
-                                <p className="text-sm text-grit-gold">{submission.text_content}</p>
+                                <p className="text-sm text-gray-900">{submission.text_content}</p>
                               </div>
 
                               {/* Action Buttons */}
@@ -1285,14 +1285,14 @@ const LeaderDashboard = () => {
                   <div>
                     {pendingEvidence.length === 0 ? (
                       <div className="text-center py-12">
-                        <svg className="w-16 h-16 text-grit-gold-dark mx-auto mb-4" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2">
+                        <svg className="w-16 h-16 text-gray-900-dark mx-auto mb-4" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2">
                           <path d="M9 5H7a2 2 0 00-2 2v12a2 2 0 002 2h10a2 2 0 002-2V7a2 2 0 00-2-2h-2M9 5a2 2 0 002 2h2a2 2 0 002-2M9 5a2 2 0 012-2h2a2 2 0 012 2"/>
                           <path d="M9 12l2 2 4-4"/>
                         </svg>
-                        <h3 className="text-xl font-heading font-semibold text-grit-gold mb-2">
+                        <h3 className="text-xl font-heading font-semibold text-gray-900 mb-2">
                           No Pending Evidence
                         </h3>
-                        <p className="text-grit-gold-dark">
+                        <p className="text-gray-900-dark">
                           All evidence has been reviewed. Great work!
                         </p>
                       </div>
@@ -1309,7 +1309,7 @@ const LeaderDashboard = () => {
                                 />
                                 <div className="flex-1">
                                   <div className="flex items-center gap-2 mb-2">
-                                    <h4 className="font-medium text-grit-gold">
+                                    <h4 className="font-medium text-gray-900">
                                       {evidence.students?.first_name} {evidence.students?.last_name}
                                     </h4>
                                     <span className={`px-2 py-1 rounded-full text-xs font-medium ${
@@ -1345,7 +1345,7 @@ const LeaderDashboard = () => {
                                   {evidence.submission_type === 'challenge' && (
                                     <div className="flex items-center gap-2 mb-3 flex-wrap">
                                       {evidence.challenges?.trait && (
-                                        <span className="bg-gradient-to-r from-grit-green to-grit-green-dark text-grit-gold-dark px-3 py-1 rounded-full text-xs font-semibold uppercase tracking-wide">
+                                        <span className="bg-gradient-to-r from-grit-green to-grit-green-dark text-gray-900-dark px-3 py-1 rounded-full text-xs font-semibold uppercase tracking-wide">
                                           {evidence.challenges.trait}
                                         </span>
                                       )}
@@ -1366,7 +1366,7 @@ const LeaderDashboard = () => {
                                     </div>
                                   )}
                                   
-                                  <p className="text-sm text-grit-gold mb-3">
+                                  <p className="text-sm text-gray-900 mb-3">
                                     {evidence.text_content || 'No description provided'}
                                   </p>
                                   
@@ -1383,14 +1383,14 @@ const LeaderDashboard = () => {
                                         />
                                       ))}
                                       {evidence.media_urls.length > 3 && (
-                                        <div className="w-16 h-16 bg-gray-100 rounded-lg border border-grit-gold-dark flex items-center justify-center text-xs text-grit-gold-dark">
+                                        <div className="w-16 h-16 bg-gray-100 rounded-lg border border-grit-gold-dark flex items-center justify-center text-xs text-gray-900-dark">
                                           +{evidence.media_urls.length - 3} more
                                         </div>
                                       )}
                                     </div>
                                   )}
                                   
-                                  <p className="text-sm text-grit-gold-dark">
+                                  <p className="text-sm text-gray-900-dark">
                                     {new Date(evidence.created_at).toLocaleDateString()} • {formatTimeAgo(evidence.created_at)}
                                   </p>
                                 </div>
@@ -1413,13 +1413,13 @@ const LeaderDashboard = () => {
                                 <button
                                   onClick={() => handleRequestChanges(evidence.id)}
                                   disabled={approvingId === evidence.id}
-                                  className="bg-white border border-grit-gold-dark text-grit-gold-dark hover:bg-grit-gold-dark hover:text-white transition-all px-4 py-2 disabled:opacity-50 disabled:cursor-not-allowed font-medium rounded-lg"
+                                  className="bg-white border border-grit-gold-dark text-gray-900-dark hover:bg-grit-gold-dark hover:text-white transition-all px-4 py-2 disabled:opacity-50 disabled:cursor-not-allowed font-medium rounded-lg"
                                 >
                                   Request Changes
                                 </button>
                                 <button
                                   onClick={() => handleViewConversation(evidence)}
-                                  className="bg-gray-100 border border-grit-gold-dark text-grit-gold hover:bg-gray-200 transition-all px-4 py-2 font-medium rounded-lg"
+                                  className="bg-gray-100 border border-grit-gold-dark text-gray-900 hover:bg-gray-200 transition-all px-4 py-2 font-medium rounded-lg"
                                 >
                                   View Conversation
                                 </button>
@@ -1436,7 +1436,7 @@ const LeaderDashboard = () => {
                 {activeTab === 'messages' && (
                   <div>
                     <div className="flex justify-between items-center mb-6">
-                      <h3 className="text-lg font-medium text-grit-gold">Recent Conversations</h3>
+                      <h3 className="text-lg font-medium text-gray-900">Recent Conversations</h3>
                       <Button 
                         variant="primary"
                         onClick={() => setShowComposeModal(true)}
@@ -1447,15 +1447,15 @@ const LeaderDashboard = () => {
                     
                     {messages.length === 0 ? (
                       <div className="text-center py-12">
-                        <div className="text-grit-gold-dark mb-4">
+                        <div className="text-gray-900-dark mb-4">
                           <svg className="w-16 h-16 mx-auto" fill="currentColor" viewBox="0 0 24 24">
                             <path d="M20 2H4c-1.1 0-2 .9-2 2v12c0 1.1.9 2 2 2h4l4 4 4-4h4c1.1 0 2-.9 2-2V4c0-1.1-.9-2-2-2zm-2 12H6v-2h12v2zm0-3H6V9h12v2zm0-3H6V6h12v2z"/>
                           </svg>
                         </div>
-                        <h3 className="text-xl font-heading font-semibold text-grit-gold mb-2">
+                        <h3 className="text-xl font-heading font-semibold text-gray-900 mb-2">
                           No Messages Yet
                         </h3>
-                        <p className="text-grit-gold-dark">
+                        <p className="text-gray-900-dark">
                           Start a conversation with families to keep them updated on their child's progress.
                         </p>
                       </div>
@@ -1475,16 +1475,16 @@ const LeaderDashboard = () => {
                                   className="w-10 h-10 rounded-full"
                                 />
                                 <div>
-                                  <p className="font-medium text-grit-gold">
+                                  <p className="font-medium text-gray-900">
                                     {message.conversations?.students?.first_name} {message.conversations?.students?.last_name}
                                   </p>
-                                  <p className="text-sm text-grit-gold-dark">
+                                  <p className="text-sm text-gray-900-dark">
                                     {message.conversations?.subject || 'Message'}
                                   </p>
                                 </div>
                               </div>
                               <div className="text-right">
-                                <p className="text-sm text-grit-gold-dark">
+                                <p className="text-sm text-gray-900-dark">
                                   {new Date(message.created_at).toLocaleDateString()}
                                 </p>
                                 {message.unread && (
@@ -1492,7 +1492,7 @@ const LeaderDashboard = () => {
                                 )}
                               </div>
                             </div>
-                            <p className="text-sm text-grit-gold mt-2 line-clamp-2">
+                            <p className="text-sm text-gray-900 mt-2 line-clamp-2">
                               {message.content || 'Message preview...'}
                             </p>
                           </div>
@@ -1543,7 +1543,7 @@ const LeaderDashboard = () => {
                 </button>
                 
                 <button 
-                  className="w-full bg-white border border-grit-gold-dark text-grit-gold-dark font-semibold px-6 py-3 rounded-xl hover:bg-grit-gold-dark hover:text-white transition-all"
+                  className="w-full bg-white border border-grit-gold-dark text-gray-900-dark font-semibold px-6 py-3 rounded-xl hover:bg-grit-gold-dark hover:text-white transition-all"
                 >
                   <svg className="w-5 h-5 mr-2 inline" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2">
                     <line x1="18" y1="20" x2="18" y2="10"/>
@@ -1557,7 +1557,7 @@ const LeaderDashboard = () => {
               <div className="mt-8">
                 <h4 className="text-md font-heading font-semibold text-grit-green mb-4">Class Progress</h4>
                 <div className="bg-gray-100 rounded-lg p-4 h-48 flex items-center justify-center">
-                  <p className="text-grit-gold-dark text-center">
+                  <p className="text-gray-900-dark text-center">
                     <svg className="w-5 h-5 inline-block mb-2" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2">
                       <polyline points="23 6 13.5 15.5 8.5 10.5 1 18"/>
                       <polyline points="17 6 23 6 23 12"/>
@@ -1586,7 +1586,7 @@ const LeaderDashboard = () => {
           <Card className="max-w-md w-full mx-4 shadow-xl" header="Compose New Message">
             
             <div className="mb-4">
-              <label className="block text-sm font-medium text-grit-gold mb-2">Select Student</label>
+              <label className="block text-sm font-medium text-gray-900 mb-2">Select Student</label>
               <select
                 value={selectedStudent?.id || ''}
                 onChange={(e) => {
@@ -1605,7 +1605,7 @@ const LeaderDashboard = () => {
             </div>
             
             <div className="mb-6">
-              <label className="block text-sm font-medium text-grit-gold mb-2">Message</label>
+              <label className="block text-sm font-medium text-gray-900 mb-2">Message</label>
               <textarea
                 value={composeMessage}
                 onChange={(e) => setComposeMessage(e.target.value)}
@@ -1656,12 +1656,12 @@ const LeaderDashboard = () => {
             
             {/* Recipient Filters Section */}
             <div className="mb-6">
-              <h4 className="text-sm font-medium text-grit-gold mb-3">Recipient Filters</h4>
+              <h4 className="text-sm font-medium text-gray-900 mb-3">Recipient Filters</h4>
               
               <div className="space-y-4">
                 {/* Year Level Filter */}
                 <div>
-                  <label className="block text-sm font-medium text-grit-gold mb-2">Year Level</label>
+                  <label className="block text-sm font-medium text-gray-900 mb-2">Year Level</label>
                   <select
                     value={announcementFilters.yearLevel}
                     onChange={(e) => {
@@ -1680,7 +1680,7 @@ const LeaderDashboard = () => {
                 
                 {/* Completion Status Filter */}
                 <div>
-                  <label className="block text-sm font-medium text-grit-gold mb-2">Completion Filter</label>
+                  <label className="block text-sm font-medium text-gray-900 mb-2">Completion Filter</label>
                   <select
                     value={announcementFilters.completionStatus}
                     onChange={(e) => {
@@ -1697,8 +1697,8 @@ const LeaderDashboard = () => {
                 
                 {/* Recipient Count Preview */}
                 <div className="bg-gray-50 rounded-lg p-3">
-                  <p className="text-sm text-grit-gold">
-                    <span className="font-semibold text-grit-gold">This will send to {recipientCount} families</span>
+                  <p className="text-sm text-gray-900">
+                    <span className="font-semibold text-gray-900">This will send to {recipientCount} families</span>
                   </p>
                 </div>
               </div>
@@ -1706,7 +1706,7 @@ const LeaderDashboard = () => {
             
             {/* Message Section */}
             <div className="mb-6">
-              <label className="block text-sm font-medium text-grit-gold mb-2">Announcement Message</label>
+              <label className="block text-sm font-medium text-gray-900 mb-2">Announcement Message</label>
               <textarea
                 value={announcementMessage}
                 onChange={(e) => setAnnouncementMessage(e.target.value)}
@@ -1714,7 +1714,7 @@ const LeaderDashboard = () => {
                 className="w-full px-3 py-2 border border-grit-gold-dark rounded-lg focus:ring-2 focus:ring-grit-green focus:border-transparent h-32 resize-none"
                 maxLength={500}
               />
-              <div className="text-right text-xs text-grit-gold-dark mt-1">
+              <div className="text-right text-xs text-gray-900-dark mt-1">
                 {announcementMessage.length}/500 characters
               </div>
             </div>
@@ -1767,14 +1767,14 @@ const LeaderDashboard = () => {
                   <h3 className="text-lg font-heading font-semibold text-grit-green">
                     {selectedStudent?.first_name} {selectedStudent?.last_name}
                   </h3>
-                  <p className="text-sm text-grit-gold-dark">
+                  <p className="text-sm text-gray-900-dark">
                     Conversation
                   </p>
                 </div>
               </div>
               <button
                 onClick={() => setShowConversationModal(false)}
-                className="text-grit-gold-dark hover:text-grit-gold"
+                className="text-gray-900-dark hover:text-gray-900"
               >
                 <svg className="w-6 h-6" fill="none" stroke="currentColor" viewBox="0 0 24 24">
                   <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M6 18L18 6M6 6l12 12" />
@@ -1792,12 +1792,12 @@ const LeaderDashboard = () => {
                     className={`max-w-xs lg:max-w-md px-4 py-2 rounded-lg ${
                       msg.sender_type === 'leader'
                         ? 'bg-grit-green text-white'
-                        : 'bg-gray-200 text-grit-gold'
+                        : 'bg-gray-200 text-gray-900'
                     }`}
                   >
                     <p className="text-sm">{msg.content}</p>
                     <p className={`text-xs mt-1 ${
-                      msg.sender_type === 'leader' ? 'text-grit-gold-light' : 'text-grit-gold-dark'
+                      msg.sender_type === 'leader' ? 'text-gray-900-light' : 'text-gray-900-dark'
                     }`}>
                       {new Date(msg.created_at).toLocaleString()}
                     </p>
@@ -1834,7 +1834,7 @@ const LeaderDashboard = () => {
             <h3 className="text-xl font-heading font-semibold text-grit-green mb-4">Request Changes</h3>
             
             <div className="mb-6">
-              <label className="block text-sm font-medium text-grit-gold mb-2">Feedback Message</label>
+              <label className="block text-sm font-medium text-gray-900 mb-2">Feedback Message</label>
               <textarea
                 value={feedbackModal.feedback}
                 onChange={(e) => setFeedbackModal(prev => ({ ...prev, feedback: e.target.value }))}
@@ -1871,7 +1871,7 @@ const LeaderDashboard = () => {
             <h3 className="text-xl font-heading font-semibold text-grit-green mb-4">Award GRIT Points</h3>
             
             <div className="mb-6">
-              <p className="text-sm text-grit-gold mb-4">
+              <p className="text-sm text-gray-900 mb-4">
                 How many points should this GRIT Bit receive?
               </p>
               
@@ -1886,8 +1886,8 @@ const LeaderDashboard = () => {
                     className="w-4 h-4 text-grit-green focus:ring-grit-green border-grit-gold-dark"
                   />
                   <div>
-                    <span className="font-medium text-grit-gold">5 Points</span>
-                    <p className="text-sm text-grit-gold-dark">Good effort, shows some GRIT</p>
+                    <span className="font-medium text-gray-900">5 Points</span>
+                    <p className="text-sm text-gray-900-dark">Good effort, shows some GRIT</p>
                   </div>
                 </label>
                 
@@ -1901,8 +1901,8 @@ const LeaderDashboard = () => {
                     className="w-4 h-4 text-grit-green focus:ring-grit-green border-grit-gold-dark"
                   />
                   <div>
-                    <span className="font-medium text-grit-gold">10 Points</span>
-                    <p className="text-sm text-grit-gold-dark">Excellent GRIT, outstanding effort</p>
+                    <span className="font-medium text-gray-900">10 Points</span>
+                    <p className="text-sm text-gray-900-dark">Excellent GRIT, outstanding effort</p>
                   </div>
                 </label>
               </div>
@@ -1956,7 +1956,7 @@ const LeaderDashboard = () => {
                   setFeedbackText('');
                   setReviewingSubmission(null);
                 }}
-                className="flex-1 px-4 py-2 border border-grit-gold-dark rounded-lg text-grit-gold font-semibold"
+                className="flex-1 px-4 py-2 border border-grit-gold-dark rounded-lg text-gray-900 font-semibold"
               >
                 Cancel
               </button>
@@ -1976,7 +1976,7 @@ const LeaderDashboard = () => {
       {showPointsModal && (
         <div className="fixed inset-0 bg-black/50 flex items-center justify-center z-50 animate-fade-in">
           <div className="bg-white rounded-lg p-8 text-center">
-            <p className="text-grit-gold mb-4">Points awarded to {awardedStudentName}</p>
+            <p className="text-gray-900 mb-4">Points awarded to {awardedStudentName}</p>
             <div className="w-24 h-24 rounded-full bg-grit-gold-dark flex items-center justify-center mx-auto">
               <span className="text-4xl font-bold text-white" style={{fontFamily: 'Roboto Slab'}}>{awardedPoints}</span>
             </div>
@@ -1994,10 +1994,10 @@ const LeaderDashboard = () => {
               </svg>
             </div>
             <h3 className="text-xl font-bold text-grit-green mb-2">Feedback Sent!</h3>
-            <p className="text-grit-gold mb-4">
+            <p className="text-gray-900 mb-4">
               Your feedback to <span className="font-semibold text-grit-green">{feedbackSentStudentName}</span> has been sent.
             </p>
-            <p className="text-sm text-grit-gold">
+            <p className="text-sm text-gray-900">
               They will see your comments and can resubmit.
             </p>
           </div>
@@ -2006,11 +2006,11 @@ const LeaderDashboard = () => {
 
       <footer className="bg-gray-50 border-t border-grit-gold-dark py-5 mt-10">
         <div className="flex justify-center items-center gap-10 flex-wrap">
-          <a href="#" onClick={(e) => { e.preventDefault(); alert('FAQ coming soon'); }} className="flex items-center gap-2 text-grit-gold hover:text-grit-green transition-colors">
+          <a href="#" onClick={(e) => { e.preventDefault(); alert('FAQ coming soon'); }} className="flex items-center gap-2 text-gray-900 hover:text-grit-green transition-colors">
             <svg className="w-4 h-4" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2"><circle cx="12" cy="12" r="10"/><path d="M9.09 9a3 3 0 0 1 5.83 1c0 2-3 3-3 3"/><circle cx="12" cy="17" r="0.5"/></svg>
             Lost? Read our FAQ
           </a>
-          <a href="#" onClick={(e) => { e.preventDefault(); alert('Support request coming soon'); }} className="flex items-center gap-2 text-grit-gold hover:text-grit-green transition-colors">
+          <a href="#" onClick={(e) => { e.preventDefault(); alert('Support request coming soon'); }} className="flex items-center gap-2 text-gray-900 hover:text-grit-green transition-colors">
             <svg className="w-4 h-4" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2"><circle cx="12" cy="12" r="10"/><circle cx="12" cy="12" r="4"/><line x1="21.17" y1="8" x2="12" y2="8"/><line x1="3.95" y1="6.06" x2="8.54" y2="14"/><line x1="10.88" y1="21.94" x2="15.46" y2="14"/></svg>
             Need Help? Support Request
           </a>
@@ -2023,7 +2023,7 @@ const LeaderDashboard = () => {
               console.error('Error signing out:', error)
               navigate('/')
             }
-          }} className="flex items-center gap-2 text-grit-gold hover:text-grit-green transition-colors">
+          }} className="flex items-center gap-2 text-gray-900 hover:text-grit-green transition-colors">
             <svg className="w-4 h-4" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2"><path d="M9 21H5a2 2 0 0 1-2-2V5a2 2 0 0 1 2-2h4"/><polyline points="16,17 21,12 16,7"/><line x1="21" y1="12" x2="9" y2="12"/></svg>
             Log out
           </button>

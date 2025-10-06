@@ -18,10 +18,10 @@ const Header = () => {
             
             {/* Desktop Navigation */}
             <nav className="hidden md:flex space-x-8">
-              <a href="#awards" className="font-roboto-slab hover:text-grit-gold-light transition-colors">Awards</a>
-              <a href="#schools" className="font-roboto-slab hover:text-grit-gold-light transition-colors">Schools</a>
-              <a href="#parents" className="font-roboto-slab hover:text-grit-gold-light transition-colors">Parents</a>
-              <a href="#contact" className="font-roboto-slab hover:text-grit-gold-light transition-colors">Contact</a>
+              <a href="#awards" className="font-roboto-slab hover:text-gray-900-light transition-colors">Awards</a>
+              <a href="#schools" className="font-roboto-slab hover:text-gray-900-light transition-colors">Schools</a>
+              <a href="#parents" className="font-roboto-slab hover:text-gray-900-light transition-colors">Parents</a>
+              <a href="#contact" className="font-roboto-slab hover:text-gray-900-light transition-colors">Contact</a>
             </nav>
             
             {/* Desktop CTA Buttons */}
@@ -45,7 +45,7 @@ const Header = () => {
             <div className="md:hidden">
               <button
                 onClick={() => setIsMobileMenuOpen(!isMobileMenuOpen)}
-                className="text-white hover:text-grit-gold-light"
+                className="text-white hover:text-gray-900-light"
               >
                 <svg className="w-6 h-6" fill="none" stroke="currentColor" viewBox="0 0 24 24">
                   <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M4 6h16M4 12h16M4 18h16" />
@@ -58,10 +58,10 @@ const Header = () => {
           {isMobileMenuOpen && (
             <div className="md:hidden py-4 border-t border-grit-gold-light">
               <nav className="flex flex-col space-y-4">
-                <a href="#awards" className="font-roboto-slab hover:text-grit-gold-light transition-colors">Awards</a>
-                <a href="#schools" className="font-roboto-slab hover:text-grit-gold-light transition-colors">Schools</a>
-                <a href="#parents" className="font-roboto-slab hover:text-grit-gold-light transition-colors">Parents</a>
-                <a href="#contact" className="font-roboto-slab hover:text-grit-gold-light transition-colors">Contact</a>
+                <a href="#awards" className="font-roboto-slab hover:text-gray-900-light transition-colors">Awards</a>
+                <a href="#schools" className="font-roboto-slab hover:text-gray-900-light transition-colors">Schools</a>
+                <a href="#parents" className="font-roboto-slab hover:text-gray-900-light transition-colors">Parents</a>
+                <a href="#contact" className="font-roboto-slab hover:text-gray-900-light transition-colors">Contact</a>
                 <div className="flex flex-col space-y-3 mt-4">
                   <button
                     onClick={() => alert("Demo request feature coming soon")}

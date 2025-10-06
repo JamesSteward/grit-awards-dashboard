@@ -189,7 +189,7 @@ const LoginModal = ({ isOpen, onClose }) => {
               
               <div className="text-center">
                 <button
-                  className="text-sm text-grit-gold-dark cursor-not-allowed"
+                  className="text-sm text-gray-900-dark cursor-not-allowed"
                   disabled
                 >
                   I'm a GRIT Administrator
@@ -198,7 +198,7 @@ const LoginModal = ({ isOpen, onClose }) => {
             </div>
             
             <div className="mt-6 pt-6 border-t" style={{borderColor: '#CEC6B5'}}>
-              <div className="text-center text-xs text-grit-gold-dark">
+              <div className="text-center text-xs text-gray-900-dark">
                 COPPA Direct Notice • GDPR • Terms of Service • Privacy Policy
               </div>
             </div>
@@ -210,7 +210,7 @@ const LoginModal = ({ isOpen, onClose }) => {
               onClick={handleBackToRoles}
               className="absolute top-4 left-4 w-10 h-10 bg-white/20 backdrop-blur-sm hover:bg-white/30 rounded-full shadow-md transition-all duration-200 hover:-translate-x-1 flex items-center justify-center"
             >
-              <svg className="w-5 h-5 text-grit-gold" fill="currentColor" viewBox="0 0 24 24">
+              <svg className="w-5 h-5 text-gray-900" fill="currentColor" viewBox="0 0 24 24">
                 <path d="M20 11H7.83l5.59-5.59L12 4l-8 8 8 8 1.41-1.41L7.83 13H20v-2z"/>
               </svg>
             </button>
@@ -220,7 +220,7 @@ const LoginModal = ({ isOpen, onClose }) => {
             <form onSubmit={handleLogin} className="space-y-6">
               {/* Email Field */}
               <div>
-                <label htmlFor="email" className="block text-sm font-medium text-grit-gold mb-2">
+                <label htmlFor="email" className="block text-sm font-medium text-gray-900 mb-2">
                   Email
                 </label>
                 <Input
@@ -235,7 +235,7 @@ const LoginModal = ({ isOpen, onClose }) => {
 
               {/* Password Field */}
               <div>
-                <label htmlFor="password" className="block text-sm font-medium text-grit-gold mb-2">
+                <label htmlFor="password" className="block text-sm font-medium text-gray-900 mb-2">
                   Password
                 </label>
                 <div className="relative">
@@ -251,7 +251,7 @@ const LoginModal = ({ isOpen, onClose }) => {
                   <button
                     type="button"
                     onClick={() => setShowPassword(!showPassword)}
-                    className="absolute right-3 top-1/2 transform -translate-y-1/2 text-grit-gold-dark hover:text-grit-gold-dark"
+                    className="absolute right-3 top-1/2 transform -translate-y-1/2 text-gray-900-dark hover:text-gray-900-dark"
                   >
                     {showPassword ? (
                       <svg className="w-5 h-5" fill="none" stroke="currentColor" viewBox="0 0 24 24">
@@ -286,7 +286,7 @@ const LoginModal = ({ isOpen, onClose }) => {
             <div className="text-center my-4">
               <button
                 onClick={() => alert("Password reset feature coming soon")}
-                className="text-grit-gold font-bold text-sm hover:underline"
+                className="text-gray-900 font-bold text-sm hover:underline"
               >
                 Forgot Password?
               </button>
@@ -295,7 +295,7 @@ const LoginModal = ({ isOpen, onClose }) => {
             {/* Divider */}
             <div className="flex items-center my-8">
               <div className="flex-1 h-px bg-gray-200"></div>
-              <span className="px-4 text-sm text-grit-gold-dark">Sign in with</span>
+              <span className="px-4 text-sm text-gray-900-dark">Sign in with</span>
               <div className="flex-1 h-px bg-gray-200"></div>
             </div>
 
@@ -328,12 +328,12 @@ const LoginModal = ({ isOpen, onClose }) => {
             {/* Help Links */}
             <div className="text-center text-sm mb-6">
               <div className="mb-2">
-                <a href="#" className="text-grit-gold text-sm hover:underline">
+                <a href="#" className="text-gray-900 text-sm hover:underline">
                   Trouble signing in? Check out the FAQ
                 </a>
               </div>
               <div>
-                <a href="#" className="text-grit-gold text-sm hover:underline">
+                <a href="#" className="text-gray-900 text-sm hover:underline">
                   COPPA | GDPR Notice
                 </a>
               </div>
@@ -342,7 +342,7 @@ const LoginModal = ({ isOpen, onClose }) => {
             {/* Divider */}
             <div className="flex items-center my-8">
               <div className="flex-1 h-px bg-gray-200"></div>
-              <span className="px-4 text-sm text-grit-gold-dark">or</span>
+              <span className="px-4 text-sm text-gray-900-dark">or</span>
               <div className="flex-1 h-px bg-gray-200"></div>
             </div>
 
@@ -361,7 +361,7 @@ const LoginModal = ({ isOpen, onClose }) => {
               onClick={handleBackToFamilyLogin}
               className="absolute top-4 left-4 w-10 h-10 bg-white/20 backdrop-blur-sm hover:bg-white/30 rounded-full shadow-md transition-all duration-200 hover:-translate-x-1 flex items-center justify-center"
             >
-              <svg className="w-5 h-5 text-grit-gold" fill="currentColor" viewBox="0 0 24 24">
+              <svg className="w-5 h-5 text-gray-900" fill="currentColor" viewBox="0 0 24 24">
                 <path d="M20 11H7.83l5.59-5.59L12 4l-8 8 8 8 1.41-1.41L7.83 13H20v-2z"/>
               </svg>
             </button>
@@ -380,38 +380,38 @@ const LoginModal = ({ isOpen, onClose }) => {
             </div>
 
             {/* Help Text */}
-            <div className="text-center text-grit-gold text-base mb-5">
+            <div className="text-center text-gray-900 text-base mb-5">
               Don't have a QR code? Contact your School's GRIT Lead.
             </div>
             
-            <div className="text-center text-grit-gold-dark text-sm mb-8">
+            <div className="text-center text-gray-900-dark text-sm mb-8">
               If you are having trouble scanning the QR code, go to the URL at the bottom of the invite handout instead.
             </div>
 
             {/* Divider */}
             <div className="flex items-center my-8">
               <div className="flex-1 h-px bg-gray-200"></div>
-              <span className="px-4 text-sm text-grit-gold-dark">or</span>
+              <span className="px-4 text-sm text-gray-900-dark">or</span>
               <div className="flex-1 h-px bg-gray-200"></div>
             </div>
 
             {/* Sign In Link */}
             <div className="text-center text-base">
-              <span className="text-grit-gold">Already have an account? </span>
+              <span className="text-gray-900">Already have an account? </span>
               <button
                 onClick={handleBackToFamilyLogin}
-                className="text-grit-gold font-medium hover:underline"
+                className="text-gray-900 font-medium hover:underline"
               >
                 Sign In
               </button>
             </div>
 
             {/* Terms Text */}
-            <div className="text-center text-grit-gold-dark text-sm mt-8">
+            <div className="text-center text-gray-900-dark text-sm mt-8">
               By signing up, I agree to the{' '}
-              <a href="#" className="text-grit-gold font-medium hover:underline">Terms of Service</a>
+              <a href="#" className="text-gray-900 font-medium hover:underline">Terms of Service</a>
               {' '}and{' '}
-              <a href="#" className="text-grit-gold font-medium hover:underline">Privacy Policy</a>
+              <a href="#" className="text-gray-900 font-medium hover:underline">Privacy Policy</a>
             </div>
           </>
         ) : selectedRole === 'leader' ? (
@@ -421,18 +421,18 @@ const LoginModal = ({ isOpen, onClose }) => {
               onClick={handleBackToRoles}
               className="absolute top-4 left-4 w-10 h-10 bg-white/20 backdrop-blur-sm hover:bg-white/30 rounded-full shadow-md transition-all duration-200 hover:-translate-x-1 flex items-center justify-center"
             >
-              <svg className="w-5 h-5 text-grit-gold" fill="currentColor" viewBox="0 0 24 24">
+              <svg className="w-5 h-5 text-gray-900" fill="currentColor" viewBox="0 0 24 24">
                 <path d="M20 11H7.83l5.59-5.59L12 4l-8 8 8 8 1.41-1.41L7.83 13H20v-2z"/>
               </svg>
             </button>
 
             <h2 className="text-2xl font-bold text-grit-green text-center mb-2">Welcome Back</h2>
-            <p className="text-sm text-grit-gold-dark text-center mb-8">Sign in to access your dashboard</p>
+            <p className="text-sm text-gray-900-dark text-center mb-8">Sign in to access your dashboard</p>
             
             <form onSubmit={handleLogin} className="space-y-6">
               {/* Username Field */}
               <div>
-                <label htmlFor="username" className="block text-sm font-medium text-grit-gold mb-2">
+                <label htmlFor="username" className="block text-sm font-medium text-gray-900 mb-2">
                   Username
                 </label>
                 <Input
@@ -447,7 +447,7 @@ const LoginModal = ({ isOpen, onClose }) => {
 
               {/* Password Field */}
               <div>
-                <label htmlFor="password" className="block text-sm font-medium text-grit-gold mb-2">
+                <label htmlFor="password" className="block text-sm font-medium text-gray-900 mb-2">
                   Password
                 </label>
                 <Input
@@ -478,7 +478,7 @@ const LoginModal = ({ isOpen, onClose }) => {
             {/* Divider */}
             <div className="flex items-center my-8">
               <div className="flex-1 h-px bg-gray-200"></div>
-              <span className="px-4 text-sm text-grit-gold-dark">or</span>
+              <span className="px-4 text-sm text-gray-900-dark">or</span>
               <div className="flex-1 h-px bg-gray-200"></div>
             </div>
 
@@ -494,7 +494,7 @@ const LoginModal = ({ isOpen, onClose }) => {
                   <path fill="#FBBC05" d="M5.84 14.09c-.22-.66-.35-1.36-.35-2.09s.13-1.43.35-2.09V7.07H2.18C1.43 8.55 1 10.22 1 12s.43 3.45 1.18 4.93l2.85-2.22.81-.62z"/>
                   <path fill="#EA4335" d="M12 5.38c1.62 0 3.06.56 4.21 1.64l3.15-3.15C17.45 2.09 14.97 1 12 1 7.7 1 3.99 3.47 2.18 7.07l3.66 2.84c.87-2.6 3.3-4.53 6.16-4.53z"/>
                 </svg>
-                <span className="text-grit-gold font-medium">Sign In with Google Classroom</span>
+                <span className="text-gray-900 font-medium">Sign In with Google Classroom</span>
               </button>
 
               <button
@@ -507,7 +507,7 @@ const LoginModal = ({ isOpen, onClose }) => {
                   <path fill="#7FBA00" d="M1 13h10v10H1z"/>
                   <path fill="#FFB900" d="M13 13h10v10H13z"/>
                 </svg>
-                <span className="text-grit-gold font-medium">Sign In with Microsoft SSO</span>
+                <span className="text-gray-900 font-medium">Sign In with Microsoft SSO</span>
               </button>
             </div>
           </>
@@ -519,7 +519,7 @@ const LoginModal = ({ isOpen, onClose }) => {
                 onClick={handleBackToRoles}
                 className="absolute top-4 left-4 w-10 h-10 bg-white/20 backdrop-blur-sm hover:bg-white/30 rounded-full shadow-md transition-all duration-200 hover:-translate-x-1 flex items-center justify-center"
               >
-                <svg className="w-5 h-5 text-grit-gold" fill="currentColor" viewBox="0 0 24 24">
+                <svg className="w-5 h-5 text-gray-900" fill="currentColor" viewBox="0 0 24 24">
                   <path d="M20 11H7.83l5.59-5.59L12 4l-8 8 8 8 1.41-1.41L7.83 13H20v-2z"/>
                 </svg>
               </button>
@@ -528,7 +528,7 @@ const LoginModal = ({ isOpen, onClose }) => {
             <form onSubmit={handleLogin} className="space-y-6">
               {/* Username Field */}
               <div>
-                <label htmlFor="username" className="block text-sm font-medium text-grit-gold mb-2">
+                <label htmlFor="username" className="block text-sm font-medium text-gray-900 mb-2">
                   Username
                 </label>
                 <Input
@@ -543,7 +543,7 @@ const LoginModal = ({ isOpen, onClose }) => {
 
               {/* Password Field */}
               <div>
-                <label htmlFor="password" className="block text-sm font-medium text-grit-gold mb-2">
+                <label htmlFor="password" className="block text-sm font-medium text-gray-900 mb-2">
                   Password
                 </label>
                 <Input
