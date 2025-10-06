@@ -152,10 +152,15 @@ const FamilyDashboard = () => {
     const completed = progressData.filter(p => p.status === 'approved').length
     const inProgress = progressData.filter(p => p.status === 'in_progress' || p.status === 'submitted').length
     
+    // Calculate GRIT points from completed challenges
+    const gritPoints = progressData
+      .filter(p => p.status === 'approved' && p.challenges?.points)
+      .reduce((total, p) => total + (p.challenges.points || 0), 0)
+    
     return {
       completed,
       inProgress,
-      gritPoints: 0
+      gritPoints
     }
   }
 
@@ -406,6 +411,8 @@ const FamilyDashboard = () => {
       }
       
       setStudent(studentData)
+      console.log('Student data loaded:', studentData)
+      console.log('Avatar field:', studentData?.avatar)
     } catch (err) {
       console.error('Error fetching student:', err)
       setError(err.message)
@@ -918,7 +925,7 @@ const FamilyDashboard = () => {
 
           {/* Profile section */}
           <div className="text-center p-8 pb-6">
-            <img src={`/avatars/${student?.avatar || 'avatar-pilot-001.svg'}`} alt={student?.first_name} className="w-20 h-20 rounded-full bg-grit-gold p-2 mx-auto mb-4" />
+            <img src={`/avatars/${student?.avatar || 'avatar-pilot-001.svg'}`} alt={student?.first_name} className="w-20 h-20 rounded-full bg-grit-gold p-2 mx-auto mb-4" onError={(e) => { e.target.src = '/avatars/avatar-pilot-001.svg' }} />
             <h2 className="text-2xl font-['Roboto_Slab'] font-bold text-grit-green mb-2">{student?.first_name} {student?.last_name}</h2>
             <div className="text-gray-900 text-sm mb-1">St Peter's Catholic Primary School</div>
             <div className="text-gray-900-dark text-xs mb-2">St Peter's Way, Noctorum, Birkenhead, Prenton CH43 9QR</div>
@@ -974,7 +981,7 @@ const FamilyDashboard = () => {
             <div className="flex justify-between items-center px-5 py-4">
               <img src="/GRIT-logo-white.svg" alt="GRIT Awards" className="h-10 w-auto" />
               <button onClick={() => setShowProfileModal(true)} className="cursor-pointer">
-                <img src={`/avatars/${student?.avatar || 'avatar-pilot-001.svg'}`} alt={student?.first_name} className="w-12 h-12 rounded-full bg-grit-gold p-1" />
+                <img src={`/avatars/${student?.avatar || 'avatar-pilot-001.svg'}`} alt={student?.first_name} className="w-12 h-12 rounded-full bg-grit-gold p-1" onError={(e) => { e.target.src = '/avatars/avatar-pilot-001.svg' }} />
               </button>
             </div>
             
@@ -1343,7 +1350,7 @@ const FamilyDashboard = () => {
                     </svg>
                   </div>
                   <div className="text-right">
-                    <div className="text-3xl font-bold">240</div>
+                    <div className="text-3xl font-bold">{stats.gritPoints || 0}</div>
                     <div className="text-sm opacity-90">GRIT Points</div>
                   </div>
                 </div>
