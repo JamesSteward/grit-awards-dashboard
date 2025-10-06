@@ -1544,8 +1544,8 @@ const FamilyDashboard = () => {
         )}
 
         {activeTab === 'messages' && (
-          <div className="px-5 py-6">
-            <div className="flex flex-col lg:flex-row gap-6 h-[calc(100vh-300px)]">
+          <div className="px-5 py-6 pb-32">
+            <div className="flex flex-col lg:flex-row gap-6 min-h-[calc(100vh-300px)] lg:h-[calc(100vh-300px)]">
               {/* Left Sidebar - Conversation List */}
               <div className={`w-full lg:w-[30%] bg-white rounded-lg shadow-sm border border-grit-gold-dark flex flex-col ${
                 showConversationList ? 'block' : 'hidden lg:block'
@@ -1616,7 +1616,7 @@ const FamilyDashboard = () => {
               </div>
 
               {/* Right Panel - Conversation Thread */}
-              <div className="w-full lg:flex-1 bg-white rounded-lg shadow-sm border border-grit-gold-dark flex flex-col">
+              <div className="w-full lg:flex-1 bg-white rounded-lg shadow-sm border border-grit-gold-dark flex flex-col min-h-[400px] lg:h-full">
                 {selectedConversation ? (
                   <>
                     {/* Conversation Header */}
@@ -1708,7 +1708,7 @@ const FamilyDashboard = () => {
 
                     {/* Message Input */}
                     {selectedConversation.conversation_type !== 'announcement' && (
-                      <div className="p-4 border-t border-grit-gold-dark">
+                      <div className="p-4 border-t border-grit-gold-dark bg-white sticky bottom-0 z-10">
                         <div className="flex gap-3">
                           <input
                             type="text"
@@ -1716,13 +1716,13 @@ const FamilyDashboard = () => {
                             onChange={(e) => setNewMessage(e.target.value)}
                             onKeyPress={(e) => e.key === 'Enter' && sendMessage()}
                             placeholder="Type your message..."
-                            className="flex-1 px-3 py-2 border border-grit-gold-dark rounded-lg focus:ring-2 focus:ring-grit-green focus:border-transparent"
+                            className="flex-1 px-3 py-3 border border-grit-gold-dark rounded-lg focus:ring-2 focus:ring-grit-green focus:border-transparent text-base"
                             disabled={sending}
                           />
                           <button
                             onClick={sendMessage}
                             disabled={!newMessage.trim() || sending}
-                            className="px-4 py-2 bg-grit-green text-white rounded-lg hover:bg-grit-green-dark disabled:opacity-50 disabled:cursor-not-allowed transition-colors"
+                            className="px-6 py-3 bg-grit-green text-white rounded-lg hover:bg-grit-green-dark disabled:opacity-50 disabled:cursor-not-allowed transition-colors font-medium min-w-[80px]"
                           >
                             {sending ? 'Sending...' : 'Send'}
                           </button>
