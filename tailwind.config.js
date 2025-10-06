@@ -20,6 +20,7 @@ export default {
       fontFamily: {
         'heading': ['Roboto Slab', 'serif'],
         'body': ['Roboto', 'sans-serif'],
+        'roboto-slab': ['"Roboto Slab"', 'serif']
       },
     },
   },
