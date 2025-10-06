@@ -2,6 +2,7 @@ import React, { useState } from 'react'
 import { useNavigate } from 'react-router-dom'
 import { supabase } from '../lib/supabaseClient'
 import Input from './Input'
+import Button from './Button'
 
 const LoginModal = ({ isOpen, onClose }) => {
   const [selectedRole, setSelectedRole] = useState(null)
@@ -165,26 +166,26 @@ const LoginModal = ({ isOpen, onClose }) => {
           /* Role Selection */
           <>
             <div className="space-y-4">
-              <button
+              <Button
                 onClick={() => handleRoleSelect('family')}
-                className="w-full bg-gradient-to-br from-grit-green to-grit-green-dark shadow-lg shadow-grit-green/20 hover:shadow-xl hover:shadow-grit-green/30 hover:-translate-y-0.5 transition-all duration-200 text-white font-semibold py-4 px-8 rounded-lg"
+                className="w-full py-4 px-8"
               >
                 I'm a Family Member
-              </button>
+              </Button>
               
-              <button
+              <Button
                 onClick={() => handleRoleSelect('leader')}
-                className="w-full bg-gradient-to-br from-grit-green to-grit-green-dark shadow-lg shadow-grit-green/20 hover:shadow-xl hover:shadow-grit-green/30 hover:-translate-y-0.5 transition-all duration-200 text-white font-semibold py-4 px-8 rounded-lg"
+                className="w-full py-4 px-8"
               >
                 GRIT Leaders
-              </button>
+              </Button>
               
-              <button
-                className="w-full bg-gray-400 text-white py-4 px-8 rounded-lg cursor-not-allowed"
+              <Button
+                className="w-full py-4 px-8 bg-gray-400 cursor-not-allowed"
                 disabled
               >
                 GRIT Directors (Coming Soon)
-              </button>
+              </Button>
             </div>
             
             <div className="mt-6 pt-6 border-t border-grit-gold-dark">
