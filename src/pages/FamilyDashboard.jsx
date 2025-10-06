@@ -217,6 +217,9 @@ const FamilyDashboard = () => {
     try {
       const mediaUrls = [];
 
+      // File uploads temporarily disabled due to storage configuration
+      // TODO: Uncomment when Supabase storage is properly configured
+      /*
       // Upload images to Supabase Storage
       if (evidenceImages.length > 0) {
         for (const image of evidenceImages) {
@@ -256,6 +259,7 @@ const FamilyDashboard = () => {
         
         mediaUrls.push(publicUrl);
       }
+      */
 
       // Find the challenge title
       const challenge = challenges.find(c => {
@@ -304,7 +308,7 @@ const FamilyDashboard = () => {
       await fetchStudentChallenges();
       await fetchHomeStats();
 
-      alert('Evidence submitted successfully! Your GRIT Lead will review it soon.');
+      alert('Evidence submitted successfully! Your GRIT Lead will review your text description soon.');
       
     } catch (error) {
       console.error('Error submitting evidence:', error);
@@ -1697,52 +1701,11 @@ const FamilyDashboard = () => {
               />
             </div>
 
-            {/* Image Upload */}
-            <div className="mb-4">
-              <label className="block text-sm font-medium text-gray-700 mb-2">
-                Upload Images (Max 3):
-              </label>
-              <input
-                type="file"
-                accept="image/*"
-                multiple
-                onChange={(e) => {
-                  const files = Array.from(e.target.files).slice(0, 3);
-                  setEvidenceImages(files);
-                }}
-                className="w-full text-sm"
-              />
-              {evidenceImages.length > 0 && (
-                <p className="mt-2 text-xs text-gray-600">
-                  {evidenceImages.length} image(s) selected
-                </p>
-              )}
-            </div>
-
-            {/* Video Upload */}
-            <div className="mb-6">
-              <label className="block text-sm font-medium text-gray-700 mb-2">
-                Upload Video (Optional, Max 30MB):
-              </label>
-              <input
-                type="file"
-                accept="video/*"
-                onChange={(e) => {
-                  const file = e.target.files[0];
-                  if (file && file.size <= 30 * 1024 * 1024) {
-                    setEvidenceVideo(file);
-                  } else {
-                    alert('Video must be under 30MB');
-                    e.target.value = '';
-                  }
-                }}
-                className="w-full text-sm"
-              />
-              {evidenceVideo && (
-                <p className="mt-2 text-xs text-gray-600">
-                  {evidenceVideo.name} selected
-                </p>
-              )}
+            {/* File Upload Notice */}
+            <div className="mb-4 p-3 bg-gray-50 rounded-lg border border-gray-200">
+              <p className="text-sm text-gray-600">
+                File uploads temporarily unavailable due to storage configuration. Text descriptions only.
+              </p>
             </div>
 
             {/* Action Buttons */}
