@@ -154,7 +154,7 @@ const LoginModal = ({ isOpen, onClose }) => {
       />
       
       {/* Modal */}
-      <div className="relative bg-white rounded-lg p-6 sm:p-8 max-w-md w-[95%] max-h-[85vh] overflow-y-auto mx-4 shadow-xl">
+      <div className="relative bg-white rounded-lg p-6 sm:p-8 max-w-md w-[95%] max-h-[85vh] overflow-y-auto mx-4 shadow-xl font-sans">
         
         {/* GRIT Logo */}
         <div className="flex justify-center mb-8">
