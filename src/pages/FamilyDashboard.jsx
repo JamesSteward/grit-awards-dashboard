@@ -1136,22 +1136,12 @@ const FamilyDashboard = () => {
                     setShowConversationList(true);
                   }}
                   className="w-full px-6 py-3 flex items-center justify-center bg-white border-2 border-grit-green text-grit-green hover:bg-grit-green hover:text-white transition-colors"
+                  style={{ color: '#032717' }}
                 >
                   <svg className="w-5 h-5 mr-2" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2">
                     <path d="M21 15a2 2 0 0 1-2 2H7l-4 4V5a2 2 0 0 1 2-2h14a2 2 0 0 1 2 2z"/>
                   </svg>
                   Message GRIT Lead
-                </Button>
-                <Button onClick={() => setActiveTab('challenges')} className="w-full px-6 py-3 flex items-center justify-center">
-                  <svg className="w-5 h-5 mr-2" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2">
-                    <line x1="8" y1="6" x2="21" y2="6"/>
-                    <line x1="8" y1="12" x2="21" y2="12"/>
-                    <line x1="8" y1="18" x2="21" y2="18"/>
-                    <line x1="3" y1="6" x2="3.01" y2="6"/>
-                    <line x1="3" y1="12" x2="3.01" y2="12"/>
-                    <line x1="3" y1="18" x2="3.01" y2="18"/>
-                  </svg>
-                  View All Challenges
                 </Button>
               </div>
             </div>
