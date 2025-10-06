@@ -65,14 +65,14 @@ function Login() {
         {/* GRIT Logo */}
         <div className="text-center mb-8">
           <div className="text-4xl font-bold text-green-600 mb-2">GRIT</div>
-          <div className="text-gray-600">Awards Dashboard</div>
+          <div className="text-grit-gold">Awards Dashboard</div>
         </div>
 
         {/* Login Form */}
         <form onSubmit={handleLogin} className="space-y-6">
           {/* Username Field */}
           <div>
-            <label htmlFor="username" className="block text-sm font-medium text-gray-700 mb-2">
+            <label htmlFor="username" className="block text-sm font-medium text-grit-gold mb-2">
               Username
             </label>
             <input
@@ -88,7 +88,7 @@ function Login() {
 
           {/* Password Field */}
           <div>
-            <label htmlFor="password" className="block text-sm font-medium text-gray-700 mb-2">
+            <label htmlFor="password" className="block text-sm font-medium text-grit-gold mb-2">
               Password
             </label>
             <input
@@ -119,7 +119,7 @@ function Login() {
         </form>
 
         {/* Demo Instructions */}
-        <div className="mt-6 text-center text-sm text-gray-500">
+        <div className="mt-6 text-center text-sm text-grit-gold-dark">
           <p>Demo accounts:</p>
           <p>riley / password (Family)</p>
           <p>mia / password (Family)</p>

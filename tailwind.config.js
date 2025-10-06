@@ -8,10 +8,14 @@ export default {
     extend: {
       colors: {
         'grit-green': '#032717',
-        'grit-gold-light': '#cec6b5',
-        'grit-gold-dark': '#847147',
-        'grit-red': '#991b1b',
-        'grit-red-dark': '#7f1d1d',
+        'grit-gold': {
+          DEFAULT: '#CEC6B5',
+          dark: '#847147'
+        },
+        'red-jacket': {
+          DEFAULT: '#991B1B',
+          dark: '#7F1D1D'
+        },
       },
       fontFamily: {
         'heading': ['Roboto Slab', 'serif'],

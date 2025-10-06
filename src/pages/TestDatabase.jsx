@@ -57,7 +57,7 @@ const TestDatabase = () => {
       <div className="min-h-screen bg-gray-50 flex items-center justify-center">
         <div className="text-center">
           <div className="animate-spin rounded-full h-12 w-12 border-b-2 border-grit-green mx-auto mb-4"></div>
-          <p className="text-xl text-gray-600">Loading students...</p>
+          <p className="text-xl text-grit-gold">Loading students...</p>
         </div>
       </div>
     )
@@ -75,7 +75,7 @@ const TestDatabase = () => {
           <h2 className="text-2xl font-heading font-bold text-grit-red mb-4">
             Database Connection Error
           </h2>
-          <p className="text-gray-600 mb-6">
+          <p className="text-grit-gold mb-6">
             {error}
           </p>
           <button
@@ -96,7 +96,7 @@ const TestDatabase = () => {
           <h1 className="text-4xl font-heading font-bold text-grit-green mb-4">
             Database Connection Test
           </h1>
-          <p className="text-xl text-gray-600 mb-4">
+          <p className="text-xl text-grit-gold mb-4">
             Testing Supabase connection with students table
           </p>
           <div className="bg-green-100 border border-green-400 text-green-700 px-4 py-3 rounded-lg inline-block">
@@ -106,11 +106,11 @@ const TestDatabase = () => {
 
         {students.length === 0 ? (
           <div className="bg-white rounded-lg shadow-lg p-8 text-center">
-            <div className="text-gray-400 text-6xl mb-4">📊</div>
-            <h3 className="text-xl font-heading font-semibold text-gray-600 mb-2">
+            <div className="text-grit-gold-dark text-6xl mb-4">📊</div>
+            <h3 className="text-xl font-heading font-semibold text-grit-gold mb-2">
               No Students Found
             </h3>
-            <p className="text-gray-500">
+            <p className="text-grit-gold-dark">
               The students table exists but contains no data.
             </p>
           </div>
@@ -128,7 +128,7 @@ const TestDatabase = () => {
                     <h3 className="text-lg font-heading font-semibold text-grit-green">
                       {student.first_name} {student.last_name}
                     </h3>
-                    <p className="text-sm text-gray-500">
+                    <p className="text-sm text-grit-gold-dark">
                       Year {student.year_level}
                     </p>
                   </div>
@@ -136,28 +136,28 @@ const TestDatabase = () => {
                 
                 <div className="space-y-3">
                   <div className="flex justify-between items-center">
-                    <span className="text-sm text-gray-600">Current Award:</span>
+                    <span className="text-sm text-grit-gold">Current Award:</span>
                     <span className="text-sm font-medium text-grit-gold-dark">
                       {formatAward(student.current_award) || 'None'}
                     </span>
                   </div>
                   
                   <div className="flex justify-between items-center">
-                    <span className="text-sm text-gray-600">Progress:</span>
+                    <span className="text-sm text-grit-gold">Progress:</span>
                     <span className="text-sm font-medium text-grit-green">
                       {student.progress_percentage || 0}%
                     </span>
                   </div>
                   
                   <div className="flex justify-between items-center">
-                    <span className="text-sm text-gray-600">Current Streak:</span>
+                    <span className="text-sm text-grit-gold">Current Streak:</span>
                     <span className="text-sm font-medium text-grit-red">
                       {student.current_streak || 0} days
                     </span>
                   </div>
                 </div>
                 
-                <div className="mt-4 pt-4 border-t border-gray-200">
+                <div className="mt-4 pt-4 border-t border-grit-gold-dark">
                   <div className="w-full bg-gray-200 rounded-full h-2">
                     <div 
                       className="bg-grit-green h-2 rounded-full transition-all duration-300"

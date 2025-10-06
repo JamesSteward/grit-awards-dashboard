@@ -78,7 +78,7 @@ const DashboardHeader = ({ userType }) => {
             )}
             <button
               onClick={handleLogout}
-              className="text-gray-300 hover:text-white transition-colors text-sm font-medium"
+              className="text-grit-gold-dark hover:text-white transition-colors text-sm font-medium"
             >
               Logout
             </button>

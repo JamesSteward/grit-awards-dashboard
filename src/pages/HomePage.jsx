@@ -46,7 +46,7 @@ const HomePage = () => {
             <h2 className="text-4xl font-heading font-bold text-grit-green mb-4">
               Why GRIT Awards?
             </h2>
-            <p className="text-xl text-gray-600 max-w-3xl mx-auto">
+            <p className="text-xl text-grit-gold max-w-3xl mx-auto">
               Our comprehensive program helps schools develop well-rounded students 
               ready for life's challenges through structured achievement recognition.
             </p>
@@ -62,7 +62,7 @@ const HomePage = () => {
               <h3 className="text-xl font-heading font-semibold text-grit-green mb-3">
                 Achievement Recognition
               </h3>
-              <p className="text-gray-600">
+              <p className="text-grit-gold">
                 Structured award system that recognizes student growth in character, 
                 leadership, and life skills.
               </p>
@@ -77,7 +77,7 @@ const HomePage = () => {
               <h3 className="text-xl font-heading font-semibold text-grit-green mb-3">
                 Comprehensive Tracking
               </h3>
-              <p className="text-gray-600">
+              <p className="text-grit-gold">
                 Complete digital platform for tracking student progress and 
                 managing award distribution.
               </p>
@@ -90,7 +90,7 @@ const HomePage = () => {
               <h3 className="text-xl font-heading font-semibold text-grit-green mb-3">
                 Community Engagement
               </h3>
-              <p className="text-gray-600">
+              <p className="text-grit-gold">
                 Involve families and communities in celebrating student 
                 achievements and character development.
               </p>
@@ -106,7 +106,7 @@ const HomePage = () => {
             <h2 className="text-4xl font-heading font-bold text-grit-green mb-4">
               Who Are You?
             </h2>
-            <p className="text-xl text-gray-600">
+            <p className="text-xl text-grit-gold">
               Choose your role to get started with GRIT Awards
             </p>
           </div>
@@ -119,7 +119,7 @@ const HomePage = () => {
               <h3 className="text-lg font-heading font-semibold text-grit-green mb-2">
                 Parent
               </h3>
-              <p className="text-gray-600 text-sm mb-4">
+              <p className="text-grit-gold text-sm mb-4">
                 Track your child's achievements and celebrate their growth
               </p>
               <Button variant="primary" className="w-full">
@@ -134,7 +134,7 @@ const HomePage = () => {
               <h3 className="text-lg font-heading font-semibold text-grit-green mb-2">
                 Teacher
               </h3>
-              <p className="text-gray-600 text-sm mb-4">
+              <p className="text-grit-gold text-sm mb-4">
                 Manage your class and award student achievements
               </p>
               <Button variant="primary" className="w-full">
@@ -149,7 +149,7 @@ const HomePage = () => {
               <h3 className="text-lg font-heading font-semibold text-grit-green mb-2">
                 Head
               </h3>
-              <p className="text-gray-600 text-sm mb-4">
+              <p className="text-grit-gold text-sm mb-4">
                 Oversee school-wide implementation and analytics
               </p>
               <Button variant="primary" className="w-full">
@@ -166,7 +166,7 @@ const HomePage = () => {
               <h3 className="text-lg font-heading font-semibold text-grit-green mb-2">
                 Veteran
               </h3>
-              <p className="text-gray-600 text-sm mb-4">
+              <p className="text-grit-gold text-sm mb-4">
                 Share your experience and mentor students
               </p>
               <Button variant="primary" className="w-full">
@@ -184,7 +184,7 @@ const HomePage = () => {
             <h2 className="text-4xl font-heading font-bold text-grit-green mb-4">
               Key Features
             </h2>
-            <p className="text-xl text-gray-600">
+            <p className="text-xl text-grit-gold">
               Everything you need to implement and manage GRIT Awards
             </p>
           </div>
@@ -194,11 +194,11 @@ const HomePage = () => {
               <h3 className="text-xl font-heading font-semibold text-grit-green mb-3">
                 Digital Badges
               </h3>
-              <p className="text-gray-600 mb-4">
+              <p className="text-grit-gold mb-4">
                 Award digital badges for achievements in character, leadership, 
                 and life skills development.
               </p>
-              <ul className="text-sm text-gray-500 space-y-1">
+              <ul className="text-sm text-grit-gold-dark space-y-1">
                 <li>• Bronze, Silver, Gold, Platinum levels</li>
                 <li>• Customizable criteria</li>
                 <li>• Automated tracking</li>
@@ -209,11 +209,11 @@ const HomePage = () => {
               <h3 className="text-xl font-heading font-semibold text-grit-green mb-3">
                 Progress Analytics
               </h3>
-              <p className="text-gray-600 mb-4">
+              <p className="text-grit-gold mb-4">
                 Comprehensive reporting and analytics to track student growth 
                 and program effectiveness.
               </p>
-              <ul className="text-sm text-gray-500 space-y-1">
+              <ul className="text-sm text-grit-gold-dark space-y-1">
                 <li>• Individual student reports</li>
                 <li>• Class and school analytics</li>
                 <li>• Parent engagement metrics</li>
@@ -224,11 +224,11 @@ const HomePage = () => {
               <h3 className="text-xl font-heading font-semibold text-grit-green mb-3">
                 Family Engagement
               </h3>
-              <p className="text-gray-600 mb-4">
+              <p className="text-grit-gold mb-4">
                 Keep families informed and engaged with their child's 
                 character development journey.
               </p>
-              <ul className="text-sm text-gray-500 space-y-1">
+              <ul className="text-sm text-grit-gold-dark space-y-1">
                 <li>• Real-time notifications</li>
                 <li>• Achievement celebrations</li>
                 <li>• Progress sharing</li>
@@ -245,7 +245,7 @@ const HomePage = () => {
             <h2 className="text-4xl font-heading font-bold text-grit-green mb-4">
               Our Goals
             </h2>
-            <p className="text-xl text-gray-600">
+            <p className="text-xl text-grit-gold">
               Building character and life skills for tomorrow's leaders
             </p>
           </div>
@@ -260,7 +260,7 @@ const HomePage = () => {
                   <h3 className="text-lg font-heading font-semibold text-grit-green mb-2">
                     Character Development
                   </h3>
-                  <p className="text-gray-600">
+                  <p className="text-grit-gold">
                     Foster essential character traits like integrity, responsibility, 
                     and respect through structured recognition programs.
                   </p>
@@ -275,7 +275,7 @@ const HomePage = () => {
                   <h3 className="text-lg font-heading font-semibold text-grit-green mb-2">
                     Life Skills Mastery
                   </h3>
-                  <p className="text-gray-600">
+                  <p className="text-grit-gold">
                     Develop practical life skills including communication, 
                     problem-solving, and leadership abilities.
                   </p>
@@ -290,7 +290,7 @@ const HomePage = () => {
                   <h3 className="text-lg font-heading font-semibold text-grit-green mb-2">
                     Community Building
                   </h3>
-                  <p className="text-gray-600">
+                  <p className="text-grit-gold">
                     Create stronger school communities through shared values 
                     and collective achievement recognition.
                   </p>
@@ -307,7 +307,7 @@ const HomePage = () => {
                   <h3 className="text-lg font-heading font-semibold text-grit-green mb-2">
                     Academic Excellence
                   </h3>
-                  <p className="text-gray-600">
+                  <p className="text-grit-gold">
                     Support academic achievement by recognizing effort, 
                     improvement, and scholarly character.
                   </p>
@@ -322,7 +322,7 @@ const HomePage = () => {
                   <h3 className="text-lg font-heading font-semibold text-grit-green mb-2">
                     Future Readiness
                   </h3>
-                  <p className="text-gray-600">
+                  <p className="text-grit-gold">
                     Prepare students for success in higher education, 
                     careers, and civic engagement.
                   </p>
@@ -337,7 +337,7 @@ const HomePage = () => {
                   <h3 className="text-lg font-heading font-semibold text-grit-green mb-2">
                     Positive Recognition
                   </h3>
-                  <p className="text-gray-600">
+                  <p className="text-grit-gold">
                     Celebrate every student's unique strengths and 
                     contributions to their community.
                   </p>
@@ -355,14 +355,14 @@ const HomePage = () => {
             <h2 className="text-4xl font-heading font-bold text-grit-green mb-4">
               What People Say
             </h2>
-            <p className="text-xl text-gray-600">
+            <p className="text-xl text-grit-gold">
               Hear from educators and families using GRIT Awards
             </p>
           </div>
           
           <div className="grid grid-cols-1 md:grid-cols-3 gap-8">
             <div className="bg-white rounded-lg p-6 shadow-md">
-              <p className="text-gray-600 mb-4 italic">
+              <p className="text-grit-gold mb-4 italic">
                 "GRIT Awards has transformed our school culture. Students are more 
                 engaged and motivated to demonstrate positive character traits."
               </p>
@@ -372,13 +372,13 @@ const HomePage = () => {
                 </div>
                 <div>
                   <p className="font-semibold text-grit-green">Sarah Miller</p>
-                  <p className="text-sm text-gray-500">Principal, Lincoln Elementary</p>
+                  <p className="text-sm text-grit-gold-dark">Principal, Lincoln Elementary</p>
                 </div>
               </div>
             </div>
             
             <div className="bg-white rounded-lg p-6 shadow-md">
-              <p className="text-gray-600 mb-4 italic">
+              <p className="text-grit-gold mb-4 italic">
                 "My daughter's confidence has grown tremendously since her school 
                 started using GRIT Awards. She's proud of her achievements!"
               </p>
@@ -388,13 +388,13 @@ const HomePage = () => {
                 </div>
                 <div>
                   <p className="font-semibold text-grit-green">Jennifer Davis</p>
-                  <p className="text-sm text-gray-500">Parent</p>
+                  <p className="text-sm text-grit-gold-dark">Parent</p>
                 </div>
               </div>
             </div>
             
             <div className="bg-white rounded-lg p-6 shadow-md">
-              <p className="text-gray-600 mb-4 italic">
+              <p className="text-grit-gold mb-4 italic">
                 "The platform makes it easy to track and celebrate student growth. 
                 It's become an essential part of our character education program."
               </p>
@@ -404,7 +404,7 @@ const HomePage = () => {
                 </div>
                 <div>
                   <p className="font-semibold text-grit-green">Michael Rodriguez</p>
-                  <p className="text-sm text-gray-500">Teacher, Roosevelt Middle</p>
+                  <p className="text-sm text-grit-gold-dark">Teacher, Roosevelt Middle</p>
                 </div>
               </div>
             </div>
@@ -452,7 +452,7 @@ const HomePage = () => {
             <h2 className="text-4xl font-heading font-bold text-grit-green mb-4">
               Meet the Team
             </h2>
-            <p className="text-xl text-gray-600">
+            <p className="text-xl text-grit-gold">
               The passionate educators and developers behind GRIT Awards
             </p>
           </div>
@@ -466,7 +466,7 @@ const HomePage = () => {
                 Dr. Jane Smith
               </h3>
               <p className="text-grit-gold-dark font-medium mb-2">Founder & CEO</p>
-              <p className="text-gray-600 text-sm">
+              <p className="text-grit-gold text-sm">
                 Former principal with 20+ years in education, passionate about 
                 character development and student success.
               </p>
@@ -480,7 +480,7 @@ const HomePage = () => {
                 Michael Johnson
               </h3>
               <p className="text-grit-gold-dark font-medium mb-2">CTO</p>
-              <p className="text-gray-600 text-sm">
+              <p className="text-grit-gold text-sm">
                 Technology leader with expertise in educational platforms and 
                 user experience design.
               </p>
@@ -494,7 +494,7 @@ const HomePage = () => {
                 Sarah Williams
               </h3>
               <p className="text-grit-gold-dark font-medium mb-2">Head of Education</p>
-              <p className="text-gray-600 text-sm">
+              <p className="text-grit-gold text-sm">
                 Curriculum specialist focused on character education and 
                 life skills development programs.
               </p>
