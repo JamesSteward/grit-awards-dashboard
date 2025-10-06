@@ -597,31 +597,33 @@ const LeaderDashboard = () => {
 
   // New request changes handler as specified in prompt
   async function handleRequestChanges() {
-    if (!feedbackText.trim() || !reviewingSubmission) return;
+    if (!feedbackText.trim()) {
+      alert('Please provide feedback before requesting changes.');
+      return;
+    }
 
     try {
-      // Update evidence_submissions to needs_revision
-      const { error: evidenceError } = await supabase
+      // 1. Update evidence_submissions with feedback
+      const { error: submissionError } = await supabase
         .from('evidence_submissions')
-        .update({ status: 'needs_revision' })
+        .update({ 
+          feedback: feedbackText,
+          status: 'needs_revision'
+        })
         .eq('id', reviewingSubmission.id);
 
-      if (evidenceError) throw evidenceError;
+      if (submissionError) throw submissionError;
 
-      // Update student_progress to needs_revision
+      // 2. Update student_progress status only (no feedback column)
       const { error: progressError } = await supabase
         .from('student_progress')
         .update({ 
-          status: 'needs_revision',
-          feedback: feedbackText 
+          status: 'needs_revision'
         })
         .eq('student_id', reviewingSubmission.student_id)
         .eq('objective_id', reviewingSubmission.challenge_id);
 
       if (progressError) throw progressError;
-
-      // Create conversation with feedback (optional - for messaging system)
-      // Can implement later when messaging is built
 
       setShowFeedbackModal(false);
       setFeedbackText('');
