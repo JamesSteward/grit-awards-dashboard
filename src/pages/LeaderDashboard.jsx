@@ -44,6 +44,12 @@ const LeaderDashboard = () => {
   const [pointsModal, setPointsModal] = useState({ show: false, evidenceId: null, submissionType: null })
   const [selectedPoints, setSelectedPoints] = useState(5)
   
+  // New evidence review states
+  const [pendingSubmissions, setPendingSubmissions] = useState([])
+  const [reviewingSubmission, setReviewingSubmission] = useState(null)
+  const [showFeedbackModal, setShowFeedbackModal] = useState(false)
+  const [feedbackText, setFeedbackText] = useState('')
+  
   // Announcement states
   const [announcementFilters, setAnnouncementFilters] = useState({
     yearLevel: 'all',        // 'all', '3', '4', '5', '6'
@@ -157,7 +163,36 @@ const LeaderDashboard = () => {
 
   useEffect(() => {
     fetchAllData()
+    fetchPendingSubmissions()
   }, [])
+
+  // Fetch pending evidence submissions for review
+  async function fetchPendingSubmissions() {
+    const { data, error } = await supabase
+      .from('evidence_submissions')
+      .select(`
+        *,
+        students (
+          id,
+          first_name,
+          last_name
+        ),
+        challenges (
+          id,
+          title,
+          points
+        )
+      `)
+      .eq('status', 'pending')
+      .order('created_at', { ascending: false });
+
+    if (error) {
+      console.error('Error fetching submissions:', error);
+      return;
+    }
+
+    setPendingSubmissions(data || []);
+  }
 
   // Update recipient count when announcement modal opens
   useEffect(() => {
@@ -402,7 +437,41 @@ const LeaderDashboard = () => {
     }
   }
 
-  const handleApproveEvidence = async (submissionId, submissionType, challengeId) => {
+  // New evidence approval handler as specified in prompt
+  async function handleApproveEvidence(submission) {
+    try {
+      // Update evidence_submissions to approved
+      const { error: evidenceError } = await supabase
+        .from('evidence_submissions')
+        .update({ status: 'approved' })
+        .eq('id', submission.id);
+
+      if (evidenceError) throw evidenceError;
+
+      // Update student_progress to approved
+      const { error: progressError } = await supabase
+        .from('student_progress')
+        .update({ 
+          status: 'approved',
+          completed_at: new Date().toISOString()
+        })
+        .eq('student_id', submission.student_id)
+        .eq('objective_id', submission.challenge_id);
+
+      if (progressError) throw progressError;
+
+      // Refresh submissions list
+      await fetchPendingSubmissions();
+
+      alert(`Approved! ${submission.students.first_name} earned ${submission.challenges.points} points.`);
+      
+    } catch (error) {
+      console.error('Error approving evidence:', error);
+      alert('Failed to approve evidence: ' + error.message);
+    }
+  }
+
+  const handleApproveEvidenceOld = async (submissionId, submissionType, challengeId) => {
     try {
       setApprovingId(submissionId)
       
@@ -500,7 +569,46 @@ const LeaderDashboard = () => {
     }
   }
 
-  const handleRequestChanges = async (submissionId) => {
+  // New request changes handler as specified in prompt
+  async function handleRequestChanges() {
+    if (!feedbackText.trim() || !reviewingSubmission) return;
+
+    try {
+      // Update evidence_submissions to needs_revision
+      const { error: evidenceError } = await supabase
+        .from('evidence_submissions')
+        .update({ status: 'needs_revision' })
+        .eq('id', reviewingSubmission.id);
+
+      if (evidenceError) throw evidenceError;
+
+      // Update student_progress to needs_revision
+      const { error: progressError } = await supabase
+        .from('student_progress')
+        .update({ status: 'needs_revision' })
+        .eq('student_id', reviewingSubmission.student_id)
+        .eq('objective_id', reviewingSubmission.challenge_id);
+
+      if (progressError) throw progressError;
+
+      // Create conversation with feedback (optional - for messaging system)
+      // Can implement later when messaging is built
+
+      setShowFeedbackModal(false);
+      setFeedbackText('');
+      setReviewingSubmission(null);
+
+      await fetchPendingSubmissions();
+
+      alert('Feedback sent. Student will see your comments and can resubmit.');
+      
+    } catch (error) {
+      console.error('Error requesting changes:', error);
+      alert('Failed to send feedback: ' + error.message);
+    }
+  }
+
+  const handleRequestChangesOld = async (submissionId) => {
     setFeedbackModal({ show: true, evidenceId: submissionId, feedback: '' })
   }
 
@@ -883,6 +991,7 @@ const LeaderDashboard = () => {
                   {[
                     { id: 'students', label: 'Students' },
                     { id: 'evidence', label: 'Pending Evidence', count: pendingEvidence.length },
+                    { id: 'review', label: 'Review Evidence', count: pendingSubmissions.length },
                     { id: 'messages', label: 'Messages', count: messages.length }
                   ].map((tab) => (
                     <button
@@ -1056,6 +1165,67 @@ const LeaderDashboard = () => {
                         </table>
                       </div>
                     )}
+                  </div>
+                )}
+
+                {/* Review Evidence Tab */}
+                {activeTab === 'review' && (
+                  <div>
+                    <div className="mb-6">
+                      <h2 className="text-xl font-bold text-[#032717] mb-4">Review Evidence</h2>
+                      
+                      {pendingSubmissions.length === 0 ? (
+                        <div className="bg-white rounded-lg p-6 text-center text-gray-500">
+                          No evidence awaiting review
+                        </div>
+                      ) : (
+                        <div className="space-y-4">
+                          {pendingSubmissions.map(submission => (
+                            <div key={submission.id} className="bg-white rounded-lg p-6 border border-gray-200">
+                              {/* Student and Challenge Info */}
+                              <div className="flex justify-between items-start mb-4">
+                                <div>
+                                  <h3 className="font-bold text-lg text-[#032717]">
+                                    {submission.students.first_name} {submission.students.last_name}
+                                  </h3>
+                                  <p className="text-gray-600">{submission.challenges.title}</p>
+                                  <p className="text-sm text-gray-500">
+                                    {submission.challenges.points} points
+                                  </p>
+                                </div>
+                                <div className="text-sm text-gray-500">
+                                  {new Date(submission.created_at).toLocaleDateString()}
+                                </div>
+                              </div>
+
+                              {/* Evidence Text */}
+                              <div className="mb-4 p-4 bg-gray-50 rounded-lg">
+                                <p className="text-sm text-gray-700">{submission.text_content}</p>
+                              </div>
+
+                              {/* Action Buttons */}
+                              <div className="flex gap-3">
+                                <button
+                                  onClick={() => handleApproveEvidence(submission)}
+                                  className="flex-1 bg-gradient-to-br from-[#032717] to-[#054d2a] text-white py-2 rounded-lg font-semibold hover:shadow-lg"
+                                >
+                                  Approve
+                                </button>
+                                <button
+                                  onClick={() => {
+                                    setReviewingSubmission(submission);
+                                    setShowFeedbackModal(true);
+                                  }}
+                                  className="flex-1 bg-amber-500 text-white py-2 rounded-lg font-semibold hover:bg-amber-600"
+                                >
+                                  Request Changes
+                                </button>
+                              </div>
+                            </div>
+                          ))}
+                        </div>
+                      )}
+                    </div>
                   </div>
                 )}
 
@@ -1711,6 +1881,43 @@ const LeaderDashboard = () => {
               >
                 Cancel
               </Button>
+            </div>
+          </div>
+        </div>
+      )}
+
+      {/* New Request Changes Modal */}
+      {showFeedbackModal && (
+        <div className="fixed inset-0 bg-black bg-opacity-50 flex items-center justify-center z-50 p-4">
+          <div className="bg-white rounded-lg p-6 max-w-md w-full">
+            <h3 className="text-xl font-bold text-[#032717] mb-4">Request Changes</h3>
+            
+            <textarea
+              value={feedbackText}
+              onChange={(e) => setFeedbackText(e.target.value)}
+              placeholder="Explain what needs to be improved..."
+              className="w-full px-3 py-2 border border-gray-300 rounded-lg resize-none mb-4"
+              rows={4}
+            />
+
+            <div className="flex gap-3">
+              <button
+                onClick={() => {
+                  setShowFeedbackModal(false);
+                  setFeedbackText('');
+                  setReviewingSubmission(null);
+                }}
+                className="flex-1 px-4 py-2 border border-gray-300 rounded-lg text-gray-700 font-semibold"
+              >
+                Cancel
+              </button>
+              <button
+                onClick={handleRequestChanges}
+                disabled={!feedbackText.trim()}
+                className="flex-1 bg-amber-500 text-white py-2 rounded-lg font-semibold disabled:opacity-50"
+              >
+                Send Feedback
+              </button>
             </div>
           </div>
         </div>
