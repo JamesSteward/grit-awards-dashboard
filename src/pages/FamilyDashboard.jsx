@@ -1158,12 +1158,11 @@ const FamilyDashboard = () => {
 
         {activeTab === 'awards' && (
           <div className="px-5 py-6">
-            {/* Celebration Content */}
-            <div className="relative bg-gradient-to-br from-grit-green to-grit-green-dark text-white overflow-hidden rounded-lg mb-6">
-              <div className="absolute inset-0 opacity-30" style={{backgroundImage: `url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 100 100'%3E%3Cdefs%3E%3Cpattern id='grain' width='100' height='100' patternUnits='userSpaceOnUse'%3E%3Ccircle cx='25' cy='25' r='1' fill='white' opacity='0.1'/%3E%3Ccircle cx='75' cy='75' r='1' fill='white' opacity='0.1'/%3E%3Ccircle cx='50' cy='10' r='1' fill='white' opacity='0.1'/%3E%3Ccircle cx='10' cy='60' r='1' fill='white' opacity='0.1'/%3E%3Ccircle cx='90' cy='40' r='1' fill='white' opacity='0.1'/%3E%3C/pattern%3E%3C/defs%3E%3Crect width='100' height='100' fill='url(%23grain)'/%3E%3C/svg%3E")`}}></div>
-              <div className="relative z-10 px-6 py-8 text-center">
-                <div className="text-2xl font-bold mb-2">Congratulations {student?.first_name}!</div>
-                <div className="text-base opacity-90 max-w-md mx-auto">You've shown <strong>Growth</strong>, built <strong>Resilience</strong>, developed <strong>Integrity</strong> & <strong>Independence</strong>, and experienced a true <strong>Transformation for good.</strong></div>
+            {/* Celebration Content - Overlapping Header */}
+            <div className="relative -mt-8 z-20 px-4 mb-6">
+              <div className="bg-white rounded-lg p-6 shadow-lg border border-gray-100 text-center">
+                <div className="text-2xl font-bold text-grit-green mb-2">Congratulations {student?.first_name}!</div>
+                <div className="text-base text-gray-900 max-w-md mx-auto">You've shown <strong className="text-grit-green">Growth</strong>, built <strong className="text-grit-green">Resilience</strong>, developed <strong className="text-grit-green">Integrity</strong> & <strong className="text-grit-green">Independence</strong>, and experienced a true <strong className="text-grit-green">Transformation for good.</strong></div>
               </div>
             </div>
 
