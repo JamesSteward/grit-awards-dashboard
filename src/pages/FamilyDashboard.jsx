@@ -19,6 +19,11 @@ const FamilyDashboard = () => {
   const [showAllCompleted, setShowAllCompleted] = useState(false)
   const [activeTab, setActiveTab] = useState('home') // 'home', 'challenges', 'progress', 'awards', 'messages'
   const [expandedChallenge, setExpandedChallenge] = useState(null)
+  const [showEvidenceModal, setShowEvidenceModal] = useState(false)
+  const [evidenceText, setEvidenceText] = useState('')
+  const [evidenceImages, setEvidenceImages] = useState([])
+  const [evidenceVideo, setEvidenceVideo] = useState(null)
+  const [submittingEvidence, setSubmittingEvidence] = useState(false)
   const [stats, setStats] = useState({
     progressPercentage: 0,
     completedCount: 0,
@@ -198,9 +203,115 @@ const FamilyDashboard = () => {
   }
 
   const handleCompleteChallenge = async (challengeId) => {
-    console.log('Complete challenge:', challengeId)
-    // TODO: Implement in Phase 3
-    alert('Complete challenge functionality coming in Phase 3')
+    setShowEvidenceModal(true);
+  }
+
+  async function handleSubmitEvidence() {
+    if (!evidenceText.trim()) {
+      alert('Please provide a description');
+      return;
+    }
+
+    setSubmittingEvidence(true);
+
+    try {
+      const mediaUrls = [];
+
+      // Upload images to Supabase Storage
+      if (evidenceImages.length > 0) {
+        for (const image of evidenceImages) {
+          const fileName = `${student.id}/${Date.now()}_${image.name}`;
+          const { error: uploadError } = await supabase.storage
+            .from('evidence')
+            .upload(fileName, image);
+          
+          if (uploadError) {
+            console.error('Image upload error:', uploadError);
+            throw uploadError;
+          }
+          
+          const { data: { publicUrl } } = supabase.storage
+            .from('evidence')
+            .getPublicUrl(fileName);
+          
+          mediaUrls.push(publicUrl);
+        }
+      }
+
+      // Upload video to Supabase Storage
+      if (evidenceVideo) {
+        const fileName = `${student.id}/${Date.now()}_${evidenceVideo.name}`;
+        const { error: uploadError } = await supabase.storage
+          .from('evidence')
+          .upload(fileName, evidenceVideo);
+        
+        if (uploadError) {
+          console.error('Video upload error:', uploadError);
+          throw uploadError;
+        }
+        
+        const { data: { publicUrl } } = supabase.storage
+          .from('evidence')
+          .getPublicUrl(fileName);
+        
+        mediaUrls.push(publicUrl);
+      }
+
+      // Find the challenge title
+      const challenge = challenges.find(c => {
+        const challengeId = c.challenges?.id || c.objective_id;
+        return challengeId === expandedChallenge;
+      });
+
+      // Create evidence submission record
+      const { error: submitError } = await supabase
+        .from('evidence_submissions')
+        .insert({
+          student_id: student.id,
+          challenge_id: expandedChallenge,
+          submission_type: 'challenge',
+          title: challenge?.challenges?.title || challenge?.title || 'Challenge Evidence',
+          text_content: evidenceText,
+          media_urls: mediaUrls,
+          status: 'pending'
+        });
+
+      if (submitError) {
+        console.error('Evidence submission error:', submitError);
+        throw submitError;
+      }
+
+      // Update student_progress to 'submitted'
+      const { error: updateError } = await supabase
+        .from('student_progress')
+        .update({ status: 'submitted' })
+        .eq('student_id', student.id)
+        .eq('objective_id', expandedChallenge);
+
+      if (updateError) {
+        console.error('Progress update error:', updateError);
+        throw updateError;
+      }
+
+      // Reset modal state
+      setShowEvidenceModal(false);
+      setEvidenceText('');
+      setEvidenceImages([]);
+      setEvidenceVideo(null);
+      setExpandedChallenge(null);
+
+      // Refresh data
+      await fetchStudentChallenges();
+      await fetchHomeStats();
+
+      alert('Evidence submitted successfully! Your GRIT Lead will review it soon.');
+      
+    } catch (error) {
+      console.error('Error submitting evidence:', error);
+      alert('Failed to submit evidence: ' + error.message);
+    } finally {
+      setSubmittingEvidence(false);
+    }
   }
 
   // Filter challenges by status
@@ -1564,6 +1675,101 @@ const FamilyDashboard = () => {
 
       {/* Profile Modal */}
       {showProfileModal && <ProfileModal />}
+
+      {/* Evidence Submission Modal */}
+      {showEvidenceModal && (
+        <div className="fixed inset-0 bg-black bg-opacity-50 flex items-center justify-center z-50 p-4">
+          <div className="bg-white rounded-lg p-6 max-w-md w-full max-h-[90vh] overflow-y-auto">
+            <h3 className="text-xl font-bold text-[#032717] mb-4">Submit Evidence</h3>
+            
+            {/* Description Field */}
+            <div className="mb-4">
+              <label className="block text-sm font-medium text-gray-700 mb-2">
+                Description: <span className="text-red-600">*</span>
+              </label>
+              <textarea
+                value={evidenceText}
+                onChange={(e) => setEvidenceText(e.target.value)}
+                placeholder="Describe what you did for this challenge..."
+                className="w-full px-3 py-2 border border-gray-300 rounded-lg resize-none focus:outline-none focus:ring-2 focus:ring-[#032717]/20 focus:border-[#032717]"
+                rows={4}
+                required
+              />
+            </div>
+
+            {/* Image Upload */}
+            <div className="mb-4">
+              <label className="block text-sm font-medium text-gray-700 mb-2">
+                Upload Images (Max 3):
+              </label>
+              <input
+                type="file"
+                accept="image/*"
+                multiple
+                onChange={(e) => {
+                  const files = Array.from(e.target.files).slice(0, 3);
+                  setEvidenceImages(files);
+                }}
+                className="w-full text-sm"
+              />
+              {evidenceImages.length > 0 && (
+                <p className="mt-2 text-xs text-gray-600">
+                  {evidenceImages.length} image(s) selected
+                </p>
+              )}
+            </div>
+
+            {/* Video Upload */}
+            <div className="mb-6">
+              <label className="block text-sm font-medium text-gray-700 mb-2">
+                Upload Video (Optional, Max 30MB):
+              </label>
+              <input
+                type="file"
+                accept="video/*"
+                onChange={(e) => {
+                  const file = e.target.files[0];
+                  if (file && file.size <= 30 * 1024 * 1024) {
+                    setEvidenceVideo(file);
+                  } else {
+                    alert('Video must be under 30MB');
+                    e.target.value = '';
+                  }
+                }}
+                className="w-full text-sm"
+              />
+              {evidenceVideo && (
+                <p className="mt-2 text-xs text-gray-600">
+                  {evidenceVideo.name} selected
+                </p>
+              )}
+            </div>
+
+            {/* Action Buttons */}
+            <div className="flex gap-3">
+              <button
+                onClick={() => {
+                  setShowEvidenceModal(false);
+                  setEvidenceText('');
+                  setEvidenceImages([]);
+                  setEvidenceVideo(null);
+                }}
+                className="flex-1 px-4 py-2 border border-gray-300 rounded-lg text-gray-700 font-semibold hover:bg-gray-50"
+                disabled={submittingEvidence}
+              >
+                Cancel
+              </button>
+              <button
+                onClick={handleSubmitEvidence}
+                disabled={!evidenceText.trim() || submittingEvidence}
+                className="flex-1 bg-gradient-to-br from-[#032717] to-[#054d2a] text-white py-2 rounded-lg font-semibold disabled:opacity-50 disabled:cursor-not-allowed"
+              >
+                {submittingEvidence ? 'Submitting...' : 'Submit Evidence'}
+              </button>
+            </div>
+          </div>
+        </div>
+      )}
     </div>
   )
 }
