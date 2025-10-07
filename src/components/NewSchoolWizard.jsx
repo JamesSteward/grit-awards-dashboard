@@ -350,7 +350,7 @@ const NewSchoolWizard = ({ isOpen, onClose }) => {
           Select Challenges
         </h2>
         <p className="text-gray-900 text-lg mb-2">
-          Select 5 challenges to build your school's programme (100/150 Tenacity points recommended)
+          Select 100 challenges to build your school's programme
         </p>
       </div>
 
@@ -374,7 +374,7 @@ const NewSchoolWizard = ({ isOpen, onClose }) => {
       {selectedYearGroup && (
         <div className="mb-6">
           <h3 className="text-lg font-['Roboto_Slab'] font-semibold text-grit-green mb-4">
-            Available Challenges ({selectedChallenges.length}/5 selected)
+            Available Challenges ({selectedChallenges.length}/100 selected)
           </h3>
           
           {loadingChallenges ? (
@@ -407,7 +407,7 @@ const NewSchoolWizard = ({ isOpen, onClose }) => {
                           {challenge.title}
                         </h4>
                         <div className="bg-grit-gold-dark text-white px-2 py-1 rounded text-xs font-medium">
-                          {challenge.points || 0} pts
+                          {challenge.points || 0} tenacity
                         </div>
                       </div>
                       <p className="text-sm text-gray-900">
