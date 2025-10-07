@@ -100,24 +100,10 @@ const NewSchoolWizard = ({ isOpen, onClose }) => {
   const fetchChallengesForYearGroup = async (yearGroup) => {
     setLoadingChallenges(true)
     try {
-      // Map year groups to year levels for database query
-      const yearLevelMap = {
-        'Year 3': 3,
-        'Year 4': 4,
-        'Year 5': 5,
-        'Year 6': 6
-      }
-      
-      const yearLevel = yearLevelMap[yearGroup]
-      if (!yearLevel) {
-        console.error('Invalid year group:', yearGroup)
-        return
-      }
-
+      // Fetch all challenges from database (no year group filtering needed)
       const { data, error } = await supabase
         .from('challenges')
         .select('id, title, description, tenacity')
-        .eq('year_group', yearLevel)
         .order('title')
 
       if (error) {
@@ -125,7 +111,13 @@ const NewSchoolWizard = ({ isOpen, onClose }) => {
         // Fallback to hardcoded challenges if database fails
         setChallenges(yearGroupChallenges[yearGroup] || [])
       } else {
-        setChallenges(data || [])
+        console.log('Successfully fetched all challenges from database:', data)
+        
+        // Randomize the challenges for this year group
+        const shuffledChallenges = [...(data || [])].sort(() => Math.random() - 0.5)
+        
+        console.log('Randomized challenges for', yearGroup, ':', shuffledChallenges)
+        setChallenges(shuffledChallenges)
       }
     } catch (error) {
       console.error('Error fetching challenges:', error)
