@@ -1,6 +1,6 @@
 import React from 'react'
 
-const Footer = () => {
+const Footer = ({ onGetStarted }) => {
   return (
     <footer className="bg-grit-green text-white">
       <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 py-12">
@@ -9,7 +9,7 @@ const Footer = () => {
           <div>
             <h3 className="text-lg font-heading font-semibold mb-4">For Schools</h3>
             <ul className="space-y-2 text-sm">
-              <li><a href="#" className="hover:text-grit-gold-light transition-colors">Get Started</a></li>
+              <li><a href="#" className="hover:text-grit-gold-light transition-colors" onClick={(e) => { e.preventDefault(); onGetStarted?.(); }}>Get Started</a></li>
               <li><a href="#" className="hover:text-grit-gold-light transition-colors">Pricing</a></li>
               <li><a href="#" className="hover:text-grit-gold-light transition-colors">Implementation Guide</a></li>
               <li><a href="#" className="hover:text-grit-gold-light transition-colors">Training Resources</a></li>

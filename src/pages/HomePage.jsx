@@ -1,10 +1,20 @@
-import React from 'react'
+import React, { useState } from 'react'
 import Header from '../components/Header'
 import Footer from '../components/Footer'
 import Button from '../components/Button'
 import GrungeOverlay from '../components/GrungeOverlay'
+import NewSchoolWizard from '../components/NewSchoolWizard'
 
 const HomePage = () => {
+  const [showSchoolWizard, setShowSchoolWizard] = useState(false)
+
+  const handleOpenSchoolWizard = () => {
+    setShowSchoolWizard(true)
+  }
+
+  const handleCloseSchoolWizard = () => {
+    setShowSchoolWizard(false)
+  }
   return (
     <div className="min-h-screen bg-white">
       <Header />
@@ -503,7 +513,13 @@ const HomePage = () => {
         </div>
       </section>
 
-      <Footer />
+      <Footer onGetStarted={handleOpenSchoolWizard} />
+
+      {/* New School Wizard Modal */}
+      <NewSchoolWizard 
+        isOpen={showSchoolWizard} 
+        onClose={handleCloseSchoolWizard} 
+      />
     </div>
   )
 }
