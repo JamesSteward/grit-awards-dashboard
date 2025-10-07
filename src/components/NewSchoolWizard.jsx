@@ -150,7 +150,7 @@ const NewSchoolWizard = ({ isOpen, onClose }) => {
                 onClick={() => handlePlanSelect(plan)}
                 disabled={plan !== 'Gold'}
               >
-                {plan === 'Gold' ? 'Get Started' : 'Coming Soon'}
+                Get Started
               </Button>
             </div>
           </Card>
