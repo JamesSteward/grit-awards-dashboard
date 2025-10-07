@@ -76,6 +76,54 @@ const LeaderDashboard = () => {
   // For now, using a placeholder teacher ID
   const teacherId = '750e8400-e29b-41d4-a716-446655440000'
 
+  // Function to get category-specific colors (same as NewSchoolWizard)
+  const getCategoryColor = (category) => {
+    const categoryColors = {
+      'Leadership': 'bg-blue-600',
+      'Kindness': 'bg-pink-500',
+      'Responsibility': 'bg-green-600',
+      'Generosity': 'bg-purple-500',
+      'Focus': 'bg-indigo-600',
+      'Perseverance': 'bg-grit-gold-dark',
+      'Respect': 'bg-teal-600',
+      'Curiosity': 'bg-yellow-600',
+      'Problem Solving': 'bg-red-500',
+      'Organization': 'bg-cyan-600',
+      'Integrity': 'bg-emerald-600',
+      'Creativity': 'bg-violet-600',
+      'Teamwork': 'bg-lime-600',
+      'Initiative': 'bg-rose-600',
+      'Communication': 'bg-sky-600',
+      'Empathy': 'bg-fuchsia-600',
+      'Decision Making': 'bg-amber-600',
+      'Community Service': 'bg-green-700',
+      'Wisdom': 'bg-slate-600',
+      'Courage': 'bg-red-600',
+      'Inspiration': 'bg-purple-600',
+      'Critical Thinking': 'bg-blue-700',
+      'Preparation': 'bg-gray-600',
+      'General': 'bg-grit-gold-dark',
+      'Patience': 'bg-lime-600',
+      'Organisation': 'bg-cyan-600',
+      'Self-Reliance': 'bg-emerald-600',
+      'Confidence': 'bg-purple-600',
+      'Endurance': 'bg-red-600',
+      'Discipline': 'bg-slate-600',
+      'Boldness': 'bg-grit-gold-dark',
+      'Strength': 'bg-red-700',
+      'Exploration': 'bg-indigo-500',
+      'Positivity': 'bg-yellow-500',
+      'Independence': 'bg-teal-700',
+      'Mindfulness': 'bg-violet-500',
+      'Bravery': 'bg-red-500',
+      'Determination': 'bg-grit-gold-dark',
+      'Helpfulness': 'bg-green-500',
+      'Adventure': 'bg-purple-700',
+      'Appreciation': 'bg-emerald-600'
+    }
+    return categoryColors[category] || 'bg-grit-gold-dark'
+  }
+
   // Helper function to update recipient count
   const updateRecipientCount = async () => {
     try {
@@ -1299,26 +1347,19 @@ const LeaderDashboard = () => {
                     ) : (
                       <div className="space-y-4">
                         {pendingEvidence.map((evidence) => (
-                          <div key={evidence.id} className="bg-gray-50 rounded-lg p-6 border border-grit-gold-dark">
-                            <div className="flex items-start justify-between">
-                              <div className="flex items-start space-x-4">
+                          <Card key={evidence.id}>
+                            <div className="flex flex-col lg:flex-row lg:items-start lg:justify-between gap-4">
+                              <div className="flex items-start space-x-4 flex-1">
                                 <img 
                                   src={`/avatars/${evidence.students?.avatar || 'avatar-pilot-001.svg'}`} 
                                   alt={`${evidence.students?.first_name} ${evidence.students?.last_name}`}
-                                  className="w-12 h-12 rounded-full border border-grit-gold-dark"
+                                  className="w-12 h-12 rounded-full flex-shrink-0"
                                 />
-                                <div className="flex-1">
-                                  <div className="flex items-center gap-2 mb-2">
+                                <div className="flex-1 min-w-0">
+                                  <div className="mb-2">
                                     <h4 className="font-medium text-gray-900">
                                       {evidence.students?.first_name} {evidence.students?.last_name}
                                     </h4>
-                                    <span className={`px-2 py-1 rounded-full text-xs font-medium ${
-                                      evidence.submission_type === 'challenge' 
-                                        ? 'bg-yellow-100 text-yellow-700' 
-                                        : 'bg-blue-100 text-blue-700'
-                                    }`}>
-                                      {evidence.submission_type === 'challenge' ? 'Challenge' : 'GRIT Bit'}
-                                    </span>
                                   </div>
                                   
                                   <div className="group relative mb-2">
@@ -1344,23 +1385,14 @@ const LeaderDashboard = () => {
                                   {/* Challenge Meta Information - only for challenges */}
                                   {evidence.submission_type === 'challenge' && (
                                     <div className="flex items-center gap-2 mb-3 flex-wrap">
-                                      {evidence.challenges?.trait && (
-                                        <span className="bg-gradient-to-r from-grit-green to-grit-green-dark text-gray-900-dark px-3 py-1 rounded-full text-xs font-semibold uppercase tracking-wide">
-                                          {evidence.challenges.trait}
+                                      {evidence.challenges?.category && (
+                                        <span className={`px-2 py-1 rounded text-xs font-medium text-white ${getCategoryColor(evidence.challenges.category)}`}>
+                                          {evidence.challenges.category}
                                         </span>
                                       )}
                                       {evidence.challenges?.points && (
-                                        <span className="bg-grit-gold-dark text-grit-green px-2 py-1 rounded text-xs font-bold">
+                                        <span className="bg-grit-gold-dark text-white px-2 py-1 rounded text-xs font-bold">
                                           {evidence.challenges.points} pts
-                                        </span>
-                                      )}
-                                      {evidence.challenges?.pathway && (
-                                        <span className={`px-2 py-1 rounded text-xs font-medium capitalize ${
-                                          evidence.challenges.pathway === 'independent' 
-                                            ? 'bg-green-100 text-green-700' 
-                                            : 'bg-grit-gold text-grit-gold-dark'
-                                        }`}>
-                                          {evidence.challenges.pathway}
                                         </span>
                                       )}
                                     </div>
@@ -1372,30 +1404,45 @@ const LeaderDashboard = () => {
                                   
                                   {/* Media thumbnails */}
                                   {evidence.media_urls && evidence.media_urls.length > 0 && (
-                                    <div className="flex gap-2 mb-3">
+                                    <div className="flex gap-2 mb-3 flex-wrap">
                                       {evidence.media_urls.slice(0, 3).map((url, index) => (
                                         <img 
                                           key={index}
                                           src={url} 
                                           alt={`Evidence ${index + 1}`}
-                                          className="w-16 h-16 object-cover rounded-lg border border-grit-gold-dark cursor-pointer hover:opacity-80"
+                                          className="w-16 h-16 object-cover rounded-lg cursor-pointer hover:opacity-80 flex-shrink-0"
                                           onClick={() => window.open(url, '_blank')}
                                         />
                                       ))}
                                       {evidence.media_urls.length > 3 && (
-                                        <div className="w-16 h-16 bg-gray-100 rounded-lg border border-grit-gold-dark flex items-center justify-center text-xs text-gray-900-dark">
+                                        <div className="w-16 h-16 bg-gray-100 rounded-lg flex items-center justify-center text-xs text-gray-900-dark flex-shrink-0">
                                           +{evidence.media_urls.length - 3} more
                                         </div>
                                       )}
                                     </div>
                                   )}
                                   
-                                  <p className="text-sm text-gray-900-dark">
-                                    {new Date(evidence.created_at).toLocaleDateString()} • {formatTimeAgo(evidence.created_at)}
-                                  </p>
+                                  <div className="flex flex-col sm:flex-row sm:items-center sm:justify-between gap-2">
+                                    <p className="text-sm text-gray-900-dark">
+                                      {new Date(evidence.created_at).toLocaleDateString()} • {formatTimeAgo(evidence.created_at)}
+                                    </p>
+                                    
+                                    {/* Pathway badge moved to bottom */}
+                                    {evidence.submission_type === 'challenge' && evidence.challenges?.pathway && (
+                                      <span className={`px-2 py-1 rounded text-xs font-medium capitalize self-start ${
+                                        evidence.challenges.pathway === 'independent' 
+                                          ? 'bg-green-100 text-green-700' 
+                                          : 'bg-grit-gold text-grit-gold-dark'
+                                      }`}>
+                                        {evidence.challenges.pathway}
+                                      </span>
+                                    )}
+                                  </div>
                                 </div>
                               </div>
-                              <div className="flex space-x-3 ml-4">
+                              
+                              {/* Action buttons - responsive layout */}
+                              <div className="flex flex-col sm:flex-row lg:flex-col gap-3 lg:gap-2 lg:min-w-[200px]">
                                 <Button
                                   onClick={() => handleApproveEvidence(evidence.id, evidence.submission_type, evidence.challenge_id)}
                                   disabled={approvingId === evidence.id}
