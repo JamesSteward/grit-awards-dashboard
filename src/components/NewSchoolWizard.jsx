@@ -54,6 +54,24 @@ const NewSchoolWizard = ({ isOpen, onClose }) => {
       'Preparation': 'bg-gray-600',
       'General': 'bg-grit-gold-dark',
       
+      // Additional categories from database
+      'Patience': 'bg-lime-600',
+      'Organisation': 'bg-cyan-600',
+      'Self-Reliance': 'bg-emerald-600',
+      'Confidence': 'bg-purple-600',
+      'Endurance': 'bg-red-600',
+      'Discipline': 'bg-slate-600',
+      'Boldness': 'bg-orange-600',
+      'Strength': 'bg-red-700',
+      'Exploration': 'bg-indigo-500',
+      'Positivity': 'bg-yellow-500',
+      'Independence': 'bg-teal-700',
+      'Mindfulness': 'bg-violet-500',
+      'Bravery': 'bg-red-500',
+      'Determination': 'bg-orange-700',
+      'Helpfulness': 'bg-green-500',
+      'Adventure': 'bg-purple-700',
+      
       // Common variations
       'LEADERSHIP': 'bg-blue-600',
       'KINDNESS': 'bg-pink-500',
@@ -78,7 +96,25 @@ const NewSchoolWizard = ({ isOpen, onClose }) => {
       'INSPIRATION': 'bg-purple-600',
       'CRITICAL THINKING': 'bg-blue-700',
       'PREPARATION': 'bg-gray-600',
-      'GENERAL': 'bg-grit-gold-dark'
+      'GENERAL': 'bg-grit-gold-dark',
+      
+      // Additional uppercase variations
+      'PATIENCE': 'bg-lime-600',
+      'ORGANISATION': 'bg-cyan-600',
+      'SELF-RELIANCE': 'bg-emerald-600',
+      'CONFIDENCE': 'bg-purple-600',
+      'ENDURANCE': 'bg-red-600',
+      'DISCIPLINE': 'bg-slate-600',
+      'BOLDNESS': 'bg-orange-600',
+      'STRENGTH': 'bg-red-700',
+      'EXPLORATION': 'bg-indigo-500',
+      'POSITIVITY': 'bg-yellow-500',
+      'INDEPENDENCE': 'bg-teal-700',
+      'MINDFULNESS': 'bg-violet-500',
+      'BRAVERY': 'bg-red-500',
+      'DETERMINATION': 'bg-orange-700',
+      'HELPFULNESS': 'bg-green-500',
+      'ADVENTURE': 'bg-purple-700'
     }
     
     const color = categoryColors[category] || 'bg-grit-gold-dark'
