@@ -177,7 +177,7 @@ const NewSchoolWizard = ({ isOpen, onClose }) => {
                  plan === 'Silver' ? 'Mission Leadership Package' : 
                  'Life Ready Package'}
               </h3>
-              <div className="text-lg font-bold text-gray-900 mb-4">
+              <div className="text-sm font-bold text-grit-gold-dark mb-4">
                 {plan === 'Bronze' ? 'from £12,500 + VAT per academic year' :
                  plan === 'Silver' ? 'from £16,500 + VAT per academic year' :
                  'from £19,500 + VAT per academic year'}
