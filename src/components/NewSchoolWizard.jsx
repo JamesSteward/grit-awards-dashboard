@@ -25,7 +25,10 @@ const NewSchoolWizard = ({ isOpen, onClose }) => {
   
   // Function to get category-specific colors
   const getCategoryColor = (category) => {
+    console.log('Getting color for category:', category)
+    
     const categoryColors = {
+      // Exact matches
       'Leadership': 'bg-blue-600',
       'Kindness': 'bg-pink-500',
       'Responsibility': 'bg-green-600',
@@ -49,9 +52,38 @@ const NewSchoolWizard = ({ isOpen, onClose }) => {
       'Inspiration': 'bg-purple-600',
       'Critical Thinking': 'bg-blue-700',
       'Preparation': 'bg-gray-600',
-      'General': 'bg-grit-gold-dark'
+      'General': 'bg-grit-gold-dark',
+      
+      // Common variations
+      'LEADERSHIP': 'bg-blue-600',
+      'KINDNESS': 'bg-pink-500',
+      'RESPONSIBILITY': 'bg-green-600',
+      'GENEROSITY': 'bg-purple-500',
+      'FOCUS': 'bg-indigo-600',
+      'PERSEVERANCE': 'bg-orange-500',
+      'RESPECT': 'bg-teal-600',
+      'CURIOSITY': 'bg-yellow-600',
+      'PROBLEM SOLVING': 'bg-red-500',
+      'ORGANIZATION': 'bg-cyan-600',
+      'INTEGRITY': 'bg-emerald-600',
+      'CREATIVITY': 'bg-violet-600',
+      'TEAMWORK': 'bg-lime-600',
+      'INITIATIVE': 'bg-rose-600',
+      'COMMUNICATION': 'bg-sky-600',
+      'EMPATHY': 'bg-fuchsia-600',
+      'DECISION MAKING': 'bg-amber-600',
+      'COMMUNITY SERVICE': 'bg-green-700',
+      'WISDOM': 'bg-slate-600',
+      'COURAGE': 'bg-red-600',
+      'INSPIRATION': 'bg-purple-600',
+      'CRITICAL THINKING': 'bg-blue-700',
+      'PREPARATION': 'bg-gray-600',
+      'GENERAL': 'bg-grit-gold-dark'
     }
-    return categoryColors[category] || 'bg-grit-gold-dark'
+    
+    const color = categoryColors[category] || 'bg-grit-gold-dark'
+    console.log('Selected color for', category, ':', color)
+    return color
   }
   
   if (!isOpen) return null
