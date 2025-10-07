@@ -28,44 +28,44 @@ const NewSchoolWizard = ({ isOpen, onClose }) => {
   // Hardcoded challenges for each year group (fallback if database fails)
   const yearGroupChallenges = {
     'Year 3': [
-      { id: 1, title: 'Help a Friend', description: 'Assist a classmate with their work', points: 20 },
-      { id: 2, title: 'Clean Up', description: 'Help tidy the classroom', points: 15 },
-      { id: 3, title: 'Share Something', description: 'Share materials or ideas with others', points: 25 },
-      { id: 4, title: 'Listen Carefully', description: 'Pay attention during lessons', points: 20 },
-      { id: 5, title: 'Try Your Best', description: 'Put effort into all activities', points: 30 },
-      { id: 6, title: 'Be Kind', description: 'Show kindness to everyone', points: 25 },
-      { id: 7, title: 'Follow Rules', description: 'Follow classroom and school rules', points: 15 },
-      { id: 8, title: 'Ask Questions', description: 'Ask thoughtful questions', points: 20 }
+      { id: 1, title: 'Help a Friend', description: 'Assist a classmate with their work', tenacity: 20 },
+      { id: 2, title: 'Clean Up', description: 'Help tidy the classroom', tenacity: 15 },
+      { id: 3, title: 'Share Something', description: 'Share materials or ideas with others', tenacity: 25 },
+      { id: 4, title: 'Listen Carefully', description: 'Pay attention during lessons', tenacity: 20 },
+      { id: 5, title: 'Try Your Best', description: 'Put effort into all activities', tenacity: 30 },
+      { id: 6, title: 'Be Kind', description: 'Show kindness to everyone', tenacity: 25 },
+      { id: 7, title: 'Follow Rules', description: 'Follow classroom and school rules', tenacity: 15 },
+      { id: 8, title: 'Ask Questions', description: 'Ask thoughtful questions', tenacity: 20 }
     ],
     'Year 4': [
-      { id: 9, title: 'Lead a Group', description: 'Take charge of a group activity', points: 30 },
-      { id: 10, title: 'Solve Problems', description: 'Work through challenges independently', points: 35 },
-      { id: 11, title: 'Help Others', description: 'Assist younger students', points: 25 },
-      { id: 12, title: 'Organize Tasks', description: 'Plan and organize your work', points: 30 },
-      { id: 13, title: 'Show Respect', description: 'Demonstrate respect for others', points: 20 },
-      { id: 14, title: 'Take Responsibility', description: 'Own up to mistakes', points: 35 },
-      { id: 15, title: 'Be Creative', description: 'Think outside the box', points: 30 },
-      { id: 16, title: 'Work Together', description: 'Collaborate effectively', points: 25 }
+      { id: 9, title: 'Lead a Group', description: 'Take charge of a group activity', tenacity: 30 },
+      { id: 10, title: 'Solve Problems', description: 'Work through challenges independently', tenacity: 35 },
+      { id: 11, title: 'Help Others', description: 'Assist younger students', tenacity: 25 },
+      { id: 12, title: 'Organize Tasks', description: 'Plan and organize your work', tenacity: 30 },
+      { id: 13, title: 'Show Respect', description: 'Demonstrate respect for others', tenacity: 20 },
+      { id: 14, title: 'Take Responsibility', description: 'Own up to mistakes', tenacity: 35 },
+      { id: 15, title: 'Be Creative', description: 'Think outside the box', tenacity: 30 },
+      { id: 16, title: 'Work Together', description: 'Collaborate effectively', tenacity: 25 }
     ],
     'Year 5': [
-      { id: 17, title: 'Mentor Others', description: 'Guide younger students', points: 40 },
-      { id: 18, title: 'Plan Events', description: 'Organize school activities', points: 35 },
-      { id: 19, title: 'Resolve Conflicts', description: 'Help solve disagreements', points: 40 },
-      { id: 20, title: 'Show Initiative', description: 'Take action without being asked', points: 35 },
-      { id: 21, title: 'Demonstrate Integrity', description: 'Do the right thing', points: 45 },
-      { id: 22, title: 'Be Persistent', description: 'Keep trying despite challenges', points: 40 },
-      { id: 23, title: 'Communicate Well', description: 'Express ideas clearly', points: 30 },
-      { id: 24, title: 'Show Empathy', description: 'Understand others\' feelings', points: 35 }
+      { id: 17, title: 'Mentor Others', description: 'Guide younger students', tenacity: 40 },
+      { id: 18, title: 'Plan Events', description: 'Organize school activities', tenacity: 35 },
+      { id: 19, title: 'Resolve Conflicts', description: 'Help solve disagreements', tenacity: 40 },
+      { id: 20, title: 'Show Initiative', description: 'Take action without being asked', tenacity: 35 },
+      { id: 21, title: 'Demonstrate Integrity', description: 'Do the right thing', tenacity: 45 },
+      { id: 22, title: 'Be Persistent', description: 'Keep trying despite challenges', tenacity: 40 },
+      { id: 23, title: 'Communicate Well', description: 'Express ideas clearly', tenacity: 30 },
+      { id: 24, title: 'Show Empathy', description: 'Understand others\' feelings', tenacity: 35 }
     ],
     'Year 6': [
-      { id: 25, title: 'Lead Projects', description: 'Take charge of major projects', points: 50 },
-      { id: 26, title: 'Make Decisions', description: 'Make thoughtful choices', points: 45 },
-      { id: 27, title: 'Support Community', description: 'Help in the wider community', points: 50 },
-      { id: 28, title: 'Show Wisdom', description: 'Make wise choices', points: 45 },
-      { id: 29, title: 'Be Courageous', description: 'Stand up for what\'s right', points: 50 },
-      { id: 30, title: 'Inspire Others', description: 'Motivate classmates', points: 45 },
-      { id: 31, title: 'Think Critically', description: 'Analyze situations carefully', points: 40 },
-      { id: 32, title: 'Prepare for Future', description: 'Get ready for secondary school', points: 45 }
+      { id: 25, title: 'Lead Projects', description: 'Take charge of major projects', tenacity: 50 },
+      { id: 26, title: 'Make Decisions', description: 'Make thoughtful choices', tenacity: 45 },
+      { id: 27, title: 'Support Community', description: 'Help in the wider community', tenacity: 50 },
+      { id: 28, title: 'Show Wisdom', description: 'Make wise choices', tenacity: 45 },
+      { id: 29, title: 'Be Courageous', description: 'Stand up for what\'s right', tenacity: 50 },
+      { id: 30, title: 'Inspire Others', description: 'Motivate classmates', tenacity: 45 },
+      { id: 31, title: 'Think Critically', description: 'Analyze situations carefully', tenacity: 40 },
+      { id: 32, title: 'Prepare for Future', description: 'Get ready for secondary school', tenacity: 45 }
     ]
   }
 
@@ -116,7 +116,7 @@ const NewSchoolWizard = ({ isOpen, onClose }) => {
 
       const { data, error } = await supabase
         .from('challenges')
-        .select('id, title, description, points')
+        .select('id, title, description, tenacity')
         .eq('year_group', yearLevel)
         .order('title')
 
@@ -407,7 +407,7 @@ const NewSchoolWizard = ({ isOpen, onClose }) => {
                           {challenge.title}
                         </h4>
                         <div className="bg-grit-gold-dark text-white px-2 py-1 rounded text-xs font-medium">
-                          {challenge.points || 0} tenacity
+                          {challenge.tenacity || 0} tenacity
                         </div>
                       </div>
                       <p className="text-sm text-gray-900">
