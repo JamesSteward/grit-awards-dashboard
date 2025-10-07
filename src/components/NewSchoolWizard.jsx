@@ -113,8 +113,7 @@ const NewSchoolWizard = ({ isOpen, onClose }) => {
       // Fetch all challenges from database (no year group filtering needed)
       const { data, error } = await supabase
         .from('challenges')
-        .select('id, title, description, tenacity, category')
-        .order('title')
+        .select('*')
 
       console.log('Full query result - Data:', data, 'Error:', error)
       console.log('Number of challenges found:', data?.length || 0)
@@ -129,10 +128,19 @@ const NewSchoolWizard = ({ isOpen, onClose }) => {
       } else {
         console.log('Successfully fetched', data.length, 'challenges from database')
         
-        // Randomize the challenges for this year group
-        const shuffledChallenges = [...data].sort(() => Math.random() - 0.5)
+        // Process the data to ensure we have the right fields
+        const processedChallenges = data.map(challenge => ({
+          id: challenge.id,
+          title: challenge.title || challenge.name || 'Untitled Challenge',
+          description: challenge.description || challenge.text || 'No description available',
+          tenacity: challenge.tenacity || challenge.points || 0,
+          category: challenge.category || challenge.trait || 'General'
+        }))
         
-        console.log('Randomized challenges for', yearGroup, ':', shuffledChallenges)
+        // Randomize the challenges for this year group
+        const shuffledChallenges = [...processedChallenges].sort(() => Math.random() - 0.5)
+        
+        console.log('Processed and randomized challenges for', yearGroup, ':', shuffledChallenges)
         setChallenges(shuffledChallenges)
       }
     } catch (error) {
