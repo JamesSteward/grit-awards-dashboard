@@ -1353,7 +1353,7 @@ const LeaderDashboard = () => {
                                 <img 
                                   src={`/avatars/${evidence.students?.avatar || 'avatar-pilot-001.svg'}`} 
                                   alt={`${evidence.students?.first_name} ${evidence.students?.last_name}`}
-                                  className="w-12 h-12 rounded-full flex-shrink-0"
+                                  className="w-12 h-12 rounded-full border-2 border-grit-gold flex-shrink-0"
                                 />
                                 <div className="flex-1 min-w-0">
                                   <div className="mb-2">
