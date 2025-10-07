@@ -142,7 +142,7 @@ const NewSchoolWizard = ({ isOpen, onClose }) => {
                 <li>• Up to {plan === 'Bronze' ? '50' : plan === 'Silver' ? '150' : plan === 'Gold' ? '300' : '500'} students</li>
                 <li>• {plan === 'Bronze' ? 'Basic' : plan === 'Silver' ? 'Standard' : plan === 'Gold' ? 'Advanced' : 'Premium'} reporting</li>
                 <li>• {plan === 'Bronze' ? 'Email' : plan === 'Silver' ? 'Email + Phone' : plan === 'Gold' ? 'Priority' : 'Dedicated'} support</li>
-                <li>• {plan === 'Bronze' ? 'Standard' : plan === 'Silver' ? 'Enhanced' : plan === 'Gold' ? 'Full' : 'Custom'} customization</li>
+                <li>• {plan === 'Bronze' ? 'Standard' : plan === 'Silver' ? 'Enhanced' : plan === 'Gold' ? 'Full' : 'Custom'} customisation</li>
               </ul>
               <Button
                 variant={plan === 'Gold' ? 'primary' : 'secondary'}
