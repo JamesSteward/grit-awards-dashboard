@@ -265,7 +265,7 @@ const HomePage = () => {
           <div className="grid grid-cols-1 lg:grid-cols-2 gap-12">
             <div className="space-y-6">
               <div className="flex items-start space-x-4">
-                <div className="w-8 h-8 bg-grit-green text-white rounded-full flex items-center justify-center font-bold text-sm">
+                <div className="w-8 h-8 bg-grit-green text-white rounded-full flex items-center justify-center font-bold text-sm flex-shrink-0">
                   1
                 </div>
                 <div>
@@ -280,7 +280,7 @@ const HomePage = () => {
               </div>
               
               <div className="flex items-start space-x-4">
-                <div className="w-8 h-8 bg-grit-green text-white rounded-full flex items-center justify-center font-bold text-sm">
+                <div className="w-8 h-8 bg-grit-green text-white rounded-full flex items-center justify-center font-bold text-sm flex-shrink-0">
                   2
                 </div>
                 <div>
@@ -295,7 +295,7 @@ const HomePage = () => {
               </div>
               
               <div className="flex items-start space-x-4">
-                <div className="w-8 h-8 bg-grit-green text-white rounded-full flex items-center justify-center font-bold text-sm">
+                <div className="w-8 h-8 bg-grit-green text-white rounded-full flex items-center justify-center font-bold text-sm flex-shrink-0">
                   3
                 </div>
                 <div>
@@ -312,7 +312,7 @@ const HomePage = () => {
             
             <div className="space-y-6">
               <div className="flex items-start space-x-4">
-                <div className="w-8 h-8 bg-grit-green text-white rounded-full flex items-center justify-center font-bold text-sm">
+                <div className="w-8 h-8 bg-grit-green text-white rounded-full flex items-center justify-center font-bold text-sm flex-shrink-0">
                   4
                 </div>
                 <div>
@@ -327,7 +327,7 @@ const HomePage = () => {
               </div>
               
               <div className="flex items-start space-x-4">
-                <div className="w-8 h-8 bg-grit-green text-white rounded-full flex items-center justify-center font-bold text-sm">
+                <div className="w-8 h-8 bg-grit-green text-white rounded-full flex items-center justify-center font-bold text-sm flex-shrink-0">
                   5
                 </div>
                 <div>
@@ -342,7 +342,7 @@ const HomePage = () => {
               </div>
               
               <div className="flex items-start space-x-4">
-                <div className="w-8 h-8 bg-grit-green text-white rounded-full flex items-center justify-center font-bold text-sm">
+                <div className="w-8 h-8 bg-grit-green text-white rounded-full flex items-center justify-center font-bold text-sm flex-shrink-0">
                   6
                 </div>
                 <div>
