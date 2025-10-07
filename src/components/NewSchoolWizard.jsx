@@ -23,6 +23,37 @@ const NewSchoolWizard = ({ isOpen, onClose }) => {
   
   const navigate = useNavigate()
   
+  // Function to get category-specific colors
+  const getCategoryColor = (category) => {
+    const categoryColors = {
+      'Leadership': 'bg-blue-600',
+      'Kindness': 'bg-pink-500',
+      'Responsibility': 'bg-green-600',
+      'Generosity': 'bg-purple-500',
+      'Focus': 'bg-indigo-600',
+      'Perseverance': 'bg-orange-500',
+      'Respect': 'bg-teal-600',
+      'Curiosity': 'bg-yellow-600',
+      'Problem Solving': 'bg-red-500',
+      'Organization': 'bg-cyan-600',
+      'Integrity': 'bg-emerald-600',
+      'Creativity': 'bg-violet-600',
+      'Teamwork': 'bg-lime-600',
+      'Initiative': 'bg-rose-600',
+      'Communication': 'bg-sky-600',
+      'Empathy': 'bg-fuchsia-600',
+      'Decision Making': 'bg-amber-600',
+      'Community Service': 'bg-green-700',
+      'Wisdom': 'bg-slate-600',
+      'Courage': 'bg-red-600',
+      'Inspiration': 'bg-purple-600',
+      'Critical Thinking': 'bg-blue-700',
+      'Preparation': 'bg-gray-600',
+      'General': 'bg-grit-gold-dark'
+    }
+    return categoryColors[category] || 'bg-grit-gold-dark'
+  }
+  
   if (!isOpen) return null
 
   // Hardcoded challenges for each year group (fallback if database fails)
@@ -445,16 +476,13 @@ const NewSchoolWizard = ({ isOpen, onClose }) => {
                         <h4 className="font-semibold text-gray-900">
                           {challenge.title}
                         </h4>
-                        <div className="bg-grit-gold-dark text-white px-2 py-1 rounded text-xs font-medium">
+                        <div className={`px-2 py-1 rounded text-xs font-medium text-white ${getCategoryColor(challenge.category || 'General')}`}>
                           {challenge.category || 'General'}
                         </div>
                       </div>
-                      <p className="text-sm text-gray-900 mb-2">
+                      <p className="text-sm text-gray-900">
                         {challenge.description || challenge.text}
                       </p>
-                      <div className="text-xs text-gray-600">
-                        Tenacity: {challenge.tenacity || 0}
-                      </div>
                     </div>
                   </div>
                 </Card>
