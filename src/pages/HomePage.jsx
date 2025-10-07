@@ -95,7 +95,9 @@ const HomePage = () => {
             
             <div className="bg-white rounded-lg p-8 shadow-md text-center">
               <div className="w-16 h-16 bg-grit-green rounded-full flex items-center justify-center mx-auto mb-4">
-                <span className="text-white text-2xl font-bold">👥</span>
+                <svg className="w-8 h-8 text-white" viewBox="0 0 24 24" fill="currentColor">
+                  <path d="M16 4c0-1.11.89-2 2-2s2 .89 2 2-.89 2-2 2-2-.89-2-2zm4 18v-6h2.5l-2.54-7.63A2.996 2.996 0 0 0 17.06 6H16c-.8 0-1.54.37-2.01.98L12 9.5l-1.99-2.52A2.996 2.996 0 0 0 8 6H6.94c-1.41 0-2.65.95-2.9 2.37L1.5 16H4v6h2v-6h2v6h2v-6h2v6h2v-6h2v6h2zM12 4c0-1.11.89-2 2-2s2 .89 2 2-.89 2-2 2-2-.89-2-2z"/>
+                </svg>
               </div>
               <h3 className="text-xl font-heading font-semibold text-grit-green mb-3">
                 Community Engagement
