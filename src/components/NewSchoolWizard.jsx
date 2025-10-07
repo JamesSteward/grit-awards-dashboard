@@ -469,7 +469,7 @@ const NewSchoolWizard = ({ isOpen, onClose }) => {
                       type="checkbox"
                       checked={selectedChallenges.includes(challenge.id)}
                       onChange={() => handleChallengeToggle(challenge.id)}
-                      className="mt-1 w-4 h-4 text-grit-green border-gray-300 rounded focus:ring-grit-green"
+                      className="mt-1 w-4 h-4 text-grit-gold-dark border-gray-300 rounded focus:ring-grit-gold-dark"
                     />
                     <div className="flex-1">
                       <div className="flex items-center justify-between mb-2">
