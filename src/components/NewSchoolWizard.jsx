@@ -100,28 +100,44 @@ const NewSchoolWizard = ({ isOpen, onClose }) => {
   const fetchChallengesForYearGroup = async (yearGroup) => {
     setLoadingChallenges(true)
     try {
+      console.log('Attempting to fetch challenges from database for year group:', yearGroup)
+      
+      // First, let's check if the challenges table exists and what data is in it
+      const { data: allData, error: allError } = await supabase
+        .from('challenges')
+        .select('*')
+        .limit(3)
+
+      console.log('Sample of all challenges data:', allData, 'Error:', allError)
+
       // Fetch all challenges from database (no year group filtering needed)
       const { data, error } = await supabase
         .from('challenges')
         .select('id, title, description, tenacity, category')
         .order('title')
 
+      console.log('Full query result - Data:', data, 'Error:', error)
+      console.log('Number of challenges found:', data?.length || 0)
+
       if (error) {
         console.error('Error fetching challenges:', error)
-        // Fallback to hardcoded challenges if database fails
+        console.log('Falling back to hardcoded challenges')
+        setChallenges(yearGroupChallenges[yearGroup] || [])
+      } else if (!data || data.length === 0) {
+        console.log('No challenges found in database, using fallback')
         setChallenges(yearGroupChallenges[yearGroup] || [])
       } else {
-        console.log('Successfully fetched all challenges from database:', data)
+        console.log('Successfully fetched', data.length, 'challenges from database')
         
         // Randomize the challenges for this year group
-        const shuffledChallenges = [...(data || [])].sort(() => Math.random() - 0.5)
+        const shuffledChallenges = [...data].sort(() => Math.random() - 0.5)
         
         console.log('Randomized challenges for', yearGroup, ':', shuffledChallenges)
         setChallenges(shuffledChallenges)
       }
     } catch (error) {
       console.error('Error fetching challenges:', error)
-      // Fallback to hardcoded challenges if database fails
+      console.log('Exception caught, using fallback challenges')
       setChallenges(yearGroupChallenges[yearGroup] || [])
     } finally {
       setLoadingChallenges(false)
