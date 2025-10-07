@@ -135,7 +135,7 @@ const NewSchoolWizard = ({ isOpen, onClose }) => {
                 {plan}
               </h3>
               <div className="text-3xl font-bold text-gray-900 mb-4">
-                {plan === 'Bronze' ? '£99' : plan === 'Silver' ? '£199' : plan === 'Gold' ? '£299' : '£499'}
+                £xxx
                 <span className="text-sm text-gray-600">/month</span>
               </div>
               <ul className="text-sm text-gray-900 mb-6 space-y-2">
