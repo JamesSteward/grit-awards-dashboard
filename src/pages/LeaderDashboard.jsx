@@ -1267,7 +1267,7 @@ const LeaderDashboard = () => {
                                     setReviewingSubmission(submission);
                                     setShowFeedbackModal(true);
                                   }}
-                                  className="flex-1 bg-amber-500 text-white py-2 rounded-lg font-semibold hover:bg-amber-600"
+                                  className="flex-1 bg-grit-gold-dark text-white py-2 rounded-lg font-semibold hover:bg-grit-gold-dark/90"
                                 >
                                   Request Changes
                                 </button>
@@ -1358,7 +1358,7 @@ const LeaderDashboard = () => {
                                         <span className={`px-2 py-1 rounded text-xs font-medium capitalize ${
                                           evidence.challenges.pathway === 'independent' 
                                             ? 'bg-green-100 text-green-700' 
-                                            : 'bg-orange-100 text-orange-700'
+                                            : 'bg-grit-gold text-grit-gold-dark'
                                         }`}>
                                           {evidence.challenges.pathway}
                                         </span>
