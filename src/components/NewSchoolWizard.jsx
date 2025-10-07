@@ -168,22 +168,45 @@ const NewSchoolWizard = ({ isOpen, onClose }) => {
         </p>
       </div>
 
-      <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-4 gap-6">
-        {['Bronze', 'Silver', 'Gold', 'Trusts'].map((plan) => (
+      <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-6">
+        {['Bronze', 'Silver', 'Gold'].map((plan) => (
           <Card key={plan} className={`relative ${selectedPlan === plan ? 'ring-2 ring-grit-green' : ''}`}>
             <div className="text-center">
               <h3 className="text-xl font-['Roboto_Slab'] font-bold text-grit-green mb-2">
-                {plan}
+                {plan === 'Bronze' ? 'Op Resilience Package' : 
+                 plan === 'Silver' ? 'Mission Leadership Package' : 
+                 'Life Ready Package'}
               </h3>
-              <div className="text-3xl font-bold text-gray-900 mb-4">
-                £xxx
-                <span className="text-sm text-gray-600">/month</span>
+              <div className="text-lg font-bold text-gray-900 mb-4">
+                {plan === 'Bronze' ? 'from £12,500 + VAT per academic year' :
+                 plan === 'Silver' ? 'from £16,500 + VAT per academic year' :
+                 'from £19,500 + VAT per academic year'}
               </div>
               <ul className="text-sm text-gray-900 mb-6 space-y-2">
-                <li>• Up to {plan === 'Bronze' ? '50' : plan === 'Silver' ? '150' : plan === 'Gold' ? '300' : '500'} students</li>
-                <li>• {plan === 'Bronze' ? 'Basic' : plan === 'Silver' ? 'Standard' : plan === 'Gold' ? 'Advanced' : 'Premium'} reporting</li>
-                <li>• {plan === 'Bronze' ? 'Email' : plan === 'Silver' ? 'Email + Phone' : plan === 'Gold' ? 'Priority' : 'Dedicated'} support</li>
-                <li>• {plan === 'Bronze' ? 'Standard' : plan === 'Silver' ? 'Enhanced' : plan === 'Gold' ? 'Full' : 'Custom'} customisation</li>
+                {plan === 'Bronze' && (
+                  <>
+                    <li>• 70 Challenges</li>
+                    <li>• 10 UKMS Specialist Days</li>
+                    <li>• 1 Cohort (up to 30 pupils)</li>
+                    <li>• Email Support</li>
+                  </>
+                )}
+                {plan === 'Silver' && (
+                  <>
+                    <li>• 100 Challenges</li>
+                    <li>• 15 UKMS Specialist Days</li>
+                    <li>• 2 Cohorts up to 60 Pupils</li>
+                    <li>• Email + Phone support</li>
+                  </>
+                )}
+                {plan === 'Gold' && (
+                  <>
+                    <li>• Customisable Full Grit Awards Pathway</li>
+                    <li>• 120 Plus Challenges</li>
+                    <li>• 20 UKMS Specialist Day</li>
+                    <li>• Unlimited Cohorts | Pupils</li>
+                  </>
+                )}
               </ul>
               <Button
                 variant={plan === 'Gold' ? 'primary' : 'secondary'}
