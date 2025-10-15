@@ -31,6 +31,8 @@ const FamilyDashboard = () => {
   const [evidenceVideo, setEvidenceVideo] = useState(null)
   const [submittingEvidence, setSubmittingEvidence] = useState(false)
   const [gritBitText, setGritBitText] = useState('')
+  const [gritBitImages, setGritBitImages] = useState([])
+  const [gritBitVideo, setGritBitVideo] = useState(null)
   const [submittingGritBit, setSubmittingGritBit] = useState(false)
   const [stats, setStats] = useState({
     progressPercentage: 0,
@@ -855,36 +857,59 @@ const FamilyDashboard = () => {
     setSubmittingGritBit(true)
     
     try {
-      // Get current user
-      const { data: { user } } = await supabase.auth.getUser()
-      if (!user) throw new Error('Not authenticated')
+      const mediaUrls = []
+      
+      // Upload images to Supabase Storage
+      if (gritBitImages.length > 0) {
+        for (const image of gritBitImages) {
+          const fileName = `${student.id}/${Date.now()}_${image.name}`
+          const { error: uploadError } = await supabase.storage
+            .from('evidence')
+            .upload(fileName, image)
+          
+          if (uploadError) {
+            console.error('Image upload error:', uploadError)
+            throw uploadError
+          }
+          
+          const { data: { publicUrl } } = supabase.storage
+            .from('evidence')
+            .getPublicUrl(fileName)
+          
+          mediaUrls.push(publicUrl)
+        }
+      }
 
-      // Get user record
-      const { data: userRecord } = await supabase
-        .from('users')
-        .select('id')
-        .eq('email', user.email)
-        .single()
+      // Upload video to Supabase Storage
+      if (gritBitVideo) {
+        const fileName = `${student.id}/${Date.now()}_${gritBitVideo.name}`
+        const { error: uploadError } = await supabase.storage
+          .from('evidence')
+          .upload(fileName, gritBitVideo)
+        
+        if (uploadError) {
+          console.error('Video upload error:', uploadError)
+          throw uploadError
+        }
+        
+        const { data: { publicUrl } } = supabase.storage
+          .from('evidence')
+          .getPublicUrl(fileName)
+        
+        mediaUrls.push(publicUrl)
+      }
 
-      if (!userRecord) throw new Error('User not found')
-
-      // Get student record
-      const { data: studentRecord } = await supabase
-        .from('students')
-        .select('id')
-        .eq('family_user_id', userRecord.id)
-        .single()
-
-      if (!studentRecord) throw new Error('Student not found')
-
-      // Insert GRIT Bit submission
+      // Insert GRIT Bit as evidence submission
       const { error } = await supabase
-        .from('grit_bit_submissions')
+        .from('evidence_submissions')
         .insert({
-          student_id: studentRecord.id,
-          description: gritBitText.trim(),
-          status: 'pending',
-          points_awarded: 5 // Default points for GRIT Bits
+          student_id: student.id,
+          challenge_id: null,
+          submission_type: 'grit_bit',
+          title: 'GRIT Bit',
+          text_content: gritBitText.trim(),
+          media_urls: mediaUrls,
+          status: 'pending'
         })
 
       if (error) throw error
@@ -892,6 +917,8 @@ const FamilyDashboard = () => {
       // Success
       setShowGritBitModal(false)
       setGritBitText('')
+      setGritBitImages([])
+      setGritBitVideo(null)
       alert('GRIT Bit submitted! Your GRIT Lead will review it and award points.')
       
       // Refresh stats
@@ -2140,7 +2167,7 @@ const FamilyDashboard = () => {
             </p>
             
             {/* Description Field */}
-            <div className="mb-6">
+            <div className="mb-4">
               <label className="block text-sm font-medium text-gray-900 mb-2">
                 What did you do? <span className="text-red-600">*</span>
               </label>
@@ -2154,12 +2181,62 @@ const FamilyDashboard = () => {
               />
             </div>
 
+            {/* Image Upload */}
+            <div className="mb-4">
+              <label className="block text-sm font-medium text-gray-900 mb-2">
+                Upload Images (Max 3):
+              </label>
+              <input
+                type="file"
+                accept="image/*"
+                multiple
+                onChange={(e) => {
+                  const files = Array.from(e.target.files).slice(0, 3)
+                  setGritBitImages(files)
+                }}
+                className="w-full px-3 py-2 border border-gray-300 rounded-lg focus:outline-none focus:ring-2 focus:ring-grit-green/20 focus:border-grit-green"
+              />
+              {gritBitImages.length > 0 && (
+                <p className="text-sm text-gray-600 mt-1">
+                  {gritBitImages.length} image(s) selected
+                </p>
+              )}
+            </div>
+
+            {/* Video Upload */}
+            <div className="mb-6">
+              <label className="block text-sm font-medium text-gray-900 mb-2">
+                Upload Video (Optional, Max 30MB):
+              </label>
+              <input
+                type="file"
+                accept="video/*"
+                onChange={(e) => {
+                  const file = e.target.files[0]
+                  if (file && file.size > 30 * 1024 * 1024) {
+                    alert('Video file size must be less than 30MB')
+                    e.target.value = ''
+                    return
+                  }
+                  setGritBitVideo(file)
+                }}
+                className="w-full px-3 py-2 border border-gray-300 rounded-lg focus:outline-none focus:ring-2 focus:ring-grit-green/20 focus:border-grit-green"
+              />
+              {gritBitVideo && (
+                <p className="text-sm text-gray-600 mt-1">
+                  Video selected: {gritBitVideo.name} ({(gritBitVideo.size / (1024 * 1024)).toFixed(2)} MB)
+                </p>
+              )}
+            </div>
+
             {/* Action Buttons */}
             <div className="flex gap-3">
               <button
                 onClick={() => {
                   setShowGritBitModal(false)
                   setGritBitText('')
+                  setGritBitImages([])
+                  setGritBitVideo(null)
                 }}
                 className="flex-1 px-4 py-2 border border-gray-300 text-gray-700 rounded-lg hover:bg-gray-50 transition-colors"
                 disabled={submittingGritBit}
