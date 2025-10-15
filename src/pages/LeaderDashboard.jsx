@@ -60,6 +60,13 @@ const LeaderDashboard = () => {
   const [showFeedbackSentModal, setShowFeedbackSentModal] = useState(false)
   const [feedbackSentStudentName, setFeedbackSentStudentName] = useState('')
   
+  // Media modal states
+  const [showImageModal, setShowImageModal] = useState(false)
+  const [selectedImages, setSelectedImages] = useState([])
+  const [currentImageIndex, setCurrentImageIndex] = useState(0)
+  const [showVideoModal, setShowVideoModal] = useState(false)
+  const [selectedVideo, setSelectedVideo] = useState(null)
+  
   // Announcement states
   const [announcementFilters, setAnnouncementFilters] = useState({
     yearLevel: 'all',        // 'all', '3', '4', '5', '6'
@@ -217,6 +224,44 @@ const LeaderDashboard = () => {
       'field_marshals': "Field Marshal"
     };
     return awardMap[award] || award;
+  };
+
+  // Helper function to detect if URL is a video
+  const isVideoUrl = (url) => {
+    const videoExtensions = ['.mp4', '.mov', '.webm', '.avi', '.mkv', '.m4v'];
+    return videoExtensions.some(ext => url.toLowerCase().includes(ext));
+  };
+
+  // Helper function to separate images and videos from media URLs
+  const separateMedia = (mediaUrls) => {
+    if (!mediaUrls || !Array.isArray(mediaUrls)) return { images: [], videos: [] };
+    
+    const images = mediaUrls.filter(url => !isVideoUrl(url));
+    const videos = mediaUrls.filter(url => isVideoUrl(url));
+    
+    return { images, videos };
+  };
+
+  // Handler for opening image modal
+  const handleOpenImageModal = (images, startIndex = 0) => {
+    setSelectedImages(images);
+    setCurrentImageIndex(startIndex);
+    setShowImageModal(true);
+  };
+
+  // Handler for opening video modal
+  const handleOpenVideoModal = (videoUrl) => {
+    setSelectedVideo(videoUrl);
+    setShowVideoModal(true);
+  };
+
+  // Navigation for image modal
+  const handlePreviousImage = () => {
+    setCurrentImageIndex((prev) => (prev > 0 ? prev - 1 : selectedImages.length - 1));
+  };
+
+  const handleNextImage = () => {
+    setCurrentImageIndex((prev) => (prev < selectedImages.length - 1 ? prev + 1 : 0));
   };
 
   useEffect(() => {
@@ -1429,24 +1474,72 @@ const LeaderDashboard = () => {
                                   </p>
                                   
                                   {/* Media thumbnails */}
-                                  {evidence.media_urls && evidence.media_urls.length > 0 && (
-                                    <div className="flex gap-2 mb-3 flex-wrap">
-                                      {evidence.media_urls.slice(0, 3).map((url, index) => (
-                                        <img 
-                                          key={index}
-                                          src={url} 
-                                          alt={`Evidence ${index + 1}`}
-                                          className="w-16 h-16 object-cover rounded-lg cursor-pointer hover:opacity-80 flex-shrink-0"
-                                          onClick={() => window.open(url, '_blank')}
-                                        />
-                                      ))}
-                                      {evidence.media_urls.length > 3 && (
-                                        <div className="w-16 h-16 bg-gray-100 rounded-lg flex items-center justify-center text-xs text-gray-900-dark flex-shrink-0">
-                                          +{evidence.media_urls.length - 3} more
-                                        </div>
-                                      )}
-                                    </div>
-                                  )}
+                                  {evidence.media_urls && evidence.media_urls.length > 0 && (() => {
+                                    const { images, videos } = separateMedia(evidence.media_urls);
+                                    return (
+                                      <div className="mb-3">
+                                        {/* Images */}
+                                        {images.length > 0 && (
+                                          <div className="flex gap-2 mb-2 flex-wrap">
+                                            {images.slice(0, 3).map((url, index) => (
+                                              <div
+                                                key={index}
+                                                className="relative w-16 h-16 rounded-lg overflow-hidden cursor-pointer hover:opacity-80 flex-shrink-0"
+                                                onClick={() => handleOpenImageModal(images, index)}
+                                              >
+                                                <img 
+                                                  src={url} 
+                                                  alt={`Evidence ${index + 1}`}
+                                                  className="w-full h-full object-cover"
+                                                />
+                                              </div>
+                                            ))}
+                                            {images.length > 3 && (
+                                              <div 
+                                                className="w-16 h-16 bg-gray-100 rounded-lg flex items-center justify-center text-xs text-gray-900-dark flex-shrink-0 cursor-pointer hover:bg-gray-200"
+                                                onClick={() => handleOpenImageModal(images, 0)}
+                                              >
+                                                +{images.length - 3} more
+                                              </div>
+                                            )}
+                                          </div>
+                                        )}
+                                        
+                                        {/* Videos */}
+                                        {videos.length > 0 && (
+                                          <div className="flex gap-2 flex-wrap">
+                                            {videos.map((url, index) => (
+                                              <div
+                                                key={index}
+                                                className="relative w-16 h-16 bg-black rounded-lg overflow-hidden cursor-pointer hover:opacity-80 flex-shrink-0"
+                                                onClick={() => handleOpenVideoModal(url)}
+                                              >
+                                                <video 
+                                                  src={url}
+                                                  className="w-full h-full object-cover"
+                                                />
+                                                {/* Play icon overlay */}
+                                                <div className="absolute inset-0 flex items-center justify-center bg-black bg-opacity-40">
+                                                  <svg className="w-6 h-6 text-white" fill="currentColor" viewBox="0 0 24 24">
+                                                    <path d="M8 5v14l11-7z"/>
+                                                  </svg>
+                                                </div>
+                                              </div>
+                                            ))}
+                                          </div>
+                                        )}
+                                        
+                                        {/* Media count text */}
+                                        {(images.length > 0 || videos.length > 0) && (
+                                          <p className="text-xs text-gray-500 mt-1">
+                                            {images.length > 0 && `${images.length} image${images.length !== 1 ? 's' : ''}`}
+                                            {images.length > 0 && videos.length > 0 && ' + '}
+                                            {videos.length > 0 && `${videos.length} video${videos.length !== 1 ? 's' : ''}`}
+                                          </p>
+                                        )}
+                                      </div>
+                                    );
+                                  })()}
                                   
                                   <div className="flex flex-col sm:flex-row sm:items-center sm:justify-between gap-2">
                                     <p className="text-sm text-gray-900-dark">
@@ -1489,7 +1582,7 @@ const LeaderDashboard = () => {
                                     setShowFeedbackModal(true);
                                   }}
                                   disabled={approvingId === evidence.id}
-                                  className="bg-white border border-grit-gold-dark text-gray-900-dark hover:bg-grit-gold-dark hover:text-white transition-all px-4 py-2 disabled:opacity-50 disabled:cursor-not-allowed font-medium rounded-lg"
+                                  className="bg-white border-2 border-gray-400 text-gray-900 hover:bg-gray-50 transition-all px-4 py-2 disabled:opacity-50 disabled:cursor-not-allowed font-medium rounded-lg"
                                 >
                                   Request Changes
                                 </button>
@@ -2076,6 +2169,83 @@ const LeaderDashboard = () => {
             <p className="text-sm text-gray-900">
               They will see your comments and can resubmit.
             </p>
+          </div>
+        </div>
+      )}
+
+      {/* Image Modal */}
+      {showImageModal && (
+        <div className="fixed inset-0 z-50 flex items-center justify-center bg-black bg-opacity-90">
+          {/* Close button */}
+          <button
+            onClick={() => setShowImageModal(false)}
+            className="absolute top-4 right-4 text-white hover:text-gray-300 text-4xl w-12 h-12 flex items-center justify-center"
+          >
+            ×
+          </button>
+
+          {/* Previous button */}
+          {selectedImages.length > 1 && (
+            <button
+              onClick={handlePreviousImage}
+              className="absolute left-4 text-white hover:text-gray-300 text-4xl w-12 h-12 flex items-center justify-center"
+            >
+              ‹
+            </button>
+          )}
+
+          {/* Image */}
+          <div className="max-w-6xl max-h-[90vh] w-full h-full flex flex-col items-center justify-center p-8">
+            <img
+              src={selectedImages[currentImageIndex]}
+              alt={`Evidence ${currentImageIndex + 1}`}
+              className="max-w-full max-h-full object-contain"
+            />
+            
+            {/* Image counter */}
+            {selectedImages.length > 1 && (
+              <div className="mt-4 text-white text-lg">
+                {currentImageIndex + 1} of {selectedImages.length}
+              </div>
+            )}
+          </div>
+
+          {/* Next button */}
+          {selectedImages.length > 1 && (
+            <button
+              onClick={handleNextImage}
+              className="absolute right-4 text-white hover:text-gray-300 text-4xl w-12 h-12 flex items-center justify-center"
+            >
+              ›
+            </button>
+          )}
+        </div>
+      )}
+
+      {/* Video Modal */}
+      {showVideoModal && selectedVideo && (
+        <div className="fixed inset-0 z-50 flex items-center justify-center bg-black bg-opacity-90">
+          {/* Close button */}
+          <button
+            onClick={() => {
+              setShowVideoModal(false);
+              setSelectedVideo(null);
+            }}
+            className="absolute top-4 right-4 text-white hover:text-gray-300 text-4xl w-12 h-12 flex items-center justify-center"
+          >
+            ×
+          </button>
+
+          {/* Video player */}
+          <div className="max-w-6xl max-h-[90vh] w-full p-8">
+            <video
+              src={selectedVideo}
+              controls
+              autoPlay
+              className="w-full h-full max-h-[80vh] rounded-lg"
+            >
+              Your browser does not support the video tag.
+            </video>
           </div>
         </div>
       )}
