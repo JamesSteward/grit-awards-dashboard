@@ -511,6 +511,9 @@ const LeaderDashboard = () => {
   // New evidence approval handler as specified in prompt
   async function handleApproveEvidence(submission) {
     try {
+      console.log('Approving evidence submission:', submission);
+      setApprovingId(submission.id);
+      
       // Update evidence_submissions to approved
       const { error: evidenceError } = await supabase
         .from('evidence_submissions')
@@ -531,8 +534,8 @@ const LeaderDashboard = () => {
 
       if (progressError) throw progressError;
 
-      // Refresh submissions list
-      await fetchPendingSubmissions();
+      // Refresh data
+      await fetchAllData();
 
       // Show custom points awarded modal
       setAwardedStudentName(submission.students.first_name);
@@ -547,6 +550,8 @@ const LeaderDashboard = () => {
     } catch (error) {
       console.error('Error approving evidence:', error);
       alert('Failed to approve evidence: ' + error.message);
+    } finally {
+      setApprovingId(null);
     }
   }
 
@@ -920,12 +925,33 @@ const LeaderDashboard = () => {
     try {
       console.log('DEBUG: messageOrEvidence object:', messageOrEvidence)
       
-      const conversationId = messageOrEvidence.conversation_id || messageOrEvidence.conversations?.id
+      let conversationId = messageOrEvidence.conversation_id || messageOrEvidence.conversations?.id
       
       console.log('DEBUG: Extracted conversationId:', conversationId)
       
+      // If no conversation exists, create one
       if (!conversationId) {
-        throw new Error('No conversation ID found')
+        console.log('No conversation found, creating new one...')
+        
+        const { data: newConversation, error: createError } = await supabase
+          .from('conversations')
+          .insert({
+            student_id: messageOrEvidence.student_id,
+            evidence_submission_id: messageOrEvidence.id,
+            conversation_type: 'evidence_review',
+            subject: `Evidence: ${messageOrEvidence.challenges?.title || messageOrEvidence.title || 'Challenge'}`,
+            is_read: true
+          })
+          .select()
+          .single()
+        
+        if (createError) throw createError
+        
+        conversationId = newConversation.id
+        console.log('Created new conversation:', conversationId)
+        
+        // Refresh pending evidence to include new conversation
+        await fetchAllData()
       }
       
       // Handle both message objects and evidence objects
@@ -1444,7 +1470,7 @@ const LeaderDashboard = () => {
                               {/* Action buttons - responsive layout */}
                               <div className="flex flex-col sm:flex-row lg:flex-col gap-3 lg:gap-2 lg:min-w-[200px]">
                                 <Button
-                                  onClick={() => handleApproveEvidence(evidence.id, evidence.submission_type, evidence.challenge_id)}
+                                  onClick={() => handleApproveEvidence(evidence)}
                                   disabled={approvingId === evidence.id}
                                   className="bg-grit-green text-white hover:bg-grit-green-dark px-4 py-2 disabled:opacity-50 disabled:cursor-not-allowed font-medium"
                                 >
@@ -1458,7 +1484,10 @@ const LeaderDashboard = () => {
                                   )}
                                 </Button>
                                 <button
-                                  onClick={() => handleRequestChanges(evidence.id)}
+                                  onClick={() => {
+                                    setReviewingSubmission(evidence);
+                                    setShowFeedbackModal(true);
+                                  }}
                                   disabled={approvingId === evidence.id}
                                   className="bg-white border border-grit-gold-dark text-gray-900-dark hover:bg-grit-gold-dark hover:text-white transition-all px-4 py-2 disabled:opacity-50 disabled:cursor-not-allowed font-medium rounded-lg"
                                 >
