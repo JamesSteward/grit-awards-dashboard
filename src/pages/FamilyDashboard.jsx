@@ -26,6 +26,7 @@ const FamilyDashboard = () => {
   const [showEvidenceModal, setShowEvidenceModal] = useState(false)
   const [showSuccessModal, setShowSuccessModal] = useState(false)
   const [showGritBitModal, setShowGritBitModal] = useState(false)
+  const [showGritBitSuccessModal, setShowGritBitSuccessModal] = useState(false)
   const [evidenceText, setEvidenceText] = useState('')
   const [evidenceImages, setEvidenceImages] = useState([])
   const [evidenceVideo, setEvidenceVideo] = useState(null)
@@ -914,12 +915,9 @@ const FamilyDashboard = () => {
 
       if (error) throw error
 
-      // Success
-      setShowGritBitModal(false)
-      setGritBitText('')
-      setGritBitImages([])
-      setGritBitVideo(null)
-      alert('GRIT Bit submitted! Your GRIT Lead will review it and award points.')
+      // Success - show success modal
+      setShowGritBitSuccessModal(true)
+      // Don't close submission modal yet - success modal will handle it
       
       // Refresh stats
       fetchHomeStats()
@@ -2251,6 +2249,66 @@ const FamilyDashboard = () => {
                 {submittingGritBit ? 'Submitting...' : 'Submit GRIT BIT'}
               </button>
             </div>
+          </div>
+        </div>
+      )}
+
+      {/* GRIT Bit Success Modal */}
+      {showGritBitSuccessModal && (
+        <div className="fixed inset-0 bg-black bg-opacity-50 flex items-center justify-center z-50 p-4">
+          <div className="bg-white rounded-lg p-8 max-w-md w-full relative">
+            {/* Close X button */}
+            <button
+              onClick={() => {
+                setShowGritBitSuccessModal(false);
+                setShowGritBitModal(false);
+                setGritBitText('');
+                setGritBitImages([]);
+                setGritBitVideo(null);
+              }}
+              className="absolute top-4 right-4 text-gray-900-dark hover:text-gray-900 text-2xl w-8 h-8 flex items-center justify-center"
+            >
+              ×
+            </button>
+
+            {/* Animated SUBMITTED stamp */}
+            <div className="flex justify-center mb-6">
+              <img 
+                src="/SUBMITTED.svg" 
+                alt="Submitted" 
+                className="w-32 h-32 animate-bounce"
+              />
+            </div>
+
+            {/* Success message with student and teacher names */}
+            <div className="text-center mb-6">
+              <p className="text-lg text-gray-900 leading-relaxed">
+                Well done, <span className="font-bold text-grit-green">{student?.first_name}</span>!
+                <br />
+                Your GRIT Bit has been submitted successfully!
+                <br />
+                <br />
+                Your GRIT Lead <span className="font-bold text-grit-green">Mr Mackenzie</span> will review your submission soon.
+                <br />
+                <br />
+                Good luck!
+              </p>
+            </div>
+
+            {/* Submit Another GRIT Bit button */}
+            <Button
+              onClick={() => {
+                setShowGritBitSuccessModal(false);
+                setShowGritBitModal(false);
+                setGritBitText('');
+                setGritBitImages([]);
+                setGritBitVideo(null);
+                setActiveTab('home');
+              }}
+              className="w-full py-3"
+            >
+              Submit Another GRIT Bit
+            </Button>
           </div>
         </div>
       )}
