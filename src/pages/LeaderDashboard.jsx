@@ -559,6 +559,8 @@ const LeaderDashboard = () => {
       console.log('Approving evidence submission:', submission);
       setApprovingId(submission.id);
       
+      const isGritBit = !submission.challenge_id;
+      
       // Update evidence_submissions to approved
       const { error: evidenceError } = await supabase
         .from('evidence_submissions')
@@ -567,24 +569,56 @@ const LeaderDashboard = () => {
 
       if (evidenceError) throw evidenceError;
 
-      // Update student_progress to approved
-      const { error: progressError } = await supabase
-        .from('student_progress')
-        .update({ 
-          status: 'approved',
-          completed_at: new Date().toISOString()
-        })
-        .eq('student_id', submission.student_id)
-        .eq('objective_id', submission.challenge_id);
+      // Update student_progress to approved (only for challenge evidence, not GRIT Bits)
+      if (!isGritBit) {
+        const { error: progressError } = await supabase
+          .from('student_progress')
+          .update({ 
+            status: 'approved',
+            completed_at: new Date().toISOString()
+          })
+          .eq('student_id', submission.student_id)
+          .eq('objective_id', submission.challenge_id);
 
-      if (progressError) throw progressError;
+        if (progressError) throw progressError;
+      }
+
+      // Award points
+      let pointsAwarded = 0;
+      
+      if (isGritBit) {
+        // Award fixed points for GRIT Bits (10 points)
+        pointsAwarded = 10;
+        
+        // Get current student points
+        const { data: studentData, error: fetchError } = await supabase
+          .from('students')
+          .select('total_grit_points')
+          .eq('id', submission.student_id)
+          .single();
+        
+        if (fetchError) throw fetchError;
+        
+        // Update student's total GRIT points
+        const { error: updateError } = await supabase
+          .from('students')
+          .update({ 
+            total_grit_points: (studentData.total_grit_points || 0) + pointsAwarded
+          })
+          .eq('id', submission.student_id);
+        
+        if (updateError) throw updateError;
+      } else {
+        // For challenge evidence, use challenge points
+        pointsAwarded = submission.challenges?.points || 0;
+      }
 
       // Refresh data
       await fetchAllData();
 
       // Show custom points awarded modal
       setAwardedStudentName(submission.students.first_name);
-      setAwardedPoints(submission.challenges.points);
+      setAwardedPoints(pointsAwarded);
       setShowPointsModal(true);
 
       // Auto-close modal after 2 seconds
@@ -706,13 +740,9 @@ const LeaderDashboard = () => {
     }
 
     try {
-      // Check evidence_submissions schema first
-      console.log('Checking evidence_submissions schema...');
-      const { data: schemaCheck } = await supabase
-        .from('evidence_submissions')
-        .select('*')
-        .limit(1);
-      console.log('Available columns:', schemaCheck ? Object.keys(schemaCheck[0]) : 'No data');
+      console.log('Requesting changes for submission:', reviewingSubmission);
+      
+      const isGritBit = !reviewingSubmission.challenge_id;
 
       // Store feedback by prepending to evidence_text (since feedback column doesn't exist)
       const { error: submissionError } = await supabase
@@ -725,25 +755,30 @@ const LeaderDashboard = () => {
 
       if (submissionError) throw submissionError;
 
-      // 2. Update student_progress - use 'submitted' instead of 'needs_revision' (constraint violation)
-      const { error: progressError } = await supabase
-        .from('student_progress')
-        .update({ 
-          status: 'submitted'  // CHANGED: Use allowed status value
-        })
-        .eq('student_id', reviewingSubmission.student_id)
-        .eq('objective_id', reviewingSubmission.challenge_id);
+      // Update student_progress (only for challenge evidence, not GRIT Bits)
+      if (!isGritBit) {
+        const { error: progressError } = await supabase
+          .from('student_progress')
+          .update({ 
+            status: 'submitted'  // Use allowed status value
+          })
+          .eq('student_id', reviewingSubmission.student_id)
+          .eq('objective_id', reviewingSubmission.challenge_id);
 
-      if (progressError) throw progressError;
+        if (progressError) throw progressError;
+      }
 
       setShowFeedbackModal(false);
       setFeedbackText('');
+      
+      // Store student name before clearing reviewingSubmission
+      const studentName = reviewingSubmission.students.first_name;
       setReviewingSubmission(null);
 
-      await fetchPendingSubmissions();
+      await fetchAllData();
 
       // Show custom feedback sent modal
-      setFeedbackSentStudentName(reviewingSubmission.students.first_name);
+      setFeedbackSentStudentName(studentName);
       setShowFeedbackSentModal(true);
 
       // Auto-close modal after 2 seconds
