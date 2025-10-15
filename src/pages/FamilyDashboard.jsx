@@ -255,9 +255,6 @@ const FamilyDashboard = () => {
         throw new Error('Could not find challenge ID');
       }
 
-      // File uploads temporarily disabled due to storage configuration
-      // TODO: Uncomment when Supabase storage is properly configured
-      /*
       // Upload images to Supabase Storage
       if (evidenceImages.length > 0) {
         for (const image of evidenceImages) {
@@ -297,7 +294,6 @@ const FamilyDashboard = () => {
         
         mediaUrls.push(publicUrl);
       }
-      */
 
       const { error: submitError } = await supabase
         .from('evidence_submissions')
@@ -2003,11 +1999,52 @@ const FamilyDashboard = () => {
               />
             </div>
 
-            {/* File Upload Notice */}
-            <div className="mb-4 p-3 bg-gray-50 rounded-lg border border-grit-gold-dark">
-              <p className="text-sm text-gray-900">
-                File uploads temporarily unavailable due to storage configuration. Text descriptions only.
-              </p>
+            {/* Image Upload */}
+            <div className="mb-4">
+              <label className="block text-sm font-medium text-gray-900 mb-2">
+                Upload Images (Max 3):
+              </label>
+              <input
+                type="file"
+                accept="image/*"
+                multiple
+                onChange={(e) => {
+                  const files = Array.from(e.target.files).slice(0, 3);
+                  setEvidenceImages(files);
+                }}
+                className="w-full px-3 py-2 border border-grit-gold-dark rounded-lg focus:outline-none focus:ring-2 focus:ring-grit-green/20 focus:border-grit-green"
+              />
+              {evidenceImages.length > 0 && (
+                <p className="text-sm text-gray-600 mt-1">
+                  {evidenceImages.length} image(s) selected
+                </p>
+              )}
+            </div>
+
+            {/* Video Upload */}
+            <div className="mb-4">
+              <label className="block text-sm font-medium text-gray-900 mb-2">
+                Upload Video (Optional, Max 30MB):
+              </label>
+              <input
+                type="file"
+                accept="video/*"
+                onChange={(e) => {
+                  const file = e.target.files[0];
+                  if (file && file.size > 30 * 1024 * 1024) {
+                    alert('Video file size must be less than 30MB');
+                    e.target.value = '';
+                    return;
+                  }
+                  setEvidenceVideo(file);
+                }}
+                className="w-full px-3 py-2 border border-grit-gold-dark rounded-lg focus:outline-none focus:ring-2 focus:ring-grit-green/20 focus:border-grit-green"
+              />
+              {evidenceVideo && (
+                <p className="text-sm text-gray-600 mt-1">
+                  Video selected: {evidenceVideo.name} ({(evidenceVideo.size / (1024 * 1024)).toFixed(2)} MB)
+                </p>
+              )}
             </div>
 
             {/* Action Buttons */}

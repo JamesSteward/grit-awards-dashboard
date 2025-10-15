@@ -1472,7 +1472,7 @@ const LeaderDashboard = () => {
                                 </button>
                               </div>
                             </div>
-                          </div>
+                          </Card>
                         ))}
                       </div>
                     )}
