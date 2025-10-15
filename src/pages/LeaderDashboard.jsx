@@ -978,13 +978,15 @@ const LeaderDashboard = () => {
       if (!conversationId) {
         console.log('No conversation found, creating new one...')
         
+        const challengeTitle = messageOrEvidence.challenges?.title || messageOrEvidence.title || 'Challenge'
+        
         const { data: newConversation, error: createError } = await supabase
           .from('conversations')
           .insert({
             student_id: messageOrEvidence.student_id,
             evidence_submission_id: messageOrEvidence.id,
             conversation_type: 'evidence_review',
-            subject: `Evidence: ${messageOrEvidence.challenges?.title || messageOrEvidence.title || 'Challenge'}`,
+            subject: `Evidence: ${challengeTitle}`,
             is_read: true
           })
           .select()
@@ -994,6 +996,25 @@ const LeaderDashboard = () => {
         
         conversationId = newConversation.id
         console.log('Created new conversation:', conversationId)
+        
+        // Create initial message from student with their evidence submission
+        const evidenceContent = messageOrEvidence.text_content || 'No description provided'
+        const submissionDate = new Date(messageOrEvidence.created_at).toLocaleDateString()
+        
+        const { error: messageError } = await supabase
+          .from('messages')
+          .insert({
+            conversation_id: conversationId,
+            sender_type: 'family',
+            sender_id: messageOrEvidence.student_id,
+            content: `Evidence submitted for "${challengeTitle}" on ${submissionDate}:\n\n${evidenceContent}`,
+            is_read: false
+          })
+        
+        if (messageError) {
+          console.error('Error creating initial message:', messageError)
+          // Don't throw - conversation is created, we can continue
+        }
         
         // Refresh pending evidence to include new conversation
         await fetchAllData()
@@ -1588,7 +1609,7 @@ const LeaderDashboard = () => {
                                 </button>
                                 <button
                                   onClick={() => handleViewConversation(evidence)}
-                                  className="bg-gray-100 border border-grit-gold-dark text-gray-900 hover:bg-gray-200 transition-all px-4 py-2 font-medium rounded-lg"
+                                  className="bg-gray-100 border-2 border-gray-400 text-gray-900 hover:bg-gray-200 transition-all px-4 py-2 font-medium rounded-lg"
                                 >
                                   View Conversation
                                 </button>
@@ -1712,7 +1733,7 @@ const LeaderDashboard = () => {
                 </button>
                 
                 <button 
-                  className="w-full bg-white border border-grit-gold-dark text-gray-900-dark font-semibold px-6 py-3 rounded-xl hover:bg-grit-gold-dark hover:text-white transition-all"
+                  className="w-full bg-white border-2 border-gray-400 text-gray-900 font-semibold px-6 py-3 rounded-xl hover:bg-gray-50 transition-all"
                 >
                   <svg className="w-5 h-5 mr-2 inline" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2">
                     <line x1="18" y1="20" x2="18" y2="10"/>
