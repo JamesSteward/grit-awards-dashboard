@@ -597,7 +597,14 @@ const LeaderDashboard = () => {
           .eq('id', submission.student_id)
           .single();
         
-        if (fetchError) throw fetchError;
+        if (fetchError) {
+          // Check if error is due to column not existing
+          if (fetchError.message && fetchError.message.includes('column') && fetchError.message.includes('does not exist')) {
+            console.error('total_grit_points column does not exist. Please run add_total_grit_points_column.sql in Supabase SQL Editor.');
+            throw new Error('Database schema update required. Please contact administrator to run migration: add_total_grit_points_column.sql');
+          }
+          throw fetchError;
+        }
         
         // Update student's total GRIT points
         const { error: updateError } = await supabase
