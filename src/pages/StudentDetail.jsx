@@ -254,13 +254,11 @@ const StudentDetail = () => {
 
           <div className="flex items-center gap-6">
             <div className="flex-shrink-0">
-              <div className="w-24 h-24 rounded-full bg-[#b5aa91] flex items-center justify-center shadow-lg">
-                <img 
-                  src={`/avatars/${student.avatar || 'avatar-pilot-001.svg'}`} 
-                  alt={`${student.first_name} ${student.last_name}`}
-                  className="w-20 h-20 rounded-full"
-                />
-              </div>
+              <img 
+                src={`/avatars/${student.avatar || 'avatar-pilot-001.svg'}`} 
+                alt={`${student.first_name} ${student.last_name}`}
+                className="w-24 h-24 rounded-full shadow-lg"
+              />
             </div>
             <div className="flex-1">
               <h1 className="text-3xl font-bold mb-2">

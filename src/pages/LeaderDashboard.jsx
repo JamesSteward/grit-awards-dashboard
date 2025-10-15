@@ -1445,7 +1445,7 @@ const LeaderDashboard = () => {
                                 <img 
                                   src={`/avatars/${evidence.students?.avatar || 'avatar-pilot-001.svg'}`} 
                                   alt={`${evidence.students?.first_name} ${evidence.students?.last_name}`}
-                                  className="w-12 h-12 rounded-full border-2 border-grit-gold flex-shrink-0"
+                                  className="w-12 h-12 rounded-full flex-shrink-0"
                                 />
                                 <div className="flex-1 min-w-0">
                                   <div className="mb-2">
@@ -2037,7 +2037,7 @@ const LeaderDashboard = () => {
               <Button
                 onClick={handleSendFeedback}
                 disabled={!feedbackModal.feedback.trim() || sendingMessage}
-                className="flex-1 bg-grit-gold-dark text-white hover:bg-grit-gold-dark disabled:opacity-50 disabled:cursor-not-allowed font-medium"
+                className="flex-1 bg-grit-green text-white hover:bg-grit-green-dark disabled:opacity-50 disabled:cursor-not-allowed font-medium"
               >
                 {sendingMessage ? 'Sending...' : 'Send Feedback'}
               </Button>
@@ -2153,7 +2153,7 @@ const LeaderDashboard = () => {
               <button
                 onClick={handleRequestChanges}
                 disabled={!feedbackText.trim()}
-                className="flex-1 bg-amber-500 text-white py-2 rounded-lg font-semibold disabled:opacity-50"
+                className="flex-1 bg-grit-green text-white hover:bg-grit-green-dark py-2 rounded-lg font-semibold disabled:opacity-50 transition-all"
               >
                 Send Feedback
               </button>

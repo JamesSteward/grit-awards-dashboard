@@ -921,7 +921,7 @@ const FamilyDashboard = () => {
 
           {/* Profile section */}
           <div className="text-center p-8 pb-6">
-            <img src={`/avatars/${student?.avatar || 'avatar-pilot-001.svg'}`} alt={student?.first_name} className="w-20 h-20 rounded-full bg-grit-gold p-2 mx-auto mb-4" onError={(e) => { e.target.src = '/avatars/avatar-pilot-001.svg' }} />
+            <img src={`/avatars/${student?.avatar || 'avatar-pilot-001.svg'}`} alt={student?.first_name} className="w-20 h-20 rounded-full mx-auto mb-4" onError={(e) => { e.target.src = '/avatars/avatar-pilot-001.svg' }} />
             <h2 className="text-2xl font-['Roboto_Slab'] font-bold text-grit-green mb-2">{student?.first_name} {student?.last_name}</h2>
             <div className="text-gray-900 text-sm mb-1">St Peter's Catholic Primary School</div>
             <div className="text-gray-900-dark text-xs mb-2">St Peter's Way, Noctorum, Birkenhead, Prenton CH43 9QR</div>
@@ -977,7 +977,7 @@ const FamilyDashboard = () => {
             <div className="flex justify-between items-center px-5 py-4">
               <img src="/GRIT-logo-white.svg" alt="GRIT Awards" className="h-10 w-auto" />
               <button onClick={() => setShowProfileModal(true)} className="cursor-pointer">
-                <img src={`/avatars/${student?.avatar || 'avatar-pilot-001.svg'}`} alt={student?.first_name} className="w-12 h-12 rounded-full bg-grit-gold p-1" onError={(e) => { e.target.src = '/avatars/avatar-pilot-001.svg' }} />
+                <img src={`/avatars/${student?.avatar || 'avatar-pilot-001.svg'}`} alt={student?.first_name} className="w-12 h-12 rounded-full" onError={(e) => { e.target.src = '/avatars/avatar-pilot-001.svg' }} />
               </button>
             </div>
             
