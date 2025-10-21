@@ -1,7 +1,6 @@
 {
-  "buildCommand": "cd grit-awards-2.0 && npm install && npm run build",
-  "outputDirectory": "grit-awards-2.0/dist",
-  "installCommand": "cd grit-awards-2.0 && npm install",
+  "buildCommand": "npm run build",
+  "outputDirectory": "dist",
   "framework": "vite",
   "rewrites": [
     {
