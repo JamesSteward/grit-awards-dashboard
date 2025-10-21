@@ -234,14 +234,14 @@ function Hero() {
               <h2 className="font-heading text-4xl font-semibold leading-relaxed text-grit-green md:text-5xl text-center">What is <span className="text-grit-gold-dark">GRIT</span>?</h2>
             </Reveal>
             <Reveal delay={0.2}>
-              <p className="mt-6 max-w-4xl text-lg leading-relaxed text-grit-green/90 text-center mx-auto">
+              <p className="mt-6 max-w-4xl text-lg leading-relaxed text-grit-green/80 text-center mx-auto">
                 The GRIT Awards inspire children to <strong>Grow</strong>, build <strong>Resilience</strong>, develop <strong>Integrity and Independence</strong>, and experience a <strong>Transformation</strong> for good. They're a UKMS-led initiative giving schools and families a structured way to help children gain real-world skills and confidence.
               </p>
             </Reveal>
             <div className="mt-12 grid grid-cols-1 gap-6 md:grid-cols-2 lg:grid-cols-4">
               {cards.map((card, index) => (
                 <Reveal key={card.title} delay={0.1 + (index * 0.1)}>
-                  <div className="bg-white rounded-2xl p-6 shadow-lg ring-1 ring-grit-gold-light/20 hover:shadow-xl transition-shadow">
+                  <div className="bg-white rounded-2xl p-6 shadow-md border border-grit-gold-light/40 hover:shadow-lg transition-all ease-out duration-200">
                     <h3 className="font-heading text-xl font-semibold text-grit-green mb-3">{card.title}</h3>
                     <p className="text-grit-green/80">{card.description}</p>
             </div>
@@ -275,21 +275,21 @@ function Hero() {
               <Reveal delay={0.1}>
                 <div>
                   <h2 className="font-heading text-4xl font-semibold leading-relaxed text-grit-green md:text-5xl">For Parents</h2>
-                  <p className="mt-6 text-lg leading-relaxed text-grit-green/90">
+                  <p className="mt-6 text-lg leading-relaxed text-grit-green/80">
                     Confidence begins at home. The GRIT Awards give you practical, age-appropriate challenges and clear guidance to help your child develop real-world skills. Track their progress together and celebrate their growth beyond academics.
                   </p>
                   <div className="mt-8 space-y-4">
                     <div className="flex gap-4 items-start">
                       <div className="mt-1 h-2 w-2 rounded-full bg-grit-gold-dark flex-shrink-0" />
-                      <p className="text-grit-green/90">Age-appropriate challenges that build confidence step by step</p>
+                      <p className="text-grit-green/80">Age-appropriate challenges that build confidence step by step</p>
                 </div>
                     <div className="flex gap-4 items-start">
                       <div className="mt-1 h-2 w-2 rounded-full bg-grit-gold-dark flex-shrink-0" />
-                      <p className="text-grit-green/90">Clear guidance and support materials for home activities</p>
+                      <p className="text-grit-green/80">Clear guidance and support materials for home activities</p>
               </div>
                     <div className="flex gap-4 items-start">
                       <div className="mt-1 h-2 w-2 rounded-full bg-grit-gold-dark flex-shrink-0" />
-                      <p className="text-grit-green/90">Progress tracking that connects home and school</p>
+                      <p className="text-grit-green/80">Progress tracking that connects home and school</p>
                 </div>
               </div>
                   <div className="mt-8">
@@ -334,7 +334,7 @@ function Hero() {
               <h2 className="font-heading text-4xl font-semibold leading-relaxed text-grit-green md:text-5xl text-center">For Schools & Trusts</h2>
             </Reveal>
             <Reveal delay={0.2}>
-              <p className="mt-6 max-w-4xl text-lg leading-relaxed text-grit-green/90 text-center mx-auto">
+              <p className="mt-6 max-w-4xl text-lg leading-relaxed text-grit-green/80 text-center mx-auto">
                 Partner with UKMS to deliver measurable outcomes in student wellbeing and character development. Our safeguarding-first approach integrates seamlessly into your curriculum with clear frameworks and staff support.
               </p>
             </Reveal>
@@ -342,19 +342,19 @@ function Hero() {
               <div className="mt-12 max-w-3xl mx-auto space-y-6">
                 <div className="flex gap-4 items-start">
                   <div className="mt-1 h-2 w-2 rounded-full bg-grit-gold-dark flex-shrink-0" />
-                  <p className="text-grit-green/90">Partnership with UKMS — backed by 15+ years of experience</p>
+                  <p className="text-grit-green/80">Partnership with UKMS — backed by 15+ years of experience</p>
                 </div>
                 <div className="flex gap-4 items-start">
                   <div className="mt-1 h-2 w-2 rounded-full bg-grit-gold-dark flex-shrink-0" />
-                  <p className="text-grit-green/90">Safeguarding-first approach with risk-assessed delivery</p>
+                  <p className="text-grit-green/80">Safeguarding-first approach with risk-assessed delivery</p>
                 </div>
                 <div className="flex gap-4 items-start">
                   <div className="mt-1 h-2 w-2 rounded-full bg-grit-gold-dark flex-shrink-0" />
-                  <p className="text-grit-green/90">Measurable outcomes in wellbeing, attendance, and readiness to learn</p>
+                  <p className="text-grit-green/80">Measurable outcomes in wellbeing, attendance, and readiness to learn</p>
                 </div>
                 <div className="flex gap-4 items-start">
                   <div className="mt-1 h-2 w-2 rounded-full bg-grit-gold-dark flex-shrink-0" />
-                  <p className="text-grit-green/90">Easy integration with clear frameworks and staff CPD support</p>
+                  <p className="text-grit-green/80">Easy integration with clear frameworks and staff CPD support</p>
                 </div>
               </div>
             </Reveal>
@@ -403,7 +403,7 @@ function Hero() {
               <h2 className="font-heading text-4xl font-semibold leading-relaxed text-grit-green md:text-5xl">Our Impact</h2>
             </Reveal>
             <Reveal delay={0.2}>
-              <p className="mt-6 max-w-4xl mx-auto text-lg leading-relaxed text-grit-green/90">
+              <p className="mt-6 max-w-4xl mx-auto text-lg leading-relaxed text-grit-green/80">
                 Every achievement strengthens community pride and long-term wellbeing.
               </p>
             </Reveal>
@@ -411,7 +411,7 @@ function Hero() {
               {stats.map((stat, i) => (
                 <Reveal key={stat.label} delay={0.3 + (i * 0.1)}>
                   <motion.div 
-                    className="rounded-2xl bg-gray-50 p-8 shadow-lg ring-1 ring-grit-gold-light/20"
+                    className="rounded-2xl bg-white p-8 shadow-md border border-grit-gold-light/40 hover:shadow-lg transition-all ease-out duration-200"
                     initial={prefersReducedMotion ? { opacity: 0 } : { opacity: 0, scale: 0.95 }}
                     whileInView={prefersReducedMotion ? { opacity: 1 } : { opacity: 1, scale: 1 }}
                     viewport={{ once: true, margin: "-50px" }}

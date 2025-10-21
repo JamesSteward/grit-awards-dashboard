@@ -83,14 +83,14 @@ function HowItWorks() {
           <h2 className="font-heading text-4xl font-semibold leading-relaxed text-grit-green md:text-5xl text-center">How GRIT Works — <span className="text-grit-gold-dark">Three Assessment Pathways</span></h2>
         </Reveal>
         <Reveal delay={0.2}>
-          <p className="mt-6 max-w-4xl text-lg leading-relaxed text-grit-green/90 text-center mx-auto">
+          <p className="mt-6 max-w-4xl text-lg leading-relaxed text-grit-green/80 text-center mx-auto">
             Each pathway builds different aspects of character and resilience, creating a comprehensive approach to developing life-ready skills.
           </p>
         </Reveal>
         <div className="mt-12 grid grid-cols-1 gap-8 lg:grid-cols-3">
           {pathways.map((pathway, index) => (
             <Reveal key={pathway.title} delay={0.1 + (index * 0.1)}>
-              <div className="rounded-2xl bg-white shadow-lg ring-1 ring-grit-gold-light/30 hover:shadow-xl transition-all duration-300 p-6">
+              <div className="rounded-2xl bg-white shadow-md border border-grit-gold-light/40 hover:shadow-lg transition-all ease-out duration-200 p-6">
                 <h3 className="font-heading text-2xl font-semibold text-grit-green mb-4">{pathway.title}</h3>
                 <p className="text-grit-green/80 mb-6 leading-relaxed">{pathway.summary}</p>
                 <div className="space-y-3">
@@ -99,7 +99,7 @@ function HowItWorks() {
                     {pathway.examples.map((example, exampleIndex) => (
                       <li key={exampleIndex} className="flex items-start gap-3">
                         <div className="mt-1.5 h-1.5 w-1.5 rounded-full bg-grit-gold-dark flex-shrink-0" />
-                        <span className="text-sm text-grit-green/70">{example}</span>
+                        <span className="text-sm text-grit-green/80">{example}</span>
                       </li>
                     ))}
                   </ul>
