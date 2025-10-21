@@ -252,7 +252,8 @@ function Hero() {
                   href="#for-parents" 
                   whileHover={{ scale: 1.05 }} 
                   whileTap={{ scale: 0.95 }} 
-                  className="inline-block rounded-2xl bg-grit-green px-8 py-4 text-white font-semibold hover:bg-grit-green/90 transition-colors"
+                  className="inline-block rounded-2xl bg-grit-green px-8 py-4 text-white font-semibold hover:bg-grit-green/90 transition-colors focus:outline-none focus-visible:ring-2 focus-visible:ring-grit-gold-dark"
+                  aria-label="Learn more about GRIT for parents"
                 >
                   Learn More
                 </motion.a>
@@ -294,7 +295,8 @@ function Hero() {
                       href="#get-started" 
                       whileHover={{ scale: 1.05 }} 
                       whileTap={{ scale: 0.95 }} 
-                      className="inline-block rounded-2xl bg-grit-green px-8 py-4 text-white font-semibold hover:bg-grit-green/90 transition-colors"
+                      className="inline-block rounded-2xl bg-grit-green px-8 py-4 text-white font-semibold hover:bg-grit-green/90 transition-colors focus:outline-none focus-visible:ring-2 focus-visible:ring-grit-gold-dark"
+                      aria-label="Get started to build confidence at home"
                     >
                       Build Confidence at Home
                     </motion.a>
@@ -360,7 +362,8 @@ function Hero() {
                   href="#get-started" 
                   whileHover={{ scale: 1.05 }} 
                   whileTap={{ scale: 0.95 }} 
-                  className="inline-block rounded-2xl bg-grit-green px-8 py-4 text-white font-semibold hover:bg-grit-green/90 transition-colors"
+                  className="inline-block rounded-2xl bg-grit-green px-8 py-4 text-white font-semibold hover:bg-grit-green/90 transition-colors focus:outline-none focus-visible:ring-2 focus-visible:ring-grit-gold-dark"
+                  aria-label="Partner with GRIT Awards"
                 >
                   Partner With Us
                 </motion.a>
@@ -424,7 +427,8 @@ function Hero() {
                 href="#get-started" 
                 whileHover={{ scale: 1.05 }} 
                 whileTap={{ scale: 0.95 }} 
-                className="inline-block mt-8 rounded-2xl bg-white px-8 py-4 text-grit-green font-semibold hover:bg-grit-gold-light/20 transition-colors"
+                className="inline-block mt-8 rounded-2xl bg-white px-8 py-4 text-grit-green font-semibold hover:bg-grit-gold-light/20 transition-colors focus:outline-none focus-visible:ring-2 focus-visible:ring-grit-gold-dark"
+                aria-label="Join the GRIT movement"
               >
                 Join GRIT
               </motion.a>
