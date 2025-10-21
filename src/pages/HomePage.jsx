@@ -1,529 +1,400 @@
-import React, { useState } from 'react'
-import Header from '../components/Header'
-import Footer from '../components/Footer'
-import Button from '../components/Button'
-import GrungeOverlay from '../components/GrungeOverlay'
-import NewSchoolWizard from '../components/NewSchoolWizard'
+import React, { useEffect, useState } from "react";
+import { motion, useAnimation, useScroll, useTransform } from "framer-motion";
+import { useInView } from "react-intersection-observer";
+import Header from '../components/Header';
+import Footer from '../components/Footer';
 
-const HomePage = () => {
-  const [showSchoolWizard, setShowSchoolWizard] = useState(false)
+// Safe Reveal component using react-intersection-observer with reduced motion support
+const Reveal = ({ children, delay = 0, className = "" }) => {
+  const controls = useAnimation();
+  const [ref, inView] = useInView({ triggerOnce: true, threshold: 0.2 });
+  const [prefersReducedMotion, setPrefersReducedMotion] = useState(false);
 
-  const handleOpenSchoolWizard = () => {
-    setShowSchoolWizard(true)
-  }
+  useEffect(() => {
+    const mediaQuery = window.matchMedia('(prefers-reduced-motion: reduce)');
+    setPrefersReducedMotion(mediaQuery.matches);
+    
+    const handleChange = (e) => setPrefersReducedMotion(e.matches);
+    mediaQuery.addEventListener('change', handleChange);
+    
+    return () => mediaQuery.removeEventListener('change', handleChange);
+  }, []);
 
-  const handleCloseSchoolWizard = () => {
-    setShowSchoolWizard(false)
-  }
+  useEffect(() => {
+    if (inView) controls.start("visible");
+  }, [inView, controls]);
+
   return (
-    <div className="min-h-screen bg-white">
-      <Header />
-      
-      {/* Hero Section */}
-      <section className="relative bg-gradient-to-br from-grit-green to-grit-green-dark text-white py-20 overflow-hidden">
-        <GrungeOverlay />
-        {/* Hero Background Image */}
-        <div className="absolute inset-0 z-0">
-          <img 
-            src="/grit-hero.webp" 
-            alt="GRIT Awards Hero" 
-            className="w-full h-full object-cover opacity-20"
-          />
-        </div>
-        
-        {/* Hero Content */}
-        <div className="relative z-10 max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 text-center">
-          <h1 className="text-5xl md:text-6xl font-heading font-bold mb-6">
-            Building Life-Ready Children.
-          </h1>
-          <p className="text-xl md:text-2xl text-gray-900-light mb-8 max-w-3xl mx-auto">
-            The GRIT Awards program empowers students with essential life skills through 
-            structured achievement recognition and character development.
-          </p>
-          <Button
-            variant="secondary"
-            className="text-grit-green bg-white hover:bg-grit-gold-light text-lg px-8 py-4"
-          >
-            Learn More
-          </Button>
-        </div>
-      </section>
+    <motion.div
+      ref={ref}
+      initial="hidden"
+      animate={controls}
+      variants={{
+        hidden: prefersReducedMotion ? { opacity: 0 } : { opacity: 0, y: 24 },
+        visible: { opacity: 1, y: 0 },
+      }}
+      transition={{ duration: prefersReducedMotion ? 0.3 : 0.6, delay }}
+      className={className}
+    >
+      {children}
+    </motion.div>
+  );
+};
 
-      {/* Product Highlight Section */}
-      <section className="bg-gray-100 py-16">
-        <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
-          <div className="text-center mb-12">
-            <h2 className="text-4xl font-heading font-bold text-grit-green mb-4">
-              Why GRIT Awards?
-            </h2>
-            <p className="text-xl text-gray-900 max-w-3xl mx-auto">
-              Our comprehensive program helps schools develop well-rounded students 
-              ready for life's challenges through structured achievement recognition.
+// Cookie Consent Modal with accessibility and fade-in
+function CookieConsent() {
+  const [open, setOpen] = useState(false);
+  const [prefersReducedMotion, setPrefersReducedMotion] = useState(false);
+  
+  useEffect(() => {
+    const accepted = localStorage.getItem("grit_cookie_consent");
+    if (!accepted) setOpen(true);
+    
+    const mediaQuery = window.matchMedia('(prefers-reduced-motion: reduce)');
+    setPrefersReducedMotion(mediaQuery.matches);
+  }, []);
+  
+  const accept = () => {
+    localStorage.setItem("grit_cookie_consent", "true");
+    setOpen(false);
+  };
+  
+  if (!open) return null;
+  
+  return (
+    <motion.div 
+      className="fixed inset-x-0 bottom-0 z-50 p-4"
+      initial={{ opacity: 0, y: 100 }}
+      animate={{ opacity: 1, y: 0 }}
+      transition={{ duration: prefersReducedMotion ? 0.2 : 0.3, ease: "easeOut" }}
+      role="dialog"
+      aria-labelledby="cookie-title"
+      aria-describedby="cookie-description"
+    >
+      <div className="mx-auto max-w-6xl rounded-2xl bg-white/80 shadow-xl ring-1 ring-grit-gold-light/60 backdrop-blur-md">
+        <div className="flex flex-col items-start gap-4 p-4 md:flex-row md:items-center md:justify-between">
+          <div>
+            <h3 id="cookie-title" className="sr-only">Cookie Consent</h3>
+            <p id="cookie-description" className="text-sm text-grit-green/90">
+              We use cookies to ensure you get the best experience on our site.
             </p>
           </div>
-          
-          <div className="grid grid-cols-1 md:grid-cols-3 gap-8">
-            <div className="bg-white rounded-lg p-8 shadow-md text-center">
-              <div className="w-16 h-16 bg-grit-green rounded-full flex items-center justify-center mx-auto mb-4">
-                <svg className="w-8 h-8 text-white" fill="currentColor" viewBox="0 0 24 24">
-                  <path d="M12 2l3.09 6.26L22 9.27l-5 4.87 1.18 6.88L12 17.77l-6.18 3.25L7 14.14 2 9.27l6.91-1.01L12 2z"/>
-                </svg>
-              </div>
-              <h3 className="text-xl font-heading font-semibold text-grit-green mb-3">
-                Achievement Recognition
-              </h3>
-              <p className="text-gray-900">
-                Structured award system that recognizes student growth in character, 
-                leadership, and life skills.
-              </p>
-            </div>
-            
-            <div className="bg-white rounded-lg p-8 shadow-md text-center">
-              <div className="w-16 h-16 bg-grit-green rounded-full flex items-center justify-center mx-auto mb-4">
-                <svg className="w-8 h-8 text-white" fill="currentColor" viewBox="0 0 24 24">
-                  <path d="M19 3H5c-1.1 0-2 .9-2 2v14c0 1.1.9 2 2 2h14c1.1 0 2-.9 2-2V5c0-1.1-.9-2-2-2zm-5 14H7v-2h7v2zm3-4H7v-2h10v2zm0-4H7V7h10v2z"/>
-                </svg>
-              </div>
-              <h3 className="text-xl font-heading font-semibold text-grit-green mb-3">
-                Comprehensive Tracking
-              </h3>
-              <p className="text-gray-900">
-                Complete digital platform for tracking student progress and 
-                managing award distribution.
-              </p>
-            </div>
-            
-            <div className="bg-white rounded-lg p-8 shadow-md text-center">
-              <div className="w-16 h-16 bg-grit-green rounded-full flex items-center justify-center mx-auto mb-4">
-                <svg className="w-8 h-8 text-white" viewBox="0 0 24 24" fill="currentColor">
-                  <path d="M16 7a4 4 0 11-8 0 4 4 0 018 0zM12 14a7 7 0 00-7 7h14a7 7 0 00-7-7z"/>
-                </svg>
-              </div>
-              <h3 className="text-xl font-heading font-semibold text-grit-green mb-3">
-                Community Engagement
-              </h3>
-              <p className="text-gray-900">
-                Involve families and communities in celebrating student 
-                achievements and character development.
-              </p>
-            </div>
+          <div className="flex gap-3">
+            <button 
+              onClick={accept}
+              aria-label="Accept cookies"
+              className="rounded-xl bg-grit-green px-4 py-2 text-sm font-medium text-white hover:bg-grit-green/90 focus:outline-none focus-visible:ring-2 focus-visible:ring-grit-gold-dark"
+            >
+              Accept
+            </button>
+            <a 
+              href="/privacy" 
+              className="text-sm underline underline-offset-4 text-grit-green/80 hover:text-grit-green"
+              aria-label="Learn more about our privacy policy"
+            >
+              Learn More
+            </a>
           </div>
         </div>
-      </section>
-
-      {/* Category Selector */}
-      <section className="py-16">
-        <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
-          <div className="text-center mb-12">
-            <h2 className="text-4xl font-heading font-bold text-grit-green mb-4">
-              Who Are You?
-            </h2>
-            <p className="text-xl text-gray-900">
-              Choose your role to get started with GRIT Awards
-            </p>
-          </div>
-          
-          <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-4 gap-6">
-            <div className="bg-white rounded-lg p-6 shadow-md text-center hover:shadow-lg transition-shadow">
-              <div className="w-20 h-20 bg-grit-gold-light rounded-full flex items-center justify-center mx-auto mb-4">
-                <span className="text-grit-green text-3xl">👨‍👩‍👧‍👦</span>
-              </div>
-              <h3 className="text-lg font-heading font-semibold text-grit-green mb-2">
-                Parent
-              </h3>
-              <p className="text-gray-900 text-sm mb-4">
-                Track your child's achievements and celebrate their growth
-              </p>
-              <Button variant="primary" className="w-full">
-                Get Started
-              </Button>
-            </div>
-            
-            <div className="bg-white rounded-lg p-6 shadow-md text-center hover:shadow-lg transition-shadow">
-              <div className="w-20 h-20 bg-grit-gold-light rounded-full flex items-center justify-center mx-auto mb-4">
-                <span className="text-grit-green text-3xl">👩‍🏫</span>
-              </div>
-              <h3 className="text-lg font-heading font-semibold text-grit-green mb-2">
-                Teacher
-              </h3>
-              <p className="text-gray-900 text-sm mb-4">
-                Manage your class and award student achievements
-              </p>
-              <Button variant="primary" className="w-full">
-                Get Started
-              </Button>
-            </div>
-            
-            <div className="bg-white rounded-lg p-6 shadow-md text-center hover:shadow-lg transition-shadow">
-              <div className="w-20 h-20 bg-grit-gold-light rounded-full flex items-center justify-center mx-auto mb-4">
-                <span className="text-grit-green text-3xl">👨‍💼</span>
-              </div>
-              <h3 className="text-lg font-heading font-semibold text-grit-green mb-2">
-                Head
-              </h3>
-              <p className="text-gray-900 text-sm mb-4">
-                Oversee school-wide implementation and analytics
-              </p>
-              <Button variant="primary" className="w-full">
-                Get Started
-              </Button>
-            </div>
-            
-            <div className="bg-white rounded-lg p-6 shadow-md text-center hover:shadow-lg transition-shadow">
-              <div className="w-20 h-20 bg-grit-gold-light rounded-full flex items-center justify-center mx-auto mb-4">
-                <svg className="w-10 h-10 text-grit-green" fill="currentColor" viewBox="0 0 24 24">
-                  <path d="M12 2C6.48 2 2 6.48 2 12s4.48 10 10 10 10-4.48 10-10S17.52 2 12 2zm-2 15l-5-5 1.41-1.41L10 14.17l7.59-7.59L19 8l-9 9z"/>
-                </svg>
-              </div>
-              <h3 className="text-lg font-heading font-semibold text-grit-green mb-2">
-                Veteran
-              </h3>
-              <p className="text-gray-900 text-sm mb-4">
-                Share your experience and mentor students
-              </p>
-              <Button variant="primary" className="w-full">
-                Get Started
-              </Button>
-            </div>
-          </div>
-        </div>
-      </section>
-
-      {/* Features Grid */}
-      <section className="bg-gray-50 py-16">
-        <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
-          <div className="text-center mb-12">
-            <h2 className="text-4xl font-heading font-bold text-grit-green mb-4">
-              Key Features
-            </h2>
-            <p className="text-xl text-gray-900">
-              Everything you need to implement and manage GRIT Awards
-            </p>
-          </div>
-          
-          <div className="grid grid-cols-1 md:grid-cols-3 gap-8">
-            <div className="bg-white rounded-lg p-6 shadow-md">
-              <h3 className="text-xl font-heading font-semibold text-grit-green mb-3">
-                Digital Badges
-              </h3>
-              <p className="text-gray-900 mb-4">
-                Award digital badges for achievements in character, leadership, 
-                and life skills development.
-              </p>
-              <ul className="text-sm text-gray-900-dark space-y-1">
-                <li>• Bronze, Silver, Gold, Platinum levels</li>
-                <li>• Customizable criteria</li>
-                <li>• Automated tracking</li>
-              </ul>
-            </div>
-            
-            <div className="bg-white rounded-lg p-6 shadow-md">
-              <h3 className="text-xl font-heading font-semibold text-grit-green mb-3">
-                Progress Analytics
-              </h3>
-              <p className="text-gray-900 mb-4">
-                Comprehensive reporting and analytics to track student growth 
-                and program effectiveness.
-              </p>
-              <ul className="text-sm text-gray-900-dark space-y-1">
-                <li>• Individual student reports</li>
-                <li>• Class and school analytics</li>
-                <li>• Parent engagement metrics</li>
-              </ul>
-            </div>
-            
-            <div className="bg-white rounded-lg p-6 shadow-md">
-              <h3 className="text-xl font-heading font-semibold text-grit-green mb-3">
-                Family Engagement
-              </h3>
-              <p className="text-gray-900 mb-4">
-                Keep families informed and engaged with their child's 
-                character development journey.
-              </p>
-              <ul className="text-sm text-gray-900-dark space-y-1">
-                <li>• Real-time notifications</li>
-                <li>• Achievement celebrations</li>
-                <li>• Progress sharing</li>
-              </ul>
-            </div>
-          </div>
-        </div>
-      </section>
-
-      {/* Goals Section */}
-      <section className="py-16">
-        <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
-          <div className="text-center mb-12">
-            <h2 className="text-4xl font-heading font-bold text-grit-green mb-4">
-              Our Goals
-            </h2>
-            <p className="text-xl text-gray-900">
-              Building character and life skills for tomorrow's leaders
-            </p>
-          </div>
-          
-          <div className="grid grid-cols-1 lg:grid-cols-2 gap-12">
-            <div className="space-y-6">
-              <div className="flex items-start space-x-4">
-                <div className="w-8 h-8 bg-grit-green text-white rounded-full flex items-center justify-center font-bold text-sm flex-shrink-0">
-                  1
-                </div>
-                <div>
-                  <h3 className="text-lg font-heading font-semibold text-grit-green mb-2">
-                    Character Development
-                  </h3>
-                  <p className="text-gray-900">
-                    Foster essential character traits like integrity, responsibility, 
-                    and respect through structured recognition programs.
-                  </p>
-                </div>
-              </div>
-              
-              <div className="flex items-start space-x-4">
-                <div className="w-8 h-8 bg-grit-green text-white rounded-full flex items-center justify-center font-bold text-sm flex-shrink-0">
-                  2
-                </div>
-                <div>
-                  <h3 className="text-lg font-heading font-semibold text-grit-green mb-2">
-                    Life Skills Mastery
-                  </h3>
-                  <p className="text-gray-900">
-                    Develop practical life skills including communication, 
-                    problem-solving, and leadership abilities.
-                  </p>
-                </div>
-              </div>
-              
-              <div className="flex items-start space-x-4">
-                <div className="w-8 h-8 bg-grit-green text-white rounded-full flex items-center justify-center font-bold text-sm flex-shrink-0">
-                  3
-                </div>
-                <div>
-                  <h3 className="text-lg font-heading font-semibold text-grit-green mb-2">
-                    Community Building
-                  </h3>
-                  <p className="text-gray-900">
-                    Create stronger school communities through shared values 
-                    and collective achievement recognition.
-                  </p>
-                </div>
-              </div>
-            </div>
-            
-            <div className="space-y-6">
-              <div className="flex items-start space-x-4">
-                <div className="w-8 h-8 bg-grit-green text-white rounded-full flex items-center justify-center font-bold text-sm flex-shrink-0">
-                  4
-                </div>
-                <div>
-                  <h3 className="text-lg font-heading font-semibold text-grit-green mb-2">
-                    Academic Excellence
-                  </h3>
-                  <p className="text-gray-900">
-                    Support academic achievement by recognizing effort, 
-                    improvement, and scholarly character.
-                  </p>
-                </div>
-              </div>
-              
-              <div className="flex items-start space-x-4">
-                <div className="w-8 h-8 bg-grit-green text-white rounded-full flex items-center justify-center font-bold text-sm flex-shrink-0">
-                  5
-                </div>
-                <div>
-                  <h3 className="text-lg font-heading font-semibold text-grit-green mb-2">
-                    Future Readiness
-                  </h3>
-                  <p className="text-gray-900">
-                    Prepare students for success in higher education, 
-                    careers, and civic engagement.
-                  </p>
-                </div>
-              </div>
-              
-              <div className="flex items-start space-x-4">
-                <div className="w-8 h-8 bg-grit-green text-white rounded-full flex items-center justify-center font-bold text-sm flex-shrink-0">
-                  6
-                </div>
-                <div>
-                  <h3 className="text-lg font-heading font-semibold text-grit-green mb-2">
-                    Positive Recognition
-                  </h3>
-                  <p className="text-gray-900">
-                    Celebrate every student's unique strengths and 
-                    contributions to their community.
-                  </p>
-                </div>
-              </div>
-            </div>
-          </div>
-        </div>
-      </section>
-
-      {/* Testimonials */}
-      <section className="bg-gray-50 py-16">
-        <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
-          <div className="text-center mb-12">
-            <h2 className="text-4xl font-heading font-bold text-grit-green mb-4">
-              What People Say
-            </h2>
-            <p className="text-xl text-gray-900">
-              Hear from educators and families using GRIT Awards
-            </p>
-          </div>
-          
-          <div className="grid grid-cols-1 md:grid-cols-3 gap-8">
-            <div className="bg-white rounded-lg p-6 shadow-md">
-              <p className="text-gray-900 mb-4 italic">
-                "GRIT Awards has transformed our school culture. Students are more 
-                engaged and motivated to demonstrate positive character traits."
-              </p>
-              <div className="flex items-center">
-                <div className="w-12 h-12 bg-grit-gold-light rounded-full flex items-center justify-center mr-4">
-                  <span className="text-grit-green font-bold">SM</span>
-                </div>
-                <div>
-                  <p className="font-semibold text-grit-green">Sarah Miller</p>
-                  <p className="text-sm text-gray-900-dark">Principal, Lincoln Elementary</p>
-                </div>
-              </div>
-            </div>
-            
-            <div className="bg-white rounded-lg p-6 shadow-md">
-              <p className="text-gray-900 mb-4 italic">
-                "My daughter's confidence has grown tremendously since her school 
-                started using GRIT Awards. She's proud of her achievements!"
-              </p>
-              <div className="flex items-center">
-                <div className="w-12 h-12 bg-grit-gold-light rounded-full flex items-center justify-center mr-4">
-                  <span className="text-grit-green font-bold">JD</span>
-                </div>
-                <div>
-                  <p className="font-semibold text-grit-green">Jennifer Davis</p>
-                  <p className="text-sm text-gray-900-dark">Parent</p>
-                </div>
-              </div>
-            </div>
-            
-            <div className="bg-white rounded-lg p-6 shadow-md">
-              <p className="text-gray-900 mb-4 italic">
-                "The platform makes it easy to track and celebrate student growth. 
-                It's become an essential part of our character education program."
-              </p>
-              <div className="flex items-center">
-                <div className="w-12 h-12 bg-grit-gold-light rounded-full flex items-center justify-center mr-4">
-                  <span className="text-grit-green font-bold">MR</span>
-                </div>
-                <div>
-                  <p className="font-semibold text-grit-green">Michael Rodriguez</p>
-                  <p className="text-sm text-gray-900-dark">Teacher, Roosevelt Middle</p>
-                </div>
-              </div>
-            </div>
-          </div>
-        </div>
-      </section>
-
-      {/* Stats Section */}
-      <section className="bg-grit-green text-white py-16">
-        <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
-          <div className="text-center mb-12">
-            <h2 className="text-4xl font-heading font-bold mb-4">
-              Making a Difference
-            </h2>
-            <p className="text-xl text-gray-900-light">
-              GRIT Awards impact across schools and communities
-            </p>
-          </div>
-          
-          <div className="grid grid-cols-1 md:grid-cols-4 gap-8 text-center">
-            <div>
-              <div className="text-4xl font-bold text-gray-900-light mb-2">500+</div>
-              <p className="text-gray-900-light">Schools</p>
-            </div>
-            <div>
-              <div className="text-4xl font-bold text-gray-900-light mb-2">50K+</div>
-              <p className="text-gray-900-light">Students</p>
-            </div>
-            <div>
-              <div className="text-4xl font-bold text-gray-900-light mb-2">100K+</div>
-              <p className="text-gray-900-light">Awards Given</p>
-            </div>
-            <div>
-              <div className="text-4xl font-bold text-gray-900-light mb-2">95%</div>
-              <p className="text-gray-900-light">Satisfaction Rate</p>
-            </div>
-          </div>
-        </div>
-      </section>
-
-      {/* Developer Cards */}
-      <section className="py-16">
-        <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
-          <div className="text-center mb-12">
-            <h2 className="text-4xl font-heading font-bold text-grit-green mb-4">
-              Meet the Team
-            </h2>
-            <p className="text-xl text-gray-900">
-              The passionate educators and developers behind GRIT Awards
-            </p>
-          </div>
-          
-          <div className="grid grid-cols-1 md:grid-cols-3 gap-8">
-            <div className="bg-white rounded-lg p-6 shadow-md text-center">
-              <div className="w-24 h-24 bg-grit-gold-light rounded-full flex items-center justify-center mx-auto mb-4">
-                <span className="text-grit-green text-2xl font-bold">JD</span>
-              </div>
-              <h3 className="text-xl font-heading font-semibold text-grit-green mb-2">
-                Dr. Jane Smith
-              </h3>
-              <p className="text-gray-900-dark font-medium mb-2">Founder & CEO</p>
-              <p className="text-gray-900 text-sm">
-                Former principal with 20+ years in education, passionate about 
-                character development and student success.
-              </p>
-            </div>
-            
-            <div className="bg-white rounded-lg p-6 shadow-md text-center">
-              <div className="w-24 h-24 bg-grit-gold-light rounded-full flex items-center justify-center mx-auto mb-4">
-                <span className="text-grit-green text-2xl font-bold">MJ</span>
-              </div>
-              <h3 className="text-xl font-heading font-semibold text-grit-green mb-2">
-                Michael Johnson
-              </h3>
-              <p className="text-gray-900-dark font-medium mb-2">CTO</p>
-              <p className="text-gray-900 text-sm">
-                Technology leader with expertise in educational platforms and 
-                user experience design.
-              </p>
-            </div>
-            
-            <div className="bg-white rounded-lg p-6 shadow-md text-center">
-              <div className="w-24 h-24 bg-grit-gold-light rounded-full flex items-center justify-center mx-auto mb-4">
-                <span className="text-grit-green text-2xl font-bold">SW</span>
-              </div>
-              <h3 className="text-xl font-heading font-semibold text-grit-green mb-2">
-                Sarah Williams
-              </h3>
-              <p className="text-gray-900-dark font-medium mb-2">Head of Education</p>
-              <p className="text-gray-900 text-sm">
-                Curriculum specialist focused on character education and 
-                life skills development programs.
-              </p>
-            </div>
-          </div>
-        </div>
-      </section>
-
-      <Footer onGetStarted={handleOpenSchoolWizard} />
-
-      {/* New School Wizard Modal */}
-      <NewSchoolWizard 
-        isOpen={showSchoolWizard} 
-        onClose={handleCloseSchoolWizard} 
-      />
-    </div>
-  )
+      </div>
+    </motion.div>
+  );
 }
 
-export default HomePage
+// Hero Section with parallax background
+function Hero() {
+  const [isMounted, setIsMounted] = useState(false);
+  const [prefersReducedMotion, setPrefersReducedMotion] = useState(false);
+  
+  useEffect(() => {
+    setIsMounted(true);
+    
+    const mediaQuery = window.matchMedia('(prefers-reduced-motion: reduce)');
+    setPrefersReducedMotion(mediaQuery.matches);
+    
+    const handleChange = (e) => setPrefersReducedMotion(e.matches);
+    mediaQuery.addEventListener('change', handleChange);
+    
+    return () => mediaQuery.removeEventListener('change', handleChange);
+  }, []);
+  
+  const { scrollYProgress } = useScroll();
+  const yBg = useTransform(scrollYProgress, [0, 0.3], ["0%", "20%"]);
+  const yFg = useTransform(scrollYProgress, [0, 0.3], ["0%", "-10%"]);
+  const scrimOpacity = useTransform(scrollYProgress, [0, 0.3], [0.25, 0.45]);
+
+  return (
+    <section className="relative isolate min-h-[80vh] overflow-hidden">
+      {/* Background image layer */}
+      <motion.div 
+        style={isMounted && !prefersReducedMotion ? { y: yBg } : undefined} 
+        className="absolute inset-0 -z-20"
+        initial={{ opacity: 0 }}
+        animate={{ opacity: 1 }}
+        transition={{ duration: prefersReducedMotion ? 0.3 : 1.2, ease: "easeOut" }}
+      >
+        <img 
+          src="/grit-hero.webp" 
+          alt="Children tackling GRIT challenges" 
+          className="h-full w-full object-cover" 
+          loading="eager"
+          decoding="async"
+          fetchPriority="high"
+        />
+      </motion.div>
+      {/* Dark gradient overlay for text readability */}
+      <div className="absolute inset-0 -z-15 bg-gradient-to-b from-black/60 via-black/40 to-transparent" />
+      {/* Light gradient scrim */}
+      <motion.div 
+        style={isMounted && !prefersReducedMotion ? { opacity: scrimOpacity } : { opacity: 0.3 }} 
+        className="absolute inset-0 -z-10 bg-gradient-to-b from-white/90 via-white/70 to-white" 
+      />
+
+      <div className="mx-auto flex max-w-7xl flex-col gap-6 px-6 py-24 md:gap-8 md:py-36">
+        <motion.h1 
+          style={isMounted && !prefersReducedMotion ? { y: yFg } : undefined} 
+          initial={prefersReducedMotion ? { opacity: 0 } : { opacity: 0, y: 24 }} 
+          animate={{ opacity: 1, y: 0 }} 
+          transition={{ duration: prefersReducedMotion ? 0.3 : 0.7, ease: "easeOut" }} 
+          className="max-w-4xl font-heading text-5xl font-semibold leading-snug text-white drop-shadow-lg md:text-6xl"
+        >
+          Building life‑ready children through real experiences and resilience
+        </motion.h1>
+        <motion.p 
+          initial={{ opacity: 0, y: 20 }} 
+          animate={{ opacity: 1, y: 0 }} 
+          transition={{ duration: 0.7, ease: "easeOut", delay: 0.08 }} 
+          className="max-w-3xl text-xl leading-relaxed text-grit-gold-light drop-shadow-md"
+        >
+          GRIT helps young people grow confidence, character, and community — safely, practically, and with joy.
+        </motion.p>
+        <motion.div 
+          initial={{ opacity: 0, y: 18 }} 
+          animate={{ opacity: 1, y: 0 }} 
+          transition={{ duration: 0.7, ease: "easeOut", delay: 0.16 }} 
+          className="mt-4 flex flex-wrap items-center gap-3 space-y-3 sm:space-y-0"
+        >
+          <motion.a 
+            href="#get-started" 
+            whileHover={prefersReducedMotion ? {} : { scale: 1.05, y: -2, boxShadow: "0 10px 25px -5px rgba(0, 0, 0, 0.1)" }} 
+            whileTap={prefersReducedMotion ? {} : { scale: 0.97 }} 
+            transition={prefersReducedMotion ? { duration: 0.2 } : { type: "spring", stiffness: 300, damping: 20 }} 
+            className="rounded-2xl bg-grit-green px-6 py-3 text-white shadow-lg hover:bg-grit-green/90 focus:outline-none focus-visible:ring-2 focus-visible:ring-grit-gold-dark"
+            aria-label="Get started with GRIT Awards"
+          >
+            Get Started
+          </motion.a>
+          <motion.a 
+            href="#what-is-grit" 
+            whileHover={prefersReducedMotion ? {} : { scale: 1.05, y: -2, boxShadow: "0 10px 25px -5px rgba(0, 0, 0, 0.1)" }} 
+            whileTap={prefersReducedMotion ? {} : { scale: 0.97 }} 
+            transition={prefersReducedMotion ? { duration: 0.2 } : { type: "spring", stiffness: 300, damping: 20 }} 
+            className="rounded-2xl border border-white/60 bg-white/90 backdrop-blur-sm px-6 py-3 text-grit-green hover:border-white/80 hover:bg-white"
+            aria-label="Learn more about GRIT Awards"
+          >
+            Learn More
+          </motion.a>
+        </motion.div>
+      </div>
+    </section>
+  );
+}
+
+// What is GRIT Section
+function WhatIsGrit() {
+  return (
+    <section id="what-is-grit" className="bg-white py-16 md:py-24">
+      <div className="mx-auto max-w-7xl px-6">
+        <Reveal delay={0.1}>
+          <h2 className="font-heading text-4xl font-semibold leading-relaxed text-grit-green md:text-5xl">What is <span className="text-grit-gold-dark">GRIT</span>?</h2>
+        </Reveal>
+        <Reveal delay={0.2}>
+          <p className="mt-6 max-w-4xl text-lg leading-relaxed text-grit-green/90">
+            GRIT is a UKMS-led approach that blends outdoor challenges, real-world projects, and reflective practice to build resilience.
+            We create safe, structured experiences that help children discover who they are, what they can do, and how to thrive — at home, at school, and in their communities.
+          </p>
+        </Reveal>
+      </div>
+    </section>
+  );
+}
+
+// For Parents Section
+function ForParents() {
+  return (
+    <section id="for-parents" className="relative overflow-hidden bg-grit-gold-light/10 py-16 md:py-24">
+      <div className="mx-auto max-w-7xl px-6">
+        <Reveal delay={0.1}>
+          <h2 className="font-heading text-4xl font-semibold leading-relaxed text-grit-green md:text-5xl">For Parents — <span className="text-grit-gold-dark">confidence begins at home.</span></h2>
+        </Reveal>
+        <Reveal delay={0.2}>
+          <p className="mt-6 max-w-4xl text-lg leading-relaxed text-grit-green/90">
+            You want your child to feel safe, brave, and ready for life.
+            GRIT gives you simple, supported ways to build confidence together — from micro-adventures to meaningful routines that reduce anxiety and grow independence.
+          </p>
+        </Reveal>
+        <Reveal delay={0.3}>
+          <div className="mt-8 space-y-4">
+            <div className="flex gap-4">
+              <div className="mt-1 h-2 w-2 rounded-full bg-grit-gold-dark flex-shrink-0" />
+              <p className="text-grit-green/90">Safe, age-appropriate challenges that spark growth</p>
+            </div>
+            <div className="flex gap-4">
+              <div className="mt-1 h-2 w-2 rounded-full bg-grit-gold-dark flex-shrink-0" />
+              <p className="text-grit-green/90">Clear guidance you can use at home immediately</p>
+            </div>
+            <div className="flex gap-4">
+              <div className="mt-1 h-2 w-2 rounded-full bg-grit-gold-dark flex-shrink-0" />
+              <p className="text-grit-green/90">Track progress and celebrate real gains</p>
+            </div>
+          </div>
+        </Reveal>
+        <Reveal delay={0.4}>
+          <div className="mt-8 flex flex-wrap gap-3">
+            <motion.a 
+              href="#get-started" 
+              whileHover={{ scale: 1.05 }} 
+              whileTap={{ scale: 0.95 }} 
+              className="rounded-2xl bg-grit-green px-6 py-3 text-white hover:bg-grit-green/90"
+            >
+              Build Confidence at Home
+            </motion.a>
+            <motion.a 
+              href="#what-is-grit" 
+              whileHover={{ scale: 1.05 }} 
+              whileTap={{ scale: 0.95 }} 
+              className="rounded-2xl border border-grit-green/20 bg-white px-6 py-3 text-grit-green hover:border-grit-green/40"
+            >
+              How GRIT Works
+            </motion.a>
+          </div>
+        </Reveal>
+      </div>
+    </section>
+  );
+}
+
+// For Schools & Trusts Section
+function ForSchools() {
+  return (
+    <section id="for-schools" className="bg-white py-16 md:py-24">
+      <div className="mx-auto max-w-7xl px-6">
+        <Reveal delay={0.1}>
+          <h2 className="font-heading text-4xl font-semibold leading-relaxed text-grit-green md:text-5xl">For Schools & Trusts — <span className="text-grit-gold-dark">outcomes, structure, partnership.</span></h2>
+        </Reveal>
+        <Reveal delay={0.2}>
+          <p className="mt-6 max-w-4xl text-lg leading-relaxed text-grit-green/90">
+            We partner with schools to deliver measurable improvements in wellbeing, attendance, and readiness to learn.
+            GRIT fits alongside your curriculum with clear frameworks, safeguarding, and staff support.
+          </p>
+        </Reveal>
+        <Reveal delay={0.3}>
+          <div className="mt-8 space-y-4">
+            <div className="flex gap-4">
+              <div className="mt-1 h-2 w-2 rounded-full bg-grit-gold-dark flex-shrink-0" />
+              <p className="text-grit-green/90">Structured programmes with clear outcomes</p>
+            </div>
+            <div className="flex gap-4">
+              <div className="mt-1 h-2 w-2 rounded-full bg-grit-gold-dark flex-shrink-0" />
+              <p className="text-grit-green/90">Safeguarding and risk-assessed delivery</p>
+            </div>
+            <div className="flex gap-4">
+              <div className="mt-1 h-2 w-2 rounded-full bg-grit-gold-dark flex-shrink-0" />
+              <p className="text-grit-green/90">Staff CPD and simple implementation</p>
+            </div>
+          </div>
+        </Reveal>
+        <Reveal delay={0.4}>
+          <motion.a 
+            href="#get-started" 
+            whileHover={{ scale: 1.05 }} 
+            whileTap={{ scale: 0.95 }} 
+            className="inline-block mt-8 rounded-2xl bg-grit-green px-6 py-3 text-white hover:bg-grit-green/90"
+          >
+            Partner With Us
+          </motion.a>
+        </Reveal>
+      </div>
+    </section>
+  );
+}
+
+// Impact & Community Section
+function ImpactCommunity() {
+  const stats = [
+    { number: "40,000+", label: "children" },
+    { number: "250+", label: "schools" },
+    { number: "2009", label: "established" },
+  ];
+  
+  return (
+    <section id="impact" className="bg-grit-gold-light/10 py-16 md:py-24">
+      <div className="mx-auto max-w-7xl px-6 text-center">
+        <Reveal delay={0.1}>
+          <h2 className="font-heading text-4xl font-semibold leading-relaxed text-grit-green md:text-5xl">Impact & <span className="text-grit-gold-dark">Community</span></h2>
+        </Reveal>
+        <Reveal delay={0.2}>
+          <p className="mt-6 max-w-4xl mx-auto text-lg leading-relaxed text-grit-green/90">
+            We're proud of the measurable difference GRIT makes across the UK — and the families, schools, and communities who make it real.
+          </p>
+        </Reveal>
+        <Reveal delay={0.3}>
+          <div className="mt-12 grid grid-cols-1 gap-8 sm:grid-cols-3">
+            {stats.map((stat, i) => (
+              <div key={stat.label} className="rounded-2xl bg-white p-6 shadow-lg">
+                <div className="font-heading text-4xl font-bold text-grit-green">{stat.number}</div>
+                <div className="mt-2 text-grit-green/80">{stat.label}</div>
+              </div>
+            ))}
+          </div>
+        </Reveal>
+      </div>
+    </section>
+  );
+}
+
+// Join the Movement Section
+function JoinMovement() {
+  return (
+    <section className="bg-grit-green py-16 md:py-24">
+      <div className="mx-auto max-w-7xl px-6 text-center">
+        <Reveal delay={0.1}>
+          <h2 className="font-heading text-4xl font-semibold leading-relaxed text-white md:text-5xl">Join the <span className="text-grit-gold-light">GRIT Movement</span></h2>
+        </Reveal>
+        <Reveal delay={0.2}>
+          <p className="mt-6 max-w-4xl mx-auto text-lg leading-relaxed text-grit-gold-light">
+            Become part of the national network helping children grow life-ready skills.
+            Whether at home, in school, or in your community — together, we're shaping the future.
+          </p>
+        </Reveal>
+        <Reveal delay={0.3}>
+          <motion.a 
+            href="#get-started" 
+            whileHover={{ scale: 1.05 }} 
+            whileTap={{ scale: 0.95 }} 
+            className="inline-block mt-8 rounded-2xl bg-white px-8 py-3 text-grit-green font-semibold hover:bg-grit-gold-light/20 transition-colors"
+          >
+            Join GRIT
+          </motion.a>
+        </Reveal>
+      </div>
+    </section>
+  );
+}
+
+// Main HomePage Component
+export default function HomePage() {
+  return (
+    <div className="font-body text-grit-green">
+      <Header />
+      <Hero />
+      <WhatIsGrit />
+      <ForParents />
+      <ForSchools />
+      <ImpactCommunity />
+      <JoinMovement />
+      <Footer />
+      <CookieConsent />
+    </div>
+  );
+}
