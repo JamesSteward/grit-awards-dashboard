@@ -41,24 +41,54 @@ const Reveal = ({ children, delay = 0, className = "" }) => {
   );
 };
 
-// Award Levels Section - Placeholder
+// Award Levels Section
 function AwardLevels() {
+  const awards = [
+    {
+      name: "Hastings Award",
+      age: "5–7 years",
+      duration: "1 academic year",
+      objectives: "30 objectives"
+    },
+    {
+      name: "Trafalgar Award", 
+      age: "8–9 years",
+      duration: "1 academic year",
+      objectives: "50 objectives"
+    },
+    {
+      name: "Waterloo Award",
+      age: "9–11 years", 
+      duration: "1 academic year",
+      objectives: "70 objectives"
+    }
+  ];
+
   return (
     <section id="award-levels" className="bg-gray-50 py-20 md:py-28">
       <div className="mx-auto max-w-7xl px-6">
         <Reveal delay={0.1}>
-          <h2 className="font-heading text-4xl font-semibold leading-relaxed text-grit-green md:text-5xl text-center">Award Levels</h2>
+          <h2 className="font-heading text-4xl font-semibold leading-relaxed text-grit-green md:text-5xl text-center">Award <span className="text-grit-gold-dark">Levels</span></h2>
         </Reveal>
         <Reveal delay={0.2}>
           <p className="mt-6 max-w-4xl text-lg leading-relaxed text-grit-green/90 text-center mx-auto">
-            Hastings, Trafalgar, Waterloo
+            Three progressive levels designed to build character and resilience as children grow and develop.
           </p>
         </Reveal>
-        <Reveal delay={0.3}>
-          <div className="mt-12 text-center">
-            <p className="text-grit-green/60">Content coming soon...</p>
-          </div>
-        </Reveal>
+        <div className="mt-12 grid grid-cols-1 gap-8 lg:grid-cols-3">
+          {awards.map((award, index) => (
+            <Reveal key={award.name} delay={0.1 + (index * 0.1)}>
+              <div className="rounded-2xl bg-gray-50 p-6 shadow ring-1 ring-grit-gold-light/30 text-center">
+                <h3 className="font-heading text-2xl font-bold text-grit-green mb-4">{award.name}</h3>
+                <div className="space-y-2 text-sm text-grit-green/70">
+                  <p><span className="font-medium">Age:</span> {award.age}</p>
+                  <p><span className="font-medium">Duration:</span> {award.duration}</p>
+                  <p><span className="font-medium">Criteria:</span> {award.objectives}</p>
+                </div>
+              </div>
+            </Reveal>
+          ))}
+        </div>
       </div>
     </section>
   );
