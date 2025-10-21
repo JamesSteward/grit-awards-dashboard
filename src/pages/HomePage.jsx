@@ -147,7 +147,9 @@ function Hero() {
         />
       </motion.div>
       {/* Dark gradient overlay for text readability */}
-      <div className="absolute inset-0 -z-15 bg-gradient-to-b from-black/60 via-black/40 to-transparent" />
+      <div className="absolute inset-0 -z-15 bg-gradient-to-b from-black/80 via-black/60 to-black/40" />
+      {/* Soft green tint layer */}
+      <div className="absolute inset-0 -z-14 bg-gradient-to-b from-grit-green/30 to-transparent" />
       {/* Light gradient scrim */}
       <motion.div 
         style={isMounted && !prefersReducedMotion ? { opacity: scrimOpacity } : { opacity: 0.3 }} 
@@ -421,7 +423,7 @@ function Hero() {
                 </Reveal>
               ))}
             </div>
-          </div>
+              </div>
         </section>
       );
     }
@@ -436,7 +438,7 @@ function Hero() {
               <h2 className="font-heading text-4xl font-semibold leading-relaxed text-white md:text-5xl">Join the GRIT Movement</h2>
             </Reveal>
             <Reveal delay={0.2}>
-              <p className="mt-6 max-w-4xl mx-auto text-lg leading-relaxed text-grit-gold-light">
+              <p className="mt-6 max-w-4xl mx-auto text-lg leading-relaxed text-white/90">
                 Become part of the national network helping children grow life-ready skills. Whether at home, in school, or in your community — together, we're shaping the future.
               </p>
             </Reveal>
@@ -445,7 +447,7 @@ function Hero() {
                 href="#get-started" 
                 whileHover={{ scale: 1.05 }} 
                 whileTap={{ scale: 0.95 }} 
-                className="inline-block mt-8 rounded-2xl bg-white px-8 py-4 text-grit-green font-semibold hover:bg-grit-gold-light/20 transition-colors focus:outline-none focus-visible:ring-2 focus-visible:ring-grit-gold-dark"
+                className="inline-block mt-8 rounded-2xl bg-white px-8 py-4 text-grit-green font-semibold hover:bg-grit-gold-light/30 transition-colors focus:outline-none focus-visible:ring-2 focus-visible:ring-white"
                 aria-label="Join the GRIT movement"
               >
                 Join GRIT

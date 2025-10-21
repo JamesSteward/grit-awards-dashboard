@@ -78,7 +78,7 @@ function AwardLevels() {
         <div className="mt-12 grid grid-cols-1 gap-8 lg:grid-cols-3">
           {awards.map((award, index) => (
             <Reveal key={award.name} delay={0.1 + (index * 0.1)}>
-              <div className="rounded-2xl bg-gray-50 p-6 shadow ring-1 ring-grit-gold-light/30 text-center">
+              <div className="rounded-2xl bg-white p-6 shadow border border-grit-gold-light/50 text-center hover:shadow-lg transition-all ease-out duration-200">
                 <h3 className="font-heading text-2xl font-bold text-grit-green mb-4">{award.name}</h3>
                 <div className="space-y-2 text-sm text-grit-green/70">
                   <p><span className="font-medium">Age:</span> {award.age}</p>
