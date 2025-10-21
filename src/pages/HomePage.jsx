@@ -208,16 +208,20 @@ function Hero() {
     function WhatIsGrit() {
       const cards = [
         {
-          title: "Achievement Recognition",
-          description: "Celebrating students' growth in character, leadership, and resilience through structured recognition."
+          title: "Grow",
+          description: "Children develop new skills and confidence through age-appropriate challenges and structured learning experiences."
         },
         {
-          title: "Structured Growth", 
-          description: "Evidence-based approach that helps students develop life-ready skills through guided reflection."
+          title: "Resilience", 
+          description: "Building the ability to bounce back from setbacks and persevere through difficulties with practical support."
         },
         {
-          title: "Student Empowerment",
-          description: "Building confidence and self-awareness that prepares students for life's challenges."
+          title: "Integrity & Independence",
+          description: "Developing strong character, self-awareness, and the confidence to make good choices independently."
+        },
+        {
+          title: "Transformation",
+          description: "Real change that prepares children for life beyond school — confident, capable, and ready for the future."
         }
       ];
 
@@ -229,10 +233,10 @@ function Hero() {
             </Reveal>
             <Reveal delay={0.2}>
               <p className="mt-6 max-w-4xl text-lg leading-relaxed text-grit-green/90 text-center mx-auto">
-                The GRIT Awards recognise students' growth in character, leadership, and resilience — helping them develop life-ready skills through recognition and reflection.
+                The GRIT Awards inspire children to <strong>Grow</strong>, build <strong>Resilience</strong>, develop <strong>Integrity and Independence</strong>, and experience a <strong>Transformation</strong> for good. They're a UKMS-led initiative giving schools and families a structured way to help children gain real-world skills and confidence.
               </p>
             </Reveal>
-            <div className="mt-12 grid grid-cols-1 gap-8 md:grid-cols-3">
+            <div className="mt-12 grid grid-cols-1 gap-6 md:grid-cols-2 lg:grid-cols-4">
               {cards.map((card, index) => (
                 <Reveal key={card.title} delay={0.1 + (index * 0.1)}>
                   <div className="bg-white rounded-2xl p-6 shadow-lg ring-1 ring-grit-gold-light/20 hover:shadow-xl transition-shadow">
@@ -242,6 +246,18 @@ function Hero() {
                 </Reveal>
               ))}
             </div>
+            <Reveal delay={0.5}>
+              <div className="mt-12 text-center">
+                <motion.a 
+                  href="#for-parents" 
+                  whileHover={{ scale: 1.05 }} 
+                  whileTap={{ scale: 0.95 }} 
+                  className="inline-block rounded-2xl bg-grit-green px-8 py-4 text-white font-semibold hover:bg-grit-green/90 transition-colors"
+                >
+                  Learn More
+                </motion.a>
+              </div>
+            </Reveal>
           </div>
         </section>
       );
@@ -257,8 +273,22 @@ function Hero() {
                 <div>
                   <h2 className="font-heading text-4xl font-semibold leading-relaxed text-grit-green md:text-5xl">For Parents</h2>
                   <p className="mt-6 text-lg leading-relaxed text-grit-green/90">
-                    Build your child's confidence and celebrate their growth beyond academics. The GRIT Awards connect home and school through shared recognition of effort and progress.
+                    Confidence begins at home. The GRIT Awards give you practical, age-appropriate challenges and clear guidance to help your child develop real-world skills. Track their progress together and celebrate their growth beyond academics.
                   </p>
+                  <div className="mt-8 space-y-4">
+                    <div className="flex gap-4 items-start">
+                      <div className="mt-1 h-2 w-2 rounded-full bg-grit-gold-dark flex-shrink-0" />
+                      <p className="text-grit-green/90">Age-appropriate challenges that build confidence step by step</p>
+                    </div>
+                    <div className="flex gap-4 items-start">
+                      <div className="mt-1 h-2 w-2 rounded-full bg-grit-gold-dark flex-shrink-0" />
+                      <p className="text-grit-green/90">Clear guidance and support materials for home activities</p>
+                    </div>
+                    <div className="flex gap-4 items-start">
+                      <div className="mt-1 h-2 w-2 rounded-full bg-grit-gold-dark flex-shrink-0" />
+                      <p className="text-grit-green/90">Progress tracking that connects home and school</p>
+                    </div>
+                  </div>
                   <div className="mt-8">
                     <motion.a 
                       href="#get-started" 
@@ -301,22 +331,26 @@ function Hero() {
             </Reveal>
             <Reveal delay={0.2}>
               <p className="mt-6 max-w-4xl text-lg leading-relaxed text-grit-green/90 text-center mx-auto">
-                Empower your staff and students with a structured, evidence-based program that drives motivation and supports whole-school wellbeing.
+                Partner with UKMS to deliver measurable outcomes in student wellbeing and character development. Our safeguarding-first approach integrates seamlessly into your curriculum with clear frameworks and staff support.
               </p>
             </Reveal>
             <Reveal delay={0.3}>
               <div className="mt-12 max-w-3xl mx-auto space-y-6">
                 <div className="flex gap-4 items-start">
                   <div className="mt-1 h-2 w-2 rounded-full bg-grit-gold-dark flex-shrink-0" />
-                  <p className="text-grit-green/90">Easy digital tracking and reporting</p>
+                  <p className="text-grit-green/90">Partnership with UKMS — backed by 15+ years of experience</p>
                 </div>
                 <div className="flex gap-4 items-start">
                   <div className="mt-1 h-2 w-2 rounded-full bg-grit-gold-dark flex-shrink-0" />
-                  <p className="text-grit-green/90">Customisable to your school's ethos</p>
+                  <p className="text-grit-green/90">Safeguarding-first approach with risk-assessed delivery</p>
                 </div>
                 <div className="flex gap-4 items-start">
                   <div className="mt-1 h-2 w-2 rounded-full bg-grit-gold-dark flex-shrink-0" />
-                  <p className="text-grit-green/90">Backed by UKMS experience since 2009</p>
+                  <p className="text-grit-green/90">Measurable outcomes in wellbeing, attendance, and readiness to learn</p>
+                </div>
+                <div className="flex gap-4 items-start">
+                  <div className="mt-1 h-2 w-2 rounded-full bg-grit-gold-dark flex-shrink-0" />
+                  <p className="text-grit-green/90">Easy integration with clear frameworks and staff CPD support</p>
                 </div>
               </div>
             </Reveal>
