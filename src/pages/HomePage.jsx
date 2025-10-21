@@ -1,5 +1,6 @@
+
+
 import React, { useEffect, useState } from "react";
-// Updated homepage with story-driven content
 import { motion, useAnimation, useScroll, useTransform } from "framer-motion";
 import { useInView } from "react-intersection-observer";
 import Header from '../components/Header';
@@ -152,23 +153,23 @@ function Hero() {
       />
 
       <div className="mx-auto flex max-w-7xl flex-col gap-6 px-6 py-24 md:gap-8 md:py-36">
-        <motion.h1 
-          style={isMounted && !prefersReducedMotion ? { y: yFg } : undefined} 
-          initial={prefersReducedMotion ? { opacity: 0 } : { opacity: 0, y: 24 }} 
-          animate={{ opacity: 1, y: 0 }} 
-          transition={{ duration: prefersReducedMotion ? 0.3 : 0.7, ease: "easeOut" }} 
-          className="max-w-4xl font-heading text-5xl font-semibold leading-snug text-white drop-shadow-lg md:text-6xl"
-        >
-          Building life‑ready children through real experiences and resilience
-        </motion.h1>
-        <motion.p 
-          initial={{ opacity: 0, y: 20 }} 
-          animate={{ opacity: 1, y: 0 }} 
-          transition={{ duration: 0.7, ease: "easeOut", delay: 0.08 }} 
-          className="max-w-3xl text-xl leading-relaxed text-grit-gold-light drop-shadow-md"
-        >
-          GRIT helps young people grow confidence, character, and community — safely, practically, and with joy.
-        </motion.p>
+            <motion.h1 
+              style={isMounted && !prefersReducedMotion ? { y: yFg } : undefined} 
+              initial={prefersReducedMotion ? { opacity: 0 } : { opacity: 0, y: 24 }} 
+              animate={{ opacity: 1, y: 0 }} 
+              transition={{ duration: prefersReducedMotion ? 0.3 : 0.7, ease: "easeOut" }} 
+              className="max-w-4xl font-heading text-5xl font-semibold leading-snug text-white drop-shadow-lg md:text-6xl"
+            >
+              Building life‑ready children through real experiences and resilience
+            </motion.h1>
+            <motion.p 
+              initial={{ opacity: 0, y: 20 }} 
+              animate={{ opacity: 1, y: 0 }} 
+              transition={{ duration: 0.7, ease: "easeOut", delay: 0.08 }} 
+              className="max-w-3xl text-xl leading-relaxed text-grit-gold-light drop-shadow-md"
+            >
+              Empowering students, schools, and families with skills that prepare them for life's challenges.
+            </motion.p>
         <motion.div 
           initial={{ opacity: 0, y: 18 }} 
           animate={{ opacity: 1, y: 0 }} 
@@ -201,187 +202,201 @@ function Hero() {
   );
 }
 
-// What is GRIT Section
-function WhatIsGrit() {
-  return (
-    <section id="what-is-grit" className="bg-white py-16 md:py-24">
-      <div className="mx-auto max-w-7xl px-6">
-        <Reveal delay={0.1}>
-          <h2 className="font-heading text-4xl font-semibold leading-relaxed text-grit-green md:text-5xl">What is <span className="text-grit-gold-dark">GRIT</span>?</h2>
-        </Reveal>
-        <Reveal delay={0.2}>
-          <p className="mt-6 max-w-4xl text-lg leading-relaxed text-grit-green/90">
-            GRIT is a UKMS-led approach that blends outdoor challenges, real-world projects, and reflective practice to build resilience.
-            We create safe, structured experiences that help children discover who they are, what they can do, and how to thrive — at home, at school, and in their communities.
-          </p>
-        </Reveal>
-      </div>
-    </section>
-  );
-}
+    // What is GRIT Section
+    function WhatIsGrit() {
+      const cards = [
+        {
+          title: "Achievement Recognition",
+          description: "Celebrating students' growth in character, leadership, and resilience through structured recognition."
+        },
+        {
+          title: "Structured Growth", 
+          description: "Evidence-based approach that helps students develop life-ready skills through guided reflection."
+        },
+        {
+          title: "Student Empowerment",
+          description: "Building confidence and self-awareness that prepares students for life's challenges."
+        }
+      ];
 
-// For Parents Section
-function ForParents() {
-  return (
-    <section id="for-parents" className="relative overflow-hidden bg-grit-gold-light/10 py-16 md:py-24">
-      <div className="mx-auto max-w-7xl px-6">
-        <Reveal delay={0.1}>
-          <h2 className="font-heading text-4xl font-semibold leading-relaxed text-grit-green md:text-5xl">For Parents — <span className="text-grit-gold-dark">confidence begins at home.</span></h2>
-        </Reveal>
-        <Reveal delay={0.2}>
-          <p className="mt-6 max-w-4xl text-lg leading-relaxed text-grit-green/90">
-            You want your child to feel safe, brave, and ready for life.
-            GRIT gives you simple, supported ways to build confidence together — from micro-adventures to meaningful routines that reduce anxiety and grow independence.
-          </p>
-        </Reveal>
-        <Reveal delay={0.3}>
-          <div className="mt-8 space-y-4">
-            <div className="flex gap-4">
-              <div className="mt-1 h-2 w-2 rounded-full bg-grit-gold-dark flex-shrink-0" />
-              <p className="text-grit-green/90">Safe, age-appropriate challenges that spark growth</p>
-            </div>
-            <div className="flex gap-4">
-              <div className="mt-1 h-2 w-2 rounded-full bg-grit-gold-dark flex-shrink-0" />
-              <p className="text-grit-green/90">Clear guidance you can use at home immediately</p>
-            </div>
-            <div className="flex gap-4">
-              <div className="mt-1 h-2 w-2 rounded-full bg-grit-gold-dark flex-shrink-0" />
-              <p className="text-grit-green/90">Track progress and celebrate real gains</p>
+      return (
+        <section id="what-is-grit" className="bg-gray-50 py-20 md:py-28">
+          <div className="mx-auto max-w-7xl px-6">
+            <Reveal delay={0.1}>
+              <h2 className="font-heading text-4xl font-semibold leading-relaxed text-grit-green md:text-5xl text-center">What is <span className="text-grit-gold-dark">GRIT</span>?</h2>
+            </Reveal>
+            <Reveal delay={0.2}>
+              <p className="mt-6 max-w-4xl text-lg leading-relaxed text-grit-green/90 text-center mx-auto">
+                The GRIT Awards recognise students' growth in character, leadership, and resilience — helping them develop life-ready skills through recognition and reflection.
+              </p>
+            </Reveal>
+            <div className="mt-12 grid grid-cols-1 gap-8 md:grid-cols-3">
+              {cards.map((card, index) => (
+                <Reveal key={card.title} delay={0.1 + (index * 0.1)}>
+                  <div className="bg-white rounded-2xl p-6 shadow-lg ring-1 ring-grit-gold-light/20 hover:shadow-xl transition-shadow">
+                    <h3 className="font-heading text-xl font-semibold text-grit-green mb-3">{card.title}</h3>
+                    <p className="text-grit-green/80">{card.description}</p>
+                  </div>
+                </Reveal>
+              ))}
             </div>
           </div>
-        </Reveal>
-        <Reveal delay={0.4}>
-          <div className="mt-8 flex flex-wrap gap-3">
-            <motion.a 
-              href="#get-started" 
-              whileHover={{ scale: 1.05 }} 
-              whileTap={{ scale: 0.95 }} 
-              className="rounded-2xl bg-grit-green px-6 py-3 text-white hover:bg-grit-green/90"
-            >
-              Build Confidence at Home
-            </motion.a>
-            <motion.a 
-              href="#what-is-grit" 
-              whileHover={{ scale: 1.05 }} 
-              whileTap={{ scale: 0.95 }} 
-              className="rounded-2xl border border-grit-green/20 bg-white px-6 py-3 text-grit-green hover:border-grit-green/40"
-            >
-              How GRIT Works
-            </motion.a>
-          </div>
-        </Reveal>
-      </div>
-    </section>
-  );
-}
+        </section>
+      );
+    }
 
-// For Schools & Trusts Section
-function ForSchools() {
-  return (
-    <section id="for-schools" className="bg-white py-16 md:py-24">
-      <div className="mx-auto max-w-7xl px-6">
-        <Reveal delay={0.1}>
-          <h2 className="font-heading text-4xl font-semibold leading-relaxed text-grit-green md:text-5xl">For Schools & Trusts — <span className="text-grit-gold-dark">outcomes, structure, partnership.</span></h2>
-        </Reveal>
-        <Reveal delay={0.2}>
-          <p className="mt-6 max-w-4xl text-lg leading-relaxed text-grit-green/90">
-            We partner with schools to deliver measurable improvements in wellbeing, attendance, and readiness to learn.
-            GRIT fits alongside your curriculum with clear frameworks, safeguarding, and staff support.
-          </p>
-        </Reveal>
-        <Reveal delay={0.3}>
-          <div className="mt-8 space-y-4">
-            <div className="flex gap-4">
-              <div className="mt-1 h-2 w-2 rounded-full bg-grit-gold-dark flex-shrink-0" />
-              <p className="text-grit-green/90">Structured programmes with clear outcomes</p>
-            </div>
-            <div className="flex gap-4">
-              <div className="mt-1 h-2 w-2 rounded-full bg-grit-gold-dark flex-shrink-0" />
-              <p className="text-grit-green/90">Safeguarding and risk-assessed delivery</p>
-            </div>
-            <div className="flex gap-4">
-              <div className="mt-1 h-2 w-2 rounded-full bg-grit-gold-dark flex-shrink-0" />
-              <p className="text-grit-green/90">Staff CPD and simple implementation</p>
+    // For Parents Section
+    function ForParents() {
+      return (
+        <section id="for-parents" className="bg-white py-20 md:py-28">
+          <div className="mx-auto max-w-7xl px-6">
+            <div className="grid items-center gap-12 lg:grid-cols-2">
+              <Reveal delay={0.1}>
+                <div>
+                  <h2 className="font-heading text-4xl font-semibold leading-relaxed text-grit-green md:text-5xl">For Parents</h2>
+                  <p className="mt-6 text-lg leading-relaxed text-grit-green/90">
+                    Build your child's confidence and celebrate their growth beyond academics. The GRIT Awards connect home and school through shared recognition of effort and progress.
+                  </p>
+                  <div className="mt-8">
+                    <motion.a 
+                      href="#get-started" 
+                      whileHover={{ scale: 1.05 }} 
+                      whileTap={{ scale: 0.95 }} 
+                      className="inline-block rounded-2xl bg-grit-green px-8 py-4 text-white font-semibold hover:bg-grit-green/90 transition-colors"
+                    >
+                      Build Confidence at Home
+                    </motion.a>
+                  </div>
+                </div>
+              </Reveal>
+              <Reveal delay={0.2}>
+                <div className="relative">
+                  <div className="aspect-[4/3] rounded-2xl bg-gradient-to-br from-grit-gold-light/20 to-grit-green/10 flex items-center justify-center">
+                    <div className="text-center">
+                      <div className="w-16 h-16 mx-auto mb-4 rounded-full bg-grit-green/20 flex items-center justify-center">
+                        <svg className="w-8 h-8 text-grit-green" fill="currentColor" viewBox="0 0 20 20">
+                          <path fillRule="evenodd" d="M3.172 5.172a4 4 0 015.656 0L10 6.343l1.172-1.171a4 4 0 115.656 5.656L10 17.657l-6.828-6.829a4 4 0 010-5.656z" clipRule="evenodd" />
+                        </svg>
+                      </div>
+                      <p className="text-grit-green/70 font-medium">Family & Child Visual</p>
+                    </div>
+                  </div>
+                </div>
+              </Reveal>
             </div>
           </div>
-        </Reveal>
-        <Reveal delay={0.4}>
-          <motion.a 
-            href="#get-started" 
-            whileHover={{ scale: 1.05 }} 
-            whileTap={{ scale: 0.95 }} 
-            className="inline-block mt-8 rounded-2xl bg-grit-green px-6 py-3 text-white hover:bg-grit-green/90"
-          >
-            Partner With Us
-          </motion.a>
-        </Reveal>
-      </div>
-    </section>
-  );
-}
+        </section>
+      );
+    }
 
-// Impact & Community Section
-function ImpactCommunity() {
-  const stats = [
-    { number: "40,000+", label: "children" },
-    { number: "250+", label: "schools" },
-    { number: "2009", label: "established" },
-  ];
-  
-  return (
-    <section id="impact" className="bg-grit-gold-light/10 py-16 md:py-24">
-      <div className="mx-auto max-w-7xl px-6 text-center">
-        <Reveal delay={0.1}>
-          <h2 className="font-heading text-4xl font-semibold leading-relaxed text-grit-green md:text-5xl">Impact & <span className="text-grit-gold-dark">Community</span></h2>
-        </Reveal>
-        <Reveal delay={0.2}>
-          <p className="mt-6 max-w-4xl mx-auto text-lg leading-relaxed text-grit-green/90">
-            We're proud of the measurable difference GRIT makes across the UK — and the families, schools, and communities who make it real.
-          </p>
-        </Reveal>
-        <Reveal delay={0.3}>
-          <div className="mt-12 grid grid-cols-1 gap-8 sm:grid-cols-3">
-            {stats.map((stat, i) => (
-              <div key={stat.label} className="rounded-2xl bg-white p-6 shadow-lg">
-                <div className="font-heading text-4xl font-bold text-grit-green">{stat.number}</div>
-                <div className="mt-2 text-grit-green/80">{stat.label}</div>
+    // For Schools & Trusts Section
+    function ForSchools() {
+      return (
+        <section id="for-schools" className="bg-gray-50 py-20 md:py-28">
+          <div className="mx-auto max-w-7xl px-6">
+            <Reveal delay={0.1}>
+              <h2 className="font-heading text-4xl font-semibold leading-relaxed text-grit-green md:text-5xl text-center">For Schools & Trusts</h2>
+            </Reveal>
+            <Reveal delay={0.2}>
+              <p className="mt-6 max-w-4xl text-lg leading-relaxed text-grit-green/90 text-center mx-auto">
+                Empower your staff and students with a structured, evidence-based program that drives motivation and supports whole-school wellbeing.
+              </p>
+            </Reveal>
+            <Reveal delay={0.3}>
+              <div className="mt-12 max-w-3xl mx-auto space-y-6">
+                <div className="flex gap-4 items-start">
+                  <div className="mt-1 h-2 w-2 rounded-full bg-grit-gold-dark flex-shrink-0" />
+                  <p className="text-grit-green/90">Easy digital tracking and reporting</p>
+                </div>
+                <div className="flex gap-4 items-start">
+                  <div className="mt-1 h-2 w-2 rounded-full bg-grit-gold-dark flex-shrink-0" />
+                  <p className="text-grit-green/90">Customisable to your school's ethos</p>
+                </div>
+                <div className="flex gap-4 items-start">
+                  <div className="mt-1 h-2 w-2 rounded-full bg-grit-gold-dark flex-shrink-0" />
+                  <p className="text-grit-green/90">Backed by UKMS experience since 2009</p>
+                </div>
               </div>
-            ))}
+            </Reveal>
+            <Reveal delay={0.4}>
+              <div className="mt-12 text-center">
+                <motion.a 
+                  href="#get-started" 
+                  whileHover={{ scale: 1.05 }} 
+                  whileTap={{ scale: 0.95 }} 
+                  className="inline-block rounded-2xl bg-grit-green px-8 py-4 text-white font-semibold hover:bg-grit-green/90 transition-colors"
+                >
+                  Partner With Us
+                </motion.a>
+              </div>
+            </Reveal>
           </div>
-        </Reveal>
-      </div>
-    </section>
-  );
-}
+        </section>
+      );
+    }
 
-// Join the Movement Section
-function JoinMovement() {
-  return (
-    <section className="bg-grit-green py-16 md:py-24">
-      <div className="mx-auto max-w-7xl px-6 text-center">
-        <Reveal delay={0.1}>
-          <h2 className="font-heading text-4xl font-semibold leading-relaxed text-white md:text-5xl">Join the <span className="text-grit-gold-light">GRIT Movement</span></h2>
-        </Reveal>
-        <Reveal delay={0.2}>
-          <p className="mt-6 max-w-4xl mx-auto text-lg leading-relaxed text-grit-gold-light">
-            Become part of the national network helping children grow life-ready skills.
-            Whether at home, in school, or in your community — together, we're shaping the future.
-          </p>
-        </Reveal>
-        <Reveal delay={0.3}>
-          <motion.a 
-            href="#get-started" 
-            whileHover={{ scale: 1.05 }} 
-            whileTap={{ scale: 0.95 }} 
-            className="inline-block mt-8 rounded-2xl bg-white px-8 py-3 text-grit-green font-semibold hover:bg-grit-gold-light/20 transition-colors"
-          >
-            Join GRIT
-          </motion.a>
-        </Reveal>
-      </div>
-    </section>
-  );
-}
+    // Impact & Community Section
+    function ImpactCommunity() {
+      const stats = [
+        { number: "40,000+", label: "students recognised" },
+        { number: "250+", label: "schools involved" },
+        { number: "2009", label: "established" },
+      ];
+      
+      return (
+        <section id="impact" className="bg-white py-20 md:py-28">
+          <div className="mx-auto max-w-7xl px-6 text-center">
+            <Reveal delay={0.1}>
+              <h2 className="font-heading text-4xl font-semibold leading-relaxed text-grit-green md:text-5xl">Our Impact</h2>
+            </Reveal>
+            <Reveal delay={0.2}>
+              <p className="mt-6 max-w-4xl mx-auto text-lg leading-relaxed text-grit-green/90">
+                Every achievement strengthens community pride and long-term wellbeing.
+              </p>
+            </Reveal>
+            <Reveal delay={0.3}>
+              <div className="mt-12 grid grid-cols-1 gap-8 sm:grid-cols-3">
+                {stats.map((stat, i) => (
+                  <div key={stat.label} className="rounded-2xl bg-gray-50 p-8 shadow-lg ring-1 ring-grit-gold-light/20">
+                    <div className="font-heading text-4xl font-bold text-grit-green mb-2">{stat.number}</div>
+                    <div className="text-grit-green/80 font-medium">{stat.label}</div>
+                  </div>
+                ))}
+              </div>
+            </Reveal>
+          </div>
+        </section>
+      );
+    }
+
+    // Join the Movement Section
+    function JoinMovement() {
+      return (
+        <section className="relative overflow-hidden bg-grit-green py-20 md:py-28">
+          <div className="absolute inset-0 bg-gradient-to-br from-grit-green via-grit-green to-grit-green/90" />
+          <div className="relative mx-auto max-w-7xl px-6 text-center">
+            <Reveal delay={0.1}>
+              <h2 className="font-heading text-4xl font-semibold leading-relaxed text-white md:text-5xl">Join the Movement</h2>
+            </Reveal>
+            <Reveal delay={0.2}>
+              <p className="mt-6 max-w-4xl mx-auto text-lg leading-relaxed text-grit-gold-light">
+                Be part of a growing network of schools and families redefining how we celebrate effort, resilience, and character.
+              </p>
+            </Reveal>
+            <Reveal delay={0.3}>
+              <motion.a 
+                href="#get-started" 
+                whileHover={{ scale: 1.05 }} 
+                whileTap={{ scale: 0.95 }} 
+                className="inline-block mt-8 rounded-2xl bg-white px-8 py-4 text-grit-green font-semibold hover:bg-grit-gold-light/20 transition-colors"
+              >
+                Join GRIT
+              </motion.a>
+            </Reveal>
+          </div>
+        </section>
+      );
+    }
 
 // Main HomePage Component
 export default function HomePage() {
