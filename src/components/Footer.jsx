@@ -2,14 +2,14 @@ import React from 'react'
 
 const Footer = ({ onGetStarted }) => {
   return (
-    <footer className="bg-grit-green text-white">
-      <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 py-20 md:py-24">
+    <footer className="bg-grit-green py-20 md:py-24">
+      <div className="max-w-7xl mx-auto px-6">
         <div className="grid grid-cols-2 sm:grid-cols-4 gap-y-8 gap-x-6">
           {/* For Schools */}
           <div>
-            <h3 className="text-lg font-heading font-semibold text-white mb-6">For Schools</h3>
+            <h3 className="font-heading text-white font-semibold mb-6">For Schools</h3>
             <ul className="space-y-3 text-sm">
-              <li><a href="#" className="text-grit-gold-light/90 hover:text-white transition-colors" onClick={(e) => { e.preventDefault(); onGetStarted?.(); }}>Get Started</a></li>
+              <li><a href="#get-started" className="text-grit-gold-light/90 hover:text-white transition-colors" onClick={(e) => { e.preventDefault(); onGetStarted?.(); }}>Get Started</a></li>
               <li><a href="#" className="text-grit-gold-light/90 hover:text-white transition-colors">Pricing</a></li>
               <li><a href="#" className="text-grit-gold-light/90 hover:text-white transition-colors">Implementation Guide</a></li>
               <li><a href="#" className="text-grit-gold-light/90 hover:text-white transition-colors">Training Resources</a></li>
@@ -19,18 +19,18 @@ const Footer = ({ onGetStarted }) => {
           
           {/* Award Levels */}
           <div>
-            <h3 className="text-lg font-heading font-semibold text-white mb-6">Award Levels</h3>
+            <h3 className="font-heading text-white font-semibold mb-6">Award Levels</h3>
             <ul className="space-y-3 text-sm">
-              <li><a href="#" className="text-grit-gold-light/90 hover:text-white transition-colors">Hastings Award</a></li>
-              <li><a href="#" className="text-grit-gold-light/90 hover:text-white transition-colors">Trafalgar Award</a></li>
-              <li><a href="#" className="text-grit-gold-light/90 hover:text-white transition-colors">Waterloo Award</a></li>
-              <li><a href="#" className="text-grit-gold-light/90 hover:text-white transition-colors">Requirements</a></li>
+              <li><a href="#award-levels" className="text-grit-gold-light/90 hover:text-white transition-colors">Hastings Award</a></li>
+              <li><a href="#award-levels" className="text-grit-gold-light/90 hover:text-white transition-colors">Trafalgar Award</a></li>
+              <li><a href="#award-levels" className="text-grit-gold-light/90 hover:text-white transition-colors">Waterloo Award</a></li>
+              <li><a href="#award-levels" className="text-grit-gold-light/90 hover:text-white transition-colors">Requirements</a></li>
             </ul>
           </div>
           
           {/* Resources */}
           <div>
-            <h3 className="text-lg font-heading font-semibold text-white mb-6">Resources</h3>
+            <h3 className="font-heading text-white font-semibold mb-6">Resources</h3>
             <ul className="space-y-3 text-sm">
               <li><a href="#" className="text-grit-gold-light/90 hover:text-white transition-colors">Help Center</a></li>
               <li><a href="#" className="text-grit-gold-light/90 hover:text-white transition-colors">Documentation</a></li>
@@ -42,13 +42,13 @@ const Footer = ({ onGetStarted }) => {
           
           {/* About */}
           <div>
-            <h3 className="text-lg font-heading font-semibold text-white mb-6">About</h3>
+            <h3 className="font-heading text-white font-semibold mb-6">About</h3>
             <ul className="space-y-3 text-sm">
-              <li><a href="#" className="text-grit-gold-light/90 hover:text-white transition-colors">Our Mission</a></li>
-              <li><a href="#" className="text-grit-gold-light/90 hover:text-white transition-colors">Team</a></li>
-              <li><a href="#" className="text-grit-gold-light/90 hover:text-white transition-colors">Careers</a></li>
-              <li><a href="#" className="text-grit-gold-light/90 hover:text-white transition-colors">Press</a></li>
-              <li><a href="#" className="text-grit-gold-light/90 hover:text-white transition-colors">Contact</a></li>
+              <li><a href="#about" className="text-grit-gold-light/90 hover:text-white transition-colors">Our Mission</a></li>
+              <li><a href="#about" className="text-grit-gold-light/90 hover:text-white transition-colors">Team</a></li>
+              <li><a href="#about" className="text-grit-gold-light/90 hover:text-white transition-colors">Careers</a></li>
+              <li><a href="#about" className="text-grit-gold-light/90 hover:text-white transition-colors">Press</a></li>
+              <li><a href="#about" className="text-grit-gold-light/90 hover:text-white transition-colors">Contact</a></li>
             </ul>
           </div>
         </div>
