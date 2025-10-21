@@ -37,6 +37,13 @@ const FamilyDashboard = () => {
   const [selectedReward, setSelectedReward] = useState(null)
   const [confettiLaunched, setConfettiLaunched] = useState(false)
 
+  // Evidence submission state
+  const [showEvidenceModal, setShowEvidenceModal] = useState(false)
+  const [evidenceText, setEvidenceText] = useState('')
+  const [evidenceImages, setEvidenceImages] = useState([])
+  const [evidenceVideo, setEvidenceVideo] = useState(null)
+  const [submittingEvidence, setSubmittingEvidence] = useState(false)
+
   useEffect(() => {
     fetchStudent()
     fetchRileyChallenges()
@@ -516,6 +523,89 @@ const FamilyDashboard = () => {
   const handleRewardClick = (reward) => {
     setSelectedReward(reward)
     setShowRewardModal(true)
+  }
+
+  const handleSubmitEvidence = async () => {
+    if (!evidenceText.trim()) return
+    
+    setSubmittingEvidence(true)
+    try {
+      const mediaUrls = []
+      
+      // Upload images to Supabase Storage
+      if (evidenceImages.length > 0) {
+        for (const image of evidenceImages) {
+          const fileName = `${student.id}/${Date.now()}_${image.name}`
+          const { error: uploadError } = await supabase.storage
+            .from('evidence')
+            .upload(fileName, image)
+          
+          if (uploadError) {
+            console.error('Image upload error:', uploadError)
+            throw uploadError
+          }
+          
+          const { data: { publicUrl } } = supabase.storage
+            .from('evidence')
+            .getPublicUrl(fileName)
+          
+          mediaUrls.push(publicUrl)
+        }
+      }
+      
+      // Upload video to Supabase Storage
+      if (evidenceVideo) {
+        const fileName = `${student.id}/${Date.now()}_${evidenceVideo.name}`
+        const { error: uploadError } = await supabase.storage
+          .from('evidence')
+          .upload(fileName, evidenceVideo)
+        
+        if (uploadError) {
+          console.error('Video upload error:', uploadError)
+          throw uploadError
+        }
+        
+        const { data: { publicUrl } } = supabase.storage
+          .from('evidence')
+          .getPublicUrl(fileName)
+        
+        mediaUrls.push(publicUrl)
+      }
+      
+      // Submit evidence to database
+      const { error: submitError } = await supabase
+        .from('evidence_submissions')
+        .insert({
+          student_id: student.id,
+          challenge_id: null, // You may want to link this to a specific challenge
+          submission_type: 'challenge',
+          title: 'Challenge Evidence',
+          text_content: evidenceText,
+          media_urls: mediaUrls,
+          status: 'pending_review',
+          submitted_at: new Date().toISOString()
+        })
+      
+      if (submitError) {
+        console.error('Evidence submission error:', submitError)
+        throw submitError
+      }
+      
+      // Reset form and close modal
+      setEvidenceText('')
+      setEvidenceImages([])
+      setEvidenceVideo(null)
+      setShowEvidenceModal(false)
+      
+      // Show success message
+      alert('Evidence submitted successfully!')
+      
+    } catch (error) {
+      console.error('Error submitting evidence:', error)
+      alert('Failed to submit evidence. Please try again.')
+    } finally {
+      setSubmittingEvidence(false)
+    }
   }
 
   if (loading) {

@@ -5,6 +5,8 @@ import { motion, useAnimation, useScroll, useTransform } from "framer-motion";
 import { useInView } from "react-intersection-observer";
 import Header from '../components/Header';
 import Footer from '../components/Footer';
+import HowItWorks from '../sections/HowItWorks';
+import AwardLevels from '../sections/AwardLevels';
 
 // Safe Reveal component using react-intersection-observer with reduced motion support
 const Reveal = ({ children, delay = 0, className = "" }) => {
@@ -407,6 +409,8 @@ export default function HomePage() {
       <WhatIsGrit />
       <ForParents />
       <ForSchools />
+      <HowItWorks />
+      <AwardLevels />
       <ImpactCommunity />
       <JoinMovement />
       <Footer />

@@ -1,10 +1,25 @@
-import React, { useState } from 'react'
+import React, { useState, useEffect } from 'react'
 import Button from './Button'
 import LoginModal from './LoginModal'
 
 const Header = () => {
   const [isLoginModalOpen, setIsLoginModalOpen] = useState(false)
   const [isMobileMenuOpen, setIsMobileMenuOpen] = useState(false)
+  
+  // Expose login function globally and listen for custom events
+  useEffect(() => {
+    // Expose function for new HomePage to call
+    window.openLoginModal = () => setIsLoginModalOpen(true)
+    
+    // Listen for custom event
+    const handleOpenLogin = () => setIsLoginModalOpen(true)
+    window.addEventListener('open-login', handleOpenLogin)
+    
+    return () => {
+      delete window.openLoginModal
+      window.removeEventListener('open-login', handleOpenLogin)
+    }
+  }, [])
   
   return (
     <>

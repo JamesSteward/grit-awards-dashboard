@@ -6,15 +6,27 @@
   "scripts": {
     "dev": "vite",
     "build": "vite build",
+    "build:analyze": "vite build --mode analyze",
     "lint": "eslint . --ext js,jsx --report-unused-disable-directives --max-warnings 0",
-    "preview": "vite preview"
+    "lint:fix": "eslint . --ext js,jsx --fix",
+    "preview": "vite preview",
+    "preview:network": "vite preview --host",
+    "type-check": "tsc --noEmit",
+    "audit": "npm audit --production",
+    "audit:fix": "npm audit fix",
+    "clean": "rm -rf dist node_modules/.vite",
+    "deploy": "vercel --prod",
+    "deploy:preview": "vercel"
   },
   "dependencies": {
     "@supabase/supabase-js": "^2.38.4",
     "canvas-confetti": "^1.9.3",
+    "framer-motion": "^12.23.24",
     "react": "^18.2.0",
     "react-dom": "^18.2.0",
-    "react-router-dom": "^6.20.1"
+    "react-intersection-observer": "^9.16.0",
+    "react-router-dom": "^6.20.1",
+    "web-vitals": "^5.1.0"
   },
   "devDependencies": {
     "@types/react": "^18.2.37",
@@ -27,8 +39,8 @@
     "eslint-plugin-react-refresh": "^0.4.4",
     "postcss": "^8.4.32",
     "tailwindcss": "^3.3.6",
+    "terser": "^5.44.0",
+    "vercel": "^48.4.1",
     "vite": "^5.0.0"
   }
 }
-
-

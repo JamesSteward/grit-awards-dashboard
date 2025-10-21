@@ -2,14 +2,14 @@ import React from 'react'
 
 const Footer = () => {
   return (
-    <footer className="bg-grit-green text-white">
+    <footer id="get-started" className="bg-grit-green text-white">
       <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 py-12">
         <div className="grid grid-cols-1 md:grid-cols-4 gap-8">
           {/* For Schools */}
           <div>
             <h3 className="text-lg font-heading font-semibold mb-4">For Schools</h3>
             <ul className="space-y-2 text-sm">
-              <li><a href="#" className="hover:text-grit-gold-light transition-colors">Get Started</a></li>
+              <li><a href="#get-started" className="hover:text-grit-gold-light transition-colors">Get Started</a></li>
               <li><a href="#" className="hover:text-grit-gold-light transition-colors">Pricing</a></li>
               <li><a href="#" className="hover:text-grit-gold-light transition-colors">Implementation Guide</a></li>
               <li><a href="#" className="hover:text-grit-gold-light transition-colors">Training Resources</a></li>

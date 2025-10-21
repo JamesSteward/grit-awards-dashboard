@@ -52,3 +52,6 @@ export const supabase = createClient(supabaseUrl, supabaseAnonKey)
 //   .eq('id', 1)
 
 
+
+
+
