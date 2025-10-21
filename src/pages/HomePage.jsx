@@ -1,4 +1,5 @@
 import React, { useEffect, useState } from "react";
+// Updated homepage with story-driven content
 import { motion, useAnimation, useScroll, useTransform } from "framer-motion";
 import { useInView } from "react-intersection-observer";
 import Header from '../components/Header';
