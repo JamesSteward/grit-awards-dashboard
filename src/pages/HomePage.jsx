@@ -412,11 +412,11 @@ function Hero() {
           <div className="absolute inset-0 bg-gradient-to-br from-grit-green via-grit-green to-grit-green/90" />
           <div className="relative mx-auto max-w-7xl px-6 text-center">
             <Reveal delay={0.1}>
-              <h2 className="font-heading text-4xl font-semibold leading-relaxed text-white md:text-5xl">Join the Movement</h2>
+              <h2 className="font-heading text-4xl font-semibold leading-relaxed text-white md:text-5xl">Join the GRIT Movement</h2>
             </Reveal>
             <Reveal delay={0.2}>
               <p className="mt-6 max-w-4xl mx-auto text-lg leading-relaxed text-grit-gold-light">
-                Be part of a growing network of schools and families redefining how we celebrate effort, resilience, and character.
+                Become part of the national network helping children grow life-ready skills. Whether at home, in school, or in your community — together, we're shaping the future.
               </p>
             </Reveal>
             <Reveal delay={0.3}>
