@@ -382,6 +382,18 @@ function Hero() {
         { number: "2009", label: "established" },
       ];
       
+      const [prefersReducedMotion, setPrefersReducedMotion] = useState(false);
+      
+      useEffect(() => {
+        const mediaQuery = window.matchMedia('(prefers-reduced-motion: reduce)');
+        setPrefersReducedMotion(mediaQuery.matches);
+        
+        const handleChange = (e) => setPrefersReducedMotion(e.matches);
+        mediaQuery.addEventListener('change', handleChange);
+        
+        return () => mediaQuery.removeEventListener('change', handleChange);
+      }, []);
+      
       return (
         <section id="impact" className="bg-white py-20 md:py-28">
           <div className="mx-auto max-w-7xl px-6 text-center">
@@ -393,17 +405,23 @@ function Hero() {
                 Every achievement strengthens community pride and long-term wellbeing.
               </p>
             </Reveal>
-            <Reveal delay={0.3}>
-              <div className="mt-12 grid grid-cols-1 gap-8 sm:grid-cols-3">
-                {stats.map((stat, i) => (
-                  <div key={stat.label} className="rounded-2xl bg-gray-50 p-8 shadow-lg ring-1 ring-grit-gold-light/20">
+            <div className="mt-12 grid grid-cols-1 gap-8 sm:grid-cols-3">
+              {stats.map((stat, i) => (
+                <Reveal key={stat.label} delay={0.3 + (i * 0.1)}>
+                  <motion.div 
+                    className="rounded-2xl bg-gray-50 p-8 shadow-lg ring-1 ring-grit-gold-light/20"
+                    initial={prefersReducedMotion ? { opacity: 0 } : { opacity: 0, scale: 0.95 }}
+                    whileInView={prefersReducedMotion ? { opacity: 1 } : { opacity: 1, scale: 1 }}
+                    viewport={{ once: true, margin: "-50px" }}
+                    transition={{ duration: prefersReducedMotion ? 0.3 : 0.5, delay: i * 0.1 }}
+                  >
                     <div className="font-heading text-4xl font-bold text-grit-green mb-2">{stat.number}</div>
                     <div className="text-grit-green/80 font-medium">{stat.label}</div>
+                  </motion.div>
+                </Reveal>
+              ))}
             </div>
-                ))}
-              </div>
-            </Reveal>
-            </div>
+          </div>
         </section>
       );
     }
