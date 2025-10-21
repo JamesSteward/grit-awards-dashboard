@@ -139,7 +139,7 @@ function Hero() {
       >
         <img 
           src="/grit-hero.webp" 
-          alt="Children tackling GRIT challenges" 
+          alt="Children taking part in a GRIT Awards activity" 
           className="h-full w-full object-cover" 
           loading="eager"
           decoding="async"
@@ -170,7 +170,7 @@ function Hero() {
               transition={{ duration: 0.7, ease: "easeOut", delay: 0.08 }} 
               className="max-w-3xl text-xl leading-relaxed text-grit-gold-light drop-shadow-md"
             >
-              Empowering students, schools, and families with skills that prepare them for life's challenges.
+              The GRIT Awards help young people grow confidence, character, and community — safely, practically, and with joy.
             </motion.p>
         <motion.div 
           initial={{ opacity: 0, y: 18 }} 
@@ -186,7 +186,7 @@ function Hero() {
             className="rounded-2xl bg-grit-green px-6 py-3 text-white shadow-lg hover:bg-grit-green/90 focus:outline-none focus-visible:ring-2 focus-visible:ring-grit-gold-dark"
             aria-label="Get started with GRIT Awards"
           >
-            Get Started
+                Get Started
           </motion.a>
           <motion.a 
             href="#what-is-grit" 
@@ -199,8 +199,8 @@ function Hero() {
             Learn More
           </motion.a>
         </motion.div>
-      </div>
-    </section>
+        </div>
+      </section>
   );
 }
 
@@ -242,7 +242,7 @@ function Hero() {
                   <div className="bg-white rounded-2xl p-6 shadow-lg ring-1 ring-grit-gold-light/20 hover:shadow-xl transition-shadow">
                     <h3 className="font-heading text-xl font-semibold text-grit-green mb-3">{card.title}</h3>
                     <p className="text-grit-green/80">{card.description}</p>
-                  </div>
+            </div>
                 </Reveal>
               ))}
             </div>
@@ -256,10 +256,10 @@ function Hero() {
                 >
                   Learn More
                 </motion.a>
-              </div>
+            </div>
             </Reveal>
-          </div>
-        </section>
+        </div>
+      </section>
       );
     }
 
@@ -279,16 +279,16 @@ function Hero() {
                     <div className="flex gap-4 items-start">
                       <div className="mt-1 h-2 w-2 rounded-full bg-grit-gold-dark flex-shrink-0" />
                       <p className="text-grit-green/90">Age-appropriate challenges that build confidence step by step</p>
-                    </div>
+                </div>
                     <div className="flex gap-4 items-start">
                       <div className="mt-1 h-2 w-2 rounded-full bg-grit-gold-dark flex-shrink-0" />
                       <p className="text-grit-green/90">Clear guidance and support materials for home activities</p>
-                    </div>
+              </div>
                     <div className="flex gap-4 items-start">
                       <div className="mt-1 h-2 w-2 rounded-full bg-grit-gold-dark flex-shrink-0" />
                       <p className="text-grit-green/90">Progress tracking that connects home and school</p>
-                    </div>
-                  </div>
+                </div>
+              </div>
                   <div className="mt-8">
                     <motion.a 
                       href="#get-started" 
@@ -298,7 +298,7 @@ function Hero() {
                     >
                       Build Confidence at Home
                     </motion.a>
-                  </div>
+                </div>
                 </div>
               </Reveal>
               <Reveal delay={0.2}>
@@ -309,15 +309,15 @@ function Hero() {
                         <svg className="w-8 h-8 text-grit-green" fill="currentColor" viewBox="0 0 20 20">
                           <path fillRule="evenodd" d="M3.172 5.172a4 4 0 015.656 0L10 6.343l1.172-1.171a4 4 0 115.656 5.656L10 17.657l-6.828-6.829a4 4 0 010-5.656z" clipRule="evenodd" />
                         </svg>
-                      </div>
+              </div>
                       <p className="text-grit-green/70 font-medium">Family & Child Visual</p>
-                    </div>
-                  </div>
+                </div>
+              </div>
                 </div>
               </Reveal>
-            </div>
           </div>
-        </section>
+        </div>
+      </section>
       );
     }
 
@@ -366,8 +366,8 @@ function Hero() {
                 </motion.a>
               </div>
             </Reveal>
-          </div>
-        </section>
+        </div>
+      </section>
       );
     }
 
@@ -396,11 +396,11 @@ function Hero() {
                   <div key={stat.label} className="rounded-2xl bg-gray-50 p-8 shadow-lg ring-1 ring-grit-gold-light/20">
                     <div className="font-heading text-4xl font-bold text-grit-green mb-2">{stat.number}</div>
                     <div className="text-grit-green/80 font-medium">{stat.label}</div>
-                  </div>
+            </div>
                 ))}
               </div>
             </Reveal>
-          </div>
+            </div>
         </section>
       );
     }
@@ -429,8 +429,8 @@ function Hero() {
                 Join GRIT
               </motion.a>
             </Reveal>
-          </div>
-        </section>
+        </div>
+      </section>
       );
     }
 
