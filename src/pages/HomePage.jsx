@@ -49,55 +49,77 @@ const Reveal = ({ children, delay = 0, className = "" }) => {
 function CookieConsent() {
   const [open, setOpen] = useState(false);
   const [prefersReducedMotion, setPrefersReducedMotion] = useState(false);
-  
+
   useEffect(() => {
     const accepted = localStorage.getItem("grit_cookie_consent");
     if (!accepted) setOpen(true);
-    
+
     const mediaQuery = window.matchMedia('(prefers-reduced-motion: reduce)');
     setPrefersReducedMotion(mediaQuery.matches);
+
+    const handleChange = (e) => setPrefersReducedMotion(e.matches);
+    mediaQuery.addEventListener('change', handleChange);
+
+    return () => mediaQuery.removeEventListener('change', handleChange);
   }, []);
-  
-  const accept = () => {
-    localStorage.setItem("grit_cookie_consent", "true");
+
+  const acceptAll = () => {
+    localStorage.setItem("grit_cookie_consent", "accepted_all");
     setOpen(false);
   };
-  
+
+  const rejectAll = () => {
+    localStorage.setItem("grit_cookie_consent", "rejected_all");
+    setOpen(false);
+  };
+
+  const openSettings = () => {
+    // TODO: Implement cookie settings modal
+    console.log("Open cookie settings");
+  };
+
   if (!open) return null;
-  
+
   return (
-    <motion.div 
-      className="fixed inset-x-0 bottom-0 z-50 p-4"
+    <motion.div
       initial={{ opacity: 0, y: 100 }}
       animate={{ opacity: 1, y: 0 }}
-      transition={{ duration: prefersReducedMotion ? 0.2 : 0.3, ease: "easeOut" }}
+      transition={{ duration: prefersReducedMotion ? 0.3 : 0.6, ease: "easeOut" }}
+      className="fixed inset-x-0 bottom-0 z-50 p-4"
       role="dialog"
-      aria-labelledby="cookie-title"
-      aria-describedby="cookie-description"
+      aria-labelledby="cookie-consent-title"
+      aria-describedby="cookie-consent-description"
     >
-      <div className="mx-auto max-w-6xl rounded-2xl bg-white/80 shadow-xl ring-1 ring-grit-gold-light/60 backdrop-blur-md">
-        <div className="flex flex-col items-start gap-4 p-4 md:flex-row md:items-center md:justify-between">
-          <div>
-            <h3 id="cookie-title" className="sr-only">Cookie Consent</h3>
-            <p id="cookie-description" className="text-sm text-grit-green/90">
-              We use cookies to ensure you get the best experience on our site.
-            </p>
-          </div>
-          <div className="flex gap-3">
-            <button 
-              onClick={accept}
-              aria-label="Accept cookies"
-              className="rounded-xl bg-grit-green px-4 py-2 text-sm font-medium text-white hover:bg-grit-green/90 focus:outline-none focus-visible:ring-2 focus-visible:ring-grit-gold-dark"
+      <div className="mx-auto max-w-6xl rounded-2xl bg-white shadow-xl border border-grit-gold-light/40 backdrop-blur-sm">
+        <div className="p-6">
+          <h2 id="cookie-consent-title" className="sr-only">Cookie Consent</h2>
+          <p id="cookie-consent-description" className="text-sm text-grit-green/90 mb-6 leading-relaxed">
+            We use cookies (or similar technology) to provide website functionality, analyse site usage, enhance your experience, provide tailored content, improve our service, and for marketing. By clicking 'Accept All Cookies', you agree to such purposes and the collection and sharing of your data with our partners. You can find out more in our Cookie Policy and withdraw or adjust your consent at any time.
+          </p>
+          <div className="flex flex-col gap-3 sm:flex-row sm:items-center sm:justify-between">
+            <button
+              onClick={openSettings}
+              className="text-sm text-grit-gold-light hover:text-grit-gold-dark underline underline-offset-4 transition-colors focus:outline-none focus-visible:ring-2 focus-visible:ring-grit-gold-dark focus-visible:ring-offset-2"
+              aria-label="Open cookie settings"
             >
-              Accept
+              Cookie Settings
             </button>
-            <a 
-              href="/privacy" 
-              className="text-sm underline underline-offset-4 text-grit-green/80 hover:text-grit-green"
-              aria-label="Learn more about our privacy policy"
-            >
-              Learn More
-            </a>
+            <div className="flex gap-3 sm:gap-4">
+              <button
+                onClick={rejectAll}
+                className="rounded-xl border border-grit-green px-4 py-2 text-sm font-medium text-grit-green hover:bg-grit-green/10 transition-colors focus:outline-none focus-visible:ring-2 focus-visible:ring-grit-gold-dark focus-visible:ring-offset-2"
+                aria-label="Reject all cookies"
+              >
+                Reject All
+              </button>
+              <button
+                onClick={acceptAll}
+                className="rounded-xl bg-grit-green px-4 py-2 text-sm font-medium text-white hover:bg-grit-green/90 transition-colors focus:outline-none focus-visible:ring-2 focus-visible:ring-grit-gold-dark focus-visible:ring-offset-2"
+                aria-label="Accept all cookies"
+              >
+                Accept All Cookies
+              </button>
+            </div>
           </div>
         </div>
       </div>
@@ -476,3 +498,5 @@ export default function HomePage() {
     </div>
   );
 }
+
+
