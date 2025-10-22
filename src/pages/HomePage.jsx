@@ -394,8 +394,19 @@ function Hero({ onGetStarted }) {
     // For Schools & Trusts Section
     function ForSchools() {
       return (
-        <section id="for-schools" className="bg-gray-50 py-20 md:py-28">
-          <div className="mx-auto max-w-7xl px-6">
+        <section id="for-schools" className="relative bg-gray-50 py-20 md:py-28 overflow-hidden">
+          {/* Subtle background image */}
+          <div 
+            className="absolute inset-0 opacity-8"
+            style={{
+              backgroundImage: 'url(/schools-background.webp)',
+              backgroundSize: 'cover',
+              backgroundPosition: 'center',
+              filter: 'grayscale(100%)'
+            }}
+          ></div>
+          {/* Content overlay */}
+          <div className="relative z-10 mx-auto max-w-7xl px-6">
             <Reveal delay={0.1}>
               <h2 className="font-heading text-4xl font-semibold leading-relaxed text-grit-green md:text-5xl text-center">For Schools & Trusts</h2>
             </Reveal>
@@ -437,8 +448,8 @@ function Hero({ onGetStarted }) {
                 </motion.a>
               </div>
             </Reveal>
-        </div>
-      </section>
+          </div>
+        </section>
       );
     }
 
