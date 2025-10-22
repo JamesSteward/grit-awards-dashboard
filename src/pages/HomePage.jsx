@@ -397,12 +397,13 @@ function Hero({ onGetStarted }) {
         <section id="for-schools" className="relative bg-gray-50 py-20 md:py-28 overflow-hidden">
           {/* Subtle background image */}
           <div 
-            className="absolute inset-0 opacity-8"
+            className="absolute inset-0"
             style={{
               backgroundImage: 'url(/schools-background.webp)',
               backgroundSize: 'cover',
               backgroundPosition: 'center',
-              filter: 'grayscale(100%)'
+              filter: 'grayscale(100%)',
+              opacity: 0.02
             }}
           ></div>
           {/* Content overlay */}
