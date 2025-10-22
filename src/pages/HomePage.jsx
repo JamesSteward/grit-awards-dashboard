@@ -91,7 +91,7 @@ function CookieConsent() {
       aria-labelledby="cookie-consent-title"
       aria-describedby="cookie-consent-description"
     >
-      <div className="mx-auto max-w-6xl rounded-xl bg-white shadow-lg shadow-black/5">
+      <div className="mx-auto max-w-6xl rounded-lg bg-white shadow-lg shadow-black/5">
         <div className="p-4 md:p-5">
           <h2 id="cookie-consent-title" className="sr-only">Cookie Consent</h2>
           <p id="cookie-consent-description" className="text-sm text-grit-green/90 mb-6 leading-relaxed">
@@ -108,14 +108,14 @@ function CookieConsent() {
             <div className="flex gap-3 sm:gap-4">
               <button
                 onClick={rejectAll}
-                className="rounded-xl border border-grit-green px-4 py-2 text-sm font-medium text-grit-green hover:bg-grit-green/10 transition-colors focus:outline-none focus-visible:ring-2 focus-visible:ring-grit-gold-dark focus-visible:ring-offset-2"
+                className="rounded-lg border border-grit-green px-4 py-2 text-sm font-medium text-grit-green hover:bg-grit-green/10 transition-colors focus:outline-none focus-visible:ring-2 focus-visible:ring-grit-gold-dark focus-visible:ring-offset-2"
                 aria-label="Reject all cookies"
               >
                 Reject All
               </button>
               <button
                 onClick={acceptAll}
-                className="rounded-xl bg-grit-green px-4 py-2 text-sm font-medium text-white hover:bg-grit-green/90 transition-colors focus:outline-none focus-visible:ring-2 focus-visible:ring-grit-gold-dark focus-visible:ring-offset-2"
+                className="rounded-lg bg-grit-green px-4 py-2 text-sm font-medium text-white hover:bg-grit-green/90 transition-colors focus:outline-none focus-visible:ring-2 focus-visible:ring-grit-gold-dark focus-visible:ring-offset-2"
                 aria-label="Accept all cookies"
               >
                 Accept All Cookies
@@ -232,7 +232,7 @@ function Hero({ onGetStarted }) {
                 onGetStarted();
               }
             }}
-            className="rounded-2xl bg-grit-green px-8 py-4 text-white font-semibold shadow-lg hover:bg-grit-green-dark focus:outline-none focus-visible:ring-2 focus-visible:ring-grit-gold-dark transition-colors active:scale-95 active:bg-grit-green-dark"
+            className="rounded-lg bg-grit-green px-8 py-4 text-white font-semibold shadow-lg hover:bg-grit-green-dark focus:outline-none focus-visible:ring-2 focus-visible:ring-grit-gold-dark transition-colors active:scale-95 active:bg-grit-green-dark"
             style={{ 
               touchAction: 'manipulation',
               WebkitAppearance: 'none',
@@ -240,12 +240,12 @@ function Hero({ onGetStarted }) {
             }}
             aria-label="Get started with GRIT Awards"
           >
-            Get Started
+                Get Started
           </button>
           
           <a 
             href="#what-is-grit" 
-            className="rounded-2xl border border-white/60 bg-white/90 backdrop-blur-sm px-6 py-3 text-grit-green hover:border-white/80 hover:bg-white transition-colors active:scale-95 active:bg-white"
+            className="rounded-lg border border-white/60 bg-white/90 backdrop-blur-sm px-6 py-3 text-grit-green hover:border-white/80 hover:bg-white transition-colors active:scale-95 active:bg-white"
             style={{ 
               touchAction: 'manipulation',
               WebkitTapHighlightColor: 'transparent'
@@ -307,7 +307,7 @@ function Hero({ onGetStarted }) {
           <img 
             src="/screenshots.webp" 
             alt="GRIT Awards app screenshots" 
-            className="w-full h-auto mb-10 rounded-2xl"
+            className="w-full h-auto mb-10 rounded-lg"
             loading="lazy"
             decoding="async"
           />
@@ -322,7 +322,7 @@ function Hero({ onGetStarted }) {
             <div className="mt-12 grid grid-cols-1 gap-6 md:grid-cols-2 lg:grid-cols-4">
               {cards.map((card, index) => (
                 <Reveal key={card.title} delay={0.1 + (index * 0.1)}>
-                  <div className="bg-white rounded-2xl p-6 shadow-md border border-grit-gold-light/40 hover:shadow-lg transition-all ease-out duration-200">
+                  <div className="bg-white rounded-lg p-6 shadow-md border border-grit-gold-light/40 hover:shadow-lg transition-all ease-out duration-200">
                     <h3 className="font-heading text-xl font-semibold text-grit-green mb-3">{card.title}</h3>
                     <p className="text-grit-green/80">{card.description}</p>
             </div>
@@ -335,7 +335,7 @@ function Hero({ onGetStarted }) {
                   href="#for-parents" 
                   whileHover={{ scale: 1.05 }} 
                   whileTap={{ scale: 0.95 }} 
-                  className="inline-block rounded-2xl bg-grit-green px-8 py-4 text-white font-semibold hover:bg-grit-green/90 transition-colors focus:outline-none focus-visible:ring-2 focus-visible:ring-grit-gold-dark"
+                  className="inline-block rounded-lg bg-grit-green px-8 py-4 text-white font-semibold hover:bg-grit-green/90 transition-colors focus:outline-none focus-visible:ring-2 focus-visible:ring-grit-gold-dark"
                   aria-label="Learn more about GRIT for parents"
                 >
                   Learn More
@@ -378,7 +378,7 @@ function Hero({ onGetStarted }) {
                       onClick={onGetStarted}
                       whileHover={{ scale: 1.05 }} 
                       whileTap={{ scale: 0.95 }} 
-                      className="inline-block rounded-2xl bg-grit-green px-8 py-4 text-white font-semibold hover:bg-grit-green/90 transition-colors focus:outline-none focus-visible:ring-2 focus-visible:ring-grit-gold-dark"
+                      className="inline-block rounded-lg bg-grit-green px-8 py-4 text-white font-semibold hover:bg-grit-green/90 transition-colors focus:outline-none focus-visible:ring-2 focus-visible:ring-grit-gold-dark"
                       aria-label="Get started to build confidence at home"
                     >
                       Build Confidence at Home
@@ -391,7 +391,7 @@ function Hero({ onGetStarted }) {
                   <img 
                     src="/family-parents.webp" 
                     alt="Parent and child working together on GRIT Awards challenges"
-                    className="aspect-[4/3] rounded-2xl object-cover w-full shadow-lg"
+                    className="aspect-[4/3] rounded-lg object-cover w-full shadow-lg"
                     loading="lazy"
                     decoding="async"
                   />
@@ -454,15 +454,15 @@ function Hero({ onGetStarted }) {
                   href="#get-started" 
                   whileHover={{ scale: 1.05 }} 
                   whileTap={{ scale: 0.95 }} 
-                  className="inline-block rounded-2xl bg-grit-green px-8 py-4 text-white font-semibold hover:bg-grit-green/90 transition-colors focus:outline-none focus-visible:ring-2 focus-visible:ring-grit-gold-dark"
+                  className="inline-block rounded-lg bg-grit-green px-8 py-4 text-white font-semibold hover:bg-grit-green/90 transition-colors focus:outline-none focus-visible:ring-2 focus-visible:ring-grit-gold-dark"
                   aria-label="Partner with GRIT Awards"
                 >
                   Partner With Us
                 </motion.a>
               </div>
             </Reveal>
-          </div>
-        </section>
+        </div>
+      </section>
       );
     }
 
@@ -501,7 +501,7 @@ function Hero({ onGetStarted }) {
               {stats.map((stat, i) => (
                 <Reveal key={stat.label} delay={0.3 + (i * 0.1)}>
                   <motion.div 
-                    className="rounded-2xl bg-white p-8 shadow-md border border-grit-gold-light/40 hover:shadow-lg transition-all ease-out duration-200"
+                    className="rounded-lg bg-white p-8 shadow-md border border-grit-gold-light/40 hover:shadow-lg transition-all ease-out duration-200"
                     initial={prefersReducedMotion ? { opacity: 0 } : { opacity: 0, scale: 0.95 }}
                     whileInView={prefersReducedMotion ? { opacity: 1 } : { opacity: 1, scale: 1 }}
                     viewport={{ once: true, margin: "-50px" }}
@@ -537,7 +537,7 @@ function Hero({ onGetStarted }) {
                 href="#get-started" 
                 whileHover={{ scale: 1.05 }} 
                 whileTap={{ scale: 0.95 }} 
-                className="inline-block mt-8 rounded-2xl bg-white px-8 py-4 text-grit-green font-semibold hover:bg-grit-gold-light/30 transition-colors focus:outline-none focus-visible:ring-2 focus-visible:ring-white"
+                className="inline-block mt-8 rounded-lg bg-white px-8 py-4 text-grit-green font-semibold hover:bg-grit-gold-light/30 transition-colors focus:outline-none focus-visible:ring-2 focus-visible:ring-white"
                 aria-label="Join the GRIT movement"
               >
                 Join GRIT
@@ -558,7 +558,7 @@ function DownloadModal({ isOpen, onClose }) {
       onClick={onClose}
     >
       <div 
-        className="relative bg-white rounded-2xl p-8 max-w-md mx-4 shadow-xl"
+        className="relative bg-white rounded-lg p-8 max-w-md mx-4 shadow-xl"
         onClick={(e) => e.stopPropagation()}
       >
         {/* Close button */}
