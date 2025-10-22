@@ -9,11 +9,11 @@ const Footer = ({ onGetStarted }) => {
           <div>
             <h3 className="font-heading text-white font-semibold mb-6">For Schools</h3>
             <ul className="space-y-3 text-sm">
-              <li><a href="#get-started" className="[color:#D5C59F] hover:text-white transition-colors" onClick={(e) => { e.preventDefault(); onGetStarted?.(); }}>Get Started</a></li>
-              <li><a href="#" className="[color:#D5C59F] hover:text-white transition-colors">Pricing</a></li>
-              <li><a href="#" className="[color:#D5C59F] hover:text-white transition-colors">Implementation Guide</a></li>
-              <li><a href="#" className="[color:#D5C59F] hover:text-white transition-colors">Training Resources</a></li>
-              <li><a href="#" className="[color:#D5C59F] hover:text-white transition-colors">Support</a></li>
+              <li><a href="#get-started" className="text-white hover:[color:#D5C59F] transition-colors" onClick={(e) => { e.preventDefault(); onGetStarted?.(); }}>Get Started</a></li>
+              <li><a href="#" className="text-white hover:[color:#D5C59F] transition-colors">Pricing</a></li>
+              <li><a href="#" className="text-white hover:[color:#D5C59F] transition-colors">Implementation Guide</a></li>
+              <li><a href="#" className="text-white hover:[color:#D5C59F] transition-colors">Training Resources</a></li>
+              <li><a href="#" className="text-white hover:[color:#D5C59F] transition-colors">Support</a></li>
             </ul>
           </div>
           
@@ -21,10 +21,10 @@ const Footer = ({ onGetStarted }) => {
           <div>
             <h3 className="font-heading text-white font-semibold mb-6">Award Levels</h3>
             <ul className="space-y-3 text-sm">
-              <li><a href="#award-levels" className="[color:#D5C59F] hover:text-white transition-colors">Hastings Award</a></li>
-              <li><a href="#award-levels" className="[color:#D5C59F] hover:text-white transition-colors">Trafalgar Award</a></li>
-              <li><a href="#award-levels" className="[color:#D5C59F] hover:text-white transition-colors">Waterloo Award</a></li>
-              <li><a href="#award-levels" className="[color:#D5C59F] hover:text-white transition-colors">Requirements</a></li>
+              <li><a href="#award-levels" className="text-white hover:[color:#D5C59F] transition-colors">Hastings Award</a></li>
+              <li><a href="#award-levels" className="text-white hover:[color:#D5C59F] transition-colors">Trafalgar Award</a></li>
+              <li><a href="#award-levels" className="text-white hover:[color:#D5C59F] transition-colors">Waterloo Award</a></li>
+              <li><a href="#award-levels" className="text-white hover:[color:#D5C59F] transition-colors">Requirements</a></li>
             </ul>
           </div>
           
@@ -32,11 +32,11 @@ const Footer = ({ onGetStarted }) => {
           <div>
             <h3 className="font-heading text-white font-semibold mb-6">Resources</h3>
             <ul className="space-y-3 text-sm">
-              <li><a href="#" className="[color:#D5C59F] hover:text-white transition-colors">Help Center</a></li>
-              <li><a href="#" className="[color:#D5C59F] hover:text-white transition-colors">Documentation</a></li>
-              <li><a href="#" className="[color:#D5C59F] hover:text-white transition-colors">Best Practices</a></li>
-              <li><a href="#" className="[color:#D5C59F] hover:text-white transition-colors">Case Studies</a></li>
-              <li><a href="#" className="[color:#D5C59F] hover:text-white transition-colors">Community</a></li>
+              <li><a href="#" className="text-white hover:[color:#D5C59F] transition-colors">Help Center</a></li>
+              <li><a href="#" className="text-white hover:[color:#D5C59F] transition-colors">Documentation</a></li>
+              <li><a href="#" className="text-white hover:[color:#D5C59F] transition-colors">Best Practices</a></li>
+              <li><a href="#" className="text-white hover:[color:#D5C59F] transition-colors">Case Studies</a></li>
+              <li><a href="#" className="text-white hover:[color:#D5C59F] transition-colors">Community</a></li>
             </ul>
           </div>
           
@@ -44,11 +44,11 @@ const Footer = ({ onGetStarted }) => {
           <div>
             <h3 className="font-heading text-white font-semibold mb-6">About</h3>
             <ul className="space-y-3 text-sm">
-              <li><a href="#about" className="[color:#D5C59F] hover:text-white transition-colors">Our Mission</a></li>
-              <li><a href="#about" className="[color:#D5C59F] hover:text-white transition-colors">Team</a></li>
-              <li><a href="#about" className="[color:#D5C59F] hover:text-white transition-colors">Careers</a></li>
-              <li><a href="#about" className="[color:#D5C59F] hover:text-white transition-colors">Press</a></li>
-              <li><a href="#about" className="[color:#D5C59F] hover:text-white transition-colors">Contact</a></li>
+              <li><a href="#about" className="text-white hover:[color:#D5C59F] transition-colors">Our Mission</a></li>
+              <li><a href="#about" className="text-white hover:[color:#D5C59F] transition-colors">Team</a></li>
+              <li><a href="#about" className="text-white hover:[color:#D5C59F] transition-colors">Careers</a></li>
+              <li><a href="#about" className="text-white hover:[color:#D5C59F] transition-colors">Press</a></li>
+              <li><a href="#about" className="text-white hover:[color:#D5C59F] transition-colors">Contact</a></li>
             </ul>
           </div>
         </div>
@@ -59,9 +59,9 @@ const Footer = ({ onGetStarted }) => {
               © 2025 GRIT Awards App (UKMS). All rights reserved.
             </p>
             <div className="flex space-x-6">
-              <a href="#" className="text-sm [color:#D5C59F] hover:text-white transition-colors">Privacy Policy</a>
-              <a href="#" className="text-sm [color:#D5C59F] hover:text-white transition-colors">Terms of Service</a>
-              <a href="#" className="text-sm [color:#D5C59F] hover:text-white transition-colors">Cookie Policy</a>
+              <a href="#" className="text-sm text-white hover:[color:#D5C59F] transition-colors">Privacy Policy</a>
+              <a href="#" className="text-sm text-white hover:[color:#D5C59F] transition-colors">Terms of Service</a>
+              <a href="#" className="text-sm text-white hover:[color:#D5C59F] transition-colors">Cookie Policy</a>
             </div>
           </div>
         </div>
