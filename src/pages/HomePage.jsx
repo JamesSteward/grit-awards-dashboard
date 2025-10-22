@@ -134,6 +134,9 @@ function Hero({ onGetStarted }) {
   const [isHovered, setIsHovered] = useState(false);
   const [prefersReducedMotion, setPrefersReducedMotion] = useState(false);
   
+  // Debug logging
+  console.log('Hero component - onGetStarted prop:', onGetStarted);
+  
   const images = [
     { src: "/hero1.webp", alt: "Children taking part in GRIT Awards activities" },
     { src: "/hero2.webp", alt: "Students building confidence through real experiences" },
@@ -223,7 +226,10 @@ function Hero({ onGetStarted }) {
           className="mt-4 flex flex-wrap items-center gap-3 space-y-3 sm:space-y-0"
         >
           <motion.button 
-            onClick={onGetStarted}
+            onClick={() => {
+              console.log('Get Started button clicked!');
+              onGetStarted();
+            }}
             whileHover={prefersReducedMotion ? {} : { scale: 1.05, y: -2, boxShadow: "0 10px 25px -5px rgba(0, 0, 0, 0.1)" }} 
             whileTap={prefersReducedMotion ? {} : { scale: 0.97 }} 
             transition={prefersReducedMotion ? { duration: 0.2 } : { type: "spring", stiffness: 300, damping: 20 }} 

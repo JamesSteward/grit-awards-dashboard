@@ -7,7 +7,10 @@ export default {
   theme: {
     extend: {
       colors: {
-        'grit-green': '#032717',
+        'grit-green': {
+          DEFAULT: '#032717',
+          dark: '#021510'
+        },
         'grit-gold': {
           DEFAULT: '#CEC6B5',
           light: '#D5C59F',
