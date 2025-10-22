@@ -610,7 +610,7 @@ export default function HomePage() {
       <AwardLevels />
       <ImpactCommunity />
       <JoinMovement />
-      <Footer />
+      <Footer onGetStarted={() => setShowDownloadModal(true)} />
       <CookieConsent />
       <DownloadModal 
         isOpen={showDownloadModal} 
