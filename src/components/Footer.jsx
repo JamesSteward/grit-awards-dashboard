@@ -1,4 +1,5 @@
 import React from 'react'
+import { FaFacebook, FaXTwitter, FaLinkedin, FaYoutube } from 'react-icons/fa6'
 
 const Footer = ({ onGetStarted }) => {
   return (
@@ -63,6 +64,48 @@ const Footer = ({ onGetStarted }) => {
               <a href="#" className="text-sm text-grit-gold-light hover:text-grit-gold-light transition-colors">Terms of Service</a>
               <a href="#" className="text-sm text-grit-gold-light hover:text-grit-gold-light transition-colors">Cookie Policy</a>
             </div>
+          </div>
+        </div>
+
+        {/* Social Media Icons */}
+        <div className="mt-10 pt-6 border-t border-grit-gold/25">
+          <div className="flex items-center justify-center space-x-6">
+            <a 
+              href="https://www.facebook.com/UKMSTeam" 
+              target="_blank" 
+              rel="noopener noreferrer"
+              className="text-grit-gold hover:text-white transition-colors"
+              aria-label="Visit our Facebook page"
+            >
+              <FaFacebook className="text-2xl md:text-3xl" />
+            </a>
+            <a 
+              href="https://x.com/UKMilSchool" 
+              target="_blank" 
+              rel="noopener noreferrer"
+              className="text-grit-gold hover:text-white transition-colors"
+              aria-label="Follow us on X (Twitter)"
+            >
+              <FaXTwitter className="text-2xl md:text-3xl" />
+            </a>
+            <a 
+              href="https://www.linkedin.com/company/uk-military-school/" 
+              target="_blank" 
+              rel="noopener noreferrer"
+              className="text-grit-gold hover:text-white transition-colors"
+              aria-label="Connect with us on LinkedIn"
+            >
+              <FaLinkedin className="text-2xl md:text-3xl" />
+            </a>
+            <a 
+              href="https://www.youtube.com/@theukmilitaryschool" 
+              target="_blank" 
+              rel="noopener noreferrer"
+              className="text-grit-gold hover:text-white transition-colors"
+              aria-label="Subscribe to our YouTube channel"
+            >
+              <FaYoutube className="text-2xl md:text-3xl" />
+            </a>
           </div>
         </div>
       </div>
