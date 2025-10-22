@@ -80,7 +80,7 @@ function HowItWorks() {
     <section id="how-it-works" className="bg-white py-20 md:py-28">
       <div className="mx-auto max-w-7xl px-6">
         <Reveal delay={0.1}>
-          <h2 className="font-heading text-4xl font-semibold leading-relaxed text-grit-green md:text-5xl text-center">How GRIT Works — <span className="text-grit-gold-dark">Three Assessment Pathways</span></h2>
+          <h2 className="font-heading text-4xl font-semibold leading-relaxed text-grit-green md:text-5xl text-center">How GRIT Works <span className="text-grit-gold-dark">Three Assessment Pathways</span></h2>
         </Reveal>
         <Reveal delay={0.2}>
           <p className="mt-6 max-w-4xl text-lg leading-relaxed text-grit-green/80 text-center mx-auto">
