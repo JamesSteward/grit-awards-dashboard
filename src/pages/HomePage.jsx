@@ -212,7 +212,7 @@ function Hero() {
           transition={{ duration: 0.7, ease: "easeOut", delay: 0.08 }} 
           className="max-w-3xl text-xl leading-relaxed text-grit-gold-light drop-shadow-md"
         >
-          The GRIT Awards help young people grow confidence, character, and community — safely, practically, and with joy.
+          The GRIT Awards help young people build confidence, develop character and strengthen their connection to community through safe, practical challenges.
         </motion.p>
         
         <motion.div 
