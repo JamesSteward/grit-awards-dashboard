@@ -517,7 +517,7 @@ function Hero({ onGetStarted }) {
             </Reveal>
             <Reveal delay={0.2}>
               <p className="mt-6 max-w-4xl mx-auto text-lg leading-relaxed text-white/90">
-                Become part of the national network helping children grow life-ready skills. Whether at home, in school, or in your community — together, we're shaping the future.
+                Become part of a national network helping children develop confidence, character and real-world skills. Whether you're a parent, teacher or community leader, together we're preparing children for life beyond school.
               </p>
             </Reveal>
             <Reveal delay={0.3}>
