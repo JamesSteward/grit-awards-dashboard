@@ -165,7 +165,7 @@ function Hero() {
           className="flex h-full w-[400%]"
           animate={prefersReducedMotion || isPaused ? {} : { x: "-100%" }}
           transition={{
-            duration: 20,
+            duration: 35,
             ease: "linear",
             repeat: Infinity,
             repeatType: "loop"
@@ -173,11 +173,11 @@ function Hero() {
         >
           {/* First set of images */}
           {images.map((image, index) => (
-            <div key={`first-${index}`} className="relative h-full w-full flex-shrink-0">
+            <div key={`first-${index}`} className="relative h-full flex-[0_0_25%]">
               <img
                 src={image.src}
                 alt={image.alt}
-                className="absolute inset-0 w-full h-full object-cover"
+                className="w-full h-full object-cover"
                 loading={index === 0 ? "eager" : "lazy"}
                 decoding="async"
                 fetchPriority={index === 0 ? "high" : "low"}
@@ -185,17 +185,17 @@ function Hero() {
             </div>
           ))}
           {/* Duplicate first image for seamless loop */}
-          <div className="relative h-full w-full flex-shrink-0">
+          <div className="relative h-full flex-[0_0_25%]">
             <img
               src={images[0].src}
               alt={images[0].alt}
-              className="absolute inset-0 w-full h-full object-cover"
+              className="w-full h-full object-cover"
               loading="lazy"
               decoding="async"
             />
           </div>
         </motion.div>
-      </div>
+        </div>
 
       {/* GRIT green gradient overlay */}
       <div className="absolute inset-0 -z-15 bg-gradient-to-b from-grit-green/40 via-grit-green/20 to-grit-green/10" />
@@ -251,8 +251,8 @@ function Hero() {
             Learn More
           </motion.a>
         </motion.div>
-      </div>
-
+            </div>
+            
       {/* Pause/Play control */}
       <motion.button
         onClick={togglePause}
@@ -336,7 +336,7 @@ function Hero() {
                 >
                   Learn More
                 </motion.a>
-            </div>
+          </div>
             </Reveal>
         </div>
       </section>
