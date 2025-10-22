@@ -129,7 +129,6 @@ function CookieConsent() {
 
 // Hero Section with parallax background
 function Hero() {
-  const [currentImage, setCurrentImage] = useState(0);
   const [isPaused, setIsPaused] = useState(false);
   const [isHovered, setIsHovered] = useState(false);
   const [prefersReducedMotion, setPrefersReducedMotion] = useState(false);
@@ -150,16 +149,6 @@ function Hero() {
     return () => mediaQuery.removeEventListener('change', handleChange);
   }, []);
 
-  useEffect(() => {
-    if (prefersReducedMotion || isPaused) return;
-
-    const interval = setInterval(() => {
-      setCurrentImage((prev) => (prev + 1) % images.length);
-    }, 4000);
-
-    return () => clearInterval(interval);
-  }, [isPaused, prefersReducedMotion, images.length]);
-
   const togglePause = () => {
     setIsPaused(!isPaused);
   };
@@ -170,34 +159,44 @@ function Hero() {
       onMouseEnter={() => setIsHovered(true)}
       onMouseLeave={() => setIsHovered(false)}
     >
-      {/* Background carousel */}
+      {/* Continuous horizontal scrolling background */}
       <div className="absolute inset-0 -z-20">
-        {images.map((image, index) => (
-          <motion.div
-            key={index}
-            className="absolute inset-0 w-full h-full"
-            initial={{ opacity: 0, scale: 1.05 }}
-            animate={{
-              opacity: currentImage === index ? 1 : 0,
-              scale: currentImage === index ? 1 : 1.05,
-            }}
-            transition={{
-              duration: prefersReducedMotion ? 0.3 : 1.2,
-              ease: "easeInOut",
-            }}
-          >
+        <motion.div
+          className="flex h-full w-[400%]"
+          animate={prefersReducedMotion || isPaused ? {} : { x: "-100%" }}
+          transition={{
+            duration: 20,
+            ease: "linear",
+            repeat: Infinity,
+            repeatType: "loop"
+          }}
+        >
+          {/* First set of images */}
+          {images.map((image, index) => (
+            <div key={`first-${index}`} className="relative h-full w-full flex-shrink-0">
+              <img
+                src={image.src}
+                alt={image.alt}
+                className="absolute inset-0 w-full h-full object-cover"
+                loading={index === 0 ? "eager" : "lazy"}
+                decoding="async"
+                fetchPriority={index === 0 ? "high" : "low"}
+              />
+            </div>
+          ))}
+          {/* Duplicate first image for seamless loop */}
+          <div className="relative h-full w-full flex-shrink-0">
             <img
-              src={image.src}
-              alt={image.alt}
+              src={images[0].src}
+              alt={images[0].alt}
               className="absolute inset-0 w-full h-full object-cover"
-              loading={index === 0 ? "eager" : "lazy"}
+              loading="lazy"
               decoding="async"
-              fetchPriority={index === 0 ? "high" : "low"}
             />
-          </motion.div>
-        ))}
           </div>
-          
+        </motion.div>
+      </div>
+
       {/* GRIT green gradient overlay */}
       <div className="absolute inset-0 -z-15 bg-gradient-to-b from-grit-green/40 via-grit-green/20 to-grit-green/10" />
       
@@ -238,7 +237,7 @@ function Hero() {
             className="rounded-2xl bg-grit-green px-6 py-3 text-white shadow-lg hover:bg-grit-green/90 focus:outline-none focus-visible:ring-2 focus-visible:ring-grit-gold-dark"
             aria-label="Get started with GRIT Awards"
           >
-                Get Started
+            Get Started
           </motion.a>
           
           <motion.a 
@@ -252,8 +251,8 @@ function Hero() {
             Learn More
           </motion.a>
         </motion.div>
-            </div>
-            
+      </div>
+
       {/* Pause/Play control */}
       <motion.button
         onClick={togglePause}
@@ -261,7 +260,7 @@ function Hero() {
         initial={{ opacity: 0 }}
         animate={{ opacity: isHovered ? 1 : 0 }}
         transition={{ duration: 0.2 }}
-        aria-label={isPaused ? "Play slideshow" : "Pause slideshow"}
+        aria-label={isPaused ? "Resume background scroll" : "Pause background scroll"}
       >
         {isPaused ? (
           <svg className="h-4 w-4" fill="currentColor" viewBox="0 0 20 20">
@@ -270,10 +269,10 @@ function Hero() {
         ) : (
           <svg className="h-4 w-4" fill="currentColor" viewBox="0 0 20 20">
             <path d="M6 4h2v12H6V4zm6 0h2v12h-2V4z" />
-                </svg>
+          </svg>
         )}
       </motion.button>
-      </section>
+    </section>
   );
 }
 
