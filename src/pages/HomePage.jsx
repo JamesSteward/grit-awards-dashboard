@@ -336,7 +336,7 @@ function Hero({ onGetStarted }) {
     }
 
     // For Parents Section
-    function ForParents() {
+    function ForParents({ onGetStarted }) {
       return (
         <section id="for-parents" className="bg-white py-20 md:py-28">
           <div className="mx-auto max-w-7xl px-6">
@@ -362,15 +362,15 @@ function Hero({ onGetStarted }) {
                 </div>
               </div>
                   <div className="mt-8">
-                    <motion.a 
-                      href="#get-started" 
+                    <motion.button 
+                      onClick={onGetStarted}
                       whileHover={{ scale: 1.05 }} 
                       whileTap={{ scale: 0.95 }} 
                       className="inline-block rounded-2xl bg-grit-green px-8 py-4 text-white font-semibold hover:bg-grit-green/90 transition-colors focus:outline-none focus-visible:ring-2 focus-visible:ring-grit-gold-dark"
                       aria-label="Get started to build confidence at home"
                     >
                       Build Confidence at Home
-                    </motion.a>
+                    </motion.button>
                 </div>
                 </div>
               </Reveal>
@@ -592,7 +592,7 @@ export default function HomePage() {
       <Header />
       <Hero onGetStarted={() => setShowDownloadModal(true)} />
       <WhatIsGrit />
-      <ForParents />
+      <ForParents onGetStarted={() => setShowDownloadModal(true)} />
       <ForSchools />
       <HowItWorks />
       <AwardLevels />
