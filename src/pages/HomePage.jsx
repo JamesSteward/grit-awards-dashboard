@@ -129,12 +129,18 @@ function CookieConsent() {
 
 // Hero Section with parallax background
 function Hero() {
-  const [isMounted, setIsMounted] = useState(false);
+  const [currentImage, setCurrentImage] = useState(0);
+  const [isPaused, setIsPaused] = useState(false);
+  const [isHovered, setIsHovered] = useState(false);
   const [prefersReducedMotion, setPrefersReducedMotion] = useState(false);
   
+  const images = [
+    { src: "/hero1.webp", alt: "Children taking part in GRIT Awards activities" },
+    { src: "/hero2.webp", alt: "Students building confidence through real experiences" },
+    { src: "/hero3.webp", alt: "Young people developing resilience and character" }
+  ];
+
   useEffect(() => {
-    setIsMounted(true);
-    
     const mediaQuery = window.matchMedia('(prefers-reduced-motion: reduce)');
     setPrefersReducedMotion(mediaQuery.matches);
     
@@ -143,59 +149,81 @@ function Hero() {
     
     return () => mediaQuery.removeEventListener('change', handleChange);
   }, []);
-  
-  const { scrollYProgress } = useScroll();
-  const yBg = useTransform(scrollYProgress, [0, 0.3], ["0%", "20%"]);
-  const yFg = useTransform(scrollYProgress, [0, 0.3], ["0%", "-10%"]);
-  const scrimOpacity = useTransform(scrollYProgress, [0, 0.3], [0.25, 0.45]);
+
+  useEffect(() => {
+    if (prefersReducedMotion || isPaused) return;
+
+    const interval = setInterval(() => {
+      setCurrentImage((prev) => (prev + 1) % images.length);
+    }, 4000);
+
+    return () => clearInterval(interval);
+  }, [isPaused, prefersReducedMotion, images.length]);
+
+  const togglePause = () => {
+    setIsPaused(!isPaused);
+  };
 
   return (
-    <section className="relative isolate min-h-[80vh] overflow-hidden">
-      {/* Background image layer */}
-      <motion.div 
-        style={isMounted && !prefersReducedMotion ? { y: yBg } : undefined} 
-        className="absolute inset-0 -z-20"
-        initial={{ opacity: 0 }}
-        animate={{ opacity: 1 }}
-        transition={{ duration: prefersReducedMotion ? 0.3 : 1.2, ease: "easeOut" }}
-      >
-        <img 
-          src="/grit-hero.webp" 
-          alt="Children taking part in a GRIT Awards activity" 
-          className="h-full w-full object-cover" 
-          loading="eager"
-          decoding="async"
-          fetchPriority="high"
-        />
-      </motion.div>
+    <section 
+      className="relative isolate h-[80vh] md:h-[90vh] overflow-hidden"
+      onMouseEnter={() => setIsHovered(true)}
+      onMouseLeave={() => setIsHovered(false)}
+    >
+      {/* Background carousel */}
+      <div className="absolute inset-0 -z-20">
+        {images.map((image, index) => (
+          <motion.div
+            key={index}
+            className="absolute inset-0 w-full h-full"
+            initial={{ opacity: 0, scale: 1.05 }}
+            animate={{
+              opacity: currentImage === index ? 1 : 0,
+              scale: currentImage === index ? 1 : 1.05,
+            }}
+            transition={{
+              duration: prefersReducedMotion ? 0.3 : 1.2,
+              ease: "easeInOut",
+            }}
+          >
+            <img
+              src={image.src}
+              alt={image.alt}
+              className="absolute inset-0 w-full h-full object-cover"
+              loading={index === 0 ? "eager" : "lazy"}
+              decoding="async"
+              fetchPriority={index === 0 ? "high" : "low"}
+            />
+          </motion.div>
+        ))}
+          </div>
+          
+      {/* GRIT green gradient overlay */}
+      <div className="absolute inset-0 -z-15 bg-gradient-to-b from-grit-green/40 via-grit-green/20 to-grit-green/10" />
+      
       {/* Dark gradient overlay for text readability */}
-      <div className="absolute inset-0 -z-15 bg-gradient-to-b from-black/80 via-black/60 to-black/40" />
-      {/* Soft green tint layer */}
-      <div className="absolute inset-0 -z-14 bg-gradient-to-b from-grit-green/30 to-transparent" />
-      {/* Light gradient scrim */}
-      <motion.div 
-        style={isMounted && !prefersReducedMotion ? { opacity: scrimOpacity } : { opacity: 0.3 }} 
-        className="absolute inset-0 -z-10 bg-gradient-to-b from-white/90 via-white/70 to-white" 
-      />
+      <div className="absolute inset-0 -z-14 bg-gradient-to-b from-black/60 via-black/40 to-black/20" />
 
-      <div className="mx-auto flex max-w-7xl flex-col gap-6 px-6 py-24 md:gap-8 md:py-36">
-            <motion.h1 
-              style={isMounted && !prefersReducedMotion ? { y: yFg } : undefined} 
-              initial={prefersReducedMotion ? { opacity: 0 } : { opacity: 0, y: 24 }} 
-              animate={{ opacity: 1, y: 0 }} 
-              transition={{ duration: prefersReducedMotion ? 0.3 : 0.7, ease: "easeOut" }} 
-              className="max-w-4xl font-heading text-5xl font-semibold leading-snug text-white drop-shadow-lg md:text-6xl"
-            >
-              Building life‑ready children through real experiences and resilience
-            </motion.h1>
-            <motion.p 
-              initial={{ opacity: 0, y: 20 }} 
-              animate={{ opacity: 1, y: 0 }} 
-              transition={{ duration: 0.7, ease: "easeOut", delay: 0.08 }} 
-              className="max-w-3xl text-xl leading-relaxed text-grit-gold-light drop-shadow-md"
-            >
-              The GRIT Awards help young people grow confidence, character, and community — safely, practically, and with joy.
-            </motion.p>
+      {/* Content */}
+      <div className="mx-auto flex max-w-7xl flex-col gap-6 px-6 py-24 md:gap-8 md:py-36 h-full justify-center">
+        <motion.h1 
+          initial={{ opacity: 0, y: 24 }} 
+          animate={{ opacity: 1, y: 0 }} 
+          transition={{ duration: prefersReducedMotion ? 0.3 : 0.7, ease: "easeOut" }} 
+          className="max-w-4xl font-heading text-5xl font-semibold leading-snug text-white drop-shadow-lg md:text-6xl"
+        >
+          Building life‑ready children through real experiences and resilience
+        </motion.h1>
+        
+        <motion.p 
+          initial={{ opacity: 0, y: 20 }} 
+          animate={{ opacity: 1, y: 0 }} 
+          transition={{ duration: 0.7, ease: "easeOut", delay: 0.08 }} 
+          className="max-w-3xl text-xl leading-relaxed text-grit-gold-light drop-shadow-md"
+        >
+          The GRIT Awards help young people grow confidence, character, and community — safely, practically, and with joy.
+        </motion.p>
+        
         <motion.div 
           initial={{ opacity: 0, y: 18 }} 
           animate={{ opacity: 1, y: 0 }} 
@@ -212,6 +240,7 @@ function Hero() {
           >
                 Get Started
           </motion.a>
+          
           <motion.a 
             href="#what-is-grit" 
             whileHover={prefersReducedMotion ? {} : { scale: 1.05, y: -2, boxShadow: "0 10px 25px -5px rgba(0, 0, 0, 0.1)" }} 
@@ -223,7 +252,27 @@ function Hero() {
             Learn More
           </motion.a>
         </motion.div>
-        </div>
+            </div>
+            
+      {/* Pause/Play control */}
+      <motion.button
+        onClick={togglePause}
+        className="absolute bottom-6 right-6 z-10 rounded-full bg-black/20 backdrop-blur-sm p-2 text-white hover:bg-black/40 transition-colors focus:outline-none focus-visible:ring-2 focus-visible:ring-grit-gold-dark"
+        initial={{ opacity: 0 }}
+        animate={{ opacity: isHovered ? 1 : 0 }}
+        transition={{ duration: 0.2 }}
+        aria-label={isPaused ? "Play slideshow" : "Pause slideshow"}
+      >
+        {isPaused ? (
+          <svg className="h-4 w-4" fill="currentColor" viewBox="0 0 20 20">
+            <path d="M8 5v10l8-5-8-5z" />
+          </svg>
+        ) : (
+          <svg className="h-4 w-4" fill="currentColor" viewBox="0 0 20 20">
+            <path d="M6 4h2v12H6V4zm6 0h2v12h-2V4z" />
+                </svg>
+        )}
+      </motion.button>
       </section>
   );
 }
