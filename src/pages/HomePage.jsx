@@ -273,19 +273,19 @@ function Hero({ onGetStarted }) {
       const cards = [
         {
           title: "Grow",
-          description: "Children develop new skills and confidence through age-appropriate challenges and structured learning experiences."
+          description: "Children develop new skills and confidence through age-appropriate challenges that build practical capabilities."
         },
         {
           title: "Resilience", 
-          description: "Building the ability to bounce back from setbacks and persevere through difficulties with practical support."
+          description: "Learning to bounce back from setbacks and persevere through difficulties with practical support and encouragement."
         },
         {
           title: "Integrity & Independence",
-          description: "Developing strong character, self-awareness, and the confidence to make good choices independently."
+          description: "Developing strong character and self-awareness to make good choices independently."
         },
         {
           title: "Transformation",
-          description: "Real change that prepares children for life beyond school — confident, capable, and ready for the future."
+          description: "Lasting change that prepares children for life beyond school: confident, capable and ready for the future."
         }
       ];
 
