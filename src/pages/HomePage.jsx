@@ -129,13 +129,10 @@ function CookieConsent() {
 }
 
 // Hero Section with parallax background
-function Hero({ onGetStarted }) {
+function Hero() {
   const [isPaused, setIsPaused] = useState(false);
   const [isHovered, setIsHovered] = useState(false);
   const [prefersReducedMotion, setPrefersReducedMotion] = useState(false);
-  
-  // Debug logging
-  console.log('Hero component - onGetStarted prop:', onGetStarted);
   
   const images = [
     { src: "/hero1.webp", alt: "Children taking part in GRIT Awards activities" },
@@ -225,24 +222,6 @@ function Hero({ onGetStarted }) {
           transition={{ duration: 0.7, ease: "easeOut", delay: 0.16 }} 
           className="mt-4 flex flex-wrap items-center gap-3 space-y-3 sm:space-y-0"
         >
-          <button 
-            onClick={() => {
-              console.log('Get Started button clicked!');
-              if (onGetStarted) {
-                onGetStarted();
-              }
-            }}
-            className="rounded-lg bg-grit-green px-8 py-4 text-white font-semibold shadow-lg hover:bg-grit-green-dark focus:outline-none focus-visible:ring-2 focus-visible:ring-grit-gold-dark transition-colors active:scale-95 active:bg-grit-green-dark"
-            style={{ 
-              touchAction: 'manipulation',
-              WebkitAppearance: 'none',
-              WebkitTapHighlightColor: 'transparent'
-            }}
-            aria-label="Get started with GRIT Awards"
-          >
-                Get Started
-          </button>
-          
           <a 
             href="#what-is-grit" 
             className="rounded-lg border border-white/60 bg-white/90 backdrop-blur-sm px-6 py-3 text-grit-green hover:border-white/80 hover:bg-white transition-colors active:scale-95 active:bg-white"
@@ -615,7 +594,7 @@ export default function HomePage() {
   return (
     <div className="font-body text-grit-green">
       <Header />
-      <Hero onGetStarted={() => setShowDownloadModal(true)} />
+      <Hero />
       <WhatIsGrit />
       <ForParents onGetStarted={() => setShowDownloadModal(true)} />
       <ForSchools />
