@@ -90,8 +90,8 @@ function CookieConsent() {
       aria-labelledby="cookie-consent-title"
       aria-describedby="cookie-consent-description"
     >
-      <div className="mx-auto max-w-6xl rounded-2xl bg-white shadow-xl border border-grit-gold-light/40 backdrop-blur-sm">
-        <div className="p-6">
+      <div className="mx-auto max-w-6xl rounded-xl bg-white shadow-lg shadow-black/5">
+        <div className="p-4 md:p-5">
           <h2 id="cookie-consent-title" className="sr-only">Cookie Consent</h2>
           <p id="cookie-consent-description" className="text-sm text-grit-green/90 mb-6 leading-relaxed">
             We use cookies (or similar technology) to provide website functionality, analyse site usage, enhance your experience, provide tailored content, improve our service, and for marketing. By clicking 'Accept All Cookies', you agree to such purposes and the collection and sharing of your data with our partners. You can find out more in our Cookie Policy and withdraw or adjust your consent at any time.
