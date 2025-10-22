@@ -197,12 +197,12 @@ function Hero({ onGetStarted }) {
       <div className="absolute inset-0 -z-14 bg-gradient-to-b from-black/60 via-black/40 to-black/20" />
 
       {/* Content */}
-      <div className="mx-auto flex max-w-7xl flex-col gap-6 px-6 py-24 md:gap-8 md:py-36 h-full justify-center">
+      <div className="mx-auto flex max-w-7xl flex-col gap-4 px-6 py-16 sm:gap-6 sm:py-20 md:gap-8 md:py-36 h-full justify-center">
         <motion.h1 
           initial={{ opacity: 0, y: 24 }} 
           animate={{ opacity: 1, y: 0 }} 
           transition={{ duration: prefersReducedMotion ? 0.3 : 0.7, ease: "easeOut" }} 
-          className="max-w-4xl font-heading text-5xl font-semibold leading-snug text-white drop-shadow-lg md:text-6xl"
+          className="max-w-4xl font-heading text-3xl font-semibold leading-tight text-white drop-shadow-lg sm:text-4xl md:text-5xl lg:text-6xl"
         >
           Building life‑ready children through real experiences and resilience
         </motion.h1>
@@ -211,7 +211,7 @@ function Hero({ onGetStarted }) {
           initial={{ opacity: 0, y: 20 }} 
           animate={{ opacity: 1, y: 0 }} 
           transition={{ duration: 0.7, ease: "easeOut", delay: 0.08 }} 
-          className="max-w-3xl text-xl leading-relaxed text-grit-gold-light drop-shadow-md"
+          className="max-w-3xl text-lg leading-relaxed text-grit-gold-light drop-shadow-md sm:text-xl"
         >
           The GRIT Awards help young people build confidence, develop character and strengthen their connection to community through safe, practical challenges.
         </motion.p>
@@ -227,7 +227,7 @@ function Hero({ onGetStarted }) {
             whileHover={prefersReducedMotion ? {} : { scale: 1.05, y: -2, boxShadow: "0 10px 25px -5px rgba(0, 0, 0, 0.1)" }} 
             whileTap={prefersReducedMotion ? {} : { scale: 0.97 }} 
             transition={prefersReducedMotion ? { duration: 0.2 } : { type: "spring", stiffness: 300, damping: 20 }} 
-            className="rounded-2xl bg-grit-green px-6 py-3 text-white shadow-lg hover:bg-grit-green/90 focus:outline-none focus-visible:ring-2 focus-visible:ring-grit-gold-dark"
+            className="rounded-2xl bg-grit-green px-8 py-4 text-white font-semibold shadow-lg hover:bg-grit-green-dark focus:outline-none focus-visible:ring-2 focus-visible:ring-grit-gold-dark transition-colors"
             aria-label="Get started with GRIT Awards"
           >
                 Get Started
@@ -404,7 +404,7 @@ function Hero({ onGetStarted }) {
               backgroundSize: 'cover',
               backgroundPosition: 'center',
               filter: 'grayscale(100%)',
-              opacity: 0.08
+              opacity: 0.10
             }}
           ></div>
           {/* Content overlay */}
