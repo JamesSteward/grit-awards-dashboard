@@ -128,7 +128,7 @@ function CookieConsent() {
 }
 
 // Hero Section with parallax background
-function Hero() {
+function Hero({ onGetStarted }) {
   const [isPaused, setIsPaused] = useState(false);
   const [isHovered, setIsHovered] = useState(false);
   const [prefersReducedMotion, setPrefersReducedMotion] = useState(false);
@@ -221,8 +221,8 @@ function Hero() {
           transition={{ duration: 0.7, ease: "easeOut", delay: 0.16 }} 
           className="mt-4 flex flex-wrap items-center gap-3 space-y-3 sm:space-y-0"
         >
-          <motion.a 
-            href="#get-started" 
+          <motion.button 
+            onClick={onGetStarted}
             whileHover={prefersReducedMotion ? {} : { scale: 1.05, y: -2, boxShadow: "0 10px 25px -5px rgba(0, 0, 0, 0.1)" }} 
             whileTap={prefersReducedMotion ? {} : { scale: 0.97 }} 
             transition={prefersReducedMotion ? { duration: 0.2 } : { type: "spring", stiffness: 300, damping: 20 }} 
@@ -230,7 +230,7 @@ function Hero() {
             aria-label="Get started with GRIT Awards"
           >
                 Get Started
-          </motion.a>
+          </motion.button>
           
           <motion.a 
             href="#what-is-grit" 
@@ -492,7 +492,7 @@ function Hero() {
                 </Reveal>
               ))}
             </div>
-              </div>
+          </div>
         </section>
       );
     }
@@ -527,12 +527,73 @@ function Hero() {
       );
     }
 
+// Download Modal Component
+function DownloadModal({ isOpen, onClose }) {
+  if (!isOpen) return null;
+
+  return (
+    <div 
+      className="fixed inset-0 z-50 flex items-center justify-center bg-black bg-opacity-50"
+      onClick={onClose}
+    >
+      <div 
+        className="relative bg-white rounded-2xl p-8 max-w-md mx-4 shadow-xl"
+        onClick={(e) => e.stopPropagation()}
+      >
+        {/* Close button */}
+        <button
+          onClick={onClose}
+          className="absolute top-4 right-4 text-grit-green hover:text-grit-green/70 transition-colors"
+          aria-label="Close modal"
+        >
+          <svg className="w-6 h-6" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+            <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M6 18L18 6M6 6l12 12" />
+          </svg>
+        </button>
+
+        {/* Title */}
+        <h2 className="text-3xl font-heading font-bold text-grit-green mb-6 text-center">
+          Download Now
+            </h2>
+
+        {/* App Store badges */}
+        <div className="flex flex-col sm:flex-row gap-4 justify-center items-center mb-6">
+          {/* Google Play Store */}
+          <div className="cursor-default">
+            <img
+              src="https://upload.wikimedia.org/wikipedia/commons/7/78/Google_Play_Store_badge_EN.svg"
+              alt="Get it on Google Play"
+              className="h-16 w-auto opacity-60"
+            />
+          </div>
+          
+          {/* Apple App Store */}
+          <div className="cursor-default">
+            <img
+              src="https://developer.apple.com/assets/elements/badges/download-on-the-app-store.svg"
+              alt="Download on the App Store"
+              className="h-16 w-auto opacity-60"
+            />
+              </div>
+            </div>
+            
+        {/* Coming soon note */}
+        <p className="text-sm text-grit-green/70 text-center">
+          Coming soon to iOS and Android
+              </p>
+            </div>
+          </div>
+  );
+}
+
 // Main HomePage Component
 export default function HomePage() {
+  const [showDownloadModal, setShowDownloadModal] = useState(false);
+
   return (
     <div className="font-body text-grit-green">
       <Header />
-      <Hero />
+      <Hero onGetStarted={() => setShowDownloadModal(true)} />
       <WhatIsGrit />
       <ForParents />
       <ForSchools />
@@ -542,6 +603,10 @@ export default function HomePage() {
       <JoinMovement />
       <Footer />
       <CookieConsent />
+      <DownloadModal 
+        isOpen={showDownloadModal} 
+        onClose={() => setShowDownloadModal(false)} 
+      />
     </div>
   );
 }
