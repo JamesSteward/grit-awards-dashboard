@@ -225,30 +225,35 @@ function Hero({ onGetStarted }) {
           transition={{ duration: 0.7, ease: "easeOut", delay: 0.16 }} 
           className="mt-4 flex flex-wrap items-center gap-3 space-y-3 sm:space-y-0"
         >
-          <motion.button 
+          <button 
             onClick={() => {
               console.log('Get Started button clicked!');
-              onGetStarted();
+              if (onGetStarted) {
+                onGetStarted();
+              }
             }}
-            whileHover={prefersReducedMotion ? {} : { scale: 1.05, y: -2, boxShadow: "0 10px 25px -5px rgba(0, 0, 0, 0.1)" }} 
-            whileTap={prefersReducedMotion ? {} : { scale: 0.97 }} 
-            transition={prefersReducedMotion ? { duration: 0.2 } : { type: "spring", stiffness: 300, damping: 20 }} 
-            className="rounded-2xl bg-grit-green px-8 py-4 text-white font-semibold shadow-lg hover:bg-grit-green-dark focus:outline-none focus-visible:ring-2 focus-visible:ring-grit-gold-dark transition-colors"
+            className="rounded-2xl bg-grit-green px-8 py-4 text-white font-semibold shadow-lg hover:bg-grit-green-dark focus:outline-none focus-visible:ring-2 focus-visible:ring-grit-gold-dark transition-colors active:scale-95 active:bg-grit-green-dark"
+            style={{ 
+              touchAction: 'manipulation',
+              WebkitAppearance: 'none',
+              WebkitTapHighlightColor: 'transparent'
+            }}
             aria-label="Get started with GRIT Awards"
           >
-                Get Started
-          </motion.button>
+            Get Started
+          </button>
           
-          <motion.a 
+          <a 
             href="#what-is-grit" 
-            whileHover={prefersReducedMotion ? {} : { scale: 1.05, y: -2, boxShadow: "0 10px 25px -5px rgba(0, 0, 0, 0.1)" }} 
-            whileTap={prefersReducedMotion ? {} : { scale: 0.97 }} 
-            transition={prefersReducedMotion ? { duration: 0.2 } : { type: "spring", stiffness: 300, damping: 20 }} 
-            className="rounded-2xl border border-white/60 bg-white/90 backdrop-blur-sm px-6 py-3 text-grit-green hover:border-white/80 hover:bg-white"
+            className="rounded-2xl border border-white/60 bg-white/90 backdrop-blur-sm px-6 py-3 text-grit-green hover:border-white/80 hover:bg-white transition-colors active:scale-95 active:bg-white"
+            style={{ 
+              touchAction: 'manipulation',
+              WebkitTapHighlightColor: 'transparent'
+            }}
             aria-label="Learn more about GRIT Awards"
           >
             Learn More
-          </motion.a>
+          </a>
         </motion.div>
             </div>
             
