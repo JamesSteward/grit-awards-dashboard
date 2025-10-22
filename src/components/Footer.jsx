@@ -56,19 +56,19 @@ const Footer = ({ onGetStarted }) => {
         
         <div className="mt-12 pt-8 border-t border-grit-gold/25">
           <div className="flex flex-col md:flex-row justify-between items-center gap-4">
-            <p className="text-sm text-grit-gold-light">
+            <p className="text-sm text-grit-gold">
               © 2025 GRIT Awards App (UKMS). All rights reserved.
             </p>
             <div className="flex space-x-6">
-              <a href="#" className="text-sm text-grit-gold-light hover:text-grit-gold-light transition-colors">Privacy Policy</a>
-              <a href="#" className="text-sm text-grit-gold-light hover:text-grit-gold-light transition-colors">Terms of Service</a>
-              <a href="#" className="text-sm text-grit-gold-light hover:text-grit-gold-light transition-colors">Cookie Policy</a>
+              <a href="#" className="text-sm text-grit-gold hover:text-white transition-colors">Privacy Policy</a>
+              <a href="#" className="text-sm text-grit-gold hover:text-white transition-colors">Terms of Service</a>
+              <a href="#" className="text-sm text-grit-gold hover:text-white transition-colors">Cookie Policy</a>
             </div>
           </div>
         </div>
 
         {/* Social Media Icons */}
-        <div className="mt-10 pt-6 border-t border-grit-gold/25">
+        <div className="mt-10">
           <div className="flex items-center justify-center space-x-6">
             <a 
               href="https://www.facebook.com/UKMSTeam" 
