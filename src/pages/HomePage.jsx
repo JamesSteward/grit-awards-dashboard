@@ -376,16 +376,13 @@ function Hero({ onGetStarted }) {
               </Reveal>
               <Reveal delay={0.2}>
                 <div className="relative">
-                  <div className="aspect-[4/3] rounded-2xl bg-gradient-to-br from-grit-gold-light/20 to-grit-green/10 flex items-center justify-center">
-                    <div className="text-center">
-                      <div className="w-16 h-16 mx-auto mb-4 rounded-full bg-grit-green/20 flex items-center justify-center">
-                        <svg className="w-8 h-8 text-grit-green" fill="currentColor" viewBox="0 0 20 20">
-                          <path fillRule="evenodd" d="M3.172 5.172a4 4 0 015.656 0L10 6.343l1.172-1.171a4 4 0 115.656 5.656L10 17.657l-6.828-6.829a4 4 0 010-5.656z" clipRule="evenodd" />
-                        </svg>
-              </div>
-                      <p className="text-grit-green/70 font-medium">Family & Child Visual</p>
-                </div>
-              </div>
+                  <img 
+                    src="/family-parents.webp" 
+                    alt="Parent and child working together on GRIT Awards challenges"
+                    className="aspect-[4/3] rounded-2xl object-cover w-full shadow-lg"
+                    loading="lazy"
+                    decoding="async"
+                  />
                 </div>
               </Reveal>
           </div>
