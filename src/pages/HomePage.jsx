@@ -139,6 +139,9 @@ function Hero() {
     { src: "/hero3.webp", alt: "Young people developing resilience and character" }
   ];
 
+  // Duplicate images for seamless looping
+  const allImages = [...images, ...images];
+
   useEffect(() => {
     const mediaQuery = window.matchMedia('(prefers-reduced-motion: reduce)');
     setPrefersReducedMotion(mediaQuery.matches);
@@ -162,18 +165,17 @@ function Hero() {
       {/* Continuous horizontal scrolling background */}
       <div className="absolute inset-0 -z-20">
         <motion.div
-          className="flex h-full w-[400%]"
-          animate={prefersReducedMotion || isPaused ? {} : { x: "-100%" }}
+          className="flex h-full w-[200%]"
+          animate={prefersReducedMotion || isPaused ? {} : { x: "-50%" }}
           transition={{
-            duration: 35,
+            duration: 60,
             ease: "linear",
             repeat: Infinity,
             repeatType: "loop"
           }}
         >
-          {/* First set of images */}
-          {images.map((image, index) => (
-            <div key={`first-${index}`} className="relative h-full flex-[0_0_25%]">
+          {allImages.map((image, index) => (
+            <div key={index} className="relative h-full flex-[0_0_50%] md:flex-[0_0_33.333%] lg:flex-[0_0_33.333%]">
               <img
                 src={image.src}
                 alt={image.alt}
@@ -184,19 +186,9 @@ function Hero() {
               />
             </div>
           ))}
-          {/* Duplicate first image for seamless loop */}
-          <div className="relative h-full flex-[0_0_25%]">
-            <img
-              src={images[0].src}
-              alt={images[0].alt}
-              className="w-full h-full object-cover"
-              loading="lazy"
-              decoding="async"
-            />
-          </div>
         </motion.div>
-        </div>
-
+            </div>
+            
       {/* GRIT green gradient overlay */}
       <div className="absolute inset-0 -z-15 bg-gradient-to-b from-grit-green/40 via-grit-green/20 to-grit-green/10" />
       
@@ -237,7 +229,7 @@ function Hero() {
             className="rounded-2xl bg-grit-green px-6 py-3 text-white shadow-lg hover:bg-grit-green/90 focus:outline-none focus-visible:ring-2 focus-visible:ring-grit-gold-dark"
             aria-label="Get started with GRIT Awards"
           >
-            Get Started
+                Get Started
           </motion.a>
           
           <motion.a 
