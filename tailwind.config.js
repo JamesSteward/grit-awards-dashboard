@@ -10,6 +10,7 @@ export default {
         'grit-green': '#032717',
         'grit-gold': {
           DEFAULT: '#CEC6B5',
+          light: '#D5C59F',
           dark: '#847147'
         },
         'red-jacket': {
