@@ -5,6 +5,7 @@ import { motion, useAnimation, useScroll, useTransform } from "framer-motion";
 import { useInView } from "react-intersection-observer";
 import Header from '../components/Header';
 import Footer from '../components/Footer';
+import NewSchoolWizard from '../components/NewSchoolWizard';
 import HowItWorks from '../sections/HowItWorks';
 import AwardLevels from '../sections/AwardLevels';
 
@@ -598,6 +599,7 @@ function DownloadModal({ isOpen, onClose }) {
 // Main HomePage Component
 export default function HomePage() {
   const [showDownloadModal, setShowDownloadModal] = useState(false);
+  const [showSchoolWizard, setShowSchoolWizard] = useState(false);
 
   return (
     <div className="font-body text-grit-green">
@@ -610,11 +612,15 @@ export default function HomePage() {
       <AwardLevels />
       <ImpactCommunity />
       <JoinMovement />
-      <Footer onGetStarted={() => setShowDownloadModal(true)} />
+      <Footer onGetStarted={() => setShowSchoolWizard(true)} />
       <CookieConsent />
       <DownloadModal 
         isOpen={showDownloadModal} 
         onClose={() => setShowDownloadModal(false)} 
+      />
+      <NewSchoolWizard 
+        isOpen={showSchoolWizard} 
+        onClose={() => setShowSchoolWizard(false)} 
       />
     </div>
   );
