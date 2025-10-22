@@ -159,7 +159,7 @@ function Hero() {
 
   return (
     <section 
-      className="relative isolate h-[80vh] md:h-[90vh] overflow-hidden"
+      className="relative isolate h-[60vh] md:h-[70vh] overflow-hidden"
       onMouseEnter={() => setIsHovered(true)}
       onMouseLeave={() => setIsHovered(false)}
     >
