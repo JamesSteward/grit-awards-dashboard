@@ -403,7 +403,7 @@ function Hero({ onGetStarted }) {
               backgroundSize: 'cover',
               backgroundPosition: 'center',
               filter: 'grayscale(100%)',
-              opacity: 0.02
+              opacity: 0.06
             }}
           ></div>
           {/* Content overlay */}
