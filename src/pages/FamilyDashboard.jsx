@@ -1133,32 +1133,6 @@ const FamilyDashboard = () => {
               </div>
             </div>
 
-            {/* Active Challenges Section */}
-            {activeChallenges.length > 0 && (
-              <div className="mb-6">
-                <h2 className="text-xl font-['Roboto_Slab'] font-bold text-grit-green mb-4 flex items-center gap-2">
-                  <svg className="w-5 h-5" viewBox="0 0 24 24" fill="currentColor">
-                    <path d="M19 3H5c-1.1 0-2 .9-2 2v14c0 1.1.9 2 2 2h14c1.1 0 2-.9 2-2V5c0-1.1-.9-2-2-2zm-5 14H7v-2h7v2zm3-4H7v-2h10v2zm0-4H7V7h10v2z"/>
-                  </svg>
-                  Active Challenges
-                </h2>
-
-                <div className="grid gap-4 md:grid-cols-2 lg:grid-cols-3">
-                  {activeChallenges.map(challenge => (
-                    <ChallengeCard 
-                      key={challenge.id} 
-                      challenge={challenge} 
-                      status="active" 
-                      isExpanded={expandedChallenge === challenge.id}
-                      onExpand={() => setExpandedChallenge(challenge.id)}
-                      onCollapse={() => setExpandedChallenge(null)}
-                      onBeginChallenge={handleBeginChallenge}
-                      onCompleteChallenge={handleCompleteChallenge}
-                    />
-                  ))}
-                </div>
-              </div>
-            )}
 
             {/* Recent Activity Section */}
             <div className="mb-8">
@@ -1245,234 +1219,115 @@ const FamilyDashboard = () => {
 
         {activeTab === 'challenges' && (
           <>
-            {/* Search Overlay - Overlapping Header */}
+            {/* Search Bar - Always Visible */}
             <div className="relative -mt-8 z-20 px-4 mb-6">
-              {/* Search Toggle Button */}
               <div className="bg-white rounded-lg p-4 shadow-lg border border-gray-100">
-                <button
-                  onClick={() => setShowSearchOverlay(!showSearchOverlay)}
-                  className="w-full flex items-center gap-3 text-gray-900 hover:bg-gray-50 transition-colors rounded-lg p-2"
-                >
+                <div className="flex items-center gap-3 mb-3">
                   <svg className="w-5 h-5 text-gray-900" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2">
                     <circle cx="11" cy="11" r="8"/>
                     <path d="m21 21-4.35-4.35"/>
                   </svg>
-                  <span className="flex-1 text-left">
-                    {searchQuery ? `Searching: "${searchQuery}"` : 'Search challenges...'}
-                  </span>
-                  <svg className={`w-5 h-5 transition-transform duration-200 ${showSearchOverlay ? 'rotate-180' : ''}`} viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2">
-                    <polyline points="6,9 12,15 18,9"/>
-                  </svg>
-                </button>
-
-                {/* Search Input */}
-                {showSearchOverlay && (
-                  <div className="mt-4 pt-4 border-t border-gray-100">
-                    <div className="flex items-center gap-3 mb-3">
-                      <svg className="w-5 h-5 text-gray-900" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2">
-                        <circle cx="11" cy="11" r="8"/>
-                        <path d="m21 21-4.35-4.35"/>
+                  <input
+                    type="text"
+                    value={searchQuery}
+                    onChange={(e) => setSearchQuery(e.target.value)}
+                    placeholder="Search challenges by name, description, or trait..."
+                    className="flex-1 px-3 py-2 border border-gray-300 rounded-lg focus:outline-none focus:ring-2 focus:ring-grit-green/20 focus:border-grit-green"
+                  />
+                  {searchQuery && (
+                    <button
+                      onClick={() => setSearchQuery('')}
+                      className="p-2 text-gray-900 hover:bg-gray-100 rounded-lg transition-colors"
+                    >
+                      <svg className="w-4 h-4" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2">
+                        <line x1="18" y1="6" x2="6" y2="18"/>
+                        <line x1="6" y1="6" x2="18" y2="18"/>
                       </svg>
-                      <input
-                        type="text"
-                        value={searchQuery}
-                        onChange={(e) => setSearchQuery(e.target.value)}
-                        placeholder="Search challenges by name, description, or trait..."
-                        className="flex-1 px-3 py-2 border border-gray-300 rounded-lg focus:outline-none focus:ring-2 focus:ring-grit-green/20 focus:border-grit-green"
-                        autoFocus
-                      />
-                      {searchQuery && (
-                        <button
-                          onClick={() => setSearchQuery('')}
-                          className="p-2 text-gray-900 hover:bg-gray-100 rounded-lg transition-colors"
-                        >
-                          <svg className="w-4 h-4" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2">
-                            <line x1="18" y1="6" x2="6" y2="18"/>
-                            <line x1="6" y1="6" x2="18" y2="18"/>
-                          </svg>
-                        </button>
-                      )}
-                    </div>
-                    
-                    {/* Pathway Filter */}
-                    <div className="flex items-center gap-3 mb-3">
-                      <label className="text-sm font-medium text-gray-700 whitespace-nowrap">Filter by pathway:</label>
-                      <select
-                        value={selectedPathway}
-                        onChange={(e) => setSelectedPathway(e.target.value)}
-                        className="flex-1 px-3 py-2 border border-gray-300 rounded-lg focus:outline-none focus:ring-2 focus:ring-grit-green/20 focus:border-grit-green"
-                      >
-                        <option value="all">All Pathways</option>
-                        {pathways.filter(p => p !== 'all').map(pathway => (
-                          <option key={pathway} value={pathway}>
-                            {pathway.replace(/-/g, ' ').replace(/\b\w/g, l => l.toUpperCase())}
-                          </option>
-                        ))}
-                      </select>
-                    </div>
-                    
-                    {/* Search Results Count */}
-                    <div className="mt-3 text-sm text-gray-900">
-                      {searchQuery || selectedPathway !== 'all' 
-                        ? `Found ${filteredAllChallenges.length} challenge${filteredAllChallenges.length !== 1 ? 's' : ''}`
-                        : `Showing all ${filteredAllChallenges.length} challenges`
-                      }
-                    </div>
-
-                    {/* All Challenges Dropdown - Grouped by Pathway */}
-                    <div className="mt-4 max-h-96 overflow-y-auto">
-                      {Object.keys(challengesByPathway).length > 0 ? (
-                        Object.entries(challengesByPathway).map(([pathway, pathwayChallenges]) => (
-                          <div key={pathway} className="mb-4">
-                            <h3 className="text-sm font-semibold text-grit-green mb-2 uppercase">
-                              {pathway.replace(/-/g, ' ')}
-                            </h3>
-                            <div className="space-y-2">
-                              {pathwayChallenges.map(challenge => {
-                                // Check if student has progress on this challenge
-                                const studentProgress = challenges.find(c => c.challenges?.id === challenge.id)
-                                const status = studentProgress?.status || 'not_started'
-                                
-                                return (
-                                  <div
-                                    key={challenge.id}
-                                    className="p-3 border border-gray-200 rounded-lg hover:bg-gray-50 cursor-pointer transition-colors"
-                                    onClick={() => {
-                                      if (status === 'not_started') {
-                                        handleBeginChallenge(challenge.id)
-                                      } else {
-                                        setExpandedChallenge(studentProgress.id)
-                                      }
-                                    }}
-                                  >
-                                    <div className="flex items-start justify-between">
-                                      <div className="flex-1">
-                                        <h4 className="font-medium text-gray-900">{challenge.title}</h4>
-                                        {challenge.description && (
-                                          <p className="text-sm text-gray-600 mt-1 line-clamp-2">
-                                            {challenge.description}
-                                          </p>
-                                        )}
-                                        <div className="flex items-center gap-2 mt-2">
-                                          {challenge.points && (
-                                            <span className="text-xs bg-grit-green/10 text-grit-green px-2 py-1 rounded">
-                                              {challenge.points} points
-                                            </span>
-                                          )}
-                                          {challenge.trait && (
-                                            <span className="text-xs bg-gray-100 text-gray-700 px-2 py-1 rounded">
-                                              {challenge.trait}
-                                            </span>
-                                          )}
-                                        </div>
-                                      </div>
-                                      <div className="ml-3">
-                                        {status === 'not_started' && (
-                                          <span className="text-xs text-gray-500">Available</span>
-                                        )}
-                                        {status === 'in_progress' && (
-                                          <span className="text-xs text-yellow-600">In Progress</span>
-                                        )}
-                                        {status === 'submitted' && (
-                                          <span className="text-xs text-blue-600">Submitted</span>
-                                        )}
-                                        {status === 'approved' && (
-                                          <span className="text-xs text-green-600">Completed</span>
-                                        )}
-                                      </div>
-                                    </div>
-                                  </div>
-                                )
-                              })}
-                            </div>
-                          </div>
-                        ))
-                      ) : (
-                        <div className="text-center py-8 text-gray-500">
-                          {searchQuery ? 'No challenges found matching your search.' : 'Loading challenges...'}
-                        </div>
-                      )}
-                    </div>
-                  </div>
-                )}
+                    </button>
+                  )}
+                </div>
+                
+                {/* Pathway Filter */}
+                <div className="flex items-center gap-3">
+                  <label className="text-sm font-medium text-gray-700 whitespace-nowrap">Filter by pathway:</label>
+                  <select
+                    value={selectedPathway}
+                    onChange={(e) => setSelectedPathway(e.target.value)}
+                    className="flex-1 px-3 py-2 border border-gray-300 rounded-lg focus:outline-none focus:ring-2 focus:ring-grit-green/20 focus:border-grit-green"
+                  >
+                    <option value="all">All Pathways</option>
+                    {pathways.filter(p => p !== 'all').map(pathway => (
+                      <option key={pathway} value={pathway}>
+                        {pathway.replace(/-/g, ' ').replace(/\b\w/g, l => l.toUpperCase())}
+                      </option>
+                    ))}
+                  </select>
+                </div>
+                
+                {/* Search Results Count */}
+                <div className="mt-3 text-sm text-gray-900">
+                  {searchQuery || selectedPathway !== 'all' 
+                    ? `Found ${filteredAllChallenges.length} challenge${filteredAllChallenges.length !== 1 ? 's' : ''}`
+                    : `Showing all ${filteredAllChallenges.length} challenges`
+                  }
+                </div>
               </div>
             </div>
 
-            {/* Available Challenges Section */}
-            {filteredAvailableChallenges.length > 0 && (
-              <div className="px-5 py-6">
-                <h2 className="text-xl font-['Roboto_Slab'] font-bold text-grit-green mb-4 flex items-center gap-2">
-                  <svg className="w-5 h-5" viewBox="0 0 24 24" fill="currentColor">
-                    <path d="M19 3H5c-1.1 0-2 .9-2 2v14c0 1.1.9 2 2 2h14c1.1 0 2-.9 2-2V5c0-1.1-.9-2-2-2zm-5 14H7v-2h7v2zm3-4H7v-2h10v2zm0-4H7V7h10v2z"/>
-                  </svg>
-                  Available Challenges
-                </h2>
-
-                <div className="grid gap-4 md:grid-cols-2 lg:grid-cols-3 mb-4">
-                  {displayedAvailable.map(challenge => (
-                    <ChallengeCard 
-                      key={challenge.id} 
-                      challenge={challenge} 
-                      status="available" 
-                      isExpanded={expandedChallenge === challenge.id}
-                      onExpand={() => setExpandedChallenge(challenge.id)}
-                      onCollapse={() => setExpandedChallenge(null)}
-                      onBeginChallenge={handleBeginChallenge}
-                      onCompleteChallenge={handleCompleteChallenge}
-                    />
-                  ))}
-                </div>
-
-                {availableChallengesToShow < filteredAvailableChallenges.length && (
-                  <div className="flex justify-center">
-                    <button
-                      onClick={showMoreAvailable}
-                      className="bg-white border border-grit-green text-grit-green font-medium px-6 py-2 rounded-xl hover:bg-grit-green hover:text-white transition-all"
-                    >
-                      Show More ({filteredAvailableChallenges.length - availableChallengesToShow} remaining)
-                    </button>
+            {/* Challenge Cards - Grouped by Pathway */}
+            <div className="px-4 pb-6">
+              {Object.keys(challengesByPathway).length > 0 ? (
+                Object.entries(challengesByPathway).map(([pathway, pathwayChallenges]) => (
+                  <div key={pathway} className="mb-8">
+                    <h2 className="text-xl font-['Roboto_Slab'] font-bold text-grit-green mb-4 flex items-center gap-2">
+                      <svg className="w-5 h-5" viewBox="0 0 24 24" fill="currentColor">
+                        <path d="M19 3H5c-1.1 0-2 .9-2 2v14c0 1.1.9 2 2 2h14c1.1 0 2-.9 2-2V5c0-1.1-.9-2-2-2zm-5 14H7v-2h7v2zm3-4H7v-2h10v2zm0-4H7V7h10v2z"/>
+                      </svg>
+                      {pathway.replace(/-/g, ' ').replace(/\b\w/g, l => l.toUpperCase())}
+                    </h2>
+                    <div className="grid gap-4 md:grid-cols-2 lg:grid-cols-3">
+                      {pathwayChallenges.map(challenge => {
+                        // Check if student has progress on this challenge
+                        const studentProgress = challenges.find(c => c.challenges?.id === challenge.id || c.objective_id === challenge.id)
+                        const status = studentProgress?.status || 'not_started'
+                        
+                        // Determine display status
+                        let displayStatus = 'available'
+                        if (status === 'approved') displayStatus = 'completed'
+                        else if (status === 'in_progress' || status === 'submitted') displayStatus = 'active'
+                        
+                        // Create a normalized challenge object that ChallengeCard can use
+                        const normalizedChallenge = studentProgress || {
+                          id: `challenge-${challenge.id}`, // Use a unique ID for challenges without progress
+                          status: 'not_started',
+                          challenges: challenge // Wrap challenge in challenges property
+                        }
+                        
+                        return (
+                          <ChallengeCard 
+                            key={challenge.id} 
+                            challenge={normalizedChallenge} 
+                            status={displayStatus}
+                            isExpanded={expandedChallenge === normalizedChallenge.id}
+                            onExpand={() => setExpandedChallenge(normalizedChallenge.id)}
+                            onCollapse={() => setExpandedChallenge(null)}
+                            onBeginChallenge={handleBeginChallenge}
+                            onCompleteChallenge={handleCompleteChallenge}
+                          />
+                        )
+                      })}
+                    </div>
                   </div>
-                )}
-              </div>
-            )}
-
-            {/* Completed Challenges Section */}
-            {filteredCompletedChallenges.length > 0 && (
-              <div className="px-5 py-6">
-                <h2 className="text-xl font-['Roboto_Slab'] font-bold text-grit-green mb-4 flex items-center gap-2">
-                  <svg className="w-5 h-5" viewBox="0 0 24 24" fill="currentColor">
-                    <path d="M9 16.17L4.83 12l-1.42 1.41L9 19 21 7l-1.41-1.41z"/>
-                  </svg>
-                  Completed Challenges
-                </h2>
-
-                <div className="grid gap-4 md:grid-cols-2 lg:grid-cols-3 mb-4">
-                  {displayedCompleted.map(challenge => (
-                    <ChallengeCard 
-                      key={challenge.id} 
-                      challenge={challenge} 
-                      status="completed" 
-                      isExpanded={expandedChallenge === challenge.id}
-                      onExpand={() => setExpandedChallenge(challenge.id)}
-                      onCollapse={() => setExpandedChallenge(null)}
-                      onBeginChallenge={handleBeginChallenge}
-                      onCompleteChallenge={handleCompleteChallenge}
-                    />
-                  ))}
+                ))
+              ) : (
+                <div className="text-center py-12 text-gray-500">
+                  {searchQuery || selectedPathway !== 'all' 
+                    ? 'No challenges found matching your search.' 
+                    : 'Loading challenges...'}
                 </div>
+              )}
+            </div>
 
-                {completedChallengesToShow < filteredCompletedChallenges.length && (
-                  <div className="flex justify-center">
-                    <button
-                      onClick={showMoreCompleted}
-                      className="bg-white border border-gray-400 text-gray-900 font-medium px-6 py-2 rounded-xl hover:bg-gray-100 transition-all"
-                    >
-                      Show More ({filteredCompletedChallenges.length - completedChallengesToShow} remaining)
-                    </button>
-                  </div>
-                )}
-              </div>
-            )}
           </>
         )}
 
@@ -2484,8 +2339,9 @@ const FamilyDashboard = () => {
 }
 
 const ChallengeCard = ({ challenge, status: displayStatus, isExpanded, onExpand, onCollapse, onBeginChallenge, onCompleteChallenge }) => {
-  const trait = challenge.challenges?.trait
-  const points = challenge.challenges?.points
+  const trait = challenge.challenges?.trait || challenge.trait
+  const points = challenge.challenges?.points || challenge.points
+  const pathway = challenge.challenges?.pathway || challenge.pathway
   const status = challenge.status
   
   // Log challenge structure when expanded
@@ -2571,6 +2427,13 @@ const ChallengeCard = ({ challenge, status: displayStatus, isExpanded, onExpand,
                 {points} Points
             </span>
           )}
+          {pathway && (
+            <span className={`px-2 py-1 rounded text-xs font-medium ${
+                isCompleted ? 'bg-gray-200 text-gray-700' : 'bg-blue-100 text-blue-700'
+              }`}>
+                {pathway.replace(/-/g, ' ').replace(/\b\w/g, l => l.toUpperCase())}
+            </span>
+          )}
         </div>
         <div className="flex items-center gap-2">
           {isActive && (
@@ -2592,13 +2455,13 @@ const ChallengeCard = ({ challenge, status: displayStatus, isExpanded, onExpand,
       <h3 className={`font-['Roboto_Slab'] font-semibold text-base mb-2 uppercase tracking-wide ${
           isCompleted ? 'text-gray-900-dark' : 'text-grit-green'
       }`}>
-        {challenge.challenges?.title}
+        {challenge.challenges?.title || challenge.title}
       </h3>
       
       <p className={`text-sm leading-relaxed mb-3 ${
           isCompleted ? 'text-gray-900-dark' : 'text-gray-900'
       }`}>
-        {challenge.challenges?.description}
+        {challenge.challenges?.description || challenge.description}
       </p>
       
       {displayStatus === 'available' && (
@@ -2618,13 +2481,18 @@ const ChallengeCard = ({ challenge, status: displayStatus, isExpanded, onExpand,
     >
       {/* Header - same as collapsed */}
       <div className="flex items-center justify-between mb-3">
-        <div className="flex gap-2">
+        <div className="flex gap-2 flex-wrap">
           <span className={`${colors.bg} ${colors.text} px-3 py-1 rounded-full text-xs font-semibold`}>
             {trait}
           </span>
           <span className="bg-grit-gold-dark text-white px-3 py-1 rounded-full text-xs font-semibold">
             {points} Points
           </span>
+          {pathway && (
+            <span className="bg-blue-100 text-blue-700 px-3 py-1 rounded-full text-xs font-semibold">
+              {pathway.replace(/-/g, ' ').replace(/\b\w/g, l => l.toUpperCase())}
+            </span>
+          )}
       </div>
         <div className="flex items-center gap-2">
           {isActive && (
@@ -2644,25 +2512,28 @@ const ChallengeCard = ({ challenge, status: displayStatus, isExpanded, onExpand,
       </div>
 
       {/* Title and Overview */}
-      <h3 className="text-lg font-bold text-grit-green mb-2">{challenge.challenges?.title}</h3>
-      <p className="text-sm text-grit-green mb-4">{challenge.challenges?.description}</p>
+      <h3 className="text-lg font-bold text-grit-green mb-2">{challenge.challenges?.title || challenge.title}</h3>
+      <p className="text-sm text-grit-green mb-4">{challenge.challenges?.description || challenge.description}</p>
 
       {/* Hero Image/Carousel */}
-      {(challenge.challenges?.hero_image_url || challenge.challenges?.additional_images?.length > 0) && (
+      {((challenge.challenges?.hero_image_url || challenge.hero_image_url) || (challenge.challenges?.additional_images?.length > 0 || challenge.additional_images?.length > 0)) && (
         <div className="mb-4 rounded-lg overflow-hidden">
           {/* If only hero_image_url, show single image */}
-          {!challenge.challenges?.additional_images?.length && (
+          {!(challenge.challenges?.additional_images?.length || challenge.additional_images?.length) && (
             <img 
-              src={challenge.challenges?.hero_image_url} 
-              alt={challenge.challenges?.title}
+              src={challenge.challenges?.hero_image_url || challenge.hero_image_url} 
+              alt={challenge.challenges?.title || challenge.title}
               className="w-full h-48 object-cover"
             />
           )}
           
           {/* If additional_images exist, show carousel */}
-          {challenge.challenges?.additional_images?.length > 0 && (
+          {(challenge.challenges?.additional_images?.length > 0 || challenge.additional_images?.length > 0) && (
             <ImageCarousel 
-              images={[challenge.challenges?.hero_image_url, ...challenge.challenges?.additional_images]} 
+              images={[
+                challenge.challenges?.hero_image_url || challenge.hero_image_url, 
+                ...(challenge.challenges?.additional_images || challenge.additional_images || [])
+              ]} 
             />
           )}
         </div>
@@ -2672,16 +2543,16 @@ const ChallengeCard = ({ challenge, status: displayStatus, isExpanded, onExpand,
       <div className="mb-4">
         <h4 className="font-semibold text-sm text-grit-green mb-2">More Information:</h4>
         <p className="text-sm text-gray-900 leading-relaxed">
-          {challenge.challenges?.detailed_description || challenge.challenges?.description}
+          {challenge.challenges?.detailed_description || challenge.detailed_description || challenge.challenges?.description || challenge.description}
         </p>
       </div>
 
       {/* Hints */}
-      {challenge.challenges?.hints?.length > 0 && (
+      {(challenge.challenges?.hints?.length > 0 || challenge.hints?.length > 0) && (
         <div className="mb-4">
           <h4 className="font-semibold text-sm text-grit-green mb-2">Hints:</h4>
           <ul className="list-disc list-inside space-y-1">
-            {challenge.challenges?.hints.map((hint, index) => (
+            {(challenge.challenges?.hints || challenge.hints || []).map((hint, index) => (
               <li key={index} className="text-sm text-gray-900">{hint}</li>
             ))}
           </ul>
@@ -2695,7 +2566,8 @@ const ChallengeCard = ({ challenge, status: displayStatus, isExpanded, onExpand,
             onClick={(e) => {
               e.stopPropagation();
               console.log('Begin button clicked, challenge:', challenge);
-              onBeginChallenge(challenge.challenges?.id || challenge.id);
+              const challengeId = challenge.challenges?.id || challenge.id;
+              onBeginChallenge(challengeId);
             }}
             className="flex-1 py-3"
           >
@@ -2707,11 +2579,12 @@ const ChallengeCard = ({ challenge, status: displayStatus, isExpanded, onExpand,
           <Button
             onClick={(e) => {
               e.stopPropagation();
-              onCompleteChallenge(challenge.challenges?.id);
+              const challengeId = challenge.challenges?.id || challenge.id;
+              onCompleteChallenge(challengeId);
             }}
-            className="flex-1 py-3"
+            className="flex-1 py-3 bg-grit-green"
           >
-            Complete Challenge
+            Submit Evidence
           </Button>
         )}
       </div>
