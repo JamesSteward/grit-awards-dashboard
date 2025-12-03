@@ -2511,9 +2511,13 @@ const ChallengeCard = ({ challenge, status: displayStatus, isExpanded, onExpand,
         </div>
       </div>
 
-      {/* Title and Overview */}
+      {/* Title */}
       <h3 className="text-lg font-bold text-grit-green mb-2">{challenge.challenges?.title || challenge.title}</h3>
-      <p className="text-sm text-grit-green mb-4">{challenge.challenges?.description || challenge.description}</p>
+      
+      {/* Description - Always shown */}
+      <p className="text-sm text-gray-900 mb-4 leading-relaxed">
+        {challenge.challenges?.description || challenge.description}
+      </p>
 
       {/* Hero Image/Carousel */}
       {((challenge.challenges?.hero_image_url || challenge.hero_image_url) || (challenge.challenges?.additional_images?.length > 0 || challenge.additional_images?.length > 0)) && (
@@ -2539,25 +2543,45 @@ const ChallengeCard = ({ challenge, status: displayStatus, isExpanded, onExpand,
         </div>
       )}
 
-      {/* Detailed Description */}
-      <div className="mb-4">
-        <h4 className="font-semibold text-sm text-grit-green mb-2">More Information:</h4>
-        <p className="text-sm text-gray-900 leading-relaxed">
-          {challenge.challenges?.detailed_description || challenge.detailed_description || challenge.challenges?.description || challenge.description}
-        </p>
-      </div>
+      {/* More Information and Tips Section - Only show if detailed_description or hints exist */}
+      {(() => {
+        const description = challenge.challenges?.description || challenge.description || ''
+        const detailedDescription = challenge.challenges?.detailed_description || challenge.detailed_description || ''
+        const hints = challenge.challenges?.hints || challenge.hints || []
+        const hasDetailedDescription = detailedDescription && detailedDescription.trim() !== '' && detailedDescription !== description
+        const hasHints = Array.isArray(hints) && hints.length > 0
+        
+        // Only show this section if we have detailed description or hints
+        if (!hasDetailedDescription && !hasHints) {
+          return null
+        }
+        
+        return (
+          <div className="mb-4 space-y-4">
+            {/* More Information - Only if detailed_description exists and is different from description */}
+            {hasDetailedDescription && (
+              <div>
+                <h4 className="font-semibold text-sm text-grit-green mb-2">More Information:</h4>
+                <p className="text-sm text-gray-900 leading-relaxed">
+                  {detailedDescription}
+                </p>
+              </div>
+            )}
 
-      {/* Hints */}
-      {(challenge.challenges?.hints?.length > 0 || challenge.hints?.length > 0) && (
-        <div className="mb-4">
-          <h4 className="font-semibold text-sm text-grit-green mb-2">Hints:</h4>
-          <ul className="list-disc list-inside space-y-1">
-            {(challenge.challenges?.hints || challenge.hints || []).map((hint, index) => (
-              <li key={index} className="text-sm text-gray-900">{hint}</li>
-            ))}
-          </ul>
-        </div>
-      )}
+            {/* Tips - Only if hints array has items */}
+            {hasHints && (
+              <div>
+                <h4 className="font-semibold text-sm text-grit-green mb-2">Tips:</h4>
+                <ul className="list-disc list-inside space-y-1">
+                  {hints.map((hint, index) => (
+                    <li key={index} className="text-sm text-gray-900">{hint}</li>
+                  ))}
+                </ul>
+              </div>
+            )}
+          </div>
+        )
+      })()}
 
       {/* Action Buttons */}
       <div className="flex gap-3 mt-4">
