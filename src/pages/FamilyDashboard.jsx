@@ -14,6 +14,8 @@ const FamilyDashboard = () => {
   const [loading, setLoading] = useState(true)
   const [error, setError] = useState(null)
   const [challenges, setChallenges] = useState([])
+  const [allChallenges, setAllChallenges] = useState([]) // All challenges from database
+  const [selectedPathway, setSelectedPathway] = useState('all') // Filter by pathway
   const [showProfileModal, setShowProfileModal] = useState(false)
   const [showAllAvailable, setShowAllAvailable] = useState(false)
   const [showAllCompleted, setShowAllCompleted] = useState(false)
@@ -60,6 +62,7 @@ const FamilyDashboard = () => {
 
   useEffect(() => {
     fetchStudent()
+    fetchAllChallenges() // Fetch all challenges on component mount
     if (activeTab === 'messages') {
       fetchConversations()
     }
@@ -167,6 +170,25 @@ const FamilyDashboard = () => {
     }
   }
 
+  const fetchAllChallenges = async () => {
+    try {
+      const { data: allChallenges, error } = await supabase
+        .from('challenges')
+        .select('*')
+        .order('pathway')
+        .order('subcategory')
+        .order('sort_order')
+      
+      if (error) throw error
+      
+      setAllChallenges(allChallenges || [])
+      console.log(`Fetched ${allChallenges?.length || 0} challenges from database`)
+    } catch (error) {
+      console.error('Error fetching all challenges:', error)
+      setAllChallenges([])
+    }
+  }
+
   const fetchStudentChallenges = async () => {
     try {
       if (!student?.id) return
@@ -194,18 +216,38 @@ const FamilyDashboard = () => {
     console.log('Student ID:', student?.id);
     
     try {
-      const { data, error } = await supabase
+      // Check if student_progress record exists
+      const { data: existingProgress } = await supabase
         .from('student_progress')
-        .update({ 
-          status: 'in_progress',
-          started_at: new Date().toISOString()
-        })
+        .select('id')
         .eq('student_id', student.id)
-        .eq('objective_id', challengeId);
+        .eq('objective_id', challengeId)
+        .single();
 
-      console.log('Update response:', { data, error });
+      if (existingProgress) {
+        // Update existing record
+        const { error } = await supabase
+          .from('student_progress')
+          .update({ 
+            status: 'in_progress',
+            started_at: new Date().toISOString()
+          })
+          .eq('id', existingProgress.id);
 
-      if (error) throw error;
+        if (error) throw error;
+      } else {
+        // Insert new record
+        const { error } = await supabase
+          .from('student_progress')
+          .insert({
+            student_id: student.id,
+            objective_id: challengeId,
+            status: 'in_progress',
+            started_at: new Date().toISOString()
+          });
+
+        if (error) throw error;
+      }
 
       console.log('Refreshing challenges...');
       await fetchStudentChallenges();
@@ -344,7 +386,7 @@ const FamilyDashboard = () => {
   const availableChallenges = challenges.filter(c => c.status === 'not_started')
   const completedChallenges = challenges.filter(c => c.status === 'approved')
 
-  // Search filtering function
+  // Search filtering function for student progress challenges
   const filterChallengesBySearch = (challengeList) => {
     if (!searchQuery.trim()) return challengeList
     return challengeList.filter(challenge => 
@@ -353,6 +395,38 @@ const FamilyDashboard = () => {
       challenge.challenges?.trait?.toLowerCase().includes(searchQuery.toLowerCase())
     )
   }
+
+  // Filter all challenges from database by search query and pathway
+  const filteredAllChallenges = allChallenges.filter(challenge => {
+    // Filter by pathway
+    if (selectedPathway !== 'all' && challenge.pathway !== selectedPathway) {
+      return false
+    }
+    
+    // Filter by search query
+    if (!searchQuery.trim()) return true
+    const query = searchQuery.toLowerCase()
+    return (
+      challenge.title?.toLowerCase().includes(query) ||
+      challenge.description?.toLowerCase().includes(query) ||
+      challenge.trait?.toLowerCase().includes(query) ||
+      challenge.pathway?.toLowerCase().includes(query) ||
+      challenge.subcategory?.toLowerCase().includes(query)
+    )
+  })
+
+  // Get unique pathways for filter dropdown
+  const pathways = ['all', ...new Set(allChallenges.map(c => c.pathway).filter(Boolean))]
+
+  // Group filtered challenges by pathway
+  const challengesByPathway = filteredAllChallenges.reduce((acc, challenge) => {
+    const pathway = challenge.pathway || 'uncategorized'
+    if (!acc[pathway]) {
+      acc[pathway] = []
+    }
+    acc[pathway].push(challenge)
+    return acc
+  }, {})
 
   // Apply search filter to all challenge lists
   const filteredActiveChallenges = filterChallengesBySearch(activeChallenges)
@@ -1194,7 +1268,7 @@ const FamilyDashboard = () => {
                 {/* Search Input */}
                 {showSearchOverlay && (
                   <div className="mt-4 pt-4 border-t border-gray-100">
-                    <div className="flex items-center gap-3">
+                    <div className="flex items-center gap-3 mb-3">
                       <svg className="w-5 h-5 text-gray-900" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2">
                         <circle cx="11" cy="11" r="8"/>
                         <path d="m21 21-4.35-4.35"/>
@@ -1220,12 +1294,105 @@ const FamilyDashboard = () => {
                       )}
                     </div>
                     
+                    {/* Pathway Filter */}
+                    <div className="flex items-center gap-3 mb-3">
+                      <label className="text-sm font-medium text-gray-700 whitespace-nowrap">Filter by pathway:</label>
+                      <select
+                        value={selectedPathway}
+                        onChange={(e) => setSelectedPathway(e.target.value)}
+                        className="flex-1 px-3 py-2 border border-gray-300 rounded-lg focus:outline-none focus:ring-2 focus:ring-grit-green/20 focus:border-grit-green"
+                      >
+                        <option value="all">All Pathways</option>
+                        {pathways.filter(p => p !== 'all').map(pathway => (
+                          <option key={pathway} value={pathway}>
+                            {pathway.replace(/-/g, ' ').replace(/\b\w/g, l => l.toUpperCase())}
+                          </option>
+                        ))}
+                      </select>
+                    </div>
+                    
                     {/* Search Results Count */}
-                    {searchQuery && (
-                      <div className="mt-3 text-sm text-gray-900">
-                        Found {filteredAvailableChallenges.length + filteredActiveChallenges.length + filteredCompletedChallenges.length} challenges
-                      </div>
-                    )}
+                    <div className="mt-3 text-sm text-gray-900">
+                      {searchQuery || selectedPathway !== 'all' 
+                        ? `Found ${filteredAllChallenges.length} challenge${filteredAllChallenges.length !== 1 ? 's' : ''}`
+                        : `Showing all ${filteredAllChallenges.length} challenges`
+                      }
+                    </div>
+
+                    {/* All Challenges Dropdown - Grouped by Pathway */}
+                    <div className="mt-4 max-h-96 overflow-y-auto">
+                      {Object.keys(challengesByPathway).length > 0 ? (
+                        Object.entries(challengesByPathway).map(([pathway, pathwayChallenges]) => (
+                          <div key={pathway} className="mb-4">
+                            <h3 className="text-sm font-semibold text-grit-green mb-2 uppercase">
+                              {pathway.replace(/-/g, ' ')}
+                            </h3>
+                            <div className="space-y-2">
+                              {pathwayChallenges.map(challenge => {
+                                // Check if student has progress on this challenge
+                                const studentProgress = challenges.find(c => c.challenges?.id === challenge.id)
+                                const status = studentProgress?.status || 'not_started'
+                                
+                                return (
+                                  <div
+                                    key={challenge.id}
+                                    className="p-3 border border-gray-200 rounded-lg hover:bg-gray-50 cursor-pointer transition-colors"
+                                    onClick={() => {
+                                      if (status === 'not_started') {
+                                        handleBeginChallenge(challenge.id)
+                                      } else {
+                                        setExpandedChallenge(studentProgress.id)
+                                      }
+                                    }}
+                                  >
+                                    <div className="flex items-start justify-between">
+                                      <div className="flex-1">
+                                        <h4 className="font-medium text-gray-900">{challenge.title}</h4>
+                                        {challenge.description && (
+                                          <p className="text-sm text-gray-600 mt-1 line-clamp-2">
+                                            {challenge.description}
+                                          </p>
+                                        )}
+                                        <div className="flex items-center gap-2 mt-2">
+                                          {challenge.points && (
+                                            <span className="text-xs bg-grit-green/10 text-grit-green px-2 py-1 rounded">
+                                              {challenge.points} points
+                                            </span>
+                                          )}
+                                          {challenge.trait && (
+                                            <span className="text-xs bg-gray-100 text-gray-700 px-2 py-1 rounded">
+                                              {challenge.trait}
+                                            </span>
+                                          )}
+                                        </div>
+                                      </div>
+                                      <div className="ml-3">
+                                        {status === 'not_started' && (
+                                          <span className="text-xs text-gray-500">Available</span>
+                                        )}
+                                        {status === 'in_progress' && (
+                                          <span className="text-xs text-yellow-600">In Progress</span>
+                                        )}
+                                        {status === 'submitted' && (
+                                          <span className="text-xs text-blue-600">Submitted</span>
+                                        )}
+                                        {status === 'approved' && (
+                                          <span className="text-xs text-green-600">Completed</span>
+                                        )}
+                                      </div>
+                                    </div>
+                                  </div>
+                                )
+                              })}
+                            </div>
+                          </div>
+                        ))
+                      ) : (
+                        <div className="text-center py-8 text-gray-500">
+                          {searchQuery ? 'No challenges found matching your search.' : 'Loading challenges...'}
+                        </div>
+                      )}
+                    </div>
                   </div>
                 )}
               </div>
