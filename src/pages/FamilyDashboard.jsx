@@ -2466,7 +2466,7 @@ const ChallengeCard = ({ challenge, status: displayStatus, isExpanded, onExpand,
       
       {displayStatus === 'available' && (
           <button className="w-full bg-grit-green text-white font-medium py-2 px-4 rounded-lg hover:bg-grit-green-dark transition-colors text-sm">
-          Start Challenge
+          Investigate Challenge
         </button>
       )}
     </div>
