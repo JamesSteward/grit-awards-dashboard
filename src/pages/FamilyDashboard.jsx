@@ -1181,6 +1181,31 @@ const FamilyDashboard = () => {
               </div>
             </div>
 
+            {/* Active Challenges Section */}
+            <div className="mb-8">
+              <h2 className="text-xl font-bold text-gray-900 mb-4">Active Challenges</h2>
+              {activeChallenges.length > 0 ? (
+                <div className="grid gap-4 md:grid-cols-2 lg:grid-cols-3">
+                  {activeChallenges.map(challenge => (
+                    <ChallengeCard 
+                      key={challenge.id} 
+                      challenge={challenge} 
+                      status="active" 
+                      isExpanded={expandedChallenge === challenge.id}
+                      onExpand={() => setExpandedChallenge(challenge.id)}
+                      onCollapse={() => setExpandedChallenge(null)}
+                      onBeginChallenge={handleBeginChallenge}
+                      onCompleteChallenge={handleCompleteChallenge}
+                    />
+                  ))}
+                </div>
+              ) : (
+                <div className="text-center py-8 text-gray-500 bg-white rounded-lg border border-gray-200">
+                  <p>No active challenges. Visit the Challenges tab to begin one!</p>
+                </div>
+              )}
+            </div>
+
             {/* Quick Actions Section */}
             <div className="mb-8">
               <h2 className="text-xl font-['Roboto_Slab'] font-bold text-grit-green mb-4 flex items-center gap-2">
