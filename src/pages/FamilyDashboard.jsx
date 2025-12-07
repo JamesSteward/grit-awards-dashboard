@@ -6,6 +6,7 @@ import GrungeOverlay from '../components/GrungeOverlay'
 import { supabase } from '../lib/supabaseClient'
 import confetti from 'canvas-confetti'
 import ImageCarousel from '../components/ImageCarousel'
+import WarningModal from '../components/family/WarningModal'
 
 const FamilyDashboard = () => {
   const location = useLocation()
@@ -59,6 +60,11 @@ const FamilyDashboard = () => {
   const [selectedBadge, setSelectedBadge] = useState(null)
   const [selectedReward, setSelectedReward] = useState(null)
   const [confettiLaunched, setConfettiLaunched] = useState(false)
+
+  // Warning modal state
+  const [showWarningModal, setShowWarningModal] = useState(false)
+  const [pendingChallengeId, setPendingChallengeId] = useState(null)
+  const [pendingChallengeWarnings, setPendingChallengeWarnings] = useState([])
 
   useEffect(() => {
     fetchStudent()
@@ -209,10 +215,9 @@ const FamilyDashboard = () => {
     }
   }
 
-  // Begin Challenge functionality
-  const handleBeginChallenge = async (challengeId) => {
-    console.log('Begin Challenge clicked');
-    console.log('Challenge ID:', challengeId);
+  // Actual challenge start logic (called after warning check/acknowledgement)
+  const startChallenge = async (challengeId) => {
+    console.log('Starting challenge:', challengeId);
     console.log('Student ID:', student?.id);
     
     try {
@@ -264,6 +269,58 @@ const FamilyDashboard = () => {
     } catch (error) {
       console.error('Error starting challenge:', error);
       alert('Failed to start challenge: ' + error.message);
+    }
+  }
+
+  // Begin Challenge functionality - checks for warnings first
+  const handleBeginChallenge = async (challengeId) => {
+    console.log('Begin Challenge clicked');
+    console.log('Challenge ID:', challengeId);
+    console.log('Student ID:', student?.id);
+    
+    try {
+      // Find the challenge to check for warnings
+      const challenge = allChallenges.find(c => c.id === challengeId) || 
+                       challenges.find(c => (c.challenges?.id || c.objective_id) === challengeId)
+      
+      // Get warnings array (could be from challenge object or nested challenges)
+      const warnings = challenge?.warnings || challenge?.challenges?.warnings || []
+      
+      // If no warnings, proceed directly
+      if (!warnings || warnings.length === 0) {
+        await startChallenge(challengeId)
+        return
+      }
+
+      // Check if user has already acknowledged this challenge
+      const { data: { user } } = await supabase.auth.getUser()
+      if (!user) {
+        alert('User not authenticated')
+        return
+      }
+
+      const { data: existingAck } = await supabase
+        .from('challenge_acknowledgements')
+        .select('id')
+        .eq('challenge_id', challengeId)
+        .eq('user_id', user.id)
+        .single()
+
+      // If already acknowledged, proceed directly
+      if (existingAck) {
+        await startChallenge(challengeId)
+        return
+      }
+
+      // Show warning modal
+      setPendingChallengeId(challengeId)
+      setPendingChallengeWarnings(warnings)
+      setShowWarningModal(true)
+      
+    } catch (error) {
+      console.error('Error checking warnings:', error)
+      // If error checking, proceed anyway (fail gracefully)
+      await startChallenge(challengeId)
     }
   }
 
@@ -2049,6 +2106,25 @@ const FamilyDashboard = () => {
 
       {/* Profile Modal */}
       {showProfileModal && <ProfileModal />}
+
+      {/* Warning Modal */}
+      {showWarningModal && (
+        <WarningModal
+          isOpen={showWarningModal}
+          onClose={() => {
+            setShowWarningModal(false)
+            setPendingChallengeId(null)
+            setPendingChallengeWarnings([])
+          }}
+          onConfirm={async () => {
+            if (pendingChallengeId) {
+              await startChallenge(pendingChallengeId)
+            }
+          }}
+          challengeId={pendingChallengeId}
+          warnings={pendingChallengeWarnings}
+        />
+      )}
 
       {/* Evidence Submission Modal */}
       {showEvidenceModal && (
