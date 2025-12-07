@@ -20,6 +20,8 @@ const NewSchoolWizard = ({ isOpen, onClose }) => {
   const [selectedChallenges, setSelectedChallenges] = useState([])
   const [challenges, setChallenges] = useState([])
   const [loadingChallenges, setLoadingChallenges] = useState(false)
+  const [expandedPathways, setExpandedPathways] = useState(['specialist-led']) // Default: first pathway expanded
+  const [expandedSubcategories, setExpandedSubcategories] = useState({}) // Track expanded subcategories per pathway
   
   const navigate = useNavigate()
   
@@ -233,14 +235,13 @@ const NewSchoolWizard = ({ isOpen, onClose }) => {
           title: challenge.title || challenge.name || 'Untitled Challenge',
           description: challenge.description || challenge.text || 'No description available',
           tenacity: challenge.tenacity || challenge.points || 0,
-          category: challenge.category || challenge.trait || 'General'
+          category: challenge.category || challenge.trait || 'General',
+          pathway: challenge.pathway || 'independent-led', // Default to independent-led if not specified
+          subcategory: challenge.subcategory || 'General'
         }))
         
-        // Randomize the challenges for this year group
-        const shuffledChallenges = [...processedChallenges].sort(() => Math.random() - 0.5)
-        
-        console.log('Processed and randomized challenges for', yearGroup, ':', shuffledChallenges)
-        setChallenges(shuffledChallenges)
+        console.log('Processed challenges for', yearGroup, ':', processedChallenges)
+        setChallenges(processedChallenges)
       }
     } catch (error) {
       console.error('Error fetching challenges:', error)
@@ -254,7 +255,126 @@ const NewSchoolWizard = ({ isOpen, onClose }) => {
   const handleYearGroupSelect = (yearGroup) => {
     setSelectedYearGroup(yearGroup)
     setSelectedChallenges([])
+    setExpandedPathways(['specialist-led']) // Reset to first pathway expanded
+    setExpandedSubcategories({}) // Reset expanded subcategories
     fetchChallengesForYearGroup(yearGroup)
+  }
+
+  const togglePathway = (pathway) => {
+    setExpandedPathways(prev => 
+      prev.includes(pathway) 
+        ? prev.filter(p => p !== pathway)
+        : [...prev, pathway]
+    )
+  }
+
+  const toggleSubcategory = (pathway, subcategory) => {
+    const key = `${pathway}-${subcategory}`
+    setExpandedSubcategories(prev => ({
+      ...prev,
+      [key]: !prev[key]
+    }))
+  }
+
+  // Organize challenges by pathway and subcategory
+  const organizeChallengesByPathway = (challenges) => {
+    const pathways = {
+      'specialist-led': {
+        name: 'Specialist-Led Challenges',
+        description: 'Delivered by UKMS veterans during GRIT Days',
+        subcategories: {
+          'Mapping & Navigation': [],
+          'CPR & First Aid': [],
+          'Fitness, Military & Outdoor Performance': [],
+          'STEM – Go-Kart Engineering': [],
+          'Team Building & Leadership': []
+        }
+      },
+      'school-led': {
+        name: 'School-Led Challenges',
+        description: "Integrated into your school's curriculum",
+        subcategories: {
+          'English': [],
+          'Maths': [],
+          'Science': [],
+          'History': [],
+          'Geography': [],
+          'Art / Design + Technology': [],
+          'PE, Health & Sport': [],
+          'PSHE & Citizenship': []
+        }
+      },
+      'independent-led': {
+        name: 'Independent-Led Challenges',
+        description: 'Completed at home with family support',
+        subcategories: {
+          'Home & Daily Living': [],
+          'Personal Organisation & Self-Care': [],
+          'Community, Relationships & Character': [],
+          'Money, Travel & Responsibility': [],
+          'Outdoor & Nature': [],
+          'Practical Hands-On Skills': [],
+          'Life Experience & Personal Growth': []
+        }
+      }
+    }
+
+    // Group challenges by pathway and subcategory
+    challenges.forEach(challenge => {
+      // Normalize pathway key (handle various formats)
+      let pathwayKey = challenge.pathway?.toLowerCase().replace(/\s+/g, '-') || 'independent-led'
+      
+      // Map common variations
+      if (pathwayKey.includes('specialist')) pathwayKey = 'specialist-led'
+      else if (pathwayKey.includes('school')) pathwayKey = 'school-led'
+      else if (pathwayKey.includes('independent') || pathwayKey.includes('home') || pathwayKey.includes('family')) {
+        pathwayKey = 'independent-led'
+      }
+      
+      const pathway = pathways[pathwayKey] || pathways['independent-led']
+      
+      const subcategory = challenge.subcategory || 'General'
+      // Find matching subcategory (case-insensitive, flexible matching)
+      let matchingSubcategory = Object.keys(pathway.subcategories).find(
+        sc => sc.toLowerCase() === subcategory.toLowerCase() || 
+              subcategory.toLowerCase().includes(sc.toLowerCase()) ||
+              sc.toLowerCase().includes(subcategory.toLowerCase())
+      )
+      
+      // If no match found, try to match by partial string
+      if (!matchingSubcategory) {
+        matchingSubcategory = Object.keys(pathway.subcategories).find(
+          sc => {
+            const scLower = sc.toLowerCase()
+            const subLower = subcategory.toLowerCase()
+            return scLower.includes(subLower) || subLower.includes(scLower)
+          }
+        )
+      }
+      
+      // Default to first subcategory if still no match
+      if (!matchingSubcategory) {
+        matchingSubcategory = Object.keys(pathway.subcategories)[0]
+      }
+      
+      if (pathway.subcategories[matchingSubcategory]) {
+        pathway.subcategories[matchingSubcategory].push(challenge)
+      }
+    })
+
+    return pathways
+  }
+
+  const getSelectedCountForPathway = (pathwayData) => {
+    return Object.values(pathwayData.subcategories).flat().filter(c => selectedChallenges.includes(c.id)).length
+  }
+
+  const getTotalCountForPathway = (pathwayData) => {
+    return Object.values(pathwayData.subcategories).flat().length
+  }
+
+  const getSelectedCountForSubcategory = (subcategoryChallenges) => {
+    return subcategoryChallenges.filter(c => selectedChallenges.includes(c.id)).length
   }
 
   const handleChallengeToggle = (challengeId) => {
@@ -481,99 +601,191 @@ const NewSchoolWizard = ({ isOpen, onClose }) => {
     </div>
   )
 
-  const renderChallengeSelectionStep = () => (
-    <div className="max-w-4xl mx-auto">
-      <div className="text-center mb-8">
-        <h2 className="text-3xl font-['Roboto_Slab'] font-bold text-grit-green mb-4">
-          Select Challenges
-        </h2>
-        <p className="text-gray-900 text-lg mb-2">
-          Select 100 challenges to build your school's programme
-        </p>
-      </div>
+  const renderChallengeSelectionStep = () => {
+    const organizedChallenges = selectedYearGroup && challenges.length > 0 
+      ? organizeChallengesByPathway(challenges)
+      : null
 
-      <div className="mb-6">
-        <h3 className="text-lg font-['Roboto_Slab'] font-semibold text-grit-green mb-4">
-          Year Group
-        </h3>
-        <div className="flex gap-3 flex-wrap">
-          {['Year 3', 'Year 4', 'Year 5', 'Year 6'].map((yearGroup) => (
-            <Button
-              key={yearGroup}
-              variant={selectedYearGroup === yearGroup ? 'primary' : 'secondary'}
-              onClick={() => handleYearGroupSelect(yearGroup)}
-            >
-              {yearGroup}
-            </Button>
-          ))}
+    return (
+      <div className="max-w-6xl mx-auto">
+        <div className="text-center mb-8">
+          <h2 className="text-3xl font-['Roboto_Slab'] font-bold text-grit-green mb-4">
+            Select Challenges
+          </h2>
+          <p className="text-gray-900 text-lg mb-2">
+            {selectedYearGroup 
+              ? `Select challenges for ${selectedYearGroup}. We recommend a mix from each pathway for a well-rounded programme.`
+              : "Select challenges to build your school's programme"}
+          </p>
+          <p className="text-sm text-gray-600 mt-2">
+            Total Selected: {selectedChallenges.length}
+          </p>
         </div>
-      </div>
 
-      {selectedYearGroup && (
+        {/* Year Group Tabs */}
         <div className="mb-6">
           <h3 className="text-lg font-['Roboto_Slab'] font-semibold text-grit-green mb-4">
-            Available Challenges ({selectedChallenges.length}/100 selected)
+            Year Group
           </h3>
-          
-          {loadingChallenges ? (
-            <div className="text-center py-8">
-              <div className="inline-block animate-spin rounded-full h-8 w-8 border-b-2 border-grit-green"></div>
-              <p className="mt-2 text-gray-900">Loading challenges...</p>
-            </div>
-          ) : (
-            <div className="grid grid-cols-1 md:grid-cols-2 gap-4">
-              {challenges.map((challenge) => (
-                <Card 
-                  key={challenge.id} 
-                  className={`cursor-pointer transition-all ${
-                    selectedChallenges.includes(challenge.id) 
-                      ? 'ring-2 ring-grit-green bg-grit-green/5' 
-                      : 'hover:shadow-lg'
-                  }`}
-                  onClick={() => handleChallengeToggle(challenge.id)}
-                >
-                  <div className="flex items-start gap-3">
-                    <input
-                      type="checkbox"
-                      checked={selectedChallenges.includes(challenge.id)}
-                      onChange={() => handleChallengeToggle(challenge.id)}
-                      className="mt-1 w-4 h-4 text-grit-gold-dark border-gray-300 rounded focus:ring-grit-gold-dark"
-                      style={{ accentColor: '#847147' }}
-                    />
-                    <div className="flex-1">
-                      <div className="flex items-center justify-between mb-2">
-                        <h4 className="font-semibold text-gray-900">
-                          {challenge.title}
-                        </h4>
-                        <div className={`px-2 py-1 rounded text-xs font-medium text-white ${getCategoryColor(challenge.category || 'General')}`}>
-                          {challenge.category || 'General'}
-                        </div>
-                      </div>
-                      <p className="text-sm text-gray-900">
-                        {challenge.description || challenge.text}
-                      </p>
-                    </div>
-                  </div>
-                </Card>
-              ))}
-            </div>
-          )}
+          <div className="flex gap-3 flex-wrap">
+            {['Year 3', 'Year 4', 'Year 5', 'Year 6'].map((yearGroup) => (
+              <Button
+                key={yearGroup}
+                variant={selectedYearGroup === yearGroup ? 'primary' : 'secondary'}
+                onClick={() => handleYearGroupSelect(yearGroup)}
+              >
+                {yearGroup}
+              </Button>
+            ))}
+          </div>
         </div>
-      )}
 
-      {selectedChallenges.length === 5 && (
-        <div className="text-center">
-          <Button
-            variant="primary"
-            className="px-8 py-3 text-lg"
-            onClick={handleConfirmAndViewLogin}
-          >
-            Confirm and View Login
-          </Button>
-        </div>
-      )}
-    </div>
-  )
+        {selectedYearGroup && (
+          <div className="mb-6">
+            {loadingChallenges ? (
+              <div className="text-center py-8">
+                <div className="inline-block animate-spin rounded-full h-8 w-8 border-b-2 border-grit-green"></div>
+                <p className="mt-2 text-gray-900">Loading challenges...</p>
+              </div>
+            ) : organizedChallenges ? (
+              <div className="space-y-4">
+                {Object.entries(organizedChallenges).map(([pathwayKey, pathwayData]) => {
+                  const isExpanded = expandedPathways.includes(pathwayKey)
+                  const selectedCount = getSelectedCountForPathway(pathwayData)
+                  const totalCount = getTotalCountForPathway(pathwayData)
+
+                  return (
+                    <div key={pathwayKey} className="border border-gray-200 rounded-lg overflow-hidden">
+                      {/* Pathway Header */}
+                      <button
+                        onClick={() => togglePathway(pathwayKey)}
+                        className="w-full bg-[#032717] text-white px-6 py-4 flex items-center justify-between hover:bg-[#032717]/90 transition-colors"
+                      >
+                        <div className="flex items-center gap-3">
+                          <svg 
+                            className={`w-5 h-5 transition-transform duration-200 ${isExpanded ? 'rotate-90' : ''}`}
+                            fill="none" 
+                            stroke="currentColor" 
+                            viewBox="0 0 24 24"
+                          >
+                            <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M9 5l7 7-7 7" />
+                          </svg>
+                          <div className="text-left">
+                            <h3 className="font-['Roboto_Slab'] font-semibold text-lg">
+                              {pathwayData.name} ({selectedCount}/{totalCount} selected)
+                            </h3>
+                            <p className="text-sm text-white/80 mt-1">{pathwayData.description}</p>
+                          </div>
+                        </div>
+                      </button>
+
+                      {/* Pathway Content */}
+                      {isExpanded && (
+                        <div className="bg-white p-4 space-y-3 transition-all duration-300 ease-in-out">
+                          {Object.entries(pathwayData.subcategories).map(([subcategory, subcategoryChallenges]) => {
+                            if (subcategoryChallenges.length === 0) return null
+                            
+                            const subcategoryKey = `${pathwayKey}-${subcategory}`
+                            const isSubcategoryExpanded = expandedSubcategories[subcategoryKey]
+                            const subcategorySelectedCount = getSelectedCountForSubcategory(subcategoryChallenges)
+
+                            return (
+                              <div key={subcategory} className="border-l-4 border-[#032717] bg-gray-50 rounded-r-lg overflow-hidden">
+                                {/* Subcategory Header */}
+                                <button
+                                  onClick={() => toggleSubcategory(pathwayKey, subcategory)}
+                                  className="w-full px-4 py-3 flex items-center justify-between hover:bg-gray-100 transition-colors"
+                                >
+                                  <div className="flex items-center gap-2">
+                                    <svg 
+                                      className={`w-4 h-4 text-gray-600 transition-transform duration-200 ${isSubcategoryExpanded ? 'rotate-90' : ''}`}
+                                      fill="none" 
+                                      stroke="currentColor" 
+                                      viewBox="0 0 24 24"
+                                    >
+                                      <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M9 5l7 7-7 7" />
+                                    </svg>
+                                    <span className="font-medium text-gray-900">
+                                      {subcategory} ({subcategorySelectedCount}/{subcategoryChallenges.length})
+                                    </span>
+                                  </div>
+                                </button>
+
+                                {/* Subcategory Challenges */}
+                                {isSubcategoryExpanded && (
+                                  <div className="px-4 pb-4 pt-2 transition-all duration-300 ease-in-out">
+                                    <div className="grid grid-cols-1 md:grid-cols-2 gap-3">
+                                      {subcategoryChallenges.map((challenge) => (
+                                        <Card 
+                                          key={challenge.id} 
+                                          className={`cursor-pointer transition-all ${
+                                            selectedChallenges.includes(challenge.id) 
+                                              ? 'ring-2 ring-grit-green bg-grit-green/5' 
+                                              : 'hover:shadow-lg'
+                                          }`}
+                                          onClick={() => handleChallengeToggle(challenge.id)}
+                                        >
+                                          <div className="flex items-start gap-3">
+                                            <input
+                                              type="checkbox"
+                                              checked={selectedChallenges.includes(challenge.id)}
+                                              onChange={() => handleChallengeToggle(challenge.id)}
+                                              onClick={(e) => e.stopPropagation()}
+                                              className="mt-1 w-4 h-4 text-grit-gold-dark border-gray-300 rounded focus:ring-grit-gold-dark"
+                                              style={{ accentColor: '#847147' }}
+                                            />
+                                            <div className="flex-1">
+                                              <div className="flex items-center justify-between mb-2">
+                                                <h4 className="font-semibold text-gray-900 text-sm">
+                                                  {challenge.title}
+                                                </h4>
+                                                {challenge.category && (
+                                                  <div className={`px-2 py-1 rounded text-xs font-medium text-white ${getCategoryColor(challenge.category)}`}>
+                                                    {challenge.category}
+                                                  </div>
+                                                )}
+                                              </div>
+                                              <p className="text-xs text-gray-600 line-clamp-2">
+                                                {challenge.description || challenge.text}
+                                              </p>
+                                            </div>
+                                          </div>
+                                        </Card>
+                                      ))}
+                                    </div>
+                                  </div>
+                                )}
+                              </div>
+                            )
+                          })}
+                        </div>
+                      )}
+                    </div>
+                  )
+                })}
+              </div>
+            ) : (
+              <div className="text-center py-8 text-gray-500">
+                No challenges available for this year group.
+              </div>
+            )}
+          </div>
+        )}
+
+        {selectedChallenges.length >= 5 && (
+          <div className="text-center mt-8">
+            <Button
+              variant="primary"
+              className="px-8 py-3 text-lg"
+              onClick={handleConfirmAndViewLogin}
+            >
+              Confirm and View Login
+            </Button>
+          </div>
+        )}
+      </div>
+    )
+  }
 
   return (
     <div className="fixed inset-0 z-50 flex items-center justify-center">
