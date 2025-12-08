@@ -886,6 +886,12 @@ const LeaderDashboard = () => {
       alert('Please select a student and enter a message')
       return
     }
+
+    // DEBUG LOGGING
+    console.log('=== COMPOSE MESSAGE DEBUG ===')
+    console.log('composeStudentId:', composeStudentId)
+    console.log('teacherId:', teacherId)
+    console.log('composeMessage:', composeMessage)
     
     try {
       setSendingMessage(true)
@@ -900,6 +906,9 @@ const LeaderDashboard = () => {
         .maybeSingle()
 
       if (findConvError) throw findConvError
+
+      console.log('existingConversation:', existingConversation)
+      console.log('findConvError:', findConvError)
 
       let conversationId = existingConversation?.id
 
@@ -922,6 +931,8 @@ const LeaderDashboard = () => {
         if (convError) throw convError
         conversationId = newConversation.id
       }
+
+      console.log('Final conversationId before insert:', conversationId)
 
       // 3) Insert the message
       const { error: msgError } = await supabase
