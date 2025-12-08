@@ -280,7 +280,7 @@ const NewSchoolWizard = ({ isOpen, onClose }) => {
   const organizeChallengesByPathway = (challenges) => {
     const pathways = {
       'specialist-led': {
-        name: 'Specialist-Led Challenges',
+        name: 'Specialist Challenges',
         description: 'Delivered by UKMS veterans during GRIT Days',
         subcategories: {
           'Mapping & Navigation': [],
@@ -291,7 +291,7 @@ const NewSchoolWizard = ({ isOpen, onClose }) => {
         }
       },
       'school-led': {
-        name: 'School-Led Challenges',
+        name: 'School Challenges',
         description: "Integrated into your school's curriculum",
         subcategories: {
           'English': [],
@@ -305,7 +305,7 @@ const NewSchoolWizard = ({ isOpen, onClose }) => {
         }
       },
       'independent-led': {
-        name: 'Independent-Led Challenges',
+        name: 'Parent/Carer Challenges',
         description: 'Completed at home with family support',
         subcategories: {
           'Home & Daily Living': [],

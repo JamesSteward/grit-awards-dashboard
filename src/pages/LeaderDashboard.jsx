@@ -5,6 +5,17 @@ import GrungeOverlay from '../components/GrungeOverlay'
 import { supabase } from '../lib/supabaseClient'
 import { useNavigate } from 'react-router-dom'
 
+// Helper function to get display label for pathway
+const getPathwayLabel = (pathway) => {
+  if (!pathway) return ''
+  const pathwayMap = {
+    'independent-led': 'Parent/Carer',
+    'school-led': 'School',
+    'specialist-led': 'Specialist'
+  }
+  return pathwayMap[pathway.toLowerCase()] || pathway.replace(/-/g, ' ').replace(/\b\w/g, l => l.toUpperCase())
+}
+
 const LeaderDashboard = () => {
   const navigate = useNavigate()
   const [activeTab, setActiveTab] = useState('students')
@@ -1631,7 +1642,7 @@ const LeaderDashboard = () => {
                                           ? 'bg-blue-100 text-blue-700'
                                           : 'bg-grit-gold text-grit-gold-dark'
                                       }`}>
-                                        {evidence.challenges.pathway}
+                                        {getPathwayLabel(evidence.challenges.pathway)}
                                       </span>
                                     )}
                                   </div>

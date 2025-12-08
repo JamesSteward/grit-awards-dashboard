@@ -8,6 +8,17 @@ import confetti from 'canvas-confetti'
 import ImageCarousel from '../components/ImageCarousel'
 import WarningModal from '../components/family/WarningModal'
 
+// Helper function to get display label for pathway
+const getPathwayLabel = (pathway) => {
+  if (!pathway) return ''
+  const pathwayMap = {
+    'independent-led': 'Parent/Carer',
+    'school-led': 'School',
+    'specialist-led': 'Specialist'
+  }
+  return pathwayMap[pathway.toLowerCase()] || pathway.replace(/-/g, ' ').replace(/\b\w/g, l => l.toUpperCase())
+}
+
 const FamilyDashboard = () => {
   const location = useLocation()
   const navigate = useNavigate()
@@ -1340,7 +1351,7 @@ const FamilyDashboard = () => {
                     <option value="all">All Pathways</option>
                     {pathways.filter(p => p !== 'all').map(pathway => (
                       <option key={pathway} value={pathway}>
-                        {pathway.replace(/-/g, ' ').replace(/\b\w/g, l => l.toUpperCase())}
+                        {getPathwayLabel(pathway)}
                       </option>
                     ))}
                   </select>
@@ -1365,7 +1376,7 @@ const FamilyDashboard = () => {
                       <svg className="w-5 h-5" viewBox="0 0 24 24" fill="currentColor">
                         <path d="M19 3H5c-1.1 0-2 .9-2 2v14c0 1.1.9 2 2 2h14c1.1 0 2-.9 2-2V5c0-1.1-.9-2-2-2zm-5 14H7v-2h7v2zm3-4H7v-2h10v2zm0-4H7V7h10v2z"/>
                       </svg>
-                      {pathway.replace(/-/g, ' ').replace(/\b\w/g, l => l.toUpperCase())}
+                      {getPathwayLabel(pathway)}
                     </h2>
                     <div className="grid gap-4 md:grid-cols-2 lg:grid-cols-3">
                       {pathwayChallenges.map(challenge => {
@@ -2532,7 +2543,7 @@ const ChallengeCard = ({ challenge, status: displayStatus, isExpanded, onExpand,
             <span className={`px-2 py-1 rounded text-xs font-medium ${
                 isCompleted ? 'bg-gray-200 text-gray-700' : 'bg-blue-100 text-blue-700'
               }`}>
-                {pathway.replace(/-/g, ' ').replace(/\b\w/g, l => l.toUpperCase())}
+                {getPathwayLabel(pathway)}
             </span>
           )}
         </div>
@@ -2591,7 +2602,7 @@ const ChallengeCard = ({ challenge, status: displayStatus, isExpanded, onExpand,
           </span>
           {pathway && (
             <span className="bg-blue-100 text-blue-700 px-3 py-1 rounded-full text-xs font-semibold">
-              {pathway.replace(/-/g, ' ').replace(/\b\w/g, l => l.toUpperCase())}
+              {getPathwayLabel(pathway)}
             </span>
           )}
       </div>

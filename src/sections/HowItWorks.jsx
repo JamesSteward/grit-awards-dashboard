@@ -45,7 +45,7 @@ const Reveal = ({ children, delay = 0, className = "" }) => {
 function HowItWorks() {
   const pathways = [
     {
-      title: "Independent-Led",
+      title: "Parent/Carer",
       summary: "Children take ownership of their learning journey at home with family support.",
       examples: [
         "Learning to tie shoelaces independently",
@@ -55,7 +55,7 @@ function HowItWorks() {
       ]
     },
     {
-      title: "School-Led", 
+      title: "School", 
       summary: "Teachers guide students through structured activities within the classroom setting.",
       examples: [
         "Leading a class discussion or presentation",
@@ -65,7 +65,7 @@ function HowItWorks() {
       ]
     },
     {
-      title: "Specialist-Led (UKMS)",
+      title: "Specialist",
       summary: "UKMS-trained specialists deliver outdoor challenges and adventure-based learning.",
       examples: [
         "Team building activities and problem-solving challenges",
