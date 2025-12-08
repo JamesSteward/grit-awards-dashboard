@@ -2397,7 +2397,7 @@ const LeaderDashboard = () => {
                     { value: 'monthly', label: 'Monthly Progress Report', description: 'Summary of student activity and completions this month' },
                     { value: 'quarterly', label: 'Quarterly Review', description: 'Detailed breakdown of progress across the term' },
                     { value: 'annual', label: 'Annual Summary', description: 'Full year overview with trends and achievements' },
-                    { value: 'ofsted', label: 'OFSTED Evidence Pack', description: 'Character education evidence for inspection readiness' },
+                    { value: 'ofsted', label: 'OEIR (Overall Evaluation Impact Report)', description: 'Comprehensive impact report measuring programme outcomes and student development' },
                     { value: 'individual', label: 'Individual Student Report', description: 'Detailed progress report for a specific student' }
                   ].map((report) => (
                     <label
