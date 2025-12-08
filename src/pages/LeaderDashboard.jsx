@@ -889,22 +889,61 @@ const LeaderDashboard = () => {
     
     try {
       setSendingMessage(true)
-      const targetStudent = students.find(s => s.id === composeStudentId)
-      
-      const { error } = await supabase
+      const now = new Date().toISOString()
+
+      // 1) Find existing conversation for this student
+      const { data: existingConversation, error: findConvError } = await supabase
+        .from('conversations')
+        .select('id')
+        .eq('student_id', composeStudentId)
+        .eq('conversation_type', 'general')
+        .maybeSingle()
+
+      if (findConvError) throw findConvError
+
+      let conversationId = existingConversation?.id
+
+      // 2) Create conversation if it doesn't exist
+      if (!conversationId) {
+        const selectedStudent = students.find(s => s.id === composeStudentId)
+        const { data: newConversation, error: convError } = await supabase
+          .from('conversations')
+          .insert({
+            student_id: composeStudentId,
+            conversation_type: 'general',
+            subject: 'Message from GRIT Leader',
+            is_read: false,
+            created_at: now,
+            last_message_at: now
+          })
+          .select('id')
+          .single()
+
+        if (convError) throw convError
+        conversationId = newConversation.id
+      }
+
+      // 3) Insert the message
+      const { error: msgError } = await supabase
         .from('messages')
         .insert({
-          conversation_id: composeStudentId,
+          conversation_id: conversationId,
           sender_type: 'leader',
           sender_id: teacherId,
           content: composeMessage.trim(),
           is_read: false,
-          created_at: new Date().toISOString()
+          created_at: now
         })
-      
-      if (error) throw error
-      
-      setSuccessMessage(`Message sent${targetStudent ? ` to ${targetStudent.first_name} ${targetStudent.last_name}'s family!` : ' successfully!'}`)
+
+      if (msgError) throw msgError
+
+      // 4) Update conversation last_message_at
+      await supabase
+        .from('conversations')
+        .update({ last_message_at: now })
+        .eq('id', conversationId)
+
+      setSuccessMessage('Message sent successfully!')
       setComposeMessage('')
       setComposeStudentId('')
       setShowComposeModal(false)
