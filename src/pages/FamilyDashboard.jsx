@@ -7,6 +7,7 @@ import { supabase } from '../lib/supabaseClient'
 import confetti from 'canvas-confetti'
 import ImageCarousel from '../components/ImageCarousel'
 import WarningModal from '../components/family/WarningModal'
+import { PieChart, Pie, Cell, ResponsiveContainer } from 'recharts'
 
 // Helper function to get display label for pathway
 const getPathwayLabel = (pathway) => {
@@ -54,6 +55,12 @@ const FamilyDashboard = () => {
     completedCount: 0,
     inProgressCount: 0,
     gritPoints: 0
+  })
+  const [progressBreakdown, setProgressBreakdown] = useState({
+    parentCarer: 0,
+    school: 0,
+    specialist: 0,
+    remaining: 0
   })
 
   // Messaging state
@@ -118,7 +125,7 @@ const FamilyDashboard = () => {
       
       const { data: progress, error } = await supabase
         .from('student_progress')
-        .select('status, objective_id')
+        .select('status, objective_id, challenges(pathway)')
         .eq('student_id', student.id)
       
       console.log('Progress data:', progress)
@@ -130,8 +137,17 @@ const FamilyDashboard = () => {
       }
       
       const total = progress.length
-      const completed = progress.filter(p => p.status === 'approved').length
+      const completedItems = progress.filter(p => p.status === 'approved')
+      const completed = completedItems.length
       const inProgress = progress.filter(p => p.status === 'in_progress' || p.status === 'submitted').length
+      
+      // Completed by pathway
+      const completedByPathway = {
+        parentCarer: completedItems.filter(p => p.challenges?.pathway === 'independent-led').length,
+        school: completedItems.filter(p => p.challenges?.pathway === 'school-led').length,
+        specialist: completedItems.filter(p => p.challenges?.pathway === 'specialist-led').length
+      }
+      const remaining = Math.max(total - (completedByPathway.parentCarer + completedByPathway.school + completedByPathway.specialist), 0)
       
       console.log('Completed:', completed, 'In Progress:', inProgress, 'Total:', total)
       
@@ -154,12 +170,24 @@ const FamilyDashboard = () => {
           inProgressCount: inProgress,
           gritPoints: points
         })
+        setProgressBreakdown({
+          parentCarer: completedByPathway.parentCarer,
+          school: completedByPathway.school,
+          specialist: completedByPathway.specialist,
+          remaining
+        })
       } else {
         setStats({
           progressPercentage: 0,
           completedCount: 0,
           inProgressCount: inProgress,
           gritPoints: 0
+        })
+        setProgressBreakdown({
+          parentCarer: 0,
+          school: 0,
+          specialist: 0,
+          remaining: total
         })
       }
     } catch (error) {
@@ -1493,34 +1521,39 @@ const FamilyDashboard = () => {
                 <p className="text-gray-900">Your journey through GRIT challenges</p>
               </div>
 
-              {/* Circular Progress */}
+              {/* Donut Progress */}
               <div className="flex flex-col items-center mb-8">
-                <div className="relative w-48 h-48 mb-6">
-                  {/* Background Circle */}
-                  <svg className="w-48 h-48 transform -rotate-90" viewBox="0 0 100 100">
-                    <circle
-                      cx="50"
-                      cy="50"
-                      r="40"
-                      stroke="#E5E7EB"
-                      strokeWidth="8"
-                      fill="none"
-                    />
-                    {/* Progress Circle */}
-                    <circle
-                      cx="50"
-                      cy="50"
-                      r="40"
-                      stroke="#032717"
-                      strokeWidth="8"
-                      fill="none"
-                      strokeLinecap="round"
-                      strokeDasharray={`${2 * Math.PI * 40}`}
-                      strokeDashoffset={`${2 * Math.PI * 40 * (1 - (stats.progressPercentage || 0) / 100)}`}
-                      className="transition-all duration-1000 ease-out"
-                    />
-                  </svg>
-                  
+                <div className="relative w-56 h-56 mb-6">
+                  <ResponsiveContainer width="100%" height="100%">
+                    <PieChart>
+                      <Pie
+                        data={[
+                          { name: 'Parent/Carer', value: progressBreakdown.parentCarer, fill: '#032717' },
+                          { name: 'School', value: progressBreakdown.school, fill: '#b5aa91' },
+                          { name: 'Specialist', value: progressBreakdown.specialist, fill: '#847147' },
+                          { name: 'Remaining', value: progressBreakdown.remaining, fill: '#e5e7eb' }
+                        ]}
+                        dataKey="value"
+                        nameKey="name"
+                        cx="50%"
+                        cy="50%"
+                        innerRadius={60}
+                        outerRadius={80}
+                        startAngle={90}
+                        endAngle={-270}
+                      >
+                        {[
+                          { name: 'Parent/Carer', fill: '#032717' },
+                          { name: 'School', fill: '#b5aa91' },
+                          { name: 'Specialist', fill: '#847147' },
+                          { name: 'Remaining', fill: '#e5e7eb' }
+                        ].map((entry, index) => (
+                          <Cell key={index} fill={entry.fill} />
+                        ))}
+                      </Pie>
+                    </PieChart>
+                  </ResponsiveContainer>
+
                   {/* Center Content */}
                   <div className="absolute inset-0 flex flex-col items-center justify-center">
                     <div className="text-4xl font-bold text-grit-green mb-1">
@@ -1541,8 +1574,24 @@ const FamilyDashboard = () => {
                     <div className="text-sm text-gray-900">In Progress</div>
                   </div>
                   <div className="bg-gray-50 rounded-lg p-4">
-                    <div className="text-2xl font-bold text-gray-500 mb-1">{challenges.length - (stats.completedCount || 0) - (stats.inProgressCount || 0)}</div>
+                    <div className="text-2xl font-bold text-gray-500 mb-1">{Math.max(challenges.length - (stats.completedCount || 0) - (stats.inProgressCount || 0), 0)}</div>
                     <div className="text-sm text-gray-900">Yet to Start</div>
+                  </div>
+                </div>
+
+                {/* Pathway Legend */}
+                <div className="flex justify-center gap-4 mt-4 text-sm">
+                  <div className="flex items-center gap-2">
+                    <div className="w-3 h-3 rounded-full bg-[#032717]"></div>
+                    <span>Parent/Carer</span>
+                  </div>
+                  <div className="flex items-center gap-2">
+                    <div className="w-3 h-3 rounded-full bg-[#b5aa91]"></div>
+                    <span>School</span>
+                  </div>
+                  <div className="flex items-center gap-2">
+                    <div className="w-3 h-3 rounded-full bg-[#847147]"></div>
+                    <span>Specialist</span>
                   </div>
                 </div>
               </div>

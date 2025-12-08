@@ -1821,22 +1821,24 @@ const LeaderDashboard = () => {
                 <h4 className="text-md font-heading font-semibold text-grit-green mb-4">Class Progress</h4>
                 
                 {/* Year 3 Card - Bar Chart */}
-                <Card className="mb-4 p-4">
+                <Card className="mb-4 p-4 pb-8">
                   <h3 className="text-lg font-['Roboto_Slab'] font-semibold text-[#032717] mb-3">Year 3 Progress Overview</h3>
-                  <ResponsiveContainer width="100%" height={200}>
-                    <BarChart data={[
-                      { name: 'Completed', value: 45, fill: '#032717' },
-                      { name: 'Active', value: 28, fill: '#b5aa91' },
-                      { name: 'Awaiting Review', value: 12, fill: '#847147' }
-                    ]}>
-                      <CartesianGrid strokeDasharray="3 3" />
-                      <XAxis dataKey="name" />
-                      <YAxis />
-                      <Tooltip />
-                      <Bar dataKey="value" />
-                    </BarChart>
-                  </ResponsiveContainer>
-                  <div className="flex justify-center gap-2 mt-3">
+                  <div className="mb-6">
+                    <ResponsiveContainer width="100%" height={200}>
+                      <BarChart data={[
+                        { name: 'Completed', value: 45, fill: '#032717' },
+                        { name: 'Active', value: 28, fill: '#b5aa91' },
+                        { name: 'Awaiting Review', value: 12, fill: '#847147' }
+                      ]}>
+                        <CartesianGrid strokeDasharray="3 3" />
+                        <XAxis dataKey="name" />
+                        <YAxis />
+                        <Tooltip />
+                        <Bar dataKey="value" />
+                      </BarChart>
+                    </ResponsiveContainer>
+                  </div>
+                  <div className="flex justify-center gap-2 mt-4">
                     {[0, 1, 2, 3].map(i => (
                       <div 
                         key={i}
@@ -1847,48 +1849,50 @@ const LeaderDashboard = () => {
                 </Card>
 
                 {/* Year 4 Card - Pie Chart */}
-                <Card className="mb-4 p-4">
+                <Card className="mb-4 p-4 pb-8">
                   <h3 className="text-lg font-['Roboto_Slab'] font-semibold text-[#032717] mb-3">Year 4 Pathway Distribution</h3>
-                  <ResponsiveContainer width="100%" height={200}>
-                    <PieChart>
-                      <Pie
-                        data={[
-                          { name: 'Parent/Carer', value: 38 },
-                          { name: 'School', value: 25 },
-                          { name: 'Specialist', value: 12 }
-                        ]}
-                        dataKey="value"
-                        nameKey="name"
-                        cx="50%"
-                        cy="50%"
-                        outerRadius={75}
-                        labelLine={false}
-                        label={({ cx, cy, midAngle, innerRadius, outerRadius, percent }) => {
-                          const RADIAN = Math.PI / 180;
-                          const radius = innerRadius + (outerRadius - innerRadius) * 0.5;
-                          const x = cx + radius * Math.cos(-midAngle * RADIAN);
-                          const y = cy + radius * Math.sin(-midAngle * RADIAN);
-                          return (
-                            <text x={x} y={y} fill="white" textAnchor="middle" dominantBaseline="central" fontSize={12} fontWeight="bold">
-                              {`${(percent * 100).toFixed(0)}%`}
-                            </text>
-                          );
-                        }}
-                      >
-                        <Cell fill="#032717" />
-                        <Cell fill="#b5aa91" />
-                        <Cell fill="#847147" />
-                      </Pie>
-                      <Tooltip />
-                      <Legend 
-                        verticalAlign="bottom" 
-                        align="center" 
-                        height={36}
-                        wrapperStyle={{ paddingTop: 20 }}
-                      />
-                    </PieChart>
-                  </ResponsiveContainer>
-                  <div className="flex justify-center gap-2 mt-3">
+                  <div className="mb-6">
+                    <ResponsiveContainer width="100%" height={200}>
+                      <PieChart>
+                        <Pie
+                          data={[
+                            { name: 'Parent/Carer', value: 38 },
+                            { name: 'School', value: 25 },
+                            { name: 'Specialist', value: 12 }
+                          ]}
+                          dataKey="value"
+                          nameKey="name"
+                          cx="50%"
+                          cy="50%"
+                          outerRadius={75}
+                          labelLine={false}
+                          label={({ cx, cy, midAngle, innerRadius, outerRadius, percent }) => {
+                            const RADIAN = Math.PI / 180;
+                            const radius = innerRadius + (outerRadius - innerRadius) * 0.5;
+                            const x = cx + radius * Math.cos(-midAngle * RADIAN);
+                            const y = cy + radius * Math.sin(-midAngle * RADIAN);
+                            return (
+                              <text x={x} y={y} fill="white" textAnchor="middle" dominantBaseline="central" fontSize={12} fontWeight="bold">
+                                {`${(percent * 100).toFixed(0)}%`}
+                              </text>
+                            );
+                          }}
+                        >
+                          <Cell fill="#032717" />
+                          <Cell fill="#b5aa91" />
+                          <Cell fill="#847147" />
+                        </Pie>
+                        <Tooltip />
+                        <Legend 
+                          verticalAlign="bottom" 
+                          align="center" 
+                          height={36}
+                          wrapperStyle={{ paddingTop: 20 }}
+                        />
+                      </PieChart>
+                    </ResponsiveContainer>
+                  </div>
+                  <div className="flex justify-center gap-2 mt-4">
                     {[0, 1, 2, 3].map(i => (
                       <div 
                         key={i}
@@ -1899,30 +1903,32 @@ const LeaderDashboard = () => {
                 </Card>
 
                 {/* Year 5 Card - Line Chart */}
-                <Card className="mb-4 p-4">
+                <Card className="mb-4 p-4 pb-8">
                   <h3 className="text-lg font-['Roboto_Slab'] font-semibold text-[#032717] mb-3">Year 5 Monthly Progress (2025/26)</h3>
-                  <ResponsiveContainer width="100%" height={200}>
-                    <LineChart data={[
-                      { month: 'Sep', completed: 15 },
-                      { month: 'Oct', completed: 28 },
-                      { month: 'Nov', completed: 45 },
-                      { month: 'Dec', completed: 52 },
-                      { month: 'Jan', completed: 68 },
-                      { month: 'Feb', completed: 85 },
-                      { month: 'Mar', completed: 102 },
-                      { month: 'Apr', completed: 120 },
-                      { month: 'May', completed: 138 },
-                      { month: 'Jun', completed: 155 },
-                      { month: 'Jul', completed: 170 }
-                    ]}>
-                      <CartesianGrid strokeDasharray="3 3" />
-                      <XAxis dataKey="month" />
-                      <YAxis />
-                      <Tooltip />
-                      <Line type="monotone" dataKey="completed" stroke="#032717" strokeWidth={2} />
-                    </LineChart>
-                  </ResponsiveContainer>
-                  <div className="flex justify-center gap-2 mt-3">
+                  <div className="mb-6">
+                    <ResponsiveContainer width="100%" height={200}>
+                      <LineChart data={[
+                        { month: 'Sep', completed: 15 },
+                        { month: 'Oct', completed: 28 },
+                        { month: 'Nov', completed: 45 },
+                        { month: 'Dec', completed: 52 },
+                        { month: 'Jan', completed: 68 },
+                        { month: 'Feb', completed: 85 },
+                        { month: 'Mar', completed: 102 },
+                        { month: 'Apr', completed: 120 },
+                        { month: 'May', completed: 138 },
+                        { month: 'Jun', completed: 155 },
+                        { month: 'Jul', completed: 170 }
+                      ]}>
+                        <CartesianGrid strokeDasharray="3 3" />
+                        <XAxis dataKey="month" />
+                        <YAxis />
+                        <Tooltip />
+                        <Line type="monotone" dataKey="completed" stroke="#032717" strokeWidth={2} />
+                      </LineChart>
+                    </ResponsiveContainer>
+                  </div>
+                  <div className="flex justify-center gap-2 mt-4">
                     {[0, 1, 2, 3].map(i => (
                       <div 
                         key={i}
@@ -1933,58 +1939,60 @@ const LeaderDashboard = () => {
                 </Card>
 
                 {/* Year 6 Card - Scatter Chart */}
-                <Card className="mb-4 p-4">
+                <Card className="mb-4 p-4 pb-8">
                   <h3 className="text-lg font-['Roboto_Slab'] font-semibold text-[#032717] mb-3">Year 6 Points by Student</h3>
-                  <ResponsiveContainer width="100%" height={200}>
-                    <ScatterChart>
-                      <CartesianGrid strokeDasharray="3 3" />
-                      <XAxis 
-                        type="number"
-                        dataKey="monthIndex" 
-                        name="Month"
-                        domain={[0, 10]}
-                        tickFormatter={(value) => {
-                          const months = ['Sep', 'Oct', 'Nov', 'Dec', 'Jan', 'Feb', 'Mar', 'Apr', 'May', 'Jun', 'Jul'];
-                          return months[value] || '';
-                        }}
-                      />
-                      <YAxis type="number" dataKey="points" name="GRIT Points" domain={[0, 500]} />
-                      <Tooltip 
-                        cursor={{ strokeDasharray: '3 3' }}
-                        formatter={(value, name, props) => {
-                          const months = ['Sep', 'Oct', 'Nov', 'Dec', 'Jan', 'Feb', 'Mar', 'Apr', 'May', 'Jun', 'Jul'];
-                          if (name === 'points') return [value, 'GRIT Points'];
-                          return [months[props.payload.monthIndex] || '', 'Month'];
-                        }}
-                      />
-                      <Legend />
-                      <Scatter name="George" data={[
-                        { monthIndex: 0, points: 40 },
-                        { monthIndex: 1, points: 80 },
-                        { monthIndex: 2, points: 140 },
-                        { monthIndex: 3, points: 200 },
-                        { monthIndex: 4, points: 280 },
-                        { monthIndex: 5, points: 320 }
-                      ]} fill="#032717" />
-                      <Scatter name="Jack" data={[
-                        { monthIndex: 0, points: 60 },
-                        { monthIndex: 1, points: 120 },
-                        { monthIndex: 2, points: 180 },
-                        { monthIndex: 3, points: 260 },
-                        { monthIndex: 4, points: 340 },
-                        { monthIndex: 5, points: 420 }
-                      ]} fill="#b5aa91" />
-                      <Scatter name="Mia" data={[
-                        { monthIndex: 0, points: 20 },
-                        { monthIndex: 1, points: 50 },
-                        { monthIndex: 2, points: 90 },
-                        { monthIndex: 3, points: 120 },
-                        { monthIndex: 4, points: 150 },
-                        { monthIndex: 5, points: 180 }
-                      ]} fill="#847147" />
-                    </ScatterChart>
-                  </ResponsiveContainer>
-                  <div className="flex justify-center gap-2 mt-3">
+                  <div className="mb-6">
+                    <ResponsiveContainer width="100%" height={200}>
+                      <ScatterChart>
+                        <CartesianGrid strokeDasharray="3 3" />
+                        <XAxis 
+                          type="number"
+                          dataKey="monthIndex" 
+                          name="Month"
+                          domain={[0, 10]}
+                          tickFormatter={(value) => {
+                            const months = ['Sep', 'Oct', 'Nov', 'Dec', 'Jan', 'Feb', 'Mar', 'Apr', 'May', 'Jun', 'Jul'];
+                            return months[value] || '';
+                          }}
+                        />
+                        <YAxis type="number" dataKey="points" name="GRIT Points" domain={[0, 500]} />
+                        <Tooltip 
+                          cursor={{ strokeDasharray: '3 3' }}
+                          formatter={(value, name, props) => {
+                            const months = ['Sep', 'Oct', 'Nov', 'Dec', 'Jan', 'Feb', 'Mar', 'Apr', 'May', 'Jun', 'Jul'];
+                            if (name === 'points') return [value, 'GRIT Points'];
+                            return [months[props.payload.monthIndex] || '', 'Month'];
+                          }}
+                        />
+                        <Legend />
+                        <Scatter name="George" data={[
+                          { monthIndex: 0, points: 40 },
+                          { monthIndex: 1, points: 80 },
+                          { monthIndex: 2, points: 140 },
+                          { monthIndex: 3, points: 200 },
+                          { monthIndex: 4, points: 280 },
+                          { monthIndex: 5, points: 320 }
+                        ]} fill="#032717" />
+                        <Scatter name="Jack" data={[
+                          { monthIndex: 0, points: 60 },
+                          { monthIndex: 1, points: 120 },
+                          { monthIndex: 2, points: 180 },
+                          { monthIndex: 3, points: 260 },
+                          { monthIndex: 4, points: 340 },
+                          { monthIndex: 5, points: 420 }
+                        ]} fill="#b5aa91" />
+                        <Scatter name="Mia" data={[
+                          { monthIndex: 0, points: 20 },
+                          { monthIndex: 1, points: 50 },
+                          { monthIndex: 2, points: 90 },
+                          { monthIndex: 3, points: 120 },
+                          { monthIndex: 4, points: 150 },
+                          { monthIndex: 5, points: 180 }
+                        ]} fill="#847147" />
+                      </ScatterChart>
+                    </ResponsiveContainer>
+                  </div>
+                  <div className="flex justify-center gap-2 mt-4">
                     {[0, 1, 2, 3].map(i => (
                       <div 
                         key={i}
