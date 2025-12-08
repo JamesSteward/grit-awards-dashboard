@@ -2023,64 +2023,78 @@ const LeaderDashboard = () => {
 
       {/* Compose Message Modal */}
       {showComposeModal && (
-        <div className="fixed inset-0 z-50 flex items-center justify-center">
-          <div className="absolute inset-0 bg-black bg-opacity-50" onClick={() => setShowComposeModal(false)}></div>
-          <Card className="max-w-md w-full mx-4 shadow-xl" header="Compose New Message">
-            
-            <div className="mb-4">
-              <label className="block text-sm font-medium text-gray-900 mb-2">Select Student</label>
-              <select
-                value={composeStudentId}
-                onChange={(e) => {
-                  const student = students.find(s => s.id === e.target.value)
-                  setComposeStudentId(e.target.value)
-                  setSelectedStudent(student || null)
-                }}
-                className="w-full px-3 py-2 border border-grit-gold-dark rounded-lg focus:ring-2 focus:ring-grit-green focus:border-transparent"
-              >
-                <option value="">Choose a student...</option>
-                {students.map(student => (
-                  <option key={student.id} value={student.id}>
-                    {student.first_name} {student.last_name} (Year {student.year_level})
-                  </option>
-                ))}
-              </select>
+        <>
+          {/* Overlay */}
+          <div
+            className="fixed inset-0 bg-black bg-opacity-50 z-40"
+            onClick={() => {
+              setShowComposeModal(false)
+              setSelectedStudent(null)
+              setComposeStudentId('')
+              setComposeMessage('')
+            }}
+          />
+
+          {/* Modal */}
+          <div className="fixed inset-0 flex items-center justify-center z-50">
+            <div className="relative bg-white rounded-lg p-6 w-full max-w-md shadow-xl mx-4">
+              <div className="text-xl font-heading font-semibold text-grit-green mb-4">Compose New Message</div>
+
+              <div className="mb-4">
+                <label className="block text-sm font-medium text-gray-900 mb-2">Select Student</label>
+                <select
+                  value={composeStudentId}
+                  onChange={(e) => {
+                    const student = students.find(s => s.id === e.target.value)
+                    setComposeStudentId(e.target.value)
+                    setSelectedStudent(student || null)
+                  }}
+                  className="w-full px-3 py-2 border border-grit-gold-dark rounded-lg focus:ring-2 focus:ring-grit-green focus:border-transparent"
+                >
+                  <option value="">Choose a student...</option>
+                  {students.map(student => (
+                    <option key={student.id} value={student.id}>
+                      {student.first_name} {student.last_name} (Year {student.year_level})
+                    </option>
+                  ))}
+                </select>
+              </div>
+              
+              <div className="mb-6">
+                <label className="block text-sm font-medium text-gray-900 mb-2">Message</label>
+                <textarea
+                  value={composeMessage}
+                  onChange={(e) => setComposeMessage(e.target.value)}
+                  placeholder="Type your message here..."
+                  className="w-full px-3 py-2 border border-grit-gold-dark rounded-lg focus:ring-2 focus:ring-grit-green focus:border-transparent h-32 resize-none"
+                />
+              </div>
+              
+              <div className="flex space-x-3">
+                <Button
+                  onClick={handleComposeMessage}
+                  disabled={!composeStudentId || !composeMessage.trim() || sendingMessage}
+                  variant="primary"
+                  className="flex-1"
+                >
+                  {sendingMessage ? 'Sending...' : 'Send'}
+                </Button>
+                <Button
+                  onClick={() => {
+                    setShowComposeModal(false)
+                    setSelectedStudent(null)
+                    setComposeStudentId('')
+                    setComposeMessage('')
+                  }}
+                  variant="secondary"
+                  className="flex-1"
+                >
+                  Cancel
+                </Button>
+              </div>
             </div>
-            
-            <div className="mb-6">
-              <label className="block text-sm font-medium text-gray-900 mb-2">Message</label>
-              <textarea
-                value={composeMessage}
-                onChange={(e) => setComposeMessage(e.target.value)}
-                placeholder="Type your message here..."
-                className="w-full px-3 py-2 border border-grit-gold-dark rounded-lg focus:ring-2 focus:ring-grit-green focus:border-transparent h-32 resize-none"
-              />
-            </div>
-            
-            <div className="flex space-x-3">
-              <Button
-                onClick={handleComposeMessage}
-                disabled={!composeStudentId || !composeMessage.trim() || sendingMessage}
-                variant="primary"
-                className="flex-1"
-              >
-                {sendingMessage ? 'Sending...' : 'Send'}
-              </Button>
-              <Button
-                onClick={() => {
-                  setShowComposeModal(false)
-                  setSelectedStudent(null)
-                  setComposeStudentId('')
-                  setComposeMessage('')
-                }}
-                variant="secondary"
-                className="flex-1"
-              >
-                Cancel
-              </Button>
-            </div>
-          </Card>
-        </div>
+          </div>
+        </>
       )}
 
       {/* Announcement Modal */}
