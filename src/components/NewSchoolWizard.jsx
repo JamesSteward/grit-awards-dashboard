@@ -408,19 +408,19 @@ const NewSchoolWizard = ({ isOpen, onClose }) => {
           <Card key={plan} className={`relative ${selectedPlan === plan ? 'ring-2 ring-grit-green' : ''}`}>
             <div className="text-center">
               <h3 className="text-xl font-['Roboto_Slab'] font-bold text-grit-green mb-2">
-                {plan === 'Bronze' ? 'Op Resilience Package' : 
-                 plan === 'Silver' ? 'Mission Leadership Package' : 
-                 'Life Ready Package'}
+                {plan === 'Bronze' ? 'Hastings Award' : 
+                 plan === 'Silver' ? 'Trafalgar Award' : 
+                 'Waterloo Award'}
               </h3>
               <div className="text-sm font-bold text-grit-gold-dark mb-4">
-                {plan === 'Bronze' ? 'from £12,500 + VAT per academic year' :
-                 plan === 'Silver' ? 'from £16,500 + VAT per academic year' :
-                 'from £19,500 + VAT per academic year'}
+                {plan === 'Bronze' ? 'from £XX,XXX + VAT per academic year' :
+                 plan === 'Silver' ? 'from £XX,XXX + VAT per academic year' :
+                 'from £XX,XXX + VAT per academic year'}
               </div>
               <ul className="text-sm text-gray-900 mb-6 space-y-2">
                 {plan === 'Bronze' && (
                   <>
-                    <li>• 70 Challenges</li>
+                    <li>• 30 Challenges</li>
                     <li>• 10 UKMS Specialist Days</li>
                     <li>• 1 Cohort (up to 30 pupils)</li>
                     <li>• Email Support</li>
@@ -428,7 +428,7 @@ const NewSchoolWizard = ({ isOpen, onClose }) => {
                 )}
                 {plan === 'Silver' && (
                   <>
-                    <li>• 100 Challenges</li>
+                    <li>• 50 Challenges</li>
                     <li>• 15 UKMS Specialist Days</li>
                     <li>• 2 Cohorts up to 60 Pupils</li>
                     <li>• Email + Phone support</li>
@@ -437,7 +437,7 @@ const NewSchoolWizard = ({ isOpen, onClose }) => {
                 {plan === 'Gold' && (
                   <>
                     <li>• Customisable Full Grit Awards Pathway</li>
-                    <li>• 120 Plus Challenges</li>
+                    <li>• 70 Plus Challenges</li>
                     <li>• 20 UKMS Specialist Day</li>
                     <li>• Unlimited Cohorts | Pupils</li>
                   </>
