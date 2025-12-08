@@ -890,7 +890,6 @@ const LeaderDashboard = () => {
     try {
       setSendingMessage(true)
       const targetStudent = students.find(s => s.id === composeStudentId)
-      const now = new Date().toISOString()
       
       const { error } = await supabase
         .from('messages')
@@ -899,13 +898,8 @@ const LeaderDashboard = () => {
           sender_type: 'leader',
           sender_id: teacherId,
           content: composeMessage.trim(),
-          topic: 'Direct Message',
-          extension: 'none',
-          created_at: now,
-          updated_at: now,
-          inserted_at: now,
           is_read: false,
-          private: false
+          created_at: new Date().toISOString()
         })
       
       if (error) throw error
