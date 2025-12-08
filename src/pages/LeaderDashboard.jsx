@@ -48,10 +48,11 @@ const LeaderDashboard = () => {
   const [selectedStudent, setSelectedStudent] = useState(null)
   const [selectedFamily, setSelectedFamily] = useState(null)
   const [conversationMessages, setConversationMessages] = useState([])
+  const [composeStudentId, setComposeStudentId] = useState('')
   const [composeMessage, setComposeMessage] = useState('')
+  const [sendingMessage, setSendingMessage] = useState(false)
   const [announcementMessage, setAnnouncementMessage] = useState('')
   const [replyMessage, setReplyMessage] = useState('')
-  const [sendingMessage, setSendingMessage] = useState(false)
   const [successMessage, setSuccessMessage] = useState('')
   
   // Evidence approval states
@@ -881,26 +882,32 @@ const LeaderDashboard = () => {
 
   // Messaging functions
   const handleComposeMessage = async () => {
-    if (!selectedStudent || !composeMessage.trim()) return
+    if (!composeStudentId || !composeMessage.trim()) {
+      alert('Please select a student and enter a message')
+      return
+    }
     
     try {
       setSendingMessage(true)
+      const targetStudent = students.find(s => s.id === composeStudentId)
       
       const { error } = await supabase
         .from('messages')
         .insert({
-          sender_id: 'teacher-uuid', // In real app, this would be the logged-in teacher's ID
-          recipient_id: selectedStudent.family_user_id,
-          student_id: selectedStudent.id,
+          student_id: composeStudentId,
+          sender_type: 'leader',
+          sender_id: teacherId,
           content: composeMessage.trim(),
+          created_at: new Date().toISOString(),
+          recipient_id: targetStudent?.family_user_id || null,
           message_type: 'teacher_to_family'
         })
       
       if (error) throw error
       
-      setSuccessMessage(`Message sent to ${selectedStudent.first_name} ${selectedStudent.last_name}'s family!`)
+      setSuccessMessage(`Message sent${targetStudent ? ` to ${targetStudent.first_name} ${targetStudent.last_name}'s family!` : ' successfully!'}`)
       setComposeMessage('')
-      setSelectedStudent(null)
+      setComposeStudentId('')
       setShowComposeModal(false)
       
       // Refresh messages
@@ -2023,10 +2030,11 @@ const LeaderDashboard = () => {
             <div className="mb-4">
               <label className="block text-sm font-medium text-gray-900 mb-2">Select Student</label>
               <select
-                value={selectedStudent?.id || ''}
+                value={composeStudentId}
                 onChange={(e) => {
                   const student = students.find(s => s.id === e.target.value)
-                  setSelectedStudent(student)
+                  setComposeStudentId(e.target.value)
+                  setSelectedStudent(student || null)
                 }}
                 className="w-full px-3 py-2 border border-grit-gold-dark rounded-lg focus:ring-2 focus:ring-grit-green focus:border-transparent"
               >
@@ -2052,7 +2060,7 @@ const LeaderDashboard = () => {
             <div className="flex space-x-3">
               <Button
                 onClick={handleComposeMessage}
-                disabled={!selectedStudent || !composeMessage.trim() || sendingMessage}
+                disabled={!composeStudentId || !composeMessage.trim() || sendingMessage}
                 variant="primary"
                 className="flex-1"
               >
@@ -2062,6 +2070,7 @@ const LeaderDashboard = () => {
                 onClick={() => {
                   setShowComposeModal(false)
                   setSelectedStudent(null)
+                  setComposeStudentId('')
                   setComposeMessage('')
                 }}
                 variant="secondary"
