@@ -4,6 +4,10 @@ import Card from '../components/Card'
 import GrungeOverlay from '../components/GrungeOverlay'
 import { supabase } from '../lib/supabaseClient'
 import { useNavigate } from 'react-router-dom'
+import {
+  BarChart, Bar, PieChart, Pie, LineChart, Line, ScatterChart, Scatter,
+  XAxis, YAxis, CartesianGrid, Tooltip, Legend, Cell, ResponsiveContainer
+} from 'recharts'
 
 // Helper function to get display label for pathway
 const getPathwayLabel = (pathway) => {
@@ -1815,16 +1819,165 @@ const LeaderDashboard = () => {
               
               <div className="mt-8">
                 <h4 className="text-md font-heading font-semibold text-grit-green mb-4">Class Progress</h4>
-                <div className="bg-gray-100 rounded-lg p-4 h-48 flex items-center justify-center">
-                  <p className="text-gray-900-dark text-center">
-                    <svg className="w-5 h-5 inline-block mb-2" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2">
-                      <polyline points="23 6 13.5 15.5 8.5 10.5 1 18"/>
-                      <polyline points="17 6 23 6 23 12"/>
-                    </svg><br />
-                    Progress Chart<br />
-                    <span className="text-sm">Coming Soon</span>
-                  </p>
-                </div>
+                
+                {/* Year 3 Card - Bar Chart */}
+                <Card className="mb-4 p-4">
+                  <h3 className="text-lg font-['Roboto_Slab'] font-semibold text-[#032717] mb-3">Year 3 Progress Overview</h3>
+                  <ResponsiveContainer width="100%" height={200}>
+                    <BarChart data={[
+                      { name: 'Completed', value: 45, fill: '#22c55e' },
+                      { name: 'Active', value: 28, fill: '#3b82f6' },
+                      { name: 'Awaiting Review', value: 12, fill: '#f59e0b' },
+                      { name: 'Not Started', value: 65, fill: '#9ca3af' }
+                    ]}>
+                      <CartesianGrid strokeDasharray="3 3" />
+                      <XAxis dataKey="name" />
+                      <YAxis />
+                      <Tooltip />
+                      <Bar dataKey="value" />
+                    </BarChart>
+                  </ResponsiveContainer>
+                  <div className="flex justify-center gap-2 mt-3">
+                    {[0, 1, 2, 3].map(i => (
+                      <div 
+                        key={i}
+                        className={`w-2 h-2 rounded-full ${i === 0 ? 'bg-[#032717]' : 'bg-gray-300'}`}
+                      />
+                    ))}
+                  </div>
+                </Card>
+
+                {/* Year 4 Card - Pie Chart */}
+                <Card className="mb-4 p-4">
+                  <h3 className="text-lg font-['Roboto_Slab'] font-semibold text-[#032717] mb-3">Year 4 Pathway Distribution</h3>
+                  <ResponsiveContainer width="100%" height={200}>
+                    <PieChart>
+                      <Pie
+                        data={[
+                          { name: 'Parent/Carer', value: 38 },
+                          { name: 'School', value: 25 },
+                          { name: 'Specialist', value: 12 }
+                        ]}
+                        cx="50%"
+                        cy="50%"
+                        labelLine={false}
+                        label={({ name, percent }) => `${name} ${(percent * 100).toFixed(0)}%`}
+                        outerRadius={80}
+                        fill="#8884d8"
+                        dataKey="value"
+                      >
+                        <Cell fill="#032717" />
+                        <Cell fill="#b5aa91" />
+                        <Cell fill="#1e40af" />
+                      </Pie>
+                      <Tooltip />
+                    </PieChart>
+                  </ResponsiveContainer>
+                  <div className="flex justify-center gap-2 mt-3">
+                    {[0, 1, 2, 3].map(i => (
+                      <div 
+                        key={i}
+                        className={`w-2 h-2 rounded-full ${i === 1 ? 'bg-[#032717]' : 'bg-gray-300'}`}
+                      />
+                    ))}
+                  </div>
+                </Card>
+
+                {/* Year 5 Card - Line Chart */}
+                <Card className="mb-4 p-4">
+                  <h3 className="text-lg font-['Roboto_Slab'] font-semibold text-[#032717] mb-3">Year 5 Monthly Progress (2025/26)</h3>
+                  <ResponsiveContainer width="100%" height={200}>
+                    <LineChart data={[
+                      { month: 'Sep', completed: 15 },
+                      { month: 'Oct', completed: 28 },
+                      { month: 'Nov', completed: 45 },
+                      { month: 'Dec', completed: 52 },
+                      { month: 'Jan', completed: 68 },
+                      { month: 'Feb', completed: 85 },
+                      { month: 'Mar', completed: 102 },
+                      { month: 'Apr', completed: 120 },
+                      { month: 'May', completed: 138 },
+                      { month: 'Jun', completed: 155 },
+                      { month: 'Jul', completed: 170 }
+                    ]}>
+                      <CartesianGrid strokeDasharray="3 3" />
+                      <XAxis dataKey="month" />
+                      <YAxis />
+                      <Tooltip />
+                      <Line type="monotone" dataKey="completed" stroke="#032717" strokeWidth={2} />
+                    </LineChart>
+                  </ResponsiveContainer>
+                  <div className="flex justify-center gap-2 mt-3">
+                    {[0, 1, 2, 3].map(i => (
+                      <div 
+                        key={i}
+                        className={`w-2 h-2 rounded-full ${i === 2 ? 'bg-[#032717]' : 'bg-gray-300'}`}
+                      />
+                    ))}
+                  </div>
+                </Card>
+
+                {/* Year 6 Card - Scatter Chart */}
+                <Card className="mb-4 p-4">
+                  <h3 className="text-lg font-['Roboto_Slab'] font-semibold text-[#032717] mb-3">Year 6 Points by Student</h3>
+                  <ResponsiveContainer width="100%" height={200}>
+                    <ScatterChart>
+                      <CartesianGrid strokeDasharray="3 3" />
+                      <XAxis 
+                        type="number"
+                        dataKey="monthIndex" 
+                        name="Month"
+                        domain={[0, 10]}
+                        tickFormatter={(value) => {
+                          const months = ['Sep', 'Oct', 'Nov', 'Dec', 'Jan', 'Feb', 'Mar', 'Apr', 'May', 'Jun', 'Jul'];
+                          return months[value] || '';
+                        }}
+                      />
+                      <YAxis type="number" dataKey="points" name="GRIT Points" domain={[0, 500]} />
+                      <Tooltip 
+                        cursor={{ strokeDasharray: '3 3' }}
+                        formatter={(value, name, props) => {
+                          const months = ['Sep', 'Oct', 'Nov', 'Dec', 'Jan', 'Feb', 'Mar', 'Apr', 'May', 'Jun', 'Jul'];
+                          if (name === 'points') return [value, 'GRIT Points'];
+                          return [months[props.payload.monthIndex] || '', 'Month'];
+                        }}
+                      />
+                      <Legend />
+                      <Scatter name="George" data={[
+                        { monthIndex: 0, points: 40 },
+                        { monthIndex: 1, points: 80 },
+                        { monthIndex: 2, points: 140 },
+                        { monthIndex: 3, points: 200 },
+                        { monthIndex: 4, points: 280 },
+                        { monthIndex: 5, points: 320 }
+                      ]} fill="#032717" />
+                      <Scatter name="Jack" data={[
+                        { monthIndex: 0, points: 60 },
+                        { monthIndex: 1, points: 120 },
+                        { monthIndex: 2, points: 180 },
+                        { monthIndex: 3, points: 260 },
+                        { monthIndex: 4, points: 340 },
+                        { monthIndex: 5, points: 420 }
+                      ]} fill="#b5aa91" />
+                      <Scatter name="Mia" data={[
+                        { monthIndex: 0, points: 20 },
+                        { monthIndex: 1, points: 50 },
+                        { monthIndex: 2, points: 90 },
+                        { monthIndex: 3, points: 120 },
+                        { monthIndex: 4, points: 150 },
+                        { monthIndex: 5, points: 180 }
+                      ]} fill="#1e40af" />
+                    </ScatterChart>
+                  </ResponsiveContainer>
+                  <div className="flex justify-center gap-2 mt-3">
+                    {[0, 1, 2, 3].map(i => (
+                      <div 
+                        key={i}
+                        className={`w-2 h-2 rounded-full ${i === 3 ? 'bg-[#032717]' : 'bg-gray-300'}`}
+                      />
+                    ))}
+                  </div>
+                </Card>
               </div>
             </Card>
           </div>
