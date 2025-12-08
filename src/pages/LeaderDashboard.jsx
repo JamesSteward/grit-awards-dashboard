@@ -895,7 +895,7 @@ const LeaderDashboard = () => {
       const { error } = await supabase
         .from('messages')
         .insert({
-          student_id: composeStudentId,
+          conversation_id: composeStudentId,
           sender_type: 'leader',
           sender_id: teacherId,
           content: composeMessage.trim(),
@@ -905,9 +905,7 @@ const LeaderDashboard = () => {
           updated_at: now,
           inserted_at: now,
           is_read: false,
-          private: false,
-          recipient_id: targetStudent?.family_user_id || null,
-          message_type: 'teacher_to_family'
+          private: false
         })
       
       if (error) throw error
