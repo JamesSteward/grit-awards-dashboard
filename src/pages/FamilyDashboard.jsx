@@ -2458,6 +2458,9 @@ const ChallengeCard = ({ challenge, status: displayStatus, isExpanded, onExpand,
   const pathway = challenge.challenges?.pathway || challenge.pathway
   const status = challenge.status
   
+  // Check if this is a parent/carer challenge (independent-led)
+  const isParentChallenge = pathway === 'independent-led'
+  
   // Log challenge structure when expanded
   if (isExpanded) {
     console.log('Expanded challenge structure:', challenge);
@@ -2698,32 +2701,66 @@ const ChallengeCard = ({ challenge, status: displayStatus, isExpanded, onExpand,
       })()}
 
       {/* Action Buttons */}
-      <div className="flex gap-3 mt-4">
+      <div className="flex flex-col gap-3 mt-4">
         {(status === 'not_started' || displayStatus === 'available') && (
-          <Button
-            onClick={(e) => {
-              e.stopPropagation();
-              console.log('Begin button clicked, challenge:', challenge);
-              const challengeId = challenge.challenges?.id || challenge.id;
-              onBeginChallenge(challengeId);
-            }}
-            className="flex-1 py-3"
-          >
-            Begin Challenge
-          </Button>
+          <>
+            <button
+              onClick={(e) => {
+                e.stopPropagation();
+                if (isParentChallenge) {
+                  console.log('Begin button clicked, challenge:', challenge);
+                  const challengeId = challenge.challenges?.id || challenge.id;
+                  onBeginChallenge(challengeId);
+                }
+              }}
+              disabled={!isParentChallenge}
+              className={`w-full py-3 rounded-lg font-semibold transition-all
+                ${isParentChallenge 
+                  ? 'bg-[#032717] text-white hover:bg-[#054d2e]' 
+                  : 'bg-gray-300 text-gray-500 cursor-not-allowed'
+                }`}
+            >
+              Begin Challenge
+            </button>
+            {!isParentChallenge && (
+              <p className="text-center text-sm text-gray-500 mt-1">
+                {pathway === 'school-led' 
+                  ? 'This challenge is completed at school. Your teacher will record progress.'
+                  : 'This challenge is completed during GRIT Days. Your GRIT Director will record progress.'
+                }
+              </p>
+            )}
+          </>
         )}
         
         {(status === 'in_progress' || status === 'submitted') && (
-          <Button
-            onClick={(e) => {
-              e.stopPropagation();
-              const challengeId = challenge.challenges?.id || challenge.id;
-              onCompleteChallenge(challengeId);
-            }}
-            className="flex-1 py-3 bg-grit-green"
-          >
-            Submit Evidence
-          </Button>
+          <>
+            <button
+              onClick={(e) => {
+                e.stopPropagation();
+                if (isParentChallenge) {
+                  const challengeId = challenge.challenges?.id || challenge.id;
+                  onCompleteChallenge(challengeId);
+                }
+              }}
+              disabled={!isParentChallenge}
+              className={`w-full py-3 rounded-lg font-semibold transition-all
+                ${isParentChallenge 
+                  ? 'bg-grit-green text-white hover:bg-grit-green-dark' 
+                  : 'bg-gray-300 text-gray-500 cursor-not-allowed'
+                }`}
+            >
+              Submit Evidence
+            </button>
+            {!isParentChallenge && (
+              <p className="text-center text-sm text-gray-500 mt-1">
+                {pathway === 'school-led' 
+                  ? 'This challenge is completed at school. Your teacher will record progress.'
+                  : 'This challenge is completed during GRIT Days. Your GRIT Director will record progress.'
+                }
+              </p>
+            )}
+          </>
         )}
       </div>
       </div>
