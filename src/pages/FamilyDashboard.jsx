@@ -27,7 +27,7 @@ const FamilyDashboard = () => {
   const [error, setError] = useState(null)
   const [challenges, setChallenges] = useState([])
   const [allChallenges, setAllChallenges] = useState([]) // All challenges from database
-  const [selectedPathway, setSelectedPathway] = useState('all') // Filter by pathway
+  const [selectedPathway, setSelectedPathway] = useState('') // Filter by pathway (empty string = all)
   const [showProfileModal, setShowProfileModal] = useState(false)
   const [showAllAvailable, setShowAllAvailable] = useState(false)
   const [showAllCompleted, setShowAllCompleted] = useState(false)
@@ -467,7 +467,7 @@ const FamilyDashboard = () => {
   // Filter all challenges from database by search query and pathway
   const filteredAllChallenges = allChallenges.filter(challenge => {
     // Filter by pathway
-    if (selectedPathway !== 'all' && challenge.pathway !== selectedPathway) {
+    if (selectedPathway && challenge.pathway !== selectedPathway) {
       return false
     }
     
@@ -482,9 +482,6 @@ const FamilyDashboard = () => {
       challenge.subcategory?.toLowerCase().includes(query)
     )
   })
-
-  // Get unique pathways for filter dropdown
-  const pathways = ['all', ...new Set(allChallenges.map(c => c.pathway).filter(Boolean))]
 
   // Group filtered challenges by pathway
   const challengesByPathway = filteredAllChallenges.reduce((acc, challenge) => {
@@ -1340,26 +1337,31 @@ const FamilyDashboard = () => {
                   )}
                 </div>
                 
-                {/* Pathway Filter */}
-                <div className="flex items-center gap-3">
-                  <label className="text-sm font-medium text-gray-700 whitespace-nowrap">Filter by pathway:</label>
-                  <select
-                    value={selectedPathway}
-                    onChange={(e) => setSelectedPathway(e.target.value)}
-                    className="flex-1 px-3 py-2 border border-gray-300 rounded-lg focus:outline-none focus:ring-2 focus:ring-grit-green/20 focus:border-grit-green"
-                  >
-                    <option value="all">All Pathways</option>
-                    {pathways.filter(p => p !== 'all').map(pathway => (
-                      <option key={pathway} value={pathway}>
-                        {getPathwayLabel(pathway)}
-                      </option>
-                    ))}
-                  </select>
+                {/* Pathway Filter - Button Toggle Group */}
+                <div className="grid grid-cols-2 sm:flex sm:flex-row gap-2 mb-4">
+                  {[
+                    { label: 'All', value: '' },
+                    { label: 'Parent/Carer', value: 'independent-led' },
+                    { label: 'School', value: 'school-led' },
+                    { label: 'Specialist', value: 'specialist-led' }
+                  ].map(btn => (
+                    <button
+                      key={btn.value}
+                      onClick={() => setSelectedPathway(btn.value)}
+                      className={`py-2 px-4 rounded-lg font-semibold text-sm border-2 border-[#032717] transition-all
+                        ${selectedPathway === btn.value 
+                          ? 'bg-[#032717] text-white' 
+                          : 'bg-white text-[#032717] hover:bg-gray-100'
+                        }`}
+                    >
+                      {btn.label}
+                    </button>
+                  ))}
                 </div>
                 
                 {/* Search Results Count */}
                 <div className="mt-3 text-sm text-gray-900">
-                  {searchQuery || selectedPathway !== 'all' 
+                  {searchQuery || selectedPathway 
                     ? `Found ${filteredAllChallenges.length} challenge${filteredAllChallenges.length !== 1 ? 's' : ''}`
                     : `Showing all ${filteredAllChallenges.length} challenges`
                   }
@@ -1414,8 +1416,8 @@ const FamilyDashboard = () => {
                 ))
               ) : (
                 <div className="text-center py-12 text-gray-500">
-                  {searchQuery || selectedPathway !== 'all' 
-                    ? 'No challenges found matching your search.' 
+                  {searchQuery || selectedPathway
+                    ? 'No challenges found matching your search.'
                     : 'Loading challenges...'}
                 </div>
               )}
