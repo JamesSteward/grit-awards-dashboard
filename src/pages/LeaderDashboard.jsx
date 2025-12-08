@@ -75,6 +75,17 @@ const LeaderDashboard = () => {
   })
   const [recipientCount, setRecipientCount] = useState(0)
 
+  // Reports modal states
+  const [showReportsModal, setShowReportsModal] = useState(false)
+  const [selectedReportType, setSelectedReportType] = useState('')
+  const [selectedReportStudent, setSelectedReportStudent] = useState('')
+  const [reportOptions, setReportOptions] = useState({
+    includeCompletionDetails: false,
+    includeEvidenceSubmissions: false,
+    includeAttendance: false
+  })
+  const [reportFormat, setReportFormat] = useState('pdf')
+
   // School ID - in real app, this would come from user auth
   // For now, using the school ID from our seeded data
   const schoolId = '550e8400-e29b-41d4-a716-446655440000'
@@ -1780,6 +1791,7 @@ const LeaderDashboard = () => {
                 
                 <button 
                   className="w-full bg-white border-2 border-gray-400 text-gray-900 font-semibold px-6 py-3 rounded-xl hover:bg-gray-50 transition-all"
+                  onClick={() => setShowReportsModal(true)}
                 >
                   <svg className="w-5 h-5 mr-2 inline" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2">
                     <line x1="18" y1="20" x2="18" y2="10"/>
@@ -2313,6 +2325,205 @@ const LeaderDashboard = () => {
             >
               Your browser does not support the video tag.
             </video>
+          </div>
+        </div>
+      )}
+
+      {/* Reports Modal */}
+      {showReportsModal && (
+        <div className="fixed inset-0 z-50 flex items-center justify-center p-4">
+          <div 
+            className="absolute inset-0 bg-black bg-opacity-50 transition-opacity"
+            onClick={() => {
+              setShowReportsModal(false)
+              setSelectedReportType('')
+              setSelectedReportStudent('')
+              setReportOptions({
+                includeCompletionDetails: false,
+                includeEvidenceSubmissions: false,
+                includeAttendance: false
+              })
+              setReportFormat('pdf')
+            }}
+          />
+          
+          <div className="relative bg-white rounded-lg shadow-xl max-w-[500px] w-full max-h-[90vh] overflow-y-auto">
+            {/* Header */}
+            <div className="bg-[#032717] text-white px-6 py-4 rounded-t-lg">
+              <div className="flex items-center justify-between">
+                <div>
+                  <h2 className="text-xl font-['Roboto_Slab'] font-bold">Download Reports</h2>
+                  <p className="text-sm text-white/80 mt-1">Generate reports for your school's GRIT programme</p>
+                </div>
+                <button
+                  onClick={() => {
+                    setShowReportsModal(false)
+                    setSelectedReportType('')
+                    setSelectedReportStudent('')
+                    setReportOptions({
+                      includeCompletionDetails: false,
+                      includeEvidenceSubmissions: false,
+                      includeAttendance: false
+                    })
+                    setReportFormat('pdf')
+                  }}
+                  className="text-white hover:text-gray-200 transition-colors"
+                >
+                  <svg className="w-6 h-6" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                    <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M6 18L18 6M6 6l12 12" />
+                  </svg>
+                </button>
+              </div>
+            </div>
+
+            {/* Content */}
+            <div className="p-6 space-y-6">
+              {/* Report Type Selection */}
+              <div>
+                <h3 className="text-lg font-['Roboto_Slab'] font-semibold text-gray-900 mb-4">Report Type</h3>
+                <div className="space-y-3">
+                  {[
+                    { value: 'monthly', label: 'Monthly Progress Report', description: 'Summary of student activity and completions this month' },
+                    { value: 'quarterly', label: 'Quarterly Review', description: 'Detailed breakdown of progress across the term' },
+                    { value: 'annual', label: 'Annual Summary', description: 'Full year overview with trends and achievements' },
+                    { value: 'ofsted', label: 'OFSTED Evidence Pack', description: 'Character education evidence for inspection readiness' },
+                    { value: 'individual', label: 'Individual Student Report', description: 'Detailed progress report for a specific student' }
+                  ].map((report) => (
+                    <label
+                      key={report.value}
+                      className="flex items-start gap-3 p-3 border border-gray-200 rounded-lg hover:bg-gray-50 cursor-pointer transition-colors"
+                    >
+                      <input
+                        type="radio"
+                        name="reportType"
+                        value={report.value}
+                        checked={selectedReportType === report.value}
+                        onChange={(e) => {
+                          setSelectedReportType(e.target.value)
+                          if (e.target.value !== 'individual') {
+                            setSelectedReportStudent('')
+                          }
+                        }}
+                        className="mt-1 w-4 h-4 text-[#032717] border-gray-300 focus:ring-[#032717]"
+                      />
+                      <div className="flex-1">
+                        <div className="font-medium text-gray-900">{report.label}</div>
+                        <div className="text-sm text-gray-600 mt-1">{report.description}</div>
+                      </div>
+                    </label>
+                  ))}
+                </div>
+              </div>
+
+              {/* Student Selection (only for individual reports) */}
+              {selectedReportType === 'individual' && (
+                <div>
+                  <label className="block text-sm font-medium text-gray-900 mb-2">Select Student</label>
+                  <select
+                    value={selectedReportStudent}
+                    onChange={(e) => setSelectedReportStudent(e.target.value)}
+                    className="w-full px-3 py-2 border border-gray-300 rounded-lg focus:outline-none focus:ring-2 focus:ring-[#032717] focus:border-[#032717]"
+                  >
+                    <option value="">Choose a student...</option>
+                    {students.map(student => (
+                      <option key={student.id} value={student.id}>
+                        {student.first_name} {student.last_name} (Year {student.year_level})
+                      </option>
+                    ))}
+                  </select>
+                </div>
+              )}
+
+              {/* Additional Options */}
+              <div>
+                <h3 className="text-lg font-['Roboto_Slab'] font-semibold text-gray-900 mb-4">Additional Options</h3>
+                <div className="space-y-3">
+                  {[
+                    { key: 'includeCompletionDetails', label: 'Include challenge completion details' },
+                    { key: 'includeEvidenceSubmissions', label: 'Include evidence submissions' },
+                    { key: 'includeAttendance', label: 'Include attendance at GRIT Days' }
+                  ].map((option) => (
+                    <label key={option.key} className="flex items-center gap-3 cursor-pointer">
+                      <input
+                        type="checkbox"
+                        checked={reportOptions[option.key]}
+                        onChange={(e) => setReportOptions(prev => ({
+                          ...prev,
+                          [option.key]: e.target.checked
+                        }))}
+                        className="w-4 h-4 text-[#032717] border-gray-300 rounded focus:ring-[#032717]"
+                      />
+                      <span className="text-sm text-gray-700">{option.label}</span>
+                    </label>
+                  ))}
+                </div>
+              </div>
+
+              {/* Format Selection */}
+              <div>
+                <h3 className="text-lg font-['Roboto_Slab'] font-semibold text-gray-900 mb-4">Format</h3>
+                <div className="flex gap-4">
+                  <label className="flex items-center gap-2 cursor-pointer">
+                    <input
+                      type="radio"
+                      name="reportFormat"
+                      value="pdf"
+                      checked={reportFormat === 'pdf'}
+                      onChange={(e) => setReportFormat(e.target.value)}
+                      className="w-4 h-4 text-[#032717] border-gray-300 focus:ring-[#032717]"
+                    />
+                    <span className="text-sm text-gray-700">PDF</span>
+                  </label>
+                  <label className="flex items-center gap-2 cursor-pointer">
+                    <input
+                      type="radio"
+                      name="reportFormat"
+                      value="csv"
+                      checked={reportFormat === 'csv'}
+                      onChange={(e) => setReportFormat(e.target.value)}
+                      className="w-4 h-4 text-[#032717] border-gray-300 focus:ring-[#032717]"
+                    />
+                    <span className="text-sm text-gray-700">Excel/CSV</span>
+                  </label>
+                </div>
+              </div>
+
+              {/* Action Buttons */}
+              <div className="flex gap-3 pt-4 border-t border-gray-200">
+                <Button
+                  onClick={() => {
+                    setShowReportsModal(false)
+                    setSelectedReportType('')
+                    setSelectedReportStudent('')
+                    setReportOptions({
+                      includeCompletionDetails: false,
+                      includeEvidenceSubmissions: false,
+                      includeAttendance: false
+                    })
+                    setReportFormat('pdf')
+                  }}
+                  variant="secondary"
+                  className="flex-1"
+                >
+                  Cancel
+                </Button>
+                <Button
+                  onClick={() => {
+                    if (selectedReportType === 'individual' && !selectedReportStudent) {
+                      alert('Please select a student for individual reports.')
+                      return
+                    }
+                    alert('Report generation coming soon. This feature will be available in the full release.')
+                    setShowReportsModal(false)
+                  }}
+                  disabled={!selectedReportType || (selectedReportType === 'individual' && !selectedReportStudent)}
+                  variant="primary"
+                  className="flex-1 bg-[#032717] hover:bg-[#032717]/90"
+                >
+                  Generate Report
+                </Button>
+              </div>
+            </div>
           </div>
         </div>
       )}
