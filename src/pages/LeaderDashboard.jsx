@@ -1861,7 +1861,7 @@ const LeaderDashboard = () => {
                         nameKey="name"
                         cx="50%"
                         cy="50%"
-                        outerRadius={80}
+                        outerRadius={75}
                         labelLine={false}
                         label={({ cx, cy, midAngle, innerRadius, outerRadius, percent }) => {
                           const RADIAN = Math.PI / 180;
@@ -1880,7 +1880,12 @@ const LeaderDashboard = () => {
                         <Cell fill="#847147" />
                       </Pie>
                       <Tooltip />
-                      <Legend verticalAlign="bottom" align="center" />
+                      <Legend 
+                        verticalAlign="bottom" 
+                        align="center" 
+                        height={36}
+                        wrapperStyle={{ paddingTop: 20 }}
+                      />
                     </PieChart>
                   </ResponsiveContainer>
                   <div className="flex justify-center gap-2 mt-3">
@@ -1976,7 +1981,7 @@ const LeaderDashboard = () => {
                         { monthIndex: 3, points: 120 },
                         { monthIndex: 4, points: 150 },
                         { monthIndex: 5, points: 180 }
-                      ]} fill="#1e40af" />
+                      ]} fill="#847147" />
                     </ScatterChart>
                   </ResponsiveContainer>
                   <div className="flex justify-center gap-2 mt-3">
