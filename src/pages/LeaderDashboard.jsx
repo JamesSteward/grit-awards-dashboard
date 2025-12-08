@@ -1825,10 +1825,9 @@ const LeaderDashboard = () => {
                   <h3 className="text-lg font-['Roboto_Slab'] font-semibold text-[#032717] mb-3">Year 3 Progress Overview</h3>
                   <ResponsiveContainer width="100%" height={200}>
                     <BarChart data={[
-                      { name: 'Completed', value: 45, fill: '#22c55e' },
-                      { name: 'Active', value: 28, fill: '#3b82f6' },
-                      { name: 'Awaiting Review', value: 12, fill: '#f59e0b' },
-                      { name: 'Not Started', value: 65, fill: '#9ca3af' }
+                      { name: 'Completed', value: 45, fill: '#032717' },
+                      { name: 'Active', value: 28, fill: '#b5aa91' },
+                      { name: 'Awaiting Review', value: 12, fill: '#847147' }
                     ]}>
                       <CartesianGrid strokeDasharray="3 3" />
                       <XAxis dataKey="name" />
@@ -1858,19 +1857,30 @@ const LeaderDashboard = () => {
                           { name: 'School', value: 25 },
                           { name: 'Specialist', value: 12 }
                         ]}
+                        dataKey="value"
+                        nameKey="name"
                         cx="50%"
                         cy="50%"
-                        labelLine={false}
-                        label={({ name, percent }) => `${name} ${(percent * 100).toFixed(0)}%`}
                         outerRadius={80}
-                        fill="#8884d8"
-                        dataKey="value"
+                        labelLine={false}
+                        label={({ cx, cy, midAngle, innerRadius, outerRadius, percent }) => {
+                          const RADIAN = Math.PI / 180;
+                          const radius = innerRadius + (outerRadius - innerRadius) * 0.5;
+                          const x = cx + radius * Math.cos(-midAngle * RADIAN);
+                          const y = cy + radius * Math.sin(-midAngle * RADIAN);
+                          return (
+                            <text x={x} y={y} fill="white" textAnchor="middle" dominantBaseline="central" fontSize={12} fontWeight="bold">
+                              {`${(percent * 100).toFixed(0)}%`}
+                            </text>
+                          );
+                        }}
                       >
                         <Cell fill="#032717" />
                         <Cell fill="#b5aa91" />
-                        <Cell fill="#1e40af" />
+                        <Cell fill="#847147" />
                       </Pie>
                       <Tooltip />
+                      <Legend verticalAlign="bottom" align="center" />
                     </PieChart>
                   </ResponsiveContainer>
                   <div className="flex justify-center gap-2 mt-3">
